@@ -4987,12 +4987,12 @@ function applyLanguage(lang) {
   updateSettingsActive();
   try { localStorage.setItem("numbr_lang", lang); } catch (e) {}
 }
-function applyTheme(theme) {
-  state.theme = theme;
-  document.documentElement.dataset.theme = theme;
+function applyTheme() {
+  state.theme = "black";
+  document.documentElement.dataset.theme = "black";
   updateSettingsActive();
   saveState();
-  try { localStorage.setItem("numbr_theme", theme); } catch (e) {}
+  try { localStorage.setItem("numbr_theme", "black"); } catch (e) {}
 }
 function applyMotion(enabled) {
   state.motion = !!enabled;
@@ -5247,7 +5247,7 @@ el.exportData.addEventListener("click", exportBackup);
 el.importData.addEventListener("change", importBackup);
 
 document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => applyLanguage(b.dataset.lang)));
-document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener("click", () => applyTheme(b.dataset.themePick)));
+document.querySelectorAll('[data-theme-pick="black"]').forEach((b) => b.addEventListener("click", applyTheme));
 
 // ---- Bottom navigation ----
 (function () {
@@ -5341,9 +5341,10 @@ async function importBackup(event) {
     const restored = parsed && parsed.format === "numbrrr-backup" ? parsed.data : parsed;
     if (!validBackupState(restored)) throw new Error("invalid backup");
     if (!window.confirm(t("backup_confirm"))) return;
+    restored.theme = "black";
     localStorage.setItem("numbr_state", JSON.stringify(restored));
     localStorage.setItem("numbr_lang", restored.lang);
-    localStorage.setItem("numbr_theme", restored.theme || "black");
+    localStorage.setItem("numbr_theme", "black");
     localStorage.setItem("numbr_currency", restored.currency);
     if (el.backupStatus) el.backupStatus.textContent = t("backup_imported");
     setTimeout(() => window.location.reload(), 350);
@@ -5357,7 +5358,7 @@ function loadState() {
   try { s = JSON.parse(localStorage.getItem("numbr_state") || "null"); } catch (e) { return; }
   if (!s) return;
   if (s.lang && I18N[s.lang]) state.lang = s.lang;
-  if (s.theme) state.theme = s.theme === "vaporwave" ? "neon" : s.theme;
+  state.theme = "black";
   if (s.currency && CURRENCY_META[s.currency]) state.currency = s.currency;
   if (typeof s.monthlyExpenses === "number") state.monthlyExpenses = s.monthlyExpenses;
   if (typeof s.realMode === "boolean") state.realMode = s.realMode;
@@ -5601,20 +5602,20 @@ try { isFirstRun = !(localStorage.getItem("numbr_onboarded") || localStorage.get
 
 try {
   const savedLang = localStorage.getItem("numbr_lang");
-  const savedTheme = localStorage.getItem("numbr_theme");
   const savedCur = localStorage.getItem("numbr_currency");
   if (savedLang && I18N[savedLang]) state.lang = savedLang;
-  if (savedTheme) state.theme = savedTheme === "vaporwave" ? "neon" : savedTheme;
+  state.theme = "black";
+  localStorage.setItem("numbr_theme", "black");
   if (savedCur && CURRENCY_META[savedCur]) state.currency = savedCur;
 } catch (e) {}
-loadState(); // full saved snapshot takes precedence over the legacy per-key values
+loadState(); // full saved snapshot restores user data while keeping the only available theme
 hydrateHomeMarketCache(); // show the latest small cached quote snapshot on the first paint
 rollExpenseMonth(); // archive past months + start the current month before rendering
 
 el.expenses.value = formatThousands(state.monthlyExpenses);
 el.inflation.value = formatRate(state.inflation[state.currency], false);
 if (el.savingsGoalCurrency) el.savingsGoalCurrency.value = state.currency;
-applyTheme(state.theme);
+applyTheme();
 soundToggle.checked = state.sound;
 applyMotion(state.motion);
 applyLanguage(state.lang); // builds layout + savings, applies all translations

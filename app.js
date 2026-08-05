@@ -2353,7 +2353,7 @@ function makeHoldingRow(id) {
 // ---- Live crypto prices (CoinGecko, client-side; works on the deployed site) ----
 const PRICE_CACHE_FRESH_MS = 24 * 3600 * 1000;
 const PRICE_CACHE_STALE_MS = 72 * 3600 * 1000;
-const FX_CACHE_FRESH_MS = 6 * 3600 * 1000;
+const FX_CACHE_FRESH_MS = 15 * 60 * 1000;
 
 async function fetchWithTimeout(url, options = {}, timeoutMs = 6000) {
   if (typeof AbortController !== "function") return fetch(url, options);

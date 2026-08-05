@@ -32,7 +32,11 @@ module.exports = async (req, res) => {
     // previous *daily* close (yesterday) for the 24h move — chartPreviousClose is ~1y ago on a 1y range
     const prev = valid.length >= 2 ? valid[valid.length - 2] : (meta && (meta.chartPreviousClose || meta.previousClose));
     const pct = (a, b) => (a != null && b ? (a / b - 1) * 100 : null);
-    res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate=86400");
+    const isFx = ["TRY=X", "EURTRY=X"].includes(symbol.toUpperCase());
+    res.setHeader(
+      "Cache-Control",
+      isFx ? "s-maxage=300, stale-while-revalidate=900" : "s-maxage=3600, stale-while-revalidate=86400"
+    );
     res.status(200).json({
       price,
       currency: meta ? meta.currency : null,

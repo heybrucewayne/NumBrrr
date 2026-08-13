@@ -32,6 +32,15 @@ test("invalid push endpoints and alert values are rejected", () => {
   assert.equal(sanitizeBody(badAlert).priceAlerts.length, 0);
 });
 
+test("percentage and fiat alerts are retained for background checks", () => {
+  const body = validBody();
+  body.priceAlerts = [{ id: "pa2", type: "crypto", key: "solana", name: "Solana", condition: "percent_up", target: 0, percentage: 10, referencePrice: 150, ccy: "USD" }, { id: "pa3", type: "fiat", key: "usd", name: "US Dollar", condition: "above", target: 50, ccy: "USD" }];
+  const value = sanitizeBody(body);
+  assert.equal(value.priceAlerts.length, 2);
+  assert.equal(value.priceAlerts[0].percentage, 10);
+  assert.equal(value.priceAlerts[1].type, "fiat");
+});
+
 test("push endpoint enforces same-origin browser writes", () => {
   assert.equal(sameOrigin({ headers: { origin: "https://numbrrr.vercel.app", host: "numbrrr.vercel.app" } }), true);
   assert.equal(sameOrigin({ headers: { origin: "https://evil.example", host: "numbrrr.vercel.app" } }), false);

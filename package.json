@@ -4,7 +4,7 @@
   "description": "NumBrrr — calculate the total savings you need to become financially free",
   "main": "app.js",
   "scripts": {
-    "lint": "node --check app.js && node --check service-worker.js && node --check turkey-locations.js && node --check api/quote.js && node --check api/ipo.js && node --check api/topperf.js && node --check api/push-config.js && node --check api/push-subscription.js && node --check api/push-cron.js && node --check tests/location-data.test.js && node --check tests/ipo.test.js && node --check tests/push.test.js",
+    "lint": "node --check command-parser.js && node --check app.js && node --check service-worker.js && node --check turkey-locations.js && node --check api/quote.js && node --check api/ipo.js && node --check api/topperf.js && node --check api/push-config.js && node --check api/push-subscription.js && node --check api/push-cron.js && node --check tests/command-parser.test.js && node --check tests/location-data.test.js && node --check tests/ipo.test.js && node --check tests/push.test.js",
     "test": "node --test tests/*.test.js",
     "check": "npm run lint && npm test"
   },

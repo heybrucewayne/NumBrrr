@@ -264,7 +264,7 @@
     } else if (includesAny(source, ["geri sayim", "countdown", "geri sayac"])) {
       intent = "ADD_COUNTDOWN";
       label = commandLabel(originalText, ["geri sayim", "geri sayac", "countdown", "ekle", "add"]);
-    } else if (includesAny(source, ["ortalama", "maliyetim", "ne kadar kazandim", "bu ay", "yuzde kaci", "en cok kazandiran", "karim", "pnl", "portfoyumun", "average", "how much did i earn", "this month", "what percentage", "top performer", "my portfolio", "show my portfolio"])) {
+    } else if (includesAny(source, ["ortalama", "maliyetim", "ne kadar kazandim", "bu ay", "yuzde kaci", "en cok kazandiran", "karim", "pnl", "portfoyumun", "portfoyumu goster", "portfoyu goster", "portfoyumu ac", "portfoyu ac", "average", "how much did i earn", "this month", "what percentage", "top performer", "my portfolio", "show my portfolio"])) {
       intent = "PORTFOLIO_QUERY";
       if (source.includes("ortalama") || source.includes("maliyet") || source.includes("average")) query = "AVERAGE_COST";
       else if (source.includes("bu ay") || source.includes("kazandim") || source.includes("karim") || source.includes("pnl") || source.includes("this month") || source.includes("earn")) query = "PNL";

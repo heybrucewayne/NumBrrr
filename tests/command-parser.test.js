@@ -73,6 +73,8 @@ test("navigation, favorites, currency, and portfolio queries are classified", ()
   assert.equal(parse("bu ay ne kadar kazandım").query, "PNL");
   assert.equal(parse("portföyümün yüzde kaçı BTC").query, "ALLOCATION");
   assert.equal(parse("en çok kazandıran varlığımı göster").query, "TOP_PERFORMER");
+  assert.equal(parse("portföyümü göster").intent, "PORTFOLIO_QUERY");
+  assert.equal(parse("portföyümü göster").query, "PORTFOLIO_SUMMARY");
 });
 
 test("app data commands extract labels, amounts, and dates", () => {

@@ -1037,7 +1037,7 @@ body {
 .countdown-head h2 { margin: 0 0 4px; font-family: "Sora", sans-serif; font-size: 18px; }
 .dashboard-feature-head p,
 .countdown-head p { margin: 0; color: var(--text-faint); font-size: 12.5px; line-height: 1.4; }
-.home-alert-hint { min-height: 18px; margin: 10px 2px 0; }
+.home-alert-hint { min-height: 18px; margin: 16px 2px 0; line-height: 1.45; }
 .dashboard-widget--alerts .alert-list { max-height: 248px; overflow-y: auto; overscroll-behavior: contain; padding-right: 2px; }
 .countdown-form {
   display: grid;

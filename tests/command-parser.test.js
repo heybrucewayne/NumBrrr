@@ -35,6 +35,9 @@ test("fiat amount, explicit price, half quantity, and relative date are extracte
   const dated = parse("3 gün önce 20 SOL 145 dolardan aldım");
   assert.equal(dated.date, "2026-08-10");
   assert.equal(dated.amount, 20);
+  const explicitDated = parse("2026-08-10 20 SOL aldım");
+  assert.equal(explicitDated.date, "2026-08-10");
+  assert.equal(explicitDated.amount, 20);
 });
 
 test("sell and swap commands understand Turkish suffixes", () => {

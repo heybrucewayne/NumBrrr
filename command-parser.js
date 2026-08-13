@@ -210,6 +210,7 @@
     const asset = assets[0] && assets[0].asset;
     const targetAsset = assets[1] && assets[1].asset;
     const numbers = numberMatches(originalText);
+    const explicitDateMatch = text.match(/\b20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}\b/);
     const percentageMatch = source.match(/%\s*(\d+(?:[.,]\d+)?)/) || source.match(/(\d+(?:[.,]\d+)?)\s*%/);
     const percentage = percentageMatch ? parseNumber(percentageMatch[1]) : undefined;
     const currency = findCurrency(originalText);
@@ -292,7 +293,10 @@
     }
 
     const assetIndex = assets[0] ? assets[0].index : -1;
-    const amountNumbers = numbers.filter((candidate) => !candidate.percent && !isRelativeDateNumber(candidate));
+    const amountNumbers = numbers.filter((candidate) => {
+      const isDatePart = explicitDateMatch && candidate.index >= explicitDateMatch.index && candidate.index < explicitDateMatch.index + explicitDateMatch[0].length;
+      return !candidate.percent && !isRelativeDateNumber(candidate) && !isDatePart;
+    });
     const numberBeforeAsset = amountNumbers.find((candidate) => candidate.index < assetIndex);
     const half = /\b(yarim|1\/2|half)\b/.test(source);
     if (intent === "BUY" || intent === "SELL" || intent === "SWAP" || intent === "ADD_BALANCE" || intent === "REMOVE_BALANCE" || intent === "SET_MONTHLY_EXPENSES" || intent === "ADD_EXPENSE" || intent === "ADD_INCOME" || intent === "ADD_GOAL") {

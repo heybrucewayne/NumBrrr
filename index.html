@@ -242,30 +242,19 @@
           <div class="home-market-list" id="homeMarketList" aria-live="polite"></div>
         </article>
 
-        <article class="glass dashboard-widget dashboard-widget--metric dashboard-widget--weather" data-home-widget="weather" aria-labelledby="weatherTitle">
-          <div class="home-card-head weather-card-head">
-            <span class="dashboard-widget-icon" id="weatherHeaderIcon" aria-hidden="true">☀️</span>
-            <div><h2 id="weatherTitle" data-i18n="weather_title">Weather</h2></div>
-            <div class="weather-head-actions">
-              <button class="weather-icon-button" id="weatherLocationToggle" type="button" aria-expanded="false" aria-controls="weatherLocationPanel" data-i18n-title="weather_change_location">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>
-              </button>
-              <button class="weather-icon-button" id="weatherRefresh" type="button" data-i18n-title="weather_refresh">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5M4 18v-5h5"></path><path d="M18.2 9A7 7 0 0 0 6.4 6.4L4 9m16 6-2.4 2.6A7 7 0 0 1 5.8 15"></path></svg>
-              </button>
-            </div>
+        <article class="glass dashboard-widget dashboard-widget--countdown" data-home-widget="countdown">
+          <div class="countdown-head">
+            <span class="dashboard-widget-icon" aria-hidden="true">⏳</span>
+            <div><h2 data-i18n="countdown_title">Countdowns</h2></div>
           </div>
-          <div class="weather-location-panel" id="weatherLocationPanel" hidden>
-            <div class="weather-search-wrap">
-              <input id="weatherSearch" type="search" maxlength="80" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="weatherSearchResults" aria-expanded="false" data-i18n-placeholder="weather_search_ph" placeholder="Search city…" />
-              <div class="weather-search-results" id="weatherSearchResults" role="listbox" hidden></div>
-            </div>
-            <button class="weather-use-location" id="weatherUseLocation" type="button"><span aria-hidden="true">⌖</span><span data-i18n="weather_use_location">Use my location</span></button>
-          </div>
-          <div class="weather-content" id="weatherContent" aria-live="polite">
-            <p class="weather-placeholder" data-i18n="weather_loading">Loading weather…</p>
-          </div>
-          <p class="weather-status" id="weatherStatus" role="status" aria-live="polite"></p>
+          <form class="countdown-form" id="countdownForm">
+            <label><span data-i18n="countdown_name">Name</span><input id="countdownName" type="text" maxlength="80" autocomplete="off" /></label>
+            <label><span data-i18n="countdown_category">Category</span><input id="countdownCategory" type="text" maxlength="40" autocomplete="off" /></label>
+            <label><span data-i18n="countdown_date">Target date</span><input id="countdownDate" type="date" required /></label>
+            <label><span data-i18n="countdown_unit">Show as</span><select id="countdownUnit"><option value="days" data-i18n="countdown_days">Days</option><option value="months" data-i18n="countdown_months">Months</option></select></label>
+            <button class="settings-action settings-action--primary" type="submit" data-i18n="countdown_add">Add countdown</button>
+          </form>
+          <div class="countdown-list" id="countdownList" aria-live="polite"></div>
         </article>
 
         <article class="glass dashboard-widget dashboard-widget--compact" data-home-widget="car">
@@ -333,20 +322,6 @@
           <div class="alert-list" id="homePriceAlertList" aria-live="polite"></div>
         </article>
 
-        <article class="glass dashboard-widget dashboard-widget--countdown" data-home-widget="countdown">
-          <div class="countdown-head">
-            <span class="dashboard-widget-icon" aria-hidden="true">⏳</span>
-            <div><h2 data-i18n="countdown_title">Countdowns</h2></div>
-          </div>
-          <form class="countdown-form" id="countdownForm">
-            <label><span data-i18n="countdown_name">Name</span><input id="countdownName" type="text" maxlength="80" autocomplete="off" /></label>
-            <label><span data-i18n="countdown_category">Category</span><input id="countdownCategory" type="text" maxlength="40" autocomplete="off" /></label>
-            <label><span data-i18n="countdown_date">Target date</span><input id="countdownDate" type="date" required /></label>
-            <label><span data-i18n="countdown_unit">Show as</span><select id="countdownUnit"><option value="days" data-i18n="countdown_days">Days</option><option value="months" data-i18n="countdown_months">Months</option></select></label>
-            <button class="settings-action settings-action--primary" type="submit" data-i18n="countdown_add">Add countdown</button>
-          </form>
-          <div class="countdown-list" id="countdownList" aria-live="polite"></div>
-        </article>
       </section>
     </div><!-- /view-home -->
 
@@ -868,7 +843,7 @@
   </div>
 
   <script src="command-parser.js?v=3"></script>
-  <script src="app.js?v=44"></script>
+  <script src="app.js?v=45"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

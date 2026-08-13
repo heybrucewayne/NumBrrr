@@ -598,7 +598,7 @@ const I18N = {
 };
 
 // ---- State ----
-const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "weather", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
+const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
 const state = {
   lang: "en",
   theme: "black",
@@ -3076,13 +3076,12 @@ function renderHomeCardSettings() {
     }
     state.homeLayout.hidden = input.checked ? state.homeLayout.hidden.filter((item) => item !== id) : [...state.homeLayout.hidden, id];
     saveState(); applyHomeLayout(); renderHomeCardSettings();
-    if (id === "weather" && input.checked) refreshHomeWeather();
   }));
 }
 
 function resetHomeLayout() {
   state.homeLayout = { order: [...HOME_WIDGET_IDS], hidden: [], freedomExpanded: false };
-  saveState(); applyHomeLayout(); renderHomeCardSettings(); refreshHomeWeather();
+  saveState(); applyHomeLayout(); renderHomeCardSettings();
 }
 
 function setFreedomWidgetExpanded(expanded) {
@@ -3572,7 +3571,6 @@ function renderHomeSummaries() {
   renderMonthlySummary(snapshot);
   renderFinancialHealth(snapshot);
   renderHomeMarketSummary();
-  renderHomeWeather();
   renderSavingsGoals();
   renderHomeNotes();
   renderSmartInsights(snapshot);
@@ -3591,7 +3589,6 @@ function renderHomeDashboard(refreshMarket = true) {
   renderCountdowns();
   if (refreshMarket) {
     refreshHomeMarketSummary();
-    refreshHomeWeather();
   }
 }
 
@@ -3721,7 +3718,6 @@ function wireHomeDashboard() {
   el.savingsGoalForm.addEventListener("submit", addSavingsGoal);
   el.homeNoteForm.addEventListener("submit", addHomeNote);
   el.countdownForm.addEventListener("submit", addCountdown);
-  wireWeatherWidget();
 }
 
 // ============================================================
@@ -6408,7 +6404,6 @@ function startStartupBackgroundWork() {
   if (document.readyState === "complete") loadAppFonts();
   else window.addEventListener("load", loadAppFonts, { once: true });
   refreshHomeMarketSummary();
-  refreshHomeWeather();
   refreshCryptoPrices();
   runNotificationChecks();
   setTimeout(refreshWatchData, 450);
@@ -6426,4 +6421,4 @@ scheduleStartupBackgroundWork();
 
 setInterval(() => { checkVehicleNotifications(); refreshWatchData(); }, 60 * 60 * 1000);
 setInterval(renderCountdowns, 60 * 1000);
-document.addEventListener("visibilitychange", () => { if (!document.hidden) { checkVehicleNotifications(); refreshWatchData(); refreshHomeWeather(); } });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { checkVehicleNotifications(); refreshWatchData(); } });

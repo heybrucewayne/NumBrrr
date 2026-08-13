@@ -1,4 +1,4 @@
-const SHELL_CACHE = "numbrrr-shell-v42";
+const SHELL_CACHE = "numbrrr-shell-v43";
 const DATA_CACHE = "numbrrr-data-v2";
 const APP_SHELL = [
   "/",

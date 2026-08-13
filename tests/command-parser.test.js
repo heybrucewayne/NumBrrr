@@ -72,6 +72,44 @@ test("navigation, favorites, currency, and portfolio queries are classified", ()
   assert.equal(parse("en çok kazandıran varlığımı göster").query, "TOP_PERFORMER");
 });
 
+test("app data commands extract labels, amounts, and dates", () => {
+  const expense = parse("gider ekle market 500");
+  assert.equal(expense.intent, "ADD_EXPENSE");
+  assert.equal(expense.label, "market");
+  assert.equal(expense.amount, 500);
+
+  const income = parse("gelir ekle maaş 50000");
+  assert.equal(income.intent, "ADD_INCOME");
+  assert.equal(income.label, "maas");
+  assert.equal(income.amount, 50000);
+
+  const goal = parse("hedef ekle araba 1000000");
+  assert.equal(goal.intent, "ADD_GOAL");
+  assert.equal(goal.label, "araba");
+  assert.equal(goal.amount, 1000000);
+
+  const note = parse("not ekle bankayı ara");
+  assert.equal(note.intent, "ADD_NOTE");
+  assert.equal(note.label, "bankayi ara");
+
+  const countdown = parse("geri sayım tatil 2026-12-20");
+  assert.equal(countdown.intent, "ADD_COUNTDOWN");
+  assert.equal(countdown.label, "tatil");
+  assert.equal(countdown.date, "2026-12-20");
+});
+
+test("app queries, navigation, and monthly expenses are classified", () => {
+  assert.equal(parse("giderlerimi göster").query, "EXPENSES");
+  assert.equal(parse("gelirimi göster").query, "INCOME");
+  assert.equal(parse("bakiyemi göster").query, "BALANCE");
+  assert.equal(parse("giderlere git").page, "savings");
+  assert.equal(parse("gelir sayfasını aç").page, "income");
+  const monthly = parse("aylık giderim 50000");
+  assert.equal(monthly.intent, "SET_MONTHLY_EXPENSES");
+  assert.equal(monthly.amount, 50000);
+  assert.equal(parse("Set monthly expenses to 5000").intent, "SET_MONTHLY_EXPENSES");
+});
+
 test("command help requests are classified without an asset or trade action", () => {
   ["bütün komutlar", "komutlar", "komut listesi", "hangi komutlar var", "show all commands"].forEach((text) => {
     const result = parse(text);

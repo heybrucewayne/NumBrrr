@@ -12,7 +12,9 @@
   const INTENTS = [
     "BUY", "SELL", "SWAP", "ADD_BALANCE", "REMOVE_BALANCE", "CREATE_ALERT",
     "OPEN_ASSET", "ADD_FAVORITE", "REMOVE_FAVORITE", "CHANGE_BASE_CURRENCY",
-    "PORTFOLIO_QUERY", "COMMAND_HELP", "UNKNOWN",
+    "PORTFOLIO_QUERY", "APP_QUERY", "NAVIGATE", "SET_MONTHLY_EXPENSES",
+    "ADD_EXPENSE", "ADD_INCOME", "ADD_NOTE", "ADD_GOAL", "ADD_COUNTDOWN",
+    "COMMAND_HELP", "UNKNOWN",
   ];
 
   const BUY_WORDS = ["aldim", "satin aldim", "ekledim", "portfoye ekledim", "portfoye attim", "girdim", "topladim", "koydum", "al", "buy", "bought", "purchase", "purchased", "add to portfolio", "added to portfolio"];
@@ -112,6 +114,8 @@
 
   function detectDate(text, referenceDate) {
     const source = normalized(text);
+    const explicit = source.match(/\b(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\b/);
+    if (explicit) return `${explicit[1]}-${String(explicit[2]).padStart(2, "0")}-${String(explicit[3]).padStart(2, "0")}`;
     if (/\b(bugun|dun|onceki gun|\d+ gun once|gecen (pazartesi|sali|carsamba|persembe|cuma|cumartesi|pazar))\b/.test(source)) {
       return resolveRelativeDate(text, referenceDate);
     }
@@ -184,6 +188,16 @@
     return item ? item.value : undefined;
   }
 
+  function commandLabel(text, words) {
+    let value = normalized(text)
+      .replace(/\b20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}\b/g, " ")
+      .replace(/(?:\d[\d.,]*|[.,]\d+)/g, " ");
+    (words || []).forEach((word) => {
+      value = value.replace(new RegExp(`\\b${escapeRegExp(normalized(word))}\\b`, "g"), " ");
+    });
+    return value.replace(/\s+/g, " ").trim();
+  }
+
   function isRelativeDateNumber(candidate) {
     return /^\s*gun\s+once\b/i.test(normalized(candidate && candidate.after));
   }
@@ -201,12 +215,14 @@
     const currency = findCurrency(originalText);
     const date = detectDate(originalText, options.referenceDate);
     let intent = "UNKNOWN";
-    let query;
     let condition;
     let amount;
     let fiatAmount;
     let price;
     let reason = "";
+    let query;
+    let page;
+    let label;
 
     if (includesAny(source, HELP_WORDS)) {
       intent = "COMMAND_HELP";
@@ -217,6 +233,36 @@
       intent = "ADD_FAVORITE";
     } else if (includesAny(source, ["favoriden cikar", "favorilerden kaldir", "favoriyi kaldir", "takipten cikar", "remove from favorites", "remove from favorite", "from favorites", "from favorite"])) {
       intent = "REMOVE_FAVORITE";
+    } else if (numbers.length === 0 && includesAny(source, ["giderlerimi goster", "giderimi goster", "harcamalarimi goster", "aylik giderim ne", "show my expenses", "monthly expenses", "gelirimi goster", "gelirlerimi goster", "show my income", "monthly income", "bakiyemi goster", "toplam bakiyem", "show my balance"])) {
+      intent = "APP_QUERY";
+      if (source.includes("gider") || source.includes("harcama") || source.includes("expense")) query = "EXPENSES";
+      else if (source.includes("gelir") || source.includes("income")) query = "INCOME";
+      else query = "BALANCE";
+    } else if (includesAny(source, ["giderlere git", "giderler sayfasini ac", "gider sayfasini ac", "giderleri ac", "open expenses", "gelirlere git", "gelirler sayfasini ac", "gelir sayfasini ac", "gelirleri ac", "open income", "portfoye git", "portfoy sayfasini ac", "portfoyu ac", "open portfolio", "aracima git", "aracim sayfasini ac", "aracimi ac", "open my car", "takibe git", "takip listesini ac", "takibi ac", "open watchlist", "ayarlara git", "ayarlari ac", "open settings"])) {
+      intent = "NAVIGATE";
+      if (source.includes("gider") || source.includes("expense")) page = "savings";
+      else if (source.includes("gelir") || source.includes("income")) page = "income";
+      else if (source.includes("portfoy") || source.includes("portfolio")) page = "portfolio";
+      else if (source.includes("arac") || source.includes("car")) page = "car";
+      else if (source.includes("takip") || source.includes("watchlist")) page = "watch";
+      else page = "settings";
+    } else if (/(aylik|monthly).*(gider|harcama|expense)/.test(source) || /(gider|harcama).*(aylik|monthly)/.test(source)) {
+      intent = "SET_MONTHLY_EXPENSES";
+    } else if (includesAny(source, ["gider ekle", "harcama ekle", "add expense", "log expense"])) {
+      intent = "ADD_EXPENSE";
+      label = commandLabel(originalText, ["gider ekle", "harcama ekle", "add expense", "log expense", "gider", "harcama", "expense", "add", "log"]);
+    } else if (includesAny(source, ["gelir ekle", "kazanc ekle", "add income", "log income"])) {
+      intent = "ADD_INCOME";
+      label = commandLabel(originalText, ["gelir ekle", "kazanc ekle", "add income", "log income", "gelir", "kazanc", "income", "add", "log"]);
+    } else if (includesAny(source, ["not ekle", "not al", "add note", "save note"])) {
+      intent = "ADD_NOTE";
+      label = commandLabel(originalText, ["not ekle", "not al", "add note", "save note", "not", "ekle", "al", "add", "save"]);
+    } else if (includesAny(source, ["hedef ekle", "birikim hedefi", "savings goal", "create goal"])) {
+      intent = "ADD_GOAL";
+      label = commandLabel(originalText, ["hedef ekle", "birikim hedefi", "savings goal", "create goal", "hedef", "birikim", "ekle", "savings", "goal", "create"]);
+    } else if (includesAny(source, ["geri sayim", "countdown", "geri sayac"])) {
+      intent = "ADD_COUNTDOWN";
+      label = commandLabel(originalText, ["geri sayim", "geri sayac", "countdown", "ekle", "add"]);
     } else if (includesAny(source, ["ortalama", "maliyetim", "ne kadar kazandim", "bu ay", "yuzde kaci", "en cok kazandiran", "karim", "pnl", "portfoyumun", "average", "how much did i earn", "this month", "what percentage", "top performer", "my portfolio", "show my portfolio"])) {
       intent = "PORTFOLIO_QUERY";
       if (source.includes("ortalama") || source.includes("maliyet") || source.includes("average")) query = "AVERAGE_COST";
@@ -249,7 +295,7 @@
     const amountNumbers = numbers.filter((candidate) => !candidate.percent && !isRelativeDateNumber(candidate));
     const numberBeforeAsset = amountNumbers.find((candidate) => candidate.index < assetIndex);
     const half = /\b(yarim|1\/2|half)\b/.test(source);
-    if (intent === "BUY" || intent === "SELL" || intent === "SWAP" || intent === "ADD_BALANCE" || intent === "REMOVE_BALANCE") {
+    if (intent === "BUY" || intent === "SELL" || intent === "SWAP" || intent === "ADD_BALANCE" || intent === "REMOVE_BALANCE" || intent === "SET_MONTHLY_EXPENSES" || intent === "ADD_EXPENSE" || intent === "ADD_INCOME" || intent === "ADD_GOAL") {
       amount = half ? 0.5 : (numberBeforeAsset ? numberBeforeAsset.value : firstAmount(amountNumbers, (candidate) => !candidate.after.includes("%")));
       const fiatPhrase = source.match(/(\d[\d.,]*)\s*(usd|dolar|euro|eur|tl|try|lira)\s*(?:lik|lık|luk|lük)/);
       if (fiatPhrase && assetIndex >= 0 && source.indexOf(fiatPhrase[0]) < assetIndex) {
@@ -281,6 +327,11 @@
     if (intent === "CREATE_ALERT" && (price != null || percentage != null)) confidence += 0.14;
     if (intent === "CHANGE_BASE_CURRENCY" && reason) confidence += 0.18;
     if (intent === "PORTFOLIO_QUERY" && query) confidence += 0.2;
+    if (intent === "APP_QUERY" && query) confidence += 0.2;
+    if (intent === "NAVIGATE" && page) confidence += 0.18;
+    if (["SET_MONTHLY_EXPENSES", "ADD_EXPENSE", "ADD_INCOME", "ADD_GOAL"].includes(intent) && amount != null) confidence += 0.14;
+    if (["ADD_EXPENSE", "ADD_INCOME", "ADD_NOTE", "ADD_GOAL", "ADD_COUNTDOWN"].includes(intent) && label) confidence += 0.08;
+    if (intent === "ADD_COUNTDOWN" && date) confidence += 0.12;
     if (intent === "COMMAND_HELP") confidence += 0.25;
     if (intent === "OPEN_ASSET" && asset) confidence += 0.12;
     if ((asset && assets.filter((entry) => entry.asset.sym === asset.sym).length > 1) || (asset && assets.length > 1 && assets[0].index === assets[1].index)) confidence -= 0.2;
@@ -291,6 +342,9 @@
     if (["BUY", "SELL"].includes(intent) && amount == null && fiatAmount == null) missing.push("amount");
     if (intent === "SWAP" && !targetAsset) missing.push("targetAsset");
     if (intent === "CREATE_ALERT" && price == null && percentage == null) missing.push("condition");
+    if (["SET_MONTHLY_EXPENSES", "ADD_EXPENSE", "ADD_INCOME", "ADD_GOAL"].includes(intent) && !(amount > 0)) missing.push("amount");
+    if (["ADD_EXPENSE", "ADD_INCOME", "ADD_NOTE", "ADD_GOAL", "ADD_COUNTDOWN"].includes(intent) && !label) missing.push("label");
+    if (intent === "ADD_COUNTDOWN" && !date) missing.push("date");
 
     return {
       intent: INTENTS.includes(intent) ? intent : "UNKNOWN",
@@ -309,6 +363,8 @@
       originalText,
       normalizedText: text,
       query,
+      page,
+      label,
       missing,
       ambiguity: asset && assets.filter((entry) => entry.asset.sym === asset.sym).length > 1 ? assets.filter((entry) => entry.asset.sym === asset.sym).map((entry) => entry.asset) : undefined,
       baseCurrency: intent === "CHANGE_BASE_CURRENCY" ? reason : undefined,

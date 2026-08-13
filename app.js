@@ -287,7 +287,7 @@ const I18N = {
     home_customize_title: "Home screen", home_customize_desc: "Reorder widgets or hide the ones you do not use.", home_customize_reset: "Reset layout", home_move_up: "Move up", home_move_down: "Move down", home_hide: "Show this widget", home_last_card: "At least one widget must remain visible.",
     home_widget_freedom: "Freedom calculator", home_widget_portfolio: "Portfolio", home_widget_income: "Income", home_widget_expenses: "Expenses", home_widget_monthly: "This month", home_widget_health: "Financial health", home_widget_markets: "FX & gold", home_widget_weather: "Weather", home_widget_car: "My car", home_widget_watch: "Watchlist", home_widget_goals: "Savings goals", home_widget_notes: "Mini notes", home_widget_insights: "Smart insights", home_widget_alerts: "Price alerts", home_widget_countdown: "Countdowns",
     home_holdings: "{count} holdings", home_passive: "{amount} passive / month", home_upcoming: "{count} upcoming payments", home_vehicles: "{count} vehicles", home_last_trip: "Last trip: {route}", home_no_route: "No saved route", home_watch_count: "{count} tracked assets", home_watch_empty: "No tracked assets", home_freedom_summary: "{amount} · {name}",
-    command_nav: "Command", command_nav_title: "Open command bar", command_eyebrow: "Smart command", command_title: "Write a command", command_sub: "Write naturally in Turkish. Portfolio changes are always confirmed first.", command_input_label: "Your command", command_placeholder: "Bir şey yaz…", command_send: "Send command", command_detected: "Detected", command_buy: "Purchase detected", command_sell: "Sale detected", command_swap: "Swap detected", command_alert: "Price alert detected", command_open: "Asset page detected", command_favorite: "Favorite change detected", command_currency: "Base currency change detected", command_query: "Portfolio insight detected", command_asset: "Asset", command_quantity: "Quantity", command_price: "Price", command_total: "Total", command_date: "Date", command_confirm: "Confirm", command_edit: "Edit", command_cancel: "Cancel", command_applied: "Command applied ✓", command_understood: "I understood this command.", command_low_confidence: "I couldn't fully understand that.", command_no_asset: "Choose a supported asset first.", command_no_action: "What would you like to do with this asset?", command_ambiguous: "Which matching asset did you mean?", command_suggestion_buy: "Add to portfolio", command_suggestion_sell: "Record a sale", command_suggestion_cancel: "Cancel", command_needs_price: "A live price is needed to prepare this preview.", command_current_price: "Current price", command_average_cost: "Weighted average cost", command_pnl: "This month's PnL", command_realized: "Realized", command_unrealized: "Unrealized", command_allocation: "Portfolio allocation", command_top_performer: "Top performer", command_no_data: "There is not enough portfolio data yet.", command_no_holding: "This asset is not in your portfolio.", command_insufficient: "The portfolio does not contain enough of this asset.", command_eur_unsupported: "EUR base currency is not available in this version.", command_percent: "Change", command_condition: "Condition", command_above: "above", command_below: "below", command_percent_up: "% up", command_percent_down: "% down", command_today: "today", command_not_saved: "Nothing was changed.", command_help_title: "Available commands", command_help_intro: "Write one of these examples and send it.", command_help_trade: "Transactions & alerts", command_help_portfolio: "Portfolio", command_help_asset: "Assets & favorites", command_help_settings: "Settings",
+    command_nav: "Command", command_nav_title: "Open command bar", command_eyebrow: "Smart command", command_title: "Write a command", command_sub: "Write naturally in Turkish. Portfolio changes are always confirmed first.", command_input_label: "Your command", command_placeholder: "Bir şey yaz…", command_send: "Send command", command_detected: "Detected", command_buy: "Purchase detected", command_sell: "Sale detected", command_swap: "Swap detected", command_alert: "Price alert detected", command_open: "Asset page detected", command_favorite: "Favorite change detected", command_currency: "Base currency change detected", command_query: "Portfolio insight detected", command_asset: "Asset", command_quantity: "Quantity", command_price: "Price", command_total: "Total", command_date: "Date", command_confirm: "Confirm", command_edit: "Edit", command_cancel: "Cancel", command_applied: "Command applied ✓", command_understood: "I understood this command.", command_low_confidence: "I couldn't fully understand that.", command_no_asset: "Choose a supported asset first.", command_no_action: "What would you like to do with this asset?", command_ambiguous: "Which matching asset did you mean?", command_suggestion_buy: "Add to portfolio", command_suggestion_sell: "Record a sale", command_suggestion_cancel: "Cancel", command_needs_price: "A live price is needed to prepare this preview.", command_current_price: "Current price", command_average_cost: "Weighted average cost", command_pnl: "This month's PnL", command_realized: "Realized", command_unrealized: "Unrealized", command_allocation: "Portfolio allocation", command_top_performer: "Top performer", command_no_data: "There is not enough portfolio data yet.", command_no_holding: "This asset is not in your portfolio.", command_insufficient: "The portfolio does not contain enough of this asset.", command_eur_unsupported: "EUR base currency is not available in this version.", command_percent: "Change", command_condition: "Condition", command_above: "above", command_below: "below", command_percent_up: "% up", command_percent_down: "% down", command_today: "today", command_not_saved: "Nothing was changed.", command_help_title: "Available commands", command_help_intro: "Write one of these examples and send it.", command_help_trade: "Transactions & alerts", command_help_portfolio: "Portfolio", command_help_asset: "Assets & favorites", command_help_settings: "Settings", command_app: "App data", command_navigation: "Navigation", command_help_queries: "Quick reports", command_expenses: "Expense", command_income: "Income", command_balance: "Balance", command_monthly_expenses: "Monthly expenses", command_label: "Name / detail", command_target: "Target", command_destination: "Page", command_note: "Note", command_navigation_done: "Opened ✓", command_expense_added: "Expense added ✓", command_income_added: "Income added ✓", command_note_added: "Note added ✓", command_goal_added: "Savings goal added ✓", command_countdown_added: "Countdown added ✓", command_invalid_amount: "Enter a positive amount.", command_date_needed: "Choose a future date.", command_label_needed: "Add a name or description.",
     monthly_summary_title: "This month", monthly_summary_sub: "Income, spending and savings at a glance.", monthly_income: "Income", monthly_expense: "Expenses", monthly_net: "Net", monthly_rate: "Savings rate: {rate}%", monthly_no_income: "Add monthly income to calculate your savings rate.",
     health_title: "Financial health", health_sub: "A score based on your current data.", health_note: "Savings rate, passive income, buffer and diversification.", health_weak: "Needs attention", health_fair: "Getting stronger", health_good: "Healthy", health_excellent: "Excellent",
     market_summary_title: "FX & gold", market_summary_sub: "Current TRY market snapshot.", market_usd: "USD / TRY", market_eur: "EUR / TRY", market_gold: "Gram gold", market_loading: "Loading live prices…", market_unavailable: "Price unavailable",
@@ -474,7 +474,7 @@ const I18N = {
     home_customize_title: "Ana sayfa", home_customize_desc: "Widget'ları sırala veya kullanmadıklarını gizle.", home_customize_reset: "Düzeni sıfırla", home_move_up: "Yukarı taşı", home_move_down: "Aşağı taşı", home_hide: "Bu widget'ı göster", home_last_card: "En az bir widget görünür kalmalı.",
     home_widget_freedom: "Özgürlük hesaplayıcısı", home_widget_portfolio: "Portföy", home_widget_income: "Gelirler", home_widget_expenses: "Giderler", home_widget_monthly: "Bu ay", home_widget_health: "Finansal sağlık", home_widget_markets: "Kur ve altın", home_widget_weather: "Hava durumu", home_widget_car: "Aracım", home_widget_watch: "Takip listesi", home_widget_goals: "Birikim hedefleri", home_widget_notes: "Mini notlar", home_widget_insights: "Akıllı içgörüler", home_widget_alerts: "Fiyat alarmları", home_widget_countdown: "Geri sayımlar",
     home_holdings: "{count} varlık", home_passive: "Aylık {amount} pasif", home_upcoming: "{count} yaklaşan ödeme", home_vehicles: "{count} araç", home_last_trip: "Son yolculuk: {route}", home_no_route: "Kayıtlı rota yok", home_watch_count: "{count} takip edilen varlık", home_watch_empty: "Takip edilen varlık yok", home_freedom_summary: "{name} · {amount}",
-    command_nav: "Komut", command_nav_title: "Komut çubuğunu aç", command_eyebrow: "Akıllı komut", command_title: "Komut yaz", command_sub: "Doğal Türkçe yaz. Portföy değişiklikleri her zaman önce onaylanır.", command_input_label: "Komutun", command_placeholder: "Bir şey yaz…", command_send: "Komutu gönder", command_detected: "Algılanan", command_buy: "Satın alma algılandı", command_sell: "Satış algılandı", command_swap: "Dönüştürme algılandı", command_alert: "Fiyat alarmı algılandı", command_open: "Varlık sayfası algılandı", command_favorite: "Favori değişikliği algılandı", command_currency: "Ana para birimi değişikliği algılandı", command_query: "Portföy analizi algılandı", command_asset: "Varlık", command_quantity: "Miktar", command_price: "Fiyat", command_total: "Toplam", command_date: "Tarih", command_confirm: "Onayla", command_edit: "Düzenle", command_cancel: "İptal", command_applied: "Komut uygulandı ✓", command_understood: "Bu komutu anladım.", command_low_confidence: "Bunu tam anlayamadım.", command_no_asset: "Önce desteklenen bir varlık seç.", command_no_action: "Bu varlıkla ne yapmak istiyorsun?", command_ambiguous: "Hangi eşleşen varlığı kastettin?", command_suggestion_buy: "Portföye ekle", command_suggestion_sell: "Satış olarak kaydet", command_suggestion_cancel: "Vazgeç", command_needs_price: "Bu önizlemeyi hazırlamak için canlı fiyat gerekiyor.", command_current_price: "Güncel fiyat", command_average_cost: "Ağırlıklı ortalama maliyet", command_pnl: "Bu ayın K/Z'si", command_realized: "Gerçekleşen", command_unrealized: "Gerçekleşmemiş", command_allocation: "Portföy ağırlığı", command_top_performer: "En çok kazandıran", command_no_data: "Henüz yeterli portföy verisi yok.", command_no_holding: "Bu varlık portföyünde yok.", command_insufficient: "Portföyünde bu varlıktan yeterli miktar yok.", command_eur_unsupported: "EUR ana para birimi bu sürümde kullanılamıyor.", command_percent: "Değişim", command_condition: "Koşul", command_above: "üzerine çıkarsa", command_below: "altına düşerse", command_percent_up: "% yükselirse", command_percent_down: "% düşerse", command_today: "bugün", command_not_saved: "Herhangi bir değişiklik yapılmadı.", command_help_title: "Kullanabileceğin komutlar", command_help_intro: "Aşağıdaki örneklerden birini yazıp gönder.", command_help_trade: "İşlem ve alarm", command_help_portfolio: "Portföy", command_help_asset: "Varlık ve favoriler", command_help_settings: "Ayarlar",
+    command_nav: "Komut", command_nav_title: "Komut çubuğunu aç", command_eyebrow: "Akıllı komut", command_title: "Komut yaz", command_sub: "Doğal Türkçe yaz. Portföy değişiklikleri her zaman önce onaylanır.", command_input_label: "Komutun", command_placeholder: "Bir şey yaz…", command_send: "Komutu gönder", command_detected: "Algılanan", command_buy: "Satın alma algılandı", command_sell: "Satış algılandı", command_swap: "Dönüştürme algılandı", command_alert: "Fiyat alarmı algılandı", command_open: "Varlık sayfası algılandı", command_favorite: "Favori değişikliği algılandı", command_currency: "Ana para birimi değişikliği algılandı", command_query: "Portföy analizi algılandı", command_asset: "Varlık", command_quantity: "Miktar", command_price: "Fiyat", command_total: "Toplam", command_date: "Tarih", command_confirm: "Onayla", command_edit: "Düzenle", command_cancel: "İptal", command_applied: "Komut uygulandı ✓", command_understood: "Bu komutu anladım.", command_low_confidence: "Bunu tam anlayamadım.", command_no_asset: "Önce desteklenen bir varlık seç.", command_no_action: "Bu varlıkla ne yapmak istiyorsun?", command_ambiguous: "Hangi eşleşen varlığı kastettin?", command_suggestion_buy: "Portföye ekle", command_suggestion_sell: "Satış olarak kaydet", command_suggestion_cancel: "Vazgeç", command_needs_price: "Bu önizlemeyi hazırlamak için canlı fiyat gerekiyor.", command_current_price: "Güncel fiyat", command_average_cost: "Ağırlıklı ortalama maliyet", command_pnl: "Bu ayın K/Z'si", command_realized: "Gerçekleşen", command_unrealized: "Gerçekleşmemiş", command_allocation: "Portföy ağırlığı", command_top_performer: "En çok kazandıran", command_no_data: "Henüz yeterli portföy verisi yok.", command_no_holding: "Bu varlık portföyünde yok.", command_insufficient: "Portföyünde bu varlıktan yeterli miktar yok.", command_eur_unsupported: "EUR ana para birimi bu sürümde kullanılamıyor.", command_percent: "Değişim", command_condition: "Koşul", command_above: "üzerine çıkarsa", command_below: "altına düşerse", command_percent_up: "% yükselirse", command_percent_down: "% düşerse", command_today: "bugün", command_not_saved: "Herhangi bir değişiklik yapılmadı.", command_help_title: "Kullanabileceğin komutlar", command_help_intro: "Aşağıdaki örneklerden birini yazıp gönder.", command_help_trade: "İşlem ve alarm", command_help_portfolio: "Portföy", command_help_asset: "Varlık ve favoriler", command_help_settings: "Ayarlar", command_app: "Uygulama verileri", command_navigation: "Gezinme", command_help_queries: "Hızlı raporlar", command_expenses: "Gider", command_income: "Gelir", command_balance: "Bakiye", command_monthly_expenses: "Aylık gider", command_label: "Ad / detay", command_target: "Hedef", command_destination: "Sayfa", command_note: "Not", command_navigation_done: "Açıldı ✓", command_expense_added: "Gider eklendi ✓", command_income_added: "Gelir eklendi ✓", command_note_added: "Not eklendi ✓", command_goal_added: "Birikim hedefi eklendi ✓", command_countdown_added: "Geri sayım eklendi ✓", command_invalid_amount: "Pozitif bir tutar gir.", command_date_needed: "Gelecekte bir tarih seç.", command_label_needed: "Bir ad veya açıklama ekle.",
     monthly_summary_title: "Bu ayın özeti", monthly_summary_sub: "Gelir, gider ve birikim tek bakışta.", monthly_income: "Gelir", monthly_expense: "Gider", monthly_net: "Net", monthly_rate: "Birikim oranı: %{rate}", monthly_no_income: "Birikim oranını hesaplamak için aylık gelir ekle.",
     health_title: "Finansal sağlık", health_sub: "Mevcut verilerine göre hesaplanan skor.", health_note: "Birikim oranı, pasif gelir, varlık tamponu ve çeşitlilik.", health_weak: "Dikkat gerekli", health_fair: "Güçleniyor", health_good: "Sağlıklı", health_excellent: "Mükemmel",
     market_summary_title: "Kur ve altın", market_summary_sub: "Güncel TL piyasa özeti.", market_usd: "Dolar / TL", market_eur: "Euro / TL", market_gold: "Gram altın", market_loading: "Canlı fiyatlar yükleniyor…", market_unavailable: "Fiyat alınamadı",
@@ -4387,11 +4387,47 @@ function commandQueryResult(parsed, asset) {
   return { title: t("command_query"), body: total > 0 ? commandMoney(total, state.currency) : t("command_no_data") };
 }
 
+function commandAppQueryResult(parsed) {
+  if (parsed.query === "EXPENSES") {
+    const tracked = expensesTotal();
+    const monthly = monthlyBurn();
+    return { title: t("command_expenses"), body: `${formatMoney(tracked)} · ${t("command_monthly_expenses")}: ${formatMoney(monthly)}` };
+  }
+  if (parsed.query === "INCOME") {
+    const manual = incomeManualTotal();
+    const generated = portfolioYield();
+    const total = manual + generated.interest + generated.rental;
+    return { title: t("command_income"), body: total > 0 ? formatMoney(total) : t("command_no_data") };
+  }
+  const balance = state.portfolio.holdings.reduce((sum, holding) => sum + Math.max(0, holding.value || 0), 0);
+  return { title: t("command_balance"), body: balance > 0 ? formatMoney(balance) : t("command_no_data") };
+}
+
+function commandAppActionTitle(intent) {
+  return {
+    SET_MONTHLY_EXPENSES: t("command_monthly_expenses"),
+    ADD_EXPENSE: t("command_expenses"),
+    ADD_INCOME: t("command_income"),
+    ADD_NOTE: t("command_note"),
+    ADD_GOAL: t("goal_title"),
+    ADD_COUNTDOWN: t("countdown_title"),
+  }[intent] || t("command_app");
+}
+
+function commandNavigationLabel(page) {
+  return ({ home: t("command_nav"), portfolio: t("nav_portfolio"), income: t("nav_income"), savings: t("expenses_page_title"), car: t("nav_car"), watch: t("nav_watchlist"), settings: t("settings_title") })[page] || page;
+}
+
 async function prepareSmartCommand(parsed) {
   const asset = commandAssetFromParsed(parsed);
   if (["BUY", "SELL", "SWAP", "ADD_BALANCE", "REMOVE_BALANCE", "CREATE_ALERT", "OPEN_ASSET", "ADD_FAVORITE", "REMOVE_FAVORITE"].includes(parsed.intent) && !asset) throw new Error(t("command_no_asset"));
   if (parsed.intent === "CHANGE_BASE_CURRENCY") return { parsed, asset, kind: "currency", title: t("command_currency"), result: parsed.baseCurrency === "TRY" ? "TL" : parsed.baseCurrency };
   if (parsed.intent === "PORTFOLIO_QUERY") return { parsed, asset, kind: "query", title: t("command_query"), result: commandQueryResult(parsed, asset) };
+  if (parsed.intent === "APP_QUERY") return { parsed, asset, kind: "query", title: t("command_app"), result: commandAppQueryResult(parsed) };
+  if (parsed.intent === "NAVIGATE") return { parsed, asset, kind: "navigate", title: t("command_navigation"), page: parsed.page };
+  if (["SET_MONTHLY_EXPENSES", "ADD_EXPENSE", "ADD_INCOME", "ADD_NOTE", "ADD_GOAL", "ADD_COUNTDOWN"].includes(parsed.intent)) {
+    return { parsed, asset, kind: "app-action", title: commandAppActionTitle(parsed.intent), amount: parsed.amount, label: parsed.label, date: parsed.date };
+  }
   if (parsed.intent === "OPEN_ASSET" || parsed.intent === "ADD_FAVORITE" || parsed.intent === "REMOVE_FAVORITE") return { parsed, asset, kind: "simple", title: parsed.intent === "OPEN_ASSET" ? t("command_open") : t("command_favorite") };
 
   const quote = await commandQuote(asset);
@@ -4448,6 +4484,15 @@ function renderSmartCommandPreview(draft) {
     else rows.push([t("command_current_price"), commandMoney(draft.referencePrice, draft.referenceCurrency)]);
   } else if (draft.kind === "currency") rows.push([t("currency"), draft.result]);
   else if (draft.kind === "query") rows.push([draft.result.title, draft.result.body]);
+  else if (draft.kind === "navigate") rows.push([t("command_destination"), commandNavigationLabel(draft.page)]);
+  else if (draft.kind === "app-action") {
+    if (p.intent === "SET_MONTHLY_EXPENSES") rows.push([t("command_monthly_expenses"), formatMoney(draft.amount)]);
+    if (p.intent === "ADD_EXPENSE") { rows.push([t("command_label"), draft.label]); rows.push([t("command_total"), formatMoney(draft.amount)]); }
+    if (p.intent === "ADD_INCOME") { rows.push([t("command_label"), draft.label]); rows.push([t("command_total"), formatMoney(draft.amount)]); }
+    if (p.intent === "ADD_NOTE") rows.push([t("command_note"), draft.label]);
+    if (p.intent === "ADD_GOAL") { rows.push([t("command_label"), draft.label]); rows.push([t("command_target"), formatMoney(draft.amount)]); }
+    if (p.intent === "ADD_COUNTDOWN") { rows.push([t("command_label"), draft.label]); rows.push([t("command_date"), draft.date]); }
+  }
   const detailHtml = rows.map(([label, value]) => `<div class="smart-command-detail"><dt>${escapeHtml(label)}</dt><dd title="${escapeHtml(value)}">${escapeHtml(value)}</dd></div>`).join("");
   el.smartCommandPreview.innerHTML = `<div class="smart-command-preview-head"><div><div class="smart-command-preview-kicker">${escapeHtml(t("command_detected"))}</div><div class="smart-command-preview-title">${escapeHtml(commandIntentTitle(draft))}</div></div><span class="smart-command-confidence">${Math.round(p.confidence * 100)}%</span></div><dl class="smart-command-details">${detailHtml}</dl><div class="smart-command-actions"><button type="button" class="is-primary" data-command-confirm>${escapeHtml(draft.kind === "query" || draft.kind === "simple" ? t("command_confirm") : t("command_confirm"))}</button><button type="button" data-command-edit>${escapeHtml(t("command_edit"))}</button><button type="button" data-command-cancel>${escapeHtml(t("command_cancel"))}</button></div>`;
   el.smartCommandPreview.hidden = false;
@@ -4500,6 +4545,16 @@ function commandHelpGroups() {
       { title: t("command_help_asset"), examples: [
         "SOL grafiğini aç", "ETH'i favorilere ekle", "ETH'i favorilerden çıkar",
       ] },
+      { title: t("command_app"), examples: [
+        "aylık giderim 50000", "gider ekle market 500", "gelir ekle maaş 50000",
+        "not ekle bankayı ara", "hedef ekle araba 1000000", "geri sayım tatil 2026-12-20",
+      ] },
+      { title: t("command_help_queries"), examples: [
+        "giderlerimi göster", "gelirimi göster", "bakiyemi göster",
+      ] },
+      { title: t("command_navigation"), examples: [
+        "giderlere git", "gelir sayfasını aç", "portföyü aç", "aracımı aç", "takibi aç", "ayarları aç",
+      ] },
       { title: t("command_help_settings"), examples: [
         "ana para birimini TL yap",
       ] },
@@ -4516,6 +4571,16 @@ function commandHelpGroups() {
     ] },
     { title: t("command_help_asset"), examples: [
       "Open SOL chart", "Add ETH to favorites", "Remove ETH from favorites",
+    ] },
+    { title: t("command_app"), examples: [
+      "Set monthly expenses to 5000", "Add expense groceries 50", "Add income salary 5000",
+      "Add note call the bank", "Create savings goal car 10000", "Countdown vacation 2026-12-20",
+    ] },
+    { title: t("command_help_queries"), examples: [
+      "Show my expenses", "Show my income", "Show my balance",
+    ] },
+    { title: t("command_navigation"), examples: [
+      "Open expenses", "Open income", "Open portfolio", "Open my car", "Open watchlist", "Open settings",
     ] },
     { title: t("command_help_settings"), examples: [
       "Set base currency to USD",
@@ -4689,6 +4754,59 @@ function finishSmartCommand(message) {
   renderSmartCommandMessage(message || t("command_applied"));
 }
 
+function navigateToCommandPage(page) {
+  const tab = document.querySelector(`.tab[data-view="${page || ""}"]`);
+  if (tab) tab.click();
+}
+
+function applySmartCommandAppAction(draft) {
+  const { parsed } = draft;
+  if (parsed.intent === "SET_MONTHLY_EXPENSES") {
+    if (!(draft.amount > 0)) throw new Error(t("command_invalid_amount"));
+    state.monthlyExpenses = draft.amount;
+    if (el.expenses) el.expenses.value = formatThousands(draft.amount);
+    refresh();
+    return t("command_applied");
+  }
+  if (parsed.intent === "ADD_EXPENSE") {
+    rollExpenseMonth();
+    state.expenses.oneoff.unshift({ id: "o" + ++state.expenses.oneSeq, day: new Date().getDate(), cat: draft.label.slice(0, 60), amount: draft.amount });
+    buildExpenses();
+    renderHomeSummaries();
+    return t("command_expense_added");
+  }
+  if (parsed.intent === "ADD_INCOME") {
+    const id = "inc" + ++state.income.seq;
+    state.income.amounts[id] = draft.amount;
+    state.income.passive[id] = false;
+    state.income.custom.push({ id, label: draft.label.slice(0, 60) });
+    buildIncome();
+    refreshIncome();
+    renderHomeSummaries();
+    return t("command_income_added");
+  }
+  if (parsed.intent === "ADD_NOTE") {
+    state.homeNotes.items.unshift({ id: "hn" + ++state.homeNotes.seq, text: draft.label.slice(0, 120), done: false });
+    if (state.homeNotes.items.length > 50) state.homeNotes.items.length = 50;
+    saveState(); renderHomeNotes(); renderSmartInsights();
+    return t("command_note_added");
+  }
+  if (parsed.intent === "ADD_GOAL") {
+    state.savingsGoals.items.unshift({ id: "sg" + ++state.savingsGoals.seq, name: draft.label.slice(0, 60), target: draft.amount, current: 0, currency: state.currency });
+    saveState(); renderSavingsGoals(); renderSmartInsights();
+    return t("command_goal_added");
+  }
+  if (parsed.intent === "ADD_COUNTDOWN") {
+    const target = parseDateInput(draft.date);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    if (!target || target <= today) throw new Error(t("command_date_needed"));
+    state.countdowns.items.push({ id: "cd" + ++state.countdowns.seq, name: draft.label.slice(0, 80), category: "", date: draft.date, target: target.toISOString(), unit: "days" });
+    saveState(); renderCountdowns(); renderSmartInsights();
+    return t("command_countdown_added");
+  }
+  throw new Error(t("command_no_action"));
+}
+
 function executeSmartCommand() {
   const draft = smartCommandDraft;
   if (!draft) return;
@@ -4728,6 +4846,16 @@ function executeSmartCommand() {
       if (draft.result === "EUR") throw new Error(t("command_eur_unsupported"));
       setCurrency(draft.result === "TL" ? "TL" : "USD");
       finishSmartCommand(t("command_applied"));
+      return;
+    }
+    if (draft.kind === "navigate") {
+      navigateToCommandPage(draft.page);
+      finishSmartCommand(t("command_navigation_done"));
+      return;
+    }
+    if (draft.kind === "app-action") {
+      const message = applySmartCommandAppAction(draft);
+      sfx("success"); finishSmartCommand(message);
       return;
     }
     if (draft.kind === "simple") {

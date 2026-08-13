@@ -287,6 +287,7 @@ const I18N = {
     home_customize_title: "Home screen", home_customize_desc: "Reorder widgets or hide the ones you do not use.", home_customize_reset: "Reset layout", home_move_up: "Move up", home_move_down: "Move down", home_hide: "Show this widget", home_last_card: "At least one widget must remain visible.",
     home_widget_freedom: "Freedom calculator", home_widget_portfolio: "Portfolio", home_widget_income: "Income", home_widget_expenses: "Expenses", home_widget_monthly: "This month", home_widget_health: "Financial health", home_widget_markets: "FX & gold", home_widget_weather: "Weather", home_widget_car: "My car", home_widget_watch: "Watchlist", home_widget_goals: "Savings goals", home_widget_notes: "Mini notes", home_widget_insights: "Smart insights", home_widget_alerts: "Price alerts", home_widget_countdown: "Countdowns",
     home_holdings: "{count} holdings", home_passive: "{amount} passive / month", home_upcoming: "{count} upcoming payments", home_vehicles: "{count} vehicles", home_last_trip: "Last trip: {route}", home_no_route: "No saved route", home_watch_count: "{count} tracked assets", home_watch_empty: "No tracked assets", home_freedom_summary: "{amount} · {name}",
+    command_eyebrow: "Smart command", command_title: "Tell NumBrrr what to do", command_sub: "Write naturally. Portfolio changes are always confirmed first.", command_input_label: "Your command", command_placeholder: "Bir şey yaz…", command_send: "Send command", command_detected: "Detected", command_buy: "Purchase detected", command_sell: "Sale detected", command_swap: "Swap detected", command_alert: "Price alert detected", command_open: "Asset page detected", command_favorite: "Favorite change detected", command_currency: "Base currency change detected", command_query: "Portfolio insight detected", command_asset: "Asset", command_quantity: "Quantity", command_price: "Price", command_total: "Total", command_date: "Date", command_confirm: "Confirm", command_edit: "Edit", command_cancel: "Cancel", command_applied: "Command applied ✓", command_understood: "I understood this command.", command_low_confidence: "I couldn't fully understand that.", command_no_asset: "Choose a supported asset first.", command_no_action: "What would you like to do with this asset?", command_ambiguous: "Which matching asset did you mean?", command_suggestion_buy: "Add to portfolio", command_suggestion_sell: "Record a sale", command_suggestion_cancel: "Cancel", command_needs_price: "A live price is needed to prepare this preview.", command_current_price: "Current price", command_average_cost: "Weighted average cost", command_pnl: "This month's PnL", command_realized: "Realized", command_unrealized: "Unrealized", command_allocation: "Portfolio allocation", command_top_performer: "Top performer", command_no_data: "There is not enough portfolio data yet.", command_no_holding: "This asset is not in your portfolio.", command_insufficient: "The portfolio does not contain enough of this asset.", command_eur_unsupported: "EUR base currency is not available in this version.", command_percent: "Change", command_condition: "Condition", command_above: "above", command_below: "below", command_percent_up: "% up", command_percent_down: "% down", command_today: "today", command_not_saved: "Nothing was changed.",
     monthly_summary_title: "This month", monthly_summary_sub: "Income, spending and savings at a glance.", monthly_income: "Income", monthly_expense: "Expenses", monthly_net: "Net", monthly_rate: "Savings rate: {rate}%", monthly_no_income: "Add monthly income to calculate your savings rate.",
     health_title: "Financial health", health_sub: "A score based on your current data.", health_note: "Savings rate, passive income, buffer and diversification.", health_weak: "Needs attention", health_fair: "Getting stronger", health_good: "Healthy", health_excellent: "Excellent",
     market_summary_title: "FX & gold", market_summary_sub: "Current TRY market snapshot.", market_usd: "USD / TRY", market_eur: "EUR / TRY", market_gold: "Gram gold", market_loading: "Loading live prices…", market_unavailable: "Price unavailable",
@@ -473,6 +474,7 @@ const I18N = {
     home_customize_title: "Ana sayfa", home_customize_desc: "Widget'ları sırala veya kullanmadıklarını gizle.", home_customize_reset: "Düzeni sıfırla", home_move_up: "Yukarı taşı", home_move_down: "Aşağı taşı", home_hide: "Bu widget'ı göster", home_last_card: "En az bir widget görünür kalmalı.",
     home_widget_freedom: "Özgürlük hesaplayıcısı", home_widget_portfolio: "Portföy", home_widget_income: "Gelirler", home_widget_expenses: "Giderler", home_widget_monthly: "Bu ay", home_widget_health: "Finansal sağlık", home_widget_markets: "Kur ve altın", home_widget_weather: "Hava durumu", home_widget_car: "Aracım", home_widget_watch: "Takip listesi", home_widget_goals: "Birikim hedefleri", home_widget_notes: "Mini notlar", home_widget_insights: "Akıllı içgörüler", home_widget_alerts: "Fiyat alarmları", home_widget_countdown: "Geri sayımlar",
     home_holdings: "{count} varlık", home_passive: "Aylık {amount} pasif", home_upcoming: "{count} yaklaşan ödeme", home_vehicles: "{count} araç", home_last_trip: "Son yolculuk: {route}", home_no_route: "Kayıtlı rota yok", home_watch_count: "{count} takip edilen varlık", home_watch_empty: "Takip edilen varlık yok", home_freedom_summary: "{name} · {amount}",
+    command_eyebrow: "Akıllı komut", command_title: "NumBrrr'a ne yapacağını söyle", command_sub: "Doğal Türkçe yaz. Portföy değişiklikleri her zaman önce onaylanır.", command_input_label: "Komutun", command_placeholder: "Bir şey yaz…", command_send: "Komutu gönder", command_detected: "Algılanan", command_buy: "Satın alma algılandı", command_sell: "Satış algılandı", command_swap: "Dönüştürme algılandı", command_alert: "Fiyat alarmı algılandı", command_open: "Varlık sayfası algılandı", command_favorite: "Favori değişikliği algılandı", command_currency: "Ana para birimi değişikliği algılandı", command_query: "Portföy analizi algılandı", command_asset: "Varlık", command_quantity: "Miktar", command_price: "Fiyat", command_total: "Toplam", command_date: "Tarih", command_confirm: "Onayla", command_edit: "Düzenle", command_cancel: "İptal", command_applied: "Komut uygulandı ✓", command_understood: "Bu komutu anladım.", command_low_confidence: "Bunu tam anlayamadım.", command_no_asset: "Önce desteklenen bir varlık seç.", command_no_action: "Bu varlıkla ne yapmak istiyorsun?", command_ambiguous: "Hangi eşleşen varlığı kastettin?", command_suggestion_buy: "Portföye ekle", command_suggestion_sell: "Satış olarak kaydet", command_suggestion_cancel: "Vazgeç", command_needs_price: "Bu önizlemeyi hazırlamak için canlı fiyat gerekiyor.", command_current_price: "Güncel fiyat", command_average_cost: "Ağırlıklı ortalama maliyet", command_pnl: "Bu ayın K/Z'si", command_realized: "Gerçekleşen", command_unrealized: "Gerçekleşmemiş", command_allocation: "Portföy ağırlığı", command_top_performer: "En çok kazandıran", command_no_data: "Henüz yeterli portföy verisi yok.", command_no_holding: "Bu varlık portföyünde yok.", command_insufficient: "Portföyünde bu varlıktan yeterli miktar yok.", command_eur_unsupported: "EUR ana para birimi bu sürümde kullanılamıyor.", command_percent: "Değişim", command_condition: "Koşul", command_above: "üzerine çıkarsa", command_below: "altına düşerse", command_percent_up: "% yükselirse", command_percent_down: "% düşerse", command_today: "bugün", command_not_saved: "Herhangi bir değişiklik yapılmadı.",
     monthly_summary_title: "Bu ayın özeti", monthly_summary_sub: "Gelir, gider ve birikim tek bakışta.", monthly_income: "Gelir", monthly_expense: "Gider", monthly_net: "Net", monthly_rate: "Birikim oranı: %{rate}", monthly_no_income: "Birikim oranını hesaplamak için aylık gelir ekle.",
     health_title: "Finansal sağlık", health_sub: "Mevcut verilerine göre hesaplanan skor.", health_note: "Birikim oranı, pasif gelir, varlık tamponu ve çeşitlilik.", health_weak: "Dikkat gerekli", health_fair: "Güçleniyor", health_good: "Sağlıklı", health_excellent: "Mükemmel",
     market_summary_title: "Kur ve altın", market_summary_sub: "Güncel TL piyasa özeti.", market_usd: "Dolar / TL", market_eur: "Euro / TL", market_gold: "Gram altın", market_loading: "Canlı fiyatlar yükleniyor…", market_unavailable: "Fiyat alınamadı",
@@ -634,7 +636,7 @@ const state = {
     tripType: "oneway", extras: { toll: 0, parking: 0, other: 0 }, favorites: [], favSeq: 0,
   },
   portfolio: {
-    holdings: [], seq: 0,
+    holdings: [], seq: 0, transactions: [], txSeq: 0,
     target: { USD: [SAVINGS_DEFAULT_INVEST.USD], TL: [SAVINGS_DEFAULT_INVEST.TL] },
   },
   // Monthly snapshots are currency-specific so switching country never mixes scales.
@@ -683,6 +685,12 @@ function incLabel(id) { return (langPack().inc && langPack().inc[id]) || I18N.en
 
 // ---- Elements ----
 const el = {
+  // Smart command bar
+  smartCommandForm: document.getElementById("smartCommandForm"),
+  smartCommandInput: document.getElementById("smartCommandInput"),
+  smartCommandSend: document.getElementById("smartCommandSend"),
+  smartCommandStatus: document.getElementById("smartCommandStatus"),
+  smartCommandPreview: document.getElementById("smartCommandPreview"),
   currencySymbol: document.getElementById("currencySymbol"),
   expenses: document.getElementById("expenses"),
   realMode: document.getElementById("realMode"),
@@ -3762,6 +3770,7 @@ function sparklineSvg(series) {
 function watchNativeCcy(w) {
   if (w.type === "usstock") return "USD";
   if (w.type === "bist") return "TRY";
+  if (w.type === "fiat") return w.key === "usd" ? "USD" : "TRY";
   return state.currency === "TL" ? "TRY" : "USD"; // gold, crypto follow the app
 }
 // The per-row toggle only applies for TR users (the feature is TL-only).
@@ -3771,6 +3780,10 @@ function watchDisplayCcy(w) {
   return watchFlipped(w) ? (native === "USD" ? "TRY" : "USD") : native;
 }
 function watchPriceLabel(w) {
+  if (w.type === "fiat") {
+    const value = w.key === "usd" ? (watchDisplayCcy(w) === "TRY" ? usdTry : 1) : (watchDisplayCcy(w) === "USD" && usdTry > 0 ? 1 / usdTry : 1);
+    return value > 0 ? (watchDisplayCcy(w) === "TRY" ? "₺" : "$") + fmtPrice(value) : "…";
+  }
   const d = watchData[w.key];
   if (!d || d.price == null) return "…";
   let suffix = "", value = d.price;
@@ -3786,6 +3799,10 @@ function watchPriceLabel(w) {
 }
 
 function watchValueInCurrency(w, ccy) {
+  if (w.type === "fiat") {
+    if (w.key === "usd") return ccy === "TRY" ? (usdTry > 0 ? usdTry : null) : 1;
+    return ccy === "USD" ? (usdTry > 0 ? 1 / usdTry : null) : 1;
+  }
   const d = watchData[w.key];
   if (!d || !Number.isFinite(d.price)) return null;
   let value = d.price;
@@ -3890,7 +3907,7 @@ function backgroundPushPayload(subscription) {
     vehicleDays: state.notifications.vehicleDays,
     priceAlerts: state.notifications.priceAlerts.map((alert) => ({
       id: alert.id, type: alert.type, key: alert.key, name: alert.name, sym: alert.sym || "",
-      condition: alert.condition, target: alert.target, ccy: alert.ccy,
+      condition: alert.condition, target: alert.target, percentage: alert.percentage, referencePrice: alert.referencePrice, ccy: alert.ccy,
     })),
     vehicles: state.vehicles.map((vehicle) => ({
       id: vehicle.id, plate: vehicle.plate || "",
@@ -4009,8 +4026,9 @@ function renderPriceAlertList(container) {
     return;
   }
   container.innerHTML = alerts.map((a) => {
-    const condition = a.condition === "below" ? t("alert_below") : t("alert_above");
-    return `<div class="alert-row"><div><strong>${escapeHtml(a.name || a.key)}</strong><span>${escapeHtml(condition)} · ${escapeHtml(formatAlertPrice(a.target, a.ccy))}</span></div><button type="button" data-alert-del="${escapeHtml(a.id)}" aria-label="${escapeHtml(t("alert_remove"))}">×</button></div>`;
+    const condition = commandAlertConditionLabel(a);
+    const target = a.percentage != null ? `${a.percentage}%` : formatAlertPrice(a.target, a.ccy);
+    return `<div class="alert-row"><div><strong>${escapeHtml(a.name || a.key)}</strong><span>${escapeHtml(condition)} · ${escapeHtml(target)}</span></div><button type="button" data-alert-del="${escapeHtml(a.id)}" aria-label="${escapeHtml(t("alert_remove"))}">×</button></div>`;
   }).join("");
   container.querySelectorAll("[data-alert-del]").forEach((button) => button.addEventListener("click", () => {
     state.notifications.priceAlerts = state.notifications.priceAlerts.filter((a) => a.id !== button.dataset.alertDel);
@@ -4102,11 +4120,14 @@ function checkPriceAlerts() {
     const w = state.watchlist.find((x) => x.type === a.type && x.key === a.key) || { type: a.type, key: a.key, name: a.name, sym: a.sym || "" };
     const value = watchValueInCurrency(w, a.ccy);
     if (!Number.isFinite(value)) return;
-    const hit = a.condition === "below" ? value <= a.target : value >= a.target;
+    const change = a.referencePrice > 0 ? ((value / a.referencePrice) - 1) * 100 : 0;
+    const hit = a.condition === "percent_down" ? change <= -(a.percentage || 0)
+      : a.condition === "percent_up" ? change >= (a.percentage || 0)
+      : a.condition === "below" ? value <= a.target : value >= a.target;
     if (hit && !a.triggered) {
-      const condition = a.condition === "below" ? t("alert_below").toLowerCase() : t("alert_above").toLowerCase();
+      const condition = commandAlertConditionLabel(a).toLowerCase();
       deliverUserAlert("price-" + a.id, t("price_alert_title"), t("price_alert_body", {
-        name: w.name, price: formatAlertPrice(value, a.ccy), condition, target: formatAlertPrice(a.target, a.ccy),
+        name: w.name, price: formatAlertPrice(value, a.ccy), condition, target: a.percentage != null ? `${a.percentage}%` : formatAlertPrice(a.target, a.ccy),
       }));
       a.triggered = true; changed = true;
     } else if (!hit && a.triggered) { a.triggered = false; changed = true; }
@@ -4179,6 +4200,508 @@ function closeChartModal() {
   modal.hidden = true;
   const frame = document.getElementById("tvFrame");
   if (frame) frame.src = "about:blank"; // stop the embedded chart when closed
+}
+
+// ============================================================
+//  Smart command bar
+// ============================================================
+let smartCommandDraft = null;
+let smartCommandRequest = 0;
+
+function commandAssetCatalog() {
+  const items = [];
+  const seen = new Set();
+  const add = (item) => {
+    if (!item || !item.key || !item.sym) return;
+    const id = `${item.type}|${item.key}`;
+    if (seen.has(id)) return;
+    seen.add(id); items.push(item);
+  };
+  // watchSearchPool is built from the live crypto list and the app's supported
+  // stock/metals lists; parser itself remains unaware of any of these assets.
+  watchSearchPool().forEach((item) => add({ ...item, aliases: [item.sym, item.name] }));
+  state.watchlist.forEach((item) => add({ ...item, aliases: [item.sym, item.name] }));
+  state.portfolio.holdings.forEach((holding) => {
+    if (holding.assetType === "crypto" && holding.coinId) add({ type: "crypto", key: holding.coinId, sym: holding.coinSymbol || holding.label, name: holding.coinName || holding.label, aliases: [holding.coinSymbol, holding.coinName] });
+    if (holding.assetType === "usstock" && holding.symbol) add({ type: "usstock", key: holding.symbol, sym: holding.symbol, name: holding.stockName || holding.symbol, aliases: [holding.symbol, holding.stockName] });
+    if (holding.assetType === "bist" && holding.symbol) add({ type: "bist", key: holding.symbol, sym: holding.symbol, name: holding.stockName || holding.symbol, aliases: [holding.symbol, holding.stockName] });
+  });
+  // Fiat balances are app-supported assets too, and are useful for commands
+  // such as "USD 50 olunca bildir" even before a market search is performed.
+  add({ type: "fiat", key: "usd", sym: "USD", name: "US Dollar", aliases: ["usd", "dolar"] });
+  add({ type: "fiat", key: "try", sym: "TRY", name: "Türk Lirası", aliases: ["try", "tl", "lira"] });
+  return items;
+}
+
+function commandCurrencyKey(currency) {
+  if (currency === "TRY" || currency === "TL") return "TL";
+  if (currency === "USD") return "USD";
+  return currency || (state.currency === "TL" ? "TL" : "USD");
+}
+
+function convertCommandCurrency(value, from, to) {
+  if (!Number.isFinite(value)) return null;
+  const source = commandCurrencyKey(from), target = commandCurrencyKey(to);
+  if (source === target) return value;
+  if (source === "USD" && target === "TL") return usdTry > 0 ? value * usdTry : null;
+  if (source === "TL" && target === "USD") return usdTry > 0 ? value / usdTry : null;
+  return null;
+}
+
+function commandMoney(value, currency) {
+  if (!Number.isFinite(value)) return "—";
+  const key = commandCurrencyKey(currency);
+  if (key === "USD" || key === "TL") {
+    const meta = CURRENCY_META[key];
+    return new Intl.NumberFormat(meta.locale, { style: "currency", currency: meta.code, maximumFractionDigits: Math.abs(value) < 10 ? 4 : 2 }).format(value);
+  }
+  return `${value.toLocaleString(state.lang === "tr" ? "tr-TR" : "en-US", { maximumFractionDigits: 2 })} ${key}`;
+}
+
+function commandQuantity(value) {
+  if (!Number.isFinite(value)) return "—";
+  return value.toLocaleString(state.lang === "tr" ? "tr-TR" : "en-US", { maximumFractionDigits: 8 });
+}
+
+function commandAssetFromParsed(parsed) {
+  if (!parsed) return null;
+  const catalog = commandAssetCatalog();
+  return catalog.find((item) => item.key === parsed.assetKey) || catalog.find((item) => String(item.sym).toUpperCase() === parsed.asset);
+}
+
+async function commandQuote(asset) {
+  if (!asset) return null;
+  if (asset.type === "crypto") {
+    if (!cryptoMarkets.some((item) => item.id === asset.key)) await loadCryptoMarkets();
+    const coin = cryptoMarkets.find((item) => item.id === asset.key || item.symbol === asset.sym);
+    if (coin && Number.isFinite(coin.price)) return { appPrice: coin.price, nativePrice: coin.price, nativeCurrency: state.currency === "TL" ? "TRY" : "USD", asset };
+    const holding = state.portfolio.holdings.find((item) => item.coinId === asset.key || item.coinSymbol === asset.sym);
+    if (holding && Number.isFinite(holding.price) && holding.price > 0) return { appPrice: holding.price, nativePrice: holding.price, nativeCurrency: state.currency === "TL" ? "TRY" : "USD", asset };
+  }
+  if (asset.type === "gold" || asset.type === "goldoz") {
+    if (!(goldPriceGram > 0)) await loadGoldPrice();
+    if (goldPriceGram > 0) {
+      const grams = asset.type === "goldoz" ? GRAMS_PER_OZ : 1;
+      return { appPrice: goldPriceGram * grams, nativePrice: goldPriceGram * grams, nativeCurrency: state.currency === "TL" ? "TRY" : "USD", asset };
+    }
+  }
+  if (asset.type === "fiat") {
+    if (asset.key === "usd") { if (!(usdTry > 0)) await loadUsdTry(); return { appPrice: state.currency === "TL" ? usdTry : 1, nativePrice: 1, nativeCurrency: "USD", asset }; }
+    if (asset.key === "try") { if (!(usdTry > 0)) await loadUsdTry(); return { appPrice: state.currency === "TL" ? 1 : (usdTry > 0 ? 1 / usdTry : 0), nativePrice: 1, nativeCurrency: "TRY", asset }; }
+  }
+  if (asset.type === "usstock" || asset.type === "bist") {
+    const nativeCurrency = asset.type === "bist" ? "TRY" : "USD";
+    const quote = await getStockPrice(asset.type === "bist" ? asset.key + ".IS" : asset.key);
+    if (quote && Number.isFinite(quote.price)) {
+      if (!(usdTry > 0) && nativeCurrency !== (state.currency === "TL" ? "TRY" : "USD")) await loadUsdTry();
+      const appPrice = convertCommandCurrency(quote.price, nativeCurrency, state.currency === "TL" ? "TRY" : "USD");
+      if (appPrice != null) return { appPrice, nativePrice: quote.price, nativeCurrency, chg24: quote.chg24, asset };
+    }
+  }
+  const watched = watchData[asset.key];
+  if (watched && Number.isFinite(watched.price)) return { appPrice: watched.price, nativePrice: watched.price, nativeCurrency: state.currency === "TL" ? "TRY" : "USD", asset };
+  return null;
+}
+
+function commandPriceInCurrency(quote, currency) {
+  if (!quote) return null;
+  return convertCommandCurrency(quote.nativePrice, quote.nativeCurrency, commandCurrencyKey(currency));
+}
+
+function commandOccurredAt(date) {
+  return date ? `${date}T12:00:00` : new Date().toISOString();
+}
+
+function commandHoldingForAsset(asset) {
+  if (!asset) return null;
+  return state.portfolio.holdings.find((holding) => {
+    if (asset.type === "crypto") return holding.assetType === "crypto" && (holding.coinId === asset.key || holding.coinSymbol === asset.sym);
+    if (asset.type === "usstock" || asset.type === "bist") return holding.assetType === asset.type && holding.symbol === asset.key;
+    if (asset.type === "gold" || asset.type === "goldoz") return holding.assetType === "gold";
+    if (asset.type === "fiat") return holding.assetType === "usd" && asset.key === "usd";
+    return false;
+  }) || null;
+}
+
+function commandTradeQuantity(holding) {
+  if (!holding) return 0;
+  if (holding.assetType === "crypto") return holding.qty || 0;
+  if (holding.assetType === "usstock" || holding.assetType === "bist") return holding.shares || 0;
+  if (holding.assetType === "gold") return holding.grams || 0;
+  if (holding.assetType === "usd") return holding.usd || 0;
+  return 0;
+}
+
+function commandAssetLabel(asset) { return asset ? `${asset.name} · ${String(asset.sym || asset.key).toUpperCase()}` : "—"; }
+
+function commandTransactionCost(assetKey, { monthOnly = false } = {}) {
+  const month = currentYM();
+  const txs = (state.portfolio.transactions || []).filter((tx) => tx.assetKey === assetKey || tx.targetAssetKey === assetKey);
+  const position = { quantity: 0, cost: 0, realized: 0 };
+  txs.slice().sort((a, b) => String(a.occurredAt).localeCompare(String(b.occurredAt))).forEach((tx) => {
+    const relevantMonth = !monthOnly || String(tx.occurredAt || "").slice(0, 7) === month;
+    if (tx.type === "BUY" && tx.assetKey === assetKey) {
+      position.quantity += tx.amount || 0;
+      position.cost += tx.totalApp || 0;
+    } else if (tx.type === "SELL" && tx.assetKey === assetKey) {
+      const sold = Math.min(position.quantity, tx.amount || 0);
+      const average = position.quantity > 0 ? position.cost / position.quantity : 0;
+      if (relevantMonth) position.realized += (tx.totalApp || 0) - sold * average;
+      position.quantity = Math.max(0, position.quantity - sold);
+      position.cost = Math.max(0, position.cost - sold * average);
+    } else if (tx.type === "SWAP" && Array.isArray(tx.legs)) {
+      const leg = tx.legs.find((item) => item.assetKey === assetKey);
+      if (!leg) return;
+      if (leg.direction === "in") { position.quantity += leg.amount || 0; position.cost += leg.totalApp || 0; }
+      else {
+        const sold = Math.min(position.quantity, leg.amount || 0);
+        const average = position.quantity > 0 ? position.cost / position.quantity : 0;
+        if (relevantMonth) position.realized += (leg.totalApp || 0) - sold * average;
+        position.quantity = Math.max(0, position.quantity - sold);
+        position.cost = Math.max(0, position.cost - sold * average);
+      }
+    }
+  });
+  return position;
+}
+
+function commandQueryResult(parsed, asset) {
+  const holdings = state.portfolio.holdings.filter((holding) => (holding.value || 0) > 0 || commandTradeQuantity(holding) > 0);
+  const total = holdings.reduce((sum, holding) => sum + Math.max(0, holding.value || 0), 0);
+  if (parsed.query === "AVERAGE_COST") {
+    const target = commandHoldingForAsset(asset);
+    if (!target) return { title: t("command_average_cost"), body: t("command_no_holding") };
+    const cost = commandTransactionCost(asset.key);
+    const average = cost.quantity > 0 ? cost.cost / cost.quantity : target.avgCostApp;
+    return { title: t("command_average_cost"), body: average > 0 ? `${commandMoney(average, state.currency)} · ${commandQuantity(cost.quantity || commandTradeQuantity(target))} ${asset.sym}` : t("command_no_data") };
+  }
+  if (parsed.query === "ALLOCATION") {
+    const value = holdings.filter((holding) => commandHoldingForAsset(asset) === holding || (asset && ((asset.type === "crypto" && holding.coinId === asset.key) || ((asset.type === "usstock" || asset.type === "bist") && holding.symbol === asset.key)))).reduce((sum, holding) => sum + (holding.value || 0), 0);
+    return { title: t("command_allocation"), body: total > 0 ? `${Math.round((value / total) * 1000) / 10}% · ${commandMoney(value, state.currency)}` : t("command_no_data") };
+  }
+  if (parsed.query === "TOP_PERFORMER") {
+    const ranked = holdings.map((holding) => ({ holding, gain: (holding.value || 0) - (holding.costBasisApp || 0) })).sort((a, b) => b.gain - a.gain);
+    const winner = ranked[0];
+    return winner ? { title: t("command_top_performer"), body: `${winner.holding.label || winner.holding.coinSymbol || winner.holding.symbol || t("holding_ph")} · ${commandMoney(winner.gain, state.currency)}` } : { title: t("command_top_performer"), body: t("command_no_data") };
+  }
+  if (parsed.query === "PNL") {
+    const relevant = asset ? commandTransactionCost(asset.key, { monthOnly: true }).realized : [...new Set((state.portfolio.transactions || []).flatMap((tx) => [tx.assetKey, tx.targetAssetKey].filter(Boolean)))].reduce((sum, key) => sum + commandTransactionCost(key, { monthOnly: true }).realized, 0);
+    const unrealized = holdings.reduce((sum, holding) => sum + ((holding.value || 0) - (holding.costBasisApp || 0)), 0);
+    return { title: t("command_pnl"), body: `${t("command_realized")}: ${commandMoney(relevant, state.currency)} · ${t("command_unrealized")}: ${commandMoney(unrealized, state.currency)}` };
+  }
+  return { title: t("command_query"), body: total > 0 ? commandMoney(total, state.currency) : t("command_no_data") };
+}
+
+async function prepareSmartCommand(parsed) {
+  const asset = commandAssetFromParsed(parsed);
+  if (["BUY", "SELL", "SWAP", "ADD_BALANCE", "REMOVE_BALANCE", "CREATE_ALERT", "OPEN_ASSET", "ADD_FAVORITE", "REMOVE_FAVORITE"].includes(parsed.intent) && !asset) throw new Error(t("command_no_asset"));
+  if (parsed.intent === "CHANGE_BASE_CURRENCY") return { parsed, asset, kind: "currency", title: t("command_currency"), result: parsed.baseCurrency === "TRY" ? "TL" : parsed.baseCurrency };
+  if (parsed.intent === "PORTFOLIO_QUERY") return { parsed, asset, kind: "query", title: t("command_query"), result: commandQueryResult(parsed, asset) };
+  if (parsed.intent === "OPEN_ASSET" || parsed.intent === "ADD_FAVORITE" || parsed.intent === "REMOVE_FAVORITE") return { parsed, asset, kind: "simple", title: parsed.intent === "OPEN_ASSET" ? t("command_open") : t("command_favorite") };
+
+  const quote = await commandQuote(asset);
+  if (!quote) throw new Error(t("command_needs_price"));
+  const appCurrency = state.currency === "TL" ? "TRY" : "USD";
+  const tradeCurrency = parsed.currency || appCurrency;
+  if (tradeCurrency !== quote.nativeCurrency && !(usdTry > 0)) await loadUsdTry();
+  const livePrice = commandPriceInCurrency(quote, tradeCurrency);
+  if (!(livePrice > 0)) throw new Error(t("command_needs_price"));
+  if (parsed.intent === "CREATE_ALERT") return {
+    parsed, asset, kind: "alert", quote, title: t("command_alert"), alertCurrency: tradeCurrency,
+    alertPrice: parsed.price, referencePrice: quote.appPrice, referenceCurrency: appCurrency,
+  };
+  if (parsed.intent === "SWAP") {
+    const target = commandAssetCatalog().find((item) => item.key === parsed.targetAssetKey) || commandAssetCatalog().find((item) => String(item.sym).toUpperCase() === parsed.targetAsset);
+    if (!target) throw new Error(t("command_no_asset"));
+    const targetQuote = await commandQuote(target);
+    if (!targetQuote) throw new Error(t("command_needs_price"));
+    const amount = parsed.amount;
+    if (!(amount > 0)) throw new Error(t("command_no_action"));
+    const sourceAppPrice = quote.appPrice, targetAppPrice = targetQuote.appPrice;
+    const targetAmount = amount * sourceAppPrice / targetAppPrice;
+    return { parsed, asset, target, quote, targetQuote, kind: "trade", title: t("command_swap"), amount, quantity: amount, targetAmount, tradePrice: sourceAppPrice, tradeCurrency: appCurrency, total: amount * sourceAppPrice, totalApp: amount * sourceAppPrice, occurredAt: commandOccurredAt(parsed.date) };
+  }
+  const tradePrice = parsed.price != null ? parsed.price : livePrice;
+  const quantity = parsed.amount != null ? parsed.amount : (parsed.fiatAmount != null ? parsed.fiatAmount / tradePrice : 0);
+  if (!(quantity > 0) || !(tradePrice > 0)) throw new Error(t("command_no_action"));
+  const priceApp = convertCommandCurrency(tradePrice, tradeCurrency, appCurrency);
+  if (!(priceApp > 0)) throw new Error(t("command_needs_price"));
+  return { parsed, asset, quote, kind: "trade", title: ["BUY", "ADD_BALANCE"].includes(parsed.intent) ? t("command_buy") : t("command_sell"), quantity, amount: quantity, tradePrice, tradeCurrency, priceApp, currentPriceApp: quote.appPrice, total: quantity * tradePrice, totalApp: quantity * priceApp, occurredAt: commandOccurredAt(parsed.date) };
+}
+
+function commandIntentTitle(draft) {
+  if (!draft) return "";
+  if (draft.kind === "trade") return draft.title;
+  if (draft.kind === "alert") return draft.title;
+  return draft.title;
+}
+
+function renderSmartCommandPreview(draft) {
+  if (!el.smartCommandPreview || !draft) return;
+  const p = draft.parsed, assetName = commandAssetLabel(draft.asset);
+  const rows = [];
+  if (draft.asset) rows.push([t("command_asset"), assetName]);
+  if (draft.kind === "trade") {
+    rows.push([t("command_quantity"), `${commandQuantity(draft.quantity)} ${draft.asset.sym}`]);
+    rows.push([t("command_price"), commandMoney(draft.tradePrice, draft.tradeCurrency)]);
+    rows.push([t("command_total"), commandMoney(draft.total, draft.tradeCurrency)]);
+    if (draft.parsed.date) rows.push([t("command_date"), draft.parsed.date]);
+    if (draft.target) rows.push([t("command_asset"), `${t("command_asset")} → ${commandAssetLabel(draft.target)} · ${commandQuantity(draft.targetAmount)} ${draft.target.sym}`]);
+  } else if (draft.kind === "alert") {
+    rows.push([t("command_condition"), draft.parsed.percentage != null ? `${draft.parsed.percentage}${draft.parsed.condition === "PERCENT_DOWN" ? t("command_percent_down") : t("command_percent_up")}` : `${commandMoney(draft.alertPrice, draft.alertCurrency)} ${draft.parsed.condition === "BELOW" ? t("command_below") : t("command_above")}`]);
+    if (draft.parsed.percentage == null) rows.push([t("command_price"), commandMoney(draft.alertPrice, draft.alertCurrency)]);
+    else rows.push([t("command_current_price"), commandMoney(draft.referencePrice, draft.referenceCurrency)]);
+  } else if (draft.kind === "currency") rows.push([t("currency"), draft.result]);
+  else if (draft.kind === "query") rows.push([draft.result.title, draft.result.body]);
+  const detailHtml = rows.map(([label, value]) => `<div class="smart-command-detail"><dt>${escapeHtml(label)}</dt><dd title="${escapeHtml(value)}">${escapeHtml(value)}</dd></div>`).join("");
+  el.smartCommandPreview.innerHTML = `<div class="smart-command-preview-head"><div><div class="smart-command-preview-kicker">${escapeHtml(t("command_detected"))}</div><div class="smart-command-preview-title">${escapeHtml(commandIntentTitle(draft))}</div></div><span class="smart-command-confidence">${Math.round(p.confidence * 100)}%</span></div><dl class="smart-command-details">${detailHtml}</dl><div class="smart-command-actions"><button type="button" class="is-primary" data-command-confirm>${escapeHtml(draft.kind === "query" || draft.kind === "simple" ? t("command_confirm") : t("command_confirm"))}</button><button type="button" data-command-edit>${escapeHtml(t("command_edit"))}</button><button type="button" data-command-cancel>${escapeHtml(t("command_cancel"))}</button></div>`;
+  el.smartCommandPreview.hidden = false;
+  el.smartCommandPreview.querySelector("[data-command-confirm]").addEventListener("click", executeSmartCommand);
+  el.smartCommandPreview.querySelector("[data-command-edit]").addEventListener("click", () => { el.smartCommandInput.focus(); el.smartCommandInput.select(); });
+  el.smartCommandPreview.querySelector("[data-command-cancel]").addEventListener("click", clearSmartCommand);
+}
+
+function renderSmartCommandMessage(message, isError = false) {
+  if (!el.smartCommandStatus) return;
+  el.smartCommandStatus.textContent = message || "";
+  el.smartCommandStatus.classList.toggle("is-error", !!isError);
+  el.smartCommandStatus.classList.toggle("is-success", !isError && !!message);
+}
+
+function renderSmartCommandSuggestions() {
+  if (!el.smartCommandPreview) return;
+  el.smartCommandPreview.innerHTML = `<div class="smart-command-preview-head"><div><div class="smart-command-preview-kicker">${escapeHtml(t("command_detected"))}</div><div class="smart-command-preview-title">${escapeHtml(t("command_no_action"))}</div></div></div><div class="smart-command-suggestions"><button type="button" data-command-suggest="buy">${escapeHtml(t("command_suggestion_buy"))}</button><button type="button" data-command-suggest="sell">${escapeHtml(t("command_suggestion_sell"))}</button><button type="button" data-command-suggest="cancel">${escapeHtml(t("command_suggestion_cancel"))}</button></div>`;
+  el.smartCommandPreview.hidden = false;
+  el.smartCommandPreview.querySelector('[data-command-suggest="buy"]').addEventListener("click", () => { el.smartCommandInput.value = `${el.smartCommandInput.value} aldım`; el.smartCommandForm.requestSubmit(); });
+  el.smartCommandPreview.querySelector('[data-command-suggest="sell"]').addEventListener("click", () => { el.smartCommandInput.value = `${el.smartCommandInput.value} sattım`; el.smartCommandForm.requestSubmit(); });
+  el.smartCommandPreview.querySelector('[data-command-suggest="cancel"]').addEventListener("click", clearSmartCommand);
+}
+
+function renderSmartCommandAmbiguity(parsed) {
+  if (!el.smartCommandPreview) return;
+  const choices = (parsed.ambiguity || []).slice(0, 6);
+  el.smartCommandPreview.innerHTML = `<div class="smart-command-preview-head"><div><div class="smart-command-preview-kicker">${escapeHtml(t("command_detected"))}</div><div class="smart-command-preview-title">${escapeHtml(t("command_ambiguous"))}</div></div></div><div class="smart-command-suggestions">${choices.map((choice, index) => `<button type="button" data-command-ambiguity="${index}">${escapeHtml(choice.name)} · ${escapeHtml(String(choice.sym || "").toUpperCase())}</button>`).join("")}</div>`;
+  el.smartCommandPreview.hidden = false;
+  el.smartCommandPreview.querySelectorAll("[data-command-ambiguity]").forEach((button) => button.addEventListener("click", () => {
+    const choice = choices[Number(button.dataset.commandAmbiguity)];
+    if (!choice) return;
+    const withoutSymbol = el.smartCommandInput.value.replace(new RegExp(String(parsed.asset).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), "").trim();
+    el.smartCommandInput.value = `${withoutSymbol} ${choice.name}`.trim();
+    el.smartCommandForm.requestSubmit();
+  }));
+}
+
+function clearSmartCommand() {
+  smartCommandDraft = null;
+  if (el.smartCommandPreview) { el.smartCommandPreview.hidden = true; el.smartCommandPreview.innerHTML = ""; }
+  renderSmartCommandMessage("");
+}
+
+async function parseSmartCommand() {
+  const text = el.smartCommandInput && el.smartCommandInput.value.trim();
+  if (!text) return;
+  const request = ++smartCommandRequest;
+  el.smartCommandSend.disabled = true;
+  renderSmartCommandMessage(t("command_understood"));
+  let parsed = NumBrrrCommandParser.parseCommand(text, { assets: commandAssetCatalog() });
+  // Crypto prices are loaded in the background. If a user types a command
+  // before that finishes, give the live catalog one bounded chance to catch up.
+  if (!parsed.asset && (parsed.intent !== "UNKNOWN" || /\d|%/.test(text))) {
+    await Promise.race([loadCryptoMarkets(), new Promise((resolve) => setTimeout(resolve, 4500))]);
+    parsed = NumBrrrCommandParser.parseCommand(text, { assets: commandAssetCatalog() });
+  }
+  if (request !== smartCommandRequest) return;
+  el.smartCommandSend.disabled = false;
+  if (parsed.intent === "UNKNOWN" && parsed.asset && (parsed.amount != null || /\d/.test(parsed.originalText))) {
+    smartCommandDraft = null;
+    renderSmartCommandMessage(t("command_low_confidence"), true);
+    renderSmartCommandSuggestions();
+    return;
+  }
+  if (parsed.ambiguity && parsed.ambiguity.length > 1) {
+    smartCommandDraft = null;
+    renderSmartCommandMessage(t("command_ambiguous"), true);
+    renderSmartCommandAmbiguity(parsed);
+    return;
+  }
+  if (parsed.confidence < 0.7 || parsed.missing.length) {
+    smartCommandDraft = null;
+    renderSmartCommandMessage(parsed.missing.includes("asset") ? t("command_no_asset") : t("command_low_confidence"), true);
+    if (parsed.asset && parsed.missing.includes("amount")) renderSmartCommandSuggestions();
+    else if (el.smartCommandPreview) el.smartCommandPreview.hidden = true;
+    return;
+  }
+  try {
+    smartCommandDraft = await prepareSmartCommand(parsed);
+    if (request !== smartCommandRequest) return;
+    renderSmartCommandPreview(smartCommandDraft);
+    renderSmartCommandMessage(t("command_understood"));
+  } catch (error) {
+    smartCommandDraft = null;
+    renderSmartCommandMessage(error.message || t("command_low_confidence"), true);
+    if (el.smartCommandPreview) el.smartCommandPreview.hidden = true;
+  } finally {
+    if (request === smartCommandRequest) el.smartCommandSend.disabled = false;
+  }
+}
+
+function commandHoldingUnits(asset, holding) {
+  if (!holding) return 0;
+  if (asset && asset.type === "goldoz") return (holding.grams || 0) / GRAMS_PER_OZ;
+  return commandTradeQuantity(holding);
+}
+
+function createCommandHolding(asset) {
+  const id = "h" + ++state.portfolio.seq;
+  const holding = { id, label: asset.name || asset.sym, value: 0, assetType: asset.type === "fiat" ? "usd" : asset.type };
+  if (asset.type === "crypto") { holding.coinId = asset.key; holding.coinName = asset.name; holding.coinSymbol = asset.sym; }
+  if (asset.type === "usstock" || asset.type === "bist") { holding.symbol = asset.key; holding.stockName = asset.name; }
+  state.portfolio.holdings.push(holding);
+  return holding;
+}
+
+function updateCommandHolding(asset, holding, units, quote) {
+  if (asset.type === "crypto") { holding.qty = units; holding.price = quote.appPrice; holding.value = units * quote.appPrice; holding.chg24 = quote.chg24; }
+  else if (asset.type === "usstock" || asset.type === "bist") { holding.shares = units; holding.nativePrice = quote.nativePrice; holding.value = stockValue(holding); holding.chg24 = quote.chg24; }
+  else if (asset.type === "gold" || asset.type === "goldoz") { holding.grams = asset.type === "goldoz" ? units * GRAMS_PER_OZ : units; holding.price = goldPriceGram || quote.appPrice; holding.value = units * quote.appPrice; holding.chg24 = goldChg24; }
+  else if (asset.type === "fiat") { holding.usd = units; holding.value = usdHoldingValue(units); holding.chg24 = state.currency === "TL" ? usdTryChg24 : 0; }
+  else { holding.value = units * quote.appPrice; }
+  holding.label = holding.label || asset.name || asset.sym;
+}
+
+function updateCommandCostBasis(holding, direction, units, totalApp, oldUnits = commandTradeQuantity(holding)) {
+  const previousUnits = Math.max(0, oldUnits);
+  const oldCost = Math.max(0, holding.costBasisApp || 0);
+  if (direction === "in") {
+    holding.costBasisApp = oldCost + totalApp;
+    holding.avgCostApp = (oldCost + totalApp) / Math.max(0.00000001, previousUnits + units);
+  } else {
+    const average = previousUnits > 0 ? oldCost / previousUnits : 0;
+    holding.costBasisApp = Math.max(0, oldCost - average * units);
+    holding.avgCostApp = previousUnits - units > 0 ? holding.costBasisApp / (previousUnits - units) : 0;
+  }
+}
+
+function applyCommandHoldingDelta(asset, delta, quote, totalApp, direction) {
+  let holding = commandHoldingForAsset(asset);
+  if (!holding) {
+    if (delta < 0) throw new Error(t("command_no_holding"));
+    holding = createCommandHolding(asset);
+  }
+  const current = commandHoldingUnits(asset, holding);
+  if (delta < 0 && current + delta < -0.00000001) throw new Error(t("command_insufficient"));
+  const next = Math.max(0, current + delta);
+  updateCommandHolding(asset, holding, next, quote);
+  updateCommandCostBasis(holding, direction, Math.abs(delta), Math.abs(totalApp), current);
+  return holding;
+}
+
+function recordCommandTransaction(transaction) {
+  state.portfolio.transactions.push({
+    id: "tx" + ++state.portfolio.txSeq,
+    source: "manual-command",
+    note: "",
+    fee: { amount: 0, currency: transaction.quoteCurrency },
+    appCurrency: state.currency === "TL" ? "TRY" : "USD",
+    ...transaction,
+  });
+  if (state.portfolio.transactions.length > 1000) state.portfolio.transactions.splice(0, state.portfolio.transactions.length - 1000);
+}
+
+function commandAlertConditionLabel(alert) {
+  if (alert.condition === "percent_up") return `${alert.percentage}%${t("command_percent_up")}`;
+  if (alert.condition === "percent_down") return `${alert.percentage}%${t("command_percent_down")}`;
+  return alert.condition === "below" ? t("alert_below") : t("alert_above");
+}
+
+function addSmartCommandAlert(draft) {
+  const alertCurrency = draft.alertCurrency === "TRY" ? "TRY" : "USD";
+  const currentReference = convertCommandCurrency(draft.referencePrice, draft.referenceCurrency, alertCurrency);
+  state.notifications.priceAlerts.push({
+    id: "pa" + ++state.notifications.seq,
+    type: draft.asset.type, key: draft.asset.key, name: draft.asset.name, sym: draft.asset.sym || "",
+    condition: draft.parsed.percentage != null ? (draft.parsed.condition === "PERCENT_DOWN" ? "percent_down" : "percent_up") : (draft.parsed.condition === "BELOW" ? "below" : "above"),
+    target: draft.alertPrice || 0, percentage: draft.parsed.percentage, referencePrice: currentReference,
+    ccy: alertCurrency, triggered: false,
+  });
+  saveState(); renderNotificationSettings(); refreshWatchData();
+}
+
+function navigateToCommandAsset(asset) {
+  if (!asset) return;
+  openTradingView({ type: asset.type, key: asset.key, sym: asset.sym, name: asset.name });
+}
+
+function finishSmartCommand(message) {
+  smartCommandDraft = null;
+  if (el.smartCommandPreview) { el.smartCommandPreview.hidden = true; el.smartCommandPreview.innerHTML = ""; }
+  if (el.smartCommandInput) el.smartCommandInput.value = "";
+  renderSmartCommandMessage(message || t("command_applied"));
+}
+
+function executeSmartCommand() {
+  const draft = smartCommandDraft;
+  if (!draft) return;
+  try {
+    if (draft.kind === "trade") {
+      if (draft.parsed.intent === "SWAP") {
+        const sourceUnits = commandHoldingUnits(draft.asset, commandHoldingForAsset(draft.asset));
+        if (sourceUnits < draft.quantity) throw new Error(t("command_insufficient"));
+        applyCommandHoldingDelta(draft.asset, -draft.quantity, draft.quote, draft.totalApp, "out");
+        const targetTotalApp = draft.targetAmount * draft.targetQuote.appPrice;
+        applyCommandHoldingDelta(draft.target, draft.targetAmount, draft.targetQuote, targetTotalApp, "in");
+        recordCommandTransaction({
+          type: "SWAP", assetKey: draft.asset.key, asset: draft.asset.sym, targetAssetKey: draft.target.key, targetAsset: draft.target.sym,
+          amount: draft.quantity, price: draft.tradePrice, priceApp: draft.tradePrice, total: draft.total, totalApp: draft.totalApp,
+          quoteCurrency: draft.tradeCurrency, occurredAt: draft.occurredAt,
+          legs: [
+            { assetKey: draft.asset.key, asset: draft.asset.sym, direction: "out", amount: draft.quantity, totalApp: draft.totalApp },
+            { assetKey: draft.target.key, asset: draft.target.sym, direction: "in", amount: draft.targetAmount, totalApp: targetTotalApp },
+          ],
+        });
+      } else {
+        const direction = ["BUY", "ADD_BALANCE"].includes(draft.parsed.intent) ? "in" : "out";
+        applyCommandHoldingDelta(draft.asset, direction === "in" ? draft.quantity : -draft.quantity, draft.quote, draft.totalApp, direction);
+        recordCommandTransaction({
+          type: direction === "in" ? "BUY" : "SELL", operation: draft.parsed.intent, assetKey: draft.asset.key, asset: draft.asset.sym, amount: draft.quantity,
+          price: draft.tradePrice, priceApp: draft.priceApp, total: draft.total, totalApp: draft.totalApp,
+          quoteCurrency: draft.tradeCurrency, occurredAt: draft.occurredAt,
+        });
+      }
+      saveState(); buildPortfolio(); refreshPortfolio(); refreshIncome(); renderHomeSummaries();
+      refreshCryptoPrices();
+      sfx("success"); finishSmartCommand(t("command_applied"));
+      return;
+    }
+    if (draft.kind === "alert") { addSmartCommandAlert(draft); sfx("success"); finishSmartCommand(t("alert_added")); return; }
+    if (draft.kind === "currency") {
+      if (draft.result === "EUR") throw new Error(t("command_eur_unsupported"));
+      setCurrency(draft.result === "TL" ? "TL" : "USD");
+      finishSmartCommand(t("command_applied"));
+      return;
+    }
+    if (draft.kind === "simple") {
+      if (draft.parsed.intent === "OPEN_ASSET") navigateToCommandAsset(draft.asset);
+      else if (draft.parsed.intent === "ADD_FAVORITE") addWatch(draft.asset);
+      else if (draft.parsed.intent === "REMOVE_FAVORITE") removeWatch(draft.asset.type, draft.asset.key);
+      finishSmartCommand(t("command_applied"));
+      return;
+    }
+    if (draft.kind === "query") { renderSmartCommandMessage(`${draft.result.title}: ${draft.result.body}`); if (el.smartCommandPreview) el.smartCommandPreview.hidden = true; smartCommandDraft = null; return; }
+  } catch (error) {
+    renderSmartCommandMessage(error.message || t("command_low_confidence"), true);
+  }
+}
+
+function wireSmartCommand() {
+  if (!el.smartCommandForm || !el.smartCommandInput) return;
+  el.smartCommandForm.addEventListener("submit", (event) => { event.preventDefault(); parseSmartCommand(); });
+  document.querySelectorAll("[data-command-example]").forEach((button) => button.addEventListener("click", () => {
+    el.smartCommandInput.value = button.dataset.commandExample || "";
+    el.smartCommandInput.focus();
+    parseSmartCommand();
+  }));
+  el.smartCommandInput.addEventListener("keydown", (event) => { if (event.key === "Escape") clearSmartCommand(); });
 }
 // ---- Crypto bubbles: floating, draggable physics field ----
 // One circle per watched asset, sized by 24h-move magnitude, colored by direction.
@@ -4626,6 +5149,7 @@ function monitoredPriceItems() {
 async function refreshWatchData() {
   const monitored = monitoredPriceItems();
   if (!monitored.length) { renderHomeSummaries(); return; }
+  if (monitored.some((w) => w.type === "fiat")) await loadUsdTry();
   const vs = state.currency === "TL" ? "try" : "usd";
   const ids = [...new Set(monitored.filter((w) => w.type === "crypto").map((w) => w.key))];
   if (monitored.some((w) => w.type === "gold" || w.type === "goldoz")) ids.push("pax-gold");
@@ -5023,8 +5547,34 @@ function updateSettingsActive() {
   document.querySelectorAll(".opt-theme").forEach((b) => b.classList.toggle("is-active", b.dataset.themePick === state.theme));
 }
 
+function rebasePortfolioCommandCosts(fromCurrency, toCurrency) {
+  const from = fromCurrency === "TL" ? "TRY" : "USD";
+  const to = toCurrency === "TL" ? "TRY" : "USD";
+  if (from === to || !(usdTry > 0)) return;
+  state.portfolio.holdings.forEach((holding) => {
+    const cost = convertCommandCurrency(holding.costBasisApp, from, to);
+    const average = convertCommandCurrency(holding.avgCostApp, from, to);
+    if (cost != null) holding.costBasisApp = cost;
+    if (average != null) holding.avgCostApp = average;
+  });
+  (state.portfolio.transactions || []).forEach((transaction) => {
+    if (transaction.appCurrency !== from) return;
+    const total = convertCommandCurrency(transaction.totalApp, from, to);
+    const price = convertCommandCurrency(transaction.priceApp, from, to);
+    if (total != null) transaction.totalApp = total;
+    if (price != null) transaction.priceApp = price;
+    transaction.appCurrency = to;
+    (transaction.legs || []).forEach((leg) => {
+      const legTotal = convertCommandCurrency(leg.totalApp, from, to);
+      if (legTotal != null) leg.totalApp = legTotal;
+    });
+  });
+}
+
 function setCurrency(cur) {
   if (cur === state.currency || !CURRENCY_META[cur]) return;
+  const previousCurrency = state.currency;
+  rebasePortfolioCommandCosts(previousCurrency, cur);
   state.currency = cur;
   if (el.savingsGoalCurrency) el.savingsGoalCurrency.value = cur;
   el.inflation.value = formatRate(state.inflation[cur], false);
@@ -5481,10 +6031,32 @@ function loadState() {
   }
   if (s.portfolio && typeof s.portfolio === "object") {
     const holdings = Array.isArray(s.portfolio.holdings) ? s.portfolio.holdings.filter((h) => h && typeof h.id === "string") : [];
+    const transactions = Array.isArray(s.portfolio.transactions) ? s.portfolio.transactions.map((tx) => ({
+      id: typeof tx.id === "string" ? tx.id.slice(0, 80) : "",
+      type: ["BUY", "SELL", "SWAP"].includes(tx.type) ? tx.type : "BUY",
+      assetKey: typeof tx.assetKey === "string" ? tx.assetKey.slice(0, 120) : "",
+      asset: typeof tx.asset === "string" ? tx.asset.slice(0, 30) : "",
+      targetAssetKey: typeof tx.targetAssetKey === "string" ? tx.targetAssetKey.slice(0, 120) : "",
+      targetAsset: typeof tx.targetAsset === "string" ? tx.targetAsset.slice(0, 30) : "",
+      amount: Number.isFinite(tx.amount) ? Math.max(0, tx.amount) : 0,
+      price: Number.isFinite(tx.price) ? Math.max(0, tx.price) : 0,
+      priceApp: Number.isFinite(tx.priceApp) ? Math.max(0, tx.priceApp) : 0,
+      total: Number.isFinite(tx.total) ? Math.max(0, tx.total) : 0,
+      totalApp: Number.isFinite(tx.totalApp) ? Math.max(0, tx.totalApp) : 0,
+      quoteCurrency: typeof tx.quoteCurrency === "string" ? tx.quoteCurrency.slice(0, 8) : "USD",
+      appCurrency: tx.appCurrency === "TRY" ? "TRY" : "USD",
+      occurredAt: typeof tx.occurredAt === "string" ? tx.occurredAt.slice(0, 40) : new Date().toISOString(),
+      source: tx.source === "manual-command" ? "manual-command" : "manual",
+      note: typeof tx.note === "string" ? tx.note.slice(0, 240) : "",
+      fee: tx.fee && typeof tx.fee === "object" ? { amount: Number.isFinite(tx.fee.amount) ? Math.max(0, tx.fee.amount) : 0, currency: typeof tx.fee.currency === "string" ? tx.fee.currency.slice(0, 8) : "USD" } : { amount: 0, currency: "USD" },
+      legs: Array.isArray(tx.legs) ? tx.legs.slice(0, 4).map((leg) => ({ assetKey: typeof leg.assetKey === "string" ? leg.assetKey.slice(0, 120) : "", asset: typeof leg.asset === "string" ? leg.asset.slice(0, 30) : "", direction: leg.direction === "out" ? "out" : "in", amount: Number.isFinite(leg.amount) ? Math.max(0, leg.amount) : 0, totalApp: Number.isFinite(leg.totalApp) ? Math.max(0, leg.totalApp) : 0 })) : undefined,
+    })).filter((tx) => tx.id && tx.assetKey).slice(-1000) : [];
     state.portfolio = {
       holdings,
       seq: Number.isFinite(s.portfolio.seq) ? s.portfolio.seq : holdings.length,
       target: s.portfolio.target && typeof s.portfolio.target === "object" ? s.portfolio.target : { USD: [SAVINGS_DEFAULT_INVEST.USD], TL: [SAVINGS_DEFAULT_INVEST.TL] },
+      transactions,
+      txSeq: Math.max(Number.isFinite(s.portfolio.txSeq) ? s.portfolio.txSeq : 0, transactions.reduce((max, tx) => Math.max(max, Number((/^tx(\d+)$/.exec(tx.id) || [])[1]) || 0), 0)),
     };
   }
   if (s.netWorth && typeof s.netWorth === "object") {
@@ -5506,9 +6078,10 @@ function loadState() {
   if (Array.isArray(s.watchlist)) state.watchlist = s.watchlist.filter((w) => w && typeof w.type === "string" && typeof w.key === "string");
   if (s.notifications && typeof s.notifications === "object") {
     const n = s.notifications;
-    const alerts = Array.isArray(n.priceAlerts) ? n.priceAlerts.filter((a) => a && typeof a.id === "string" && typeof a.type === "string" && typeof a.key === "string" && Number.isFinite(a.target) && a.target > 0).slice(0, 100).map((a) => ({
+    const alerts = Array.isArray(n.priceAlerts) ? n.priceAlerts.filter((a) => a && typeof a.id === "string" && typeof a.type === "string" && typeof a.key === "string" && ((Number.isFinite(a.target) && a.target > 0) || (Number.isFinite(a.percentage) && a.percentage > 0))).slice(0, 100).map((a) => ({
       id: a.id, type: a.type, key: a.key, name: typeof a.name === "string" ? a.name : "", sym: typeof a.sym === "string" ? a.sym : "",
-      condition: a.condition === "below" ? "below" : "above", target: a.target,
+      condition: ["percent_up", "percent_down"].includes(a.condition) ? a.condition : a.condition === "below" ? "below" : "above", target: Number.isFinite(a.target) ? a.target : 0,
+      percentage: Number.isFinite(a.percentage) ? a.percentage : undefined, referencePrice: Number.isFinite(a.referencePrice) ? a.referencePrice : 0,
       ccy: a.ccy === "TRY" ? "TRY" : "USD", triggered: !!a.triggered,
     })) : [];
     const sent = {};
@@ -5625,6 +6198,7 @@ else { try { if (!localStorage.getItem("numbr_guide_seen")) showGuide(); } catch
 wireWatchSearch();
 wirePriceAlertSearch();
 wireHomeDashboard();
+wireSmartCommand();
 
 let startupBackgroundStarted = false;
 function loadAppFonts() {

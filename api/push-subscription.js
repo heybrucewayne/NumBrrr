@@ -49,17 +49,19 @@ function sanitizeBody(body) {
   const clientId = cleanClientId(body.clientId);
   const subscription = sanitizeSubscription(body.subscription);
   if (!clientId || !subscription) return null;
-  const supportedTypes = new Set(["crypto", "gold", "goldoz", "usstock", "bist"]);
+  const supportedTypes = new Set(["crypto", "gold", "goldoz", "usstock", "bist", "fiat"]);
   const priceAlerts = (Array.isArray(body.priceAlerts) ? body.priceAlerts : []).slice(0, 100).map((alert) => ({
     id: cleanText(alert && alert.id, 80),
     type: cleanText(alert && alert.type, 20),
     key: cleanText(alert && alert.key, 120),
     name: cleanText(alert && alert.name, 120),
     sym: cleanText(alert && alert.sym, 30),
-    condition: alert && alert.condition === "below" ? "below" : "above",
+    condition: alert && ["below", "percent_up", "percent_down"].includes(alert.condition) ? alert.condition : "above",
     target: Number(alert && alert.target),
+    percentage: Number(alert && alert.percentage),
+    referencePrice: Number(alert && alert.referencePrice),
     ccy: alert && alert.ccy === "TRY" ? "TRY" : "USD",
-  })).filter((alert) => alert.id && supportedTypes.has(alert.type) && alert.key && Number.isFinite(alert.target) && alert.target > 0);
+  })).filter((alert) => alert.id && supportedTypes.has(alert.type) && alert.key && ((Number.isFinite(alert.target) && alert.target > 0) || (["percent_up", "percent_down"].includes(alert.condition) && Number.isFinite(alert.percentage) && alert.percentage > 0 && Number.isFinite(alert.referencePrice) && alert.referencePrice > 0)));
   const vehicles = (Array.isArray(body.vehicles) ? body.vehicles : []).slice(0, 30).map((vehicle) => ({
     id: cleanText(vehicle && vehicle.id, 80),
     plate: cleanText(vehicle && vehicle.plate, 80),

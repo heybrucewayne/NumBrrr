@@ -35,13 +35,13 @@ function formatPrice(value, ccy, lang) {
 function messages(lang) {
   if (lang === "tr") return {
     priceTitle: "Fiyat alarmı",
-    priceBody: (name, price, target, condition) => `${name} şu anda ${price} (${target} ${condition === "below" ? "altına düştü" : "üzerine çıktı"}).`,
+    priceBody: (name, price, target, condition) => `${name} şu anda ${price} (${target} ${condition === "below" ? "altına düştü" : condition === "percent_down" ? "düştü" : condition === "percent_up" ? "yükseldi" : "üzerine çıktı"}).`,
     vehicleTitle: "Araç hatırlatması",
     vehicleBody: (vehicle, label, days) => `${vehicle}: ${label} ${days < 0 ? `${Math.abs(days)} gün gecikti` : days === 0 ? "bugün yapılmalı" : `${days} gün içinde yapılmalı`}.`,
   };
   return {
     priceTitle: "Price alert",
-    priceBody: (name, price, target, condition) => `${name} is now ${price} (${condition === "below" ? "below" : "above"} ${target}).`,
+    priceBody: (name, price, target, condition) => `${name} is now ${price} (${condition === "below" ? "below" : condition === "percent_down" ? "down" : condition === "percent_up" ? "up" : "above"} ${target}).`,
     vehicleTitle: "Vehicle reminder",
     vehicleBody: (vehicle, label, days) => `${vehicle}: ${label} ${days < 0 ? `is ${Math.abs(days)} days overdue` : days === 0 ? "is due today" : `is due in ${days} days`}.`,
   };
@@ -106,13 +106,18 @@ async function loadAlertPrices(alerts) {
     const symbol = alert.type === "bist" ? `${alert.key}.IS` : alert.key;
     return [symbol, { symbol, nativeCcy: alert.type === "bist" ? "TRY" : "USD" }];
   })).values()];
-  const needsFx = alerts.some((alert) => (alert.type === "usstock" && alert.ccy === "TRY") || (alert.type === "bist" && alert.ccy === "USD"));
+  const needsFx = alerts.some((alert) => alert.type === "fiat" || (alert.type === "usstock" && alert.ccy === "TRY") || (alert.type === "bist" && alert.ccy === "USD"));
   const [stockValues, usdTry] = await Promise.all([
     mapLimit(stockJobs, 6, async (job) => ({ ...job, price: await yahooPrice(job.symbol) })),
     needsFx ? yahooPrice("TRY=X") : Promise.resolve(null),
   ]);
   const stockMap = new Map(stockValues.filter((item) => Number.isFinite(item.price)).map((item) => [item.symbol, item]));
   alerts.forEach((alert) => {
+    if (alert.type === "fiat") {
+      if (!Number.isFinite(usdTry) || usdTry <= 0) return;
+      prices.set(alertPriceKey(alert), alert.key === "usd" ? (alert.ccy === "TRY" ? usdTry : 1) : (alert.ccy === "USD" ? 1 / usdTry : 1));
+      return;
+    }
     if (alert.type !== "usstock" && alert.type !== "bist") return;
     const symbol = alert.type === "bist" ? `${alert.key}.IS` : alert.key;
     const item = stockMap.get(symbol);
@@ -156,11 +161,15 @@ async function runCron(webpush) {
       activeAlertIds.add(alert.id);
       const value = prices.get(alertPriceKey(alert));
       if (!Number.isFinite(value)) return;
-      const hit = alert.condition === "below" ? value <= alert.target : value >= alert.target;
+      const change = alert.referencePrice > 0 ? ((value / alert.referencePrice) - 1) * 100 : 0;
+      const hit = alert.condition === "percent_down" ? change <= -(alert.percentage || 0)
+        : alert.condition === "percent_up" ? change >= (alert.percentage || 0)
+        : alert.condition === "below" ? value <= alert.target : value >= alert.target;
       if (hit && !serverState.price[alert.id]) {
+        const target = alert.condition === "percent_down" || alert.condition === "percent_up" ? `${alert.percentage}%` : formatPrice(alert.target, alert.ccy, record.lang);
         notifications.push({
           title: msg.priceTitle,
-          body: msg.priceBody(alert.name || alert.sym || alert.key, formatPrice(value, alert.ccy, record.lang), formatPrice(alert.target, alert.ccy, record.lang), alert.condition),
+          body: msg.priceBody(alert.name || alert.sym || alert.key, formatPrice(value, alert.ccy, record.lang), target, alert.condition),
           tag: `numbrrr-price-${alert.id}`,
           url: "/?notification=price",
         });

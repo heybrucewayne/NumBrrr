@@ -4659,8 +4659,8 @@ function recordCommandTransaction(transaction) {
 }
 
 function commandAlertConditionLabel(alert) {
-  if (alert.condition === "percent_up") return `${alert.percentage}%${t("command_percent_up")}`;
-  if (alert.condition === "percent_down") return `${alert.percentage}%${t("command_percent_down")}`;
+  if (alert.condition === "percent_up") return `${alert.percentage}${t("command_percent_up")}`;
+  if (alert.condition === "percent_down") return `${alert.percentage}${t("command_percent_down")}`;
   return alert.condition === "below" ? t("alert_below") : t("alert_above");
 }
 

@@ -3651,7 +3651,7 @@ function renderCountdowns() {
   if (!el.countdownList) return;
   const items = [...state.countdowns.items].sort((a, b) => Date.parse(a.target) - Date.parse(b.target));
   if (!items.length) {
-    el.countdownList.innerHTML = `<p class="countdown-empty">${escapeHtml(t("countdown_empty"))}</p>`;
+    el.countdownList.innerHTML = "";
     return;
   }
   const locale = state.lang === "tr" ? "tr-TR" : "en-US";
@@ -3659,11 +3659,15 @@ function renderCountdowns() {
     const remaining = countdownParts(item);
     const target = countdownTargetDate(item);
     const date = target ? target.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" }) : "—";
-    const category = item.category ? `<span class="countdown-category">${escapeHtml(item.category)}</span>` : "";
-    return `<article class="countdown-row${remaining.done ? " is-done" : ""}" data-countdown-id="${escapeHtml(item.id)}">
-      <div class="countdown-main">${category}<strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(t("countdown_target", { date }))}</small></div>
-      <div class="countdown-remaining"><b>${remaining.done ? "✓" : remaining.value}</b><span>${escapeHtml(remaining.label)}</span></div>
-      <div class="countdown-actions"><button type="button" data-countdown-unit="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("countdown_switch_unit"))}">${item.unit === "months" ? t("countdown_days") : t("countdown_months")}</button><button type="button" data-countdown-del="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("countdown_remove"))}">×</button></div>
+    const category = item.category ? item.category : t("countdown_title");
+    return `<article class="glass dashboard-widget dashboard-widget--compact countdown-tile${remaining.done ? " is-done" : ""}" data-countdown-id="${escapeHtml(item.id)}">
+      <div class="countdown-tile-head">
+        <span class="dashboard-widget-icon" aria-hidden="true">⏳</span>
+        <div class="countdown-tile-heading"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(category)}</small></div>
+        <button class="countdown-tile-remove" type="button" data-countdown-del="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("countdown_remove"))}">×</button>
+      </div>
+      <div class="countdown-tile-value"><b>${remaining.done ? "✓" : remaining.value}</b><span>${escapeHtml(remaining.label)}</span></div>
+      <div class="countdown-tile-footer"><small>${escapeHtml(t("countdown_target", { date }))}</small><button type="button" data-countdown-unit="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("countdown_switch_unit"))}">${item.unit === "months" ? t("countdown_days") : t("countdown_months")}</button></div>
     </article>`;
   }).join("");
   el.countdownList.querySelectorAll("[data-countdown-del]").forEach((button) => button.addEventListener("click", () => {
@@ -3693,10 +3697,10 @@ function addCountdown(event) {
   el.countdownCategory.value = "";
   el.countdownDate.value = "";
   saveState(); renderCountdowns();
-  const row = el.countdownList.querySelector(`[data-countdown-id="${id}"]`);
-  if (row && state.motion && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    row.classList.add("is-new");
-    row.addEventListener("animationend", () => row.classList.remove("is-new"), { once: true });
+  const tile = el.countdownList.querySelector(`[data-countdown-id="${id}"]`);
+  if (tile && state.motion && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    tile.classList.add("is-new");
+    tile.addEventListener("animationend", () => tile.classList.remove("is-new"), { once: true });
   }
   showAppToast(t("countdown_added"));
 }

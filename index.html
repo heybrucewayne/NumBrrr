@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=43" />
+  <link rel="stylesheet" href="styles.css?v=44" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -242,20 +242,22 @@
           <div class="home-market-list" id="homeMarketList" aria-live="polite"></div>
         </article>
 
-        <article class="glass dashboard-widget dashboard-widget--countdown" data-home-widget="countdown">
-          <div class="countdown-head">
-            <span class="dashboard-widget-icon" aria-hidden="true">⏳</span>
-            <div><h2 data-i18n="countdown_title">Countdowns</h2></div>
-          </div>
-          <form class="countdown-form" id="countdownForm">
-            <label><span data-i18n="countdown_name">Name</span><input id="countdownName" type="text" maxlength="80" autocomplete="off" /></label>
-            <label><span data-i18n="countdown_category">Category</span><input id="countdownCategory" type="text" maxlength="40" autocomplete="off" /></label>
-            <label><span data-i18n="countdown_date">Target date</span><input id="countdownDate" type="date" required /></label>
-            <label><span data-i18n="countdown_unit">Show as</span><select id="countdownUnit"><option value="days" data-i18n="countdown_days">Days</option><option value="months" data-i18n="countdown_months">Months</option></select></label>
-            <button class="settings-action settings-action--primary" type="submit" data-i18n="countdown_add">Add countdown</button>
-          </form>
-          <div class="countdown-list" id="countdownList" aria-live="polite"></div>
-        </article>
+        <div class="countdown-widget-group" data-home-widget="countdown">
+          <article class="glass dashboard-widget dashboard-widget--countdown">
+            <div class="countdown-head">
+              <span class="dashboard-widget-icon" aria-hidden="true">⏳</span>
+              <div><h2 data-i18n="countdown_title">Countdowns</h2></div>
+            </div>
+            <form class="countdown-form" id="countdownForm">
+              <label><span data-i18n="countdown_name">Name</span><input id="countdownName" type="text" maxlength="80" autocomplete="off" /></label>
+              <label><span data-i18n="countdown_category">Category</span><input id="countdownCategory" type="text" maxlength="40" autocomplete="off" /></label>
+              <label><span data-i18n="countdown_date">Target date</span><input id="countdownDate" type="date" required /></label>
+              <label><span data-i18n="countdown_unit">Show as</span><select id="countdownUnit"><option value="days" data-i18n="countdown_days">Days</option><option value="months" data-i18n="countdown_months">Months</option></select></label>
+              <button class="settings-action settings-action--primary" type="submit" data-i18n="countdown_add">Add countdown</button>
+            </form>
+          </article>
+          <div class="countdown-tiles" id="countdownList" aria-live="polite"></div>
+        </div>
 
         <article class="glass dashboard-widget dashboard-widget--compact" data-home-widget="car">
           <button class="dashboard-widget-open" type="button" data-open-view="car">
@@ -843,7 +845,7 @@
   </div>
 
   <script src="command-parser.js?v=3"></script>
-  <script src="app.js?v=45"></script>
+  <script src="app.js?v=46"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

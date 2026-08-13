@@ -72,6 +72,23 @@ test("navigation, favorites, currency, and portfolio queries are classified", ()
   assert.equal(parse("en çok kazandıran varlığımı göster").query, "TOP_PERFORMER");
 });
 
+test("command help requests are classified without an asset or trade action", () => {
+  ["bütün komutlar", "komutlar", "komut listesi", "hangi komutlar var", "show all commands"].forEach((text) => {
+    const result = parse(text);
+    assert.equal(result.intent, "COMMAND_HELP", text);
+    assert.ok(result.confidence >= 0.7, text);
+    assert.deepEqual(result.missing, [], text);
+  });
+});
+
+test("English command synonyms remain usable", () => {
+  assert.equal(parse("Buy 100 SOL").intent, "BUY");
+  assert.equal(parse("Sell 20 SOL").intent, "SELL");
+  assert.equal(parse("Open SOL chart").intent, "OPEN_ASSET");
+  assert.equal(parse("Add ETH to favorites").intent, "ADD_FAVORITE");
+  assert.equal(parse("Show my portfolio").intent, "PORTFOLIO_QUERY");
+});
+
 test("balance commands remain distinct from asset trades", () => {
   assert.equal(parse("100 USD bakiye ekle").intent, "ADD_BALANCE");
   assert.equal(parse("50 USD bakiyeden çıkar").intent, "REMOVE_BALANCE");

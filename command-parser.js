@@ -12,14 +12,15 @@
   const INTENTS = [
     "BUY", "SELL", "SWAP", "ADD_BALANCE", "REMOVE_BALANCE", "CREATE_ALERT",
     "OPEN_ASSET", "ADD_FAVORITE", "REMOVE_FAVORITE", "CHANGE_BASE_CURRENCY",
-    "PORTFOLIO_QUERY", "UNKNOWN",
+    "PORTFOLIO_QUERY", "COMMAND_HELP", "UNKNOWN",
   ];
 
-  const BUY_WORDS = ["aldim", "satin aldim", "ekledim", "portfoye ekledim", "portfoye attim", "girdim", "topladim", "koydum", "al"];
-  const SELL_WORDS = ["sattim", "bozdum", "cikardim", "elden cikardim", "portfoyden cikardim", "sat"];
-  const SWAP_WORDS = ["cevirdim", "cevir", "degistirdim", "takas", "swap"];
-  const ALERT_WORDS = ["haber ver", "bildir", "uyar", "alarm kur", "alarm"];
-  const OPEN_WORDS = ["ac", "goster", "sayfasina git", "grafik", "grafik ac"];
+  const BUY_WORDS = ["aldim", "satin aldim", "ekledim", "portfoye ekledim", "portfoye attim", "girdim", "topladim", "koydum", "al", "buy", "bought", "purchase", "purchased", "add to portfolio", "added to portfolio"];
+  const SELL_WORDS = ["sattim", "bozdum", "cikardim", "elden cikardim", "portfoyden cikardim", "sat", "sell", "sold", "remove from portfolio"];
+  const SWAP_WORDS = ["cevirdim", "cevir", "degistirdim", "takas", "swap", "convert", "converted"];
+  const ALERT_WORDS = ["haber ver", "bildir", "uyar", "alarm kur", "alarm", "alert me", "notify me"];
+  const OPEN_WORDS = ["ac", "goster", "sayfasina git", "grafik", "grafik ac", "open", "show", "chart"];
+  const HELP_WORDS = ["butun komutlar", "tum komutlar", "komutlar", "komut listesi", "yardim", "help", "neler yapabilirim", "ne yapabilirsin", "hangi komutlar", "all commands", "available commands", "show commands", "what can i do", "what can you do"];
 
   function fold(value) {
     return String(value == null ? "" : value)
@@ -207,19 +208,21 @@
     let price;
     let reason = "";
 
-    if (/(ana para birimi|baz para|temel para|base currency)/.test(source)) {
+    if (includesAny(source, HELP_WORDS)) {
+      intent = "COMMAND_HELP";
+    } else if (/(ana para birimi|baz para|temel para|base currency)/.test(source)) {
       intent = "CHANGE_BASE_CURRENCY";
       reason = "base-currency";
-    } else if (includesAny(source, ["favoriye ekle", "favorilere ekle", "favorim yap", "takibe al"])) {
+    } else if (includesAny(source, ["favoriye ekle", "favorilere ekle", "favorim yap", "takibe al", "add to favorites", "add to favorite", "to favorites", "to favorite"])) {
       intent = "ADD_FAVORITE";
-    } else if (includesAny(source, ["favoriden cikar", "favorilerden kaldir", "favoriyi kaldir", "takipten cikar"])) {
+    } else if (includesAny(source, ["favoriden cikar", "favorilerden kaldir", "favoriyi kaldir", "takipten cikar", "remove from favorites", "remove from favorite", "from favorites", "from favorite"])) {
       intent = "REMOVE_FAVORITE";
-    } else if (includesAny(source, ["ortalama", "maliyetim", "ne kadar kazandim", "bu ay", "yuzde kaci", "en cok kazandiran", "karim", "pnl", "portfoyumun"])) {
+    } else if (includesAny(source, ["ortalama", "maliyetim", "ne kadar kazandim", "bu ay", "yuzde kaci", "en cok kazandiran", "karim", "pnl", "portfoyumun", "average", "how much did i earn", "this month", "what percentage", "top performer", "my portfolio", "show my portfolio"])) {
       intent = "PORTFOLIO_QUERY";
-      if (source.includes("ortalama") || source.includes("maliyet")) query = "AVERAGE_COST";
-      else if (source.includes("bu ay") || source.includes("kazandim") || source.includes("karim") || source.includes("pnl")) query = "PNL";
-      else if (source.includes("yuzde kaci") || source.includes("yuzde")) query = "ALLOCATION";
-      else if (source.includes("en cok kazandiran")) query = "TOP_PERFORMER";
+      if (source.includes("ortalama") || source.includes("maliyet") || source.includes("average")) query = "AVERAGE_COST";
+      else if (source.includes("bu ay") || source.includes("kazandim") || source.includes("karim") || source.includes("pnl") || source.includes("this month") || source.includes("earn")) query = "PNL";
+      else if (source.includes("yuzde kaci") || source.includes("yuzde") || source.includes("percentage")) query = "ALLOCATION";
+      else if (source.includes("en cok kazandiran") || source.includes("top performer")) query = "TOP_PERFORMER";
       else query = "PORTFOLIO_SUMMARY";
     } else if (includesAny(source, ALERT_WORDS)) {
       intent = "CREATE_ALERT";
@@ -278,6 +281,7 @@
     if (intent === "CREATE_ALERT" && (price != null || percentage != null)) confidence += 0.14;
     if (intent === "CHANGE_BASE_CURRENCY" && reason) confidence += 0.18;
     if (intent === "PORTFOLIO_QUERY" && query) confidence += 0.2;
+    if (intent === "COMMAND_HELP") confidence += 0.25;
     if (intent === "OPEN_ASSET" && asset) confidence += 0.12;
     if ((asset && assets.filter((entry) => entry.asset.sym === asset.sym).length > 1) || (asset && assets.length > 1 && assets[0].index === assets[1].index)) confidence -= 0.2;
     confidence = Math.max(0, Math.min(0.99, Math.round(confidence * 100) / 100));

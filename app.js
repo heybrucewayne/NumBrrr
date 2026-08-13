@@ -849,7 +849,6 @@ const el = {
   homePriceAlertCondition: document.getElementById("homePriceAlertCondition"),
   homePriceAlertTarget: document.getElementById("homePriceAlertTarget"),
   homeAddPriceAlert: document.getElementById("homeAddPriceAlert"),
-  homePriceAlertHint: document.getElementById("homePriceAlertHint"),
   homePriceAlertList: document.getElementById("homePriceAlertList"),
   countdownForm: document.getElementById("countdownForm"),
   countdownName: document.getElementById("countdownName"),
@@ -3997,7 +3996,6 @@ function priceAlertForm() {
     condition: el.homePriceAlertCondition,
     target: el.homePriceAlertTarget,
     add: el.homeAddPriceAlert,
-    hint: el.homePriceAlertHint,
     list: el.homePriceAlertList,
   };
 }
@@ -4009,13 +4007,10 @@ function priceAlertSelectionText(asset) {
 function syncPriceAlertSelectionUi() {
   const form = priceAlertForm();
   if (!form.search) return;
-  const selected = selectedPriceAlertAsset;
-  const ready = !!selected;
+  const ready = !!selectedPriceAlertAsset;
   form.target.disabled = !ready;
   form.condition.disabled = !ready;
   form.add.disabled = !ready;
-  if (ready) form.hint.textContent = priceAlertSelectionText(selected);
-  else form.hint.textContent = t(state.notifications.enabled ? "home_alert_ready" : "home_alert_off");
 }
 
 function renderPriceAlertList(container) {

@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=41" />
+  <link rel="stylesheet" href="styles.css?v=42" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -57,7 +57,6 @@
       <header class="home-dashboard-head">
         <div>
           <h1 class="view-title" data-i18n="dashboard_title">Home</h1>
-          <p class="subtagline" data-i18n="dashboard_sub">Everything important, at a glance.</p>
         </div>
         <button class="dashboard-edit" id="editHome" type="button" data-i18n="dashboard_edit">Edit widgets</button>
       </header>
@@ -213,7 +212,7 @@
         <article class="glass dashboard-widget dashboard-widget--metric" data-home-widget="monthly" aria-labelledby="monthlySummaryTitle">
           <div class="home-card-head">
             <span class="dashboard-widget-icon" aria-hidden="true">📊</span>
-            <div><h2 id="monthlySummaryTitle" data-i18n="monthly_summary_title">This month</h2><p data-i18n="monthly_summary_sub">Income, spending and savings at a glance.</p></div>
+            <div><h2 id="monthlySummaryTitle" data-i18n="monthly_summary_title">This month</h2></div>
           </div>
           <div class="monthly-summary-grid">
             <div><span data-i18n="monthly_income">Income</span><strong id="homeMonthlyIncome">—</strong></div>
@@ -227,18 +226,18 @@
         <article class="glass dashboard-widget dashboard-widget--metric" data-home-widget="health" aria-labelledby="healthScoreTitle">
           <div class="home-card-head">
             <span class="dashboard-widget-icon" aria-hidden="true">❤️</span>
-            <div><h2 id="healthScoreTitle" data-i18n="health_title">Financial health</h2><p data-i18n="health_sub">A score based on your current data.</p></div>
+            <div><h2 id="healthScoreTitle" data-i18n="health_title">Financial health</h2></div>
           </div>
           <div class="health-score-wrap">
             <div class="health-ring" id="healthRing" style="--score:0"><strong id="healthScore">0</strong><span>/100</span></div>
-            <div class="health-copy"><strong id="healthLabel">—</strong><p data-i18n="health_note">Savings rate, passive income, buffer and diversification.</p></div>
+            <div class="health-copy"><strong id="healthLabel">—</strong></div>
           </div>
         </article>
 
         <article class="glass dashboard-widget dashboard-widget--metric" data-home-widget="markets" aria-labelledby="marketSummaryTitle">
           <div class="home-card-head">
             <span class="dashboard-widget-icon" aria-hidden="true">💱</span>
-            <div><h2 id="marketSummaryTitle" data-i18n="market_summary_title">FX & gold</h2><p data-i18n="market_summary_sub">Current TRY market snapshot.</p></div>
+            <div><h2 id="marketSummaryTitle" data-i18n="market_summary_title">FX & gold</h2></div>
           </div>
           <div class="home-market-list" id="homeMarketList" aria-live="polite"></div>
         </article>
@@ -246,7 +245,7 @@
         <article class="glass dashboard-widget dashboard-widget--metric dashboard-widget--weather" data-home-widget="weather" aria-labelledby="weatherTitle">
           <div class="home-card-head weather-card-head">
             <span class="dashboard-widget-icon" id="weatherHeaderIcon" aria-hidden="true">☀️</span>
-            <div><h2 id="weatherTitle" data-i18n="weather_title">Weather</h2><p id="weatherSubtitle" data-i18n="weather_sub">Local forecast at a glance.</p></div>
+            <div><h2 id="weatherTitle" data-i18n="weather_title">Weather</h2></div>
             <div class="weather-head-actions">
               <button class="weather-icon-button" id="weatherLocationToggle" type="button" aria-expanded="false" aria-controls="weatherLocationPanel" data-i18n-title="weather_change_location">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>
@@ -288,7 +287,7 @@
         <article class="glass dashboard-widget dashboard-widget--feature" data-home-widget="goals" aria-labelledby="savingsGoalsTitle">
           <div class="dashboard-feature-head">
             <span class="dashboard-widget-icon" aria-hidden="true">🏁</span>
-            <div><h2 id="savingsGoalsTitle" data-i18n="goal_title">Savings goals</h2><p data-i18n="goal_sub">Create separate goals in Turkish lira or US dollars.</p></div>
+            <div><h2 id="savingsGoalsTitle" data-i18n="goal_title">Savings goals</h2></div>
           </div>
           <form class="goal-form" id="savingsGoalForm">
             <label><span data-i18n="goal_name">Goal</span><input id="savingsGoalName" type="text" maxlength="60" autocomplete="off" data-i18n-placeholder="goal_name_ph" placeholder="Emergency fund, car…" /></label>
@@ -303,7 +302,7 @@
         <article class="glass dashboard-widget dashboard-widget--half" data-home-widget="notes" aria-labelledby="homeNotesTitle">
           <div class="home-card-head">
             <span class="dashboard-widget-icon" aria-hidden="true">📝</span>
-            <div><h2 id="homeNotesTitle" data-i18n="notes_title">Mini notes</h2><p data-i18n="notes_sub">Keep short reminders close.</p></div>
+            <div><h2 id="homeNotesTitle" data-i18n="notes_title">Mini notes</h2></div>
           </div>
           <form class="mini-note-form" id="homeNoteForm">
             <input id="homeNoteInput" type="text" maxlength="120" autocomplete="off" data-i18n-placeholder="note_ph" placeholder="Write a short note…" />
@@ -315,7 +314,7 @@
         <article class="glass dashboard-widget dashboard-widget--half" data-home-widget="insights" aria-labelledby="smartInsightsTitle">
           <div class="home-card-head">
             <span class="dashboard-widget-icon" aria-hidden="true">✨</span>
-            <div><h2 id="smartInsightsTitle" data-i18n="insights_title">Smart insights</h2><p data-i18n="insights_sub">Automatic observations from your data.</p></div>
+            <div><h2 id="smartInsightsTitle" data-i18n="insights_title">Smart insights</h2></div>
           </div>
           <div class="smart-insight-list" id="smartInsightList" aria-live="polite"></div>
         </article>
@@ -323,10 +322,7 @@
         <article class="glass dashboard-widget dashboard-widget--alerts" data-home-widget="alerts" aria-labelledby="homePriceAlertsTitle">
           <div class="dashboard-feature-head">
             <span class="dashboard-widget-icon" aria-hidden="true">🔔</span>
-            <div>
-              <h2 id="homePriceAlertsTitle" data-i18n="price_alerts">Price alerts</h2>
-              <p data-i18n="home_alert_sub">Search any asset and set the price you want to be notified at.</p>
-            </div>
+            <div><h2 id="homePriceAlertsTitle" data-i18n="price_alerts">Price alerts</h2></div>
           </div>
           <div class="alert-form alert-form--home">
             <label class="alert-search-field"><span data-i18n="alert_asset">Asset</span><span class="alert-search"><input id="homePriceAlertSearch" type="text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="homePriceAlertDd" aria-expanded="false" /><span class="coin-dropdown alert-search-dd" id="homePriceAlertDd" role="listbox" hidden></span></span></label>
@@ -334,14 +330,13 @@
             <label><span data-i18n="alert_target">Target price</span><input id="homePriceAlertTarget" type="text" inputmode="decimal" autocomplete="off" placeholder="0" /></label>
             <button class="settings-action settings-action--primary" id="homeAddPriceAlert" type="button" data-i18n="alert_add">Add alert</button>
           </div>
-          <p class="settings-note home-alert-hint" id="homePriceAlertHint" aria-live="polite"></p>
           <div class="alert-list" id="homePriceAlertList" aria-live="polite"></div>
         </article>
 
         <article class="glass dashboard-widget dashboard-widget--countdown" data-home-widget="countdown">
           <div class="countdown-head">
             <span class="dashboard-widget-icon" aria-hidden="true">⏳</span>
-            <div><h2 data-i18n="countdown_title">Countdowns</h2><p data-i18n="countdown_sub">Count down to anything in days or months.</p></div>
+            <div><h2 data-i18n="countdown_title">Countdowns</h2></div>
           </div>
           <form class="countdown-form" id="countdownForm">
             <label><span data-i18n="countdown_name">Name</span><input id="countdownName" type="text" maxlength="80" autocomplete="off" /></label>
@@ -360,7 +355,7 @@
       <div class="glass expense-hero">
         <div class="modern-section-title">
           <span class="modern-section-icon modern-section-icon--expense" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-4 2-4-2-3 2V5a2 2 0 0 1 2-2Zm2 5h6M9 12h6"></path></svg></span>
-          <div><h2 data-i18n="expenses_page_title">Expenses</h2><p data-i18n="expenses_page_sub">Plan the month, track spending and stay ahead of payments.</p></div>
+          <div><h2 data-i18n="expenses_page_title">Expenses</h2></div>
         </div>
         <span class="feature-month-chip" id="expMonthLabel">—</span>
       </div>
@@ -387,7 +382,6 @@
         <div class="feature-section-head">
           <div>
             <h3 class="settings-label" id="budgetTitle" data-i18n="budget_title">Monthly budget</h3>
-            <p class="feature-section-note" data-i18n="budget_sub">Set category limits and follow this month's progress.</p>
           </div>
           <span class="feature-month-chip" id="budgetMonth">—</span>
         </div>
@@ -412,7 +406,7 @@
       <!-- Recurring expenses -->
       <section class="glass savings-panel expense-list-panel" aria-labelledby="expRecurringTitle">
         <div class="modern-section-head">
-          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--recurring" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7L20 8.6M20 4v4.6h-4.6M12 8v4l2.5 1.5"></path></svg></span><div><h3 class="settings-label" id="expRecurringTitle" data-i18n="exp_recurring">Recurring expenses</h3><p data-i18n="exp_recurring_sub">Add bills and fixed payments that repeat every month.</p></div></div>
+          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--recurring" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7L20 8.6M20 4v4.6h-4.6M12 8v4l2.5 1.5"></path></svg></span><div><h3 class="settings-label" id="expRecurringTitle" data-i18n="exp_recurring">Recurring expenses</h3></div></div>
         </div>
         <div class="savings-list" id="expRecList"></div>
         <button class="add-cat" id="addRecurring" type="button" data-i18n="exp_add_recurring">+ Add recurring</button>
@@ -421,7 +415,7 @@
       <!-- This month's logged expenses -->
       <section class="glass savings-panel expense-list-panel" aria-labelledby="expThisMonthTitle">
         <div class="modern-section-head">
-          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--spending" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4zM4 10h16M8 15h3"></path></svg></span><div><h3 class="settings-label" id="expThisMonthTitle" data-i18n="exp_thismonth">This month</h3><p data-i18n="exp_thismonth_sub">Log everyday spending and see where the month is going.</p></div></div>
+          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--spending" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4zM4 10h16M8 15h3"></path></svg></span><div><h3 class="settings-label" id="expThisMonthTitle" data-i18n="exp_thismonth">This month</h3></div></div>
         </div>
         <div class="savings-list" id="expOneList"></div>
         <button class="add-cat" id="addExpense" type="button" data-i18n="exp_add">+ Add expense</button>
@@ -451,7 +445,6 @@
             </span>
             <div>
               <h3 class="settings-label exp-sec-label" id="vehicleSectionTitle" data-i18n="veh_title">My vehicles</h3>
-              <p class="car-section-note" data-i18n="veh_sub">Keep vehicle details, reminders and expenses together.</p>
             </div>
           </div>
           <span class="car-section-count" id="vehCount">0</span>
@@ -471,7 +464,6 @@
             </span>
             <div>
               <h3 class="settings-label" id="carRouteTitle" data-i18n="car_route">Route</h3>
-              <p class="car-section-note" data-i18n="car_route_sub">Plan the route and see the estimated trip cost.</p>
             </div>
           </div>
         </div>
@@ -526,7 +518,6 @@
             </span>
             <div>
               <h3 class="settings-label" id="carHistoryTitle" data-i18n="car_history">Trip history</h3>
-              <p class="car-section-note" data-i18n="car_history_sub">Review saved routes and total trip costs.</p>
             </div>
           </div>
         </div>
@@ -554,14 +545,12 @@
 
       <section class="glass settings-group settings-tools" aria-labelledby="notifyTitle">
         <h3 class="settings-label" id="notifyTitle" data-i18n="notify_title">Notifications</h3>
-        <p class="settings-note" data-i18n="notify_desc">Get price alerts and reminders for upcoming vehicle maintenance.</p>
         <label class="switch settings-switch">
           <input type="checkbox" id="notifyToggle" />
           <span class="switch-track"><span class="switch-thumb"></span></span>
           <span class="switch-label" data-i18n="notify_enable">Enable notifications</span>
         </label>
         <p class="settings-status" id="notifyStatus" role="status" aria-live="polite"></p>
-        <p class="settings-note" data-i18n="notify_privacy">Only alert conditions and maintenance dates are synced for background delivery.</p>
 
         <div class="settings-subgroup">
           <label class="settings-field" for="vehicleNotifyDays">
@@ -611,14 +600,12 @@
 
       <section class="glass settings-group settings-tools" aria-labelledby="pwaTitle">
         <h3 class="settings-label" id="pwaTitle" data-i18n="pwa_title">App & offline use</h3>
-        <p class="settings-note" data-i18n="pwa_desc">Install NumBrrr on your phone and keep using saved data without internet.</p>
         <p class="settings-status" id="pwaStatus" role="status" aria-live="polite"></p>
         <button class="settings-action settings-action--primary" id="installPwa" type="button" data-i18n="pwa_install" hidden>Install app</button>
       </section>
 
       <section class="glass settings-group settings-tools" aria-labelledby="backupTitle">
         <h3 class="settings-label" id="backupTitle" data-i18n="backup_title">Data backup</h3>
-        <p class="settings-note" data-i18n="backup_desc">Save all your data as a file or restore it on another phone.</p>
         <div class="backup-actions">
           <button class="settings-action settings-action--primary" id="exportData" type="button" data-i18n="backup_export">Export backup</button>
           <label class="settings-action settings-file" for="importData"><span data-i18n="backup_import">Import backup</span></label>
@@ -700,7 +687,6 @@
         <div class="portfolio-holdings-head">
           <div>
             <h3 class="settings-label" id="portfolioHoldingsTitle" data-i18n="portfolio_holdings_title">My assets</h3>
-            <p data-i18n="portfolio_holdings_sub">Manage quantities, asset types and current values.</p>
           </div>
           <span class="portfolio-count" id="portHoldingCount">0</span>
         </div>
@@ -713,7 +699,7 @@
     <div class="view" id="view-income" hidden>
       <section class="glass savings-panel income-sources-panel" aria-labelledby="incomeSourcesTitle">
         <div class="modern-section-head">
-          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--income" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18V8m0 10h16M8 15l3-4 3 2 5-7m-4 0h4v4"></path></svg></span><div><h3 class="settings-label" id="incomeSourcesTitle" data-i18n="income_sources_title">Income sources</h3><p data-i18n="income_sources_sub">Separate active and passive income in one clear view.</p></div></div>
+          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--income" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18V8m0 10h16M8 15l3-4 3 2 5-7m-4 0h4v4"></path></svg></span><div><h3 class="settings-label" id="incomeSourcesTitle" data-i18n="income_sources_title">Income sources</h3></div></div>
           <span class="modern-section-count" id="incSourceCount">0</span>
         </div>
         <div class="savings-list" id="incList"></div>
@@ -746,7 +732,7 @@
     <div class="view" id="view-watch" hidden>
       <section class="glass watch-panel" aria-labelledby="watchSectionTitle">
         <div class="modern-section-head watch-section-head">
-          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--watch" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path></svg></span><div><h3 class="settings-label" id="watchSectionTitle" data-i18n="watch_title">Watchlist</h3><p data-i18n="watch_sub">Search markets and keep important assets close.</p></div></div>
+          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--watch" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path></svg></span><div><h3 class="settings-label" id="watchSectionTitle" data-i18n="watch_title">Watchlist</h3></div></div>
           <span class="modern-section-count" id="watchCount">0</span>
         </div>
         <div class="coin-search watch-search-wrap"><span class="watch-search-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></span>
@@ -764,19 +750,19 @@
 
       <!-- Turkey-only: live FX rates + gram/quarter gold in lira (shown only on TL) -->
       <section class="glass tr-panel watch-data-panel" id="trPanel" aria-labelledby="marketSnapshotTitle" hidden>
-        <div class="modern-section-head"><div class="modern-section-title"><span class="modern-section-icon modern-section-icon--market" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m6 14v-7m5 7V3"></path></svg></span><div><h3 class="settings-label" id="marketSnapshotTitle" data-i18n="market_snapshot_title">Market snapshot</h3><p data-i18n="market_snapshot_sub">Current BIST, currency and gold prices.</p></div></div></div>
+        <div class="modern-section-head"><div class="modern-section-title"><span class="modern-section-icon modern-section-icon--market" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m6 14v-7m5 7V3"></path></svg></span><div><h3 class="settings-label" id="marketSnapshotTitle" data-i18n="market_snapshot_title">Market snapshot</h3></div></div></div>
         <div class="tr-list" id="trList"></div>
       </section>
 
       <!-- Best 1-year performers across a fixed pool (crypto, US stocks, metals, +BIST in TR) -->
       <section class="glass top-perf-sec watch-data-panel" aria-labelledby="topPerfTitle">
-        <div class="modern-section-head"><div class="modern-section-title"><span class="modern-section-icon modern-section-icon--leaders" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Zm0 2H4v2a4 4 0 0 0 4 4m9-6h3v2a4 4 0 0 1-4 4"></path></svg></span><div><h3 class="settings-label" id="topPerfTitle" data-i18n="top_perf_title">This year's top performers</h3><p data-i18n="top_perf_sub">Assets with the strongest one-year performance.</p></div></div></div>
+        <div class="modern-section-head"><div class="modern-section-title"><span class="modern-section-icon modern-section-icon--leaders" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Zm0 2H4v2a4 4 0 0 0 4 4m9-6h3v2a4 4 0 0 1-4 4"></path></svg></span><div><h3 class="settings-label" id="topPerfTitle" data-i18n="top_perf_title">This year's top performers</h3></div></div></div>
         <div class="top-perf-list" id="topPerfList"></div>
       </section>
 
       <!-- Türkiye-only: BIST new IPOs (XHARZ index members via KAP, refreshed daily) -->
       <section class="glass ipo-sec watch-data-panel" id="ipoSec" aria-labelledby="ipoTitle" hidden>
-        <div class="modern-section-head"><div class="modern-section-title"><span class="modern-section-icon modern-section-icon--ipo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 16l4-4 3 2 5-7m-4 0h4v4"></path></svg></span><div><h3 class="settings-label" id="ipoTitle" data-i18n="ipo_title">New IPOs (BIST)</h3><p data-i18n="ipo_sub">The five newest BIST offerings.</p></div></div></div>
+        <div class="modern-section-head"><div class="modern-section-title"><span class="modern-section-icon modern-section-icon--ipo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 16l4-4 3 2 5-7m-4 0h4v4"></path></svg></span><div><h3 class="settings-label" id="ipoTitle" data-i18n="ipo_title">New IPOs (BIST)</h3></div></div></div>
         <div class="ipo-list" id="ipoList"></div>
         <p class="ipo-note" data-i18n="ipo_note">Listed in the last 2 years · BIST HALKA ARZ index (KAP)</p>
       </section>
@@ -882,7 +868,7 @@
   </div>
 
   <script src="command-parser.js?v=2"></script>
-  <script src="app.js?v=41"></script>
+  <script src="app.js?v=42"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

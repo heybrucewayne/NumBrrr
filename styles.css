@@ -875,6 +875,20 @@ body {
   font-size: 20px;
   transition: transform .24s cubic-bezier(.2, .72, .2, 1), border-color .2s ease;
 }
+
+/* A few calm motion accents keep the dashboard alive without animating everything. */
+[data-home-widget="monthly"] .dashboard-widget-icon,
+[data-home-widget="health"] .dashboard-widget-icon,
+[data-home-widget="insights"] .dashboard-widget-icon {
+  animation: homeIconFloat 4.8s ease-in-out infinite;
+}
+[data-home-widget="health"] .dashboard-widget-icon { animation-delay: -1.6s; }
+[data-home-widget="insights"] .dashboard-widget-icon { animation-delay: -3.2s; }
+
+@keyframes homeIconFloat {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(32, 179, 255, 0); }
+  50% { transform: translateY(-3px); box-shadow: 0 8px 22px color-mix(in srgb, var(--accent-2) 13%, transparent); }
+}
 .dashboard-widget-open,
 .dashboard-freedom-toggle {
   width: 100%;
@@ -1001,6 +1015,9 @@ body {
 .monthly-summary-grid .monthly-summary-net { grid-column: 1 / -1; }
 .monthly-summary-net strong.is-positive { color: var(--good); }
 .monthly-summary-net strong.is-negative { color: #ff8787; }
+.monthly-summary-net strong {
+  animation: homeValueGlow 4.4s ease-in-out infinite;
+}
 .home-progress { height: 6px; margin-top: 11px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.07); }
 .home-progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--good)); transition: width .35s ease; }
 .home-progress span.is-negative { background: #ff6b6b; }
@@ -1013,6 +1030,9 @@ body {
 .health-ring span { position: absolute; bottom: 19px; color: var(--text-faint); font-size: 8.5px; }
 .health-ring[data-level="weak"] { filter: saturate(.8); }
 .health-ring[data-level="excellent"] { background: conic-gradient(var(--good) calc(var(--score) * 1%), rgba(255,255,255,.075) 0); }
+.health-ring {
+  animation: healthRingBreathe 5.4s ease-in-out infinite;
+}
 .health-copy { min-width: 0; }
 .health-copy > strong { display: block; margin-bottom: 6px; font-family: "Sora", sans-serif; font-size: 15px; overflow-wrap: anywhere; }
 .health-copy p { margin: 0; color: var(--text-faint); font-size: 11px; line-height: 1.45; overflow-wrap: anywhere; }
@@ -1243,6 +1263,7 @@ body {
 .countdown-tile-remove:hover { border-color: var(--glass-border-soft); background: rgba(255,255,255,.05); color: var(--text); }
 .countdown-tile-value { display: flex; align-items: baseline; gap: 7px; min-width: 0; }
 .countdown-tile-value b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: "Sora", sans-serif; color: var(--accent-2); font-size: clamp(24px, 3vw, 31px); line-height: 1.1; }
+.countdown-tile-value b { animation: homeValueGlow 4.4s ease-in-out infinite; }
 .countdown-tile-value span { color: var(--text-dim); font-size: 11px; font-weight: 700; }
 .countdown-tile-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 0; }
 .countdown-tile-footer small { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-faint); font-size: 10.5px; }
@@ -1253,9 +1274,29 @@ body {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+@keyframes homeValueGlow {
+  0%, 100% { filter: brightness(1); text-shadow: 0 0 0 transparent; }
+  50% { filter: brightness(1.08); text-shadow: 0 0 14px color-mix(in srgb, currentColor 22%, transparent); }
+}
+
+@keyframes healthRingBreathe {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.018); filter: brightness(1.06); }
+}
+
+.dashboard-grid.is-editing .dashboard-widget-icon,
+.dashboard-grid.is-editing .health-ring,
+.dashboard-grid.is-editing .monthly-summary-net strong,
+.dashboard-grid.is-editing .countdown-tile-value b {
+  animation-play-state: paused;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .dashboard-widget--compact:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent-2) 28%, var(--glass-border-soft)); }
   .dashboard-widget--compact:hover .dashboard-widget-icon { transform: translateY(-1px) scale(1.045) rotate(-2deg); border-color: color-mix(in srgb, var(--accent-2) 45%, transparent); }
+  [data-home-widget="monthly"]:hover .dashboard-widget-icon,
+  [data-home-widget="health"]:hover .dashboard-widget-icon,
+  [data-home-widget="insights"]:hover .dashboard-widget-icon { animation-play-state: paused; }
   .dashboard-widget-open:hover .dashboard-widget-top > span:last-child { transform: translateX(3px); color: var(--text-dim); }
   .countdown-tile:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent-2) 28%, var(--glass-border-soft)); background: rgba(255,255,255,.035); }
 }

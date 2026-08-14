@@ -288,7 +288,7 @@ const I18N = {
     home_widget_freedom: "Freedom calculator", home_widget_portfolio: "Portfolio", home_widget_income: "Income", home_widget_expenses: "Expenses", home_widget_monthly: "This month", home_widget_health: "Financial health", home_widget_markets: "FX & gold", home_widget_weather: "Weather", home_widget_car: "My car", home_widget_watch: "Watchlist", home_widget_goals: "Savings goals", home_widget_notes: "Mini notes", home_widget_insights: "Smart insights", home_widget_alerts: "Price alerts", home_widget_countdown: "Countdowns",
     home_holdings: "{count} holdings", home_passive: "{amount} passive / month", home_upcoming: "{count} upcoming payments", home_vehicles: "{count} vehicles", home_last_trip: "Last trip: {route}", home_no_route: "No saved route", home_watch_count: "{count} tracked assets", home_watch_empty: "No tracked assets", home_freedom_summary: "{amount} · {name}",
     command_nav: "Command", command_nav_title: "Open command bar", command_eyebrow: "Smart command", command_title: "Write a command", command_sub: "Write naturally in Turkish. Portfolio changes are always confirmed first.", command_input_label: "Your command", command_placeholder: "Bir şey yaz…", command_send: "Send command", command_detected: "Detected", command_buy: "Purchase detected", command_sell: "Sale detected", command_swap: "Swap detected", command_alert: "Price alert detected", command_open: "Asset page detected", command_favorite: "Favorite change detected", command_currency: "Base currency change detected", command_query: "Portfolio insight detected", command_asset: "Asset", command_quantity: "Quantity", command_price: "Price", command_total: "Total", command_date: "Date", command_confirm: "Confirm", command_edit: "Edit", command_cancel: "Cancel", command_applied: "Command applied ✓", command_understood: "I understood this command.", command_low_confidence: "I couldn't fully understand that.", command_no_asset: "Choose a supported asset first.", command_no_action: "What would you like to do with this asset?", command_ambiguous: "Which matching asset did you mean?", command_suggestion_buy: "Add to portfolio", command_suggestion_sell: "Record a sale", command_suggestion_cancel: "Cancel", command_needs_price: "A live price is needed to prepare this preview.", command_current_price: "Current price", command_average_cost: "Weighted average cost", command_pnl: "This month's PnL", command_realized: "Realized", command_unrealized: "Unrealized", command_allocation: "Portfolio allocation", command_top_performer: "Top performer", command_no_data: "There is not enough portfolio data yet.", command_no_holding: "This asset is not in your portfolio.", command_insufficient: "The portfolio does not contain enough of this asset.", command_eur_unsupported: "EUR base currency is not available in this version.", command_percent: "Change", command_condition: "Condition", command_above: "above", command_below: "below", command_percent_up: "% up", command_percent_down: "% down", command_today: "today", command_not_saved: "Nothing was changed.", command_help_title: "Available commands", command_help_intro: "Write one of these examples and send it.", command_help_trade: "Transactions & alerts", command_help_portfolio: "Portfolio", command_help_asset: "Assets & favorites", command_help_settings: "Settings", command_app: "App data", command_navigation: "Navigation", command_help_queries: "Quick reports", command_expenses: "Expense", command_income: "Income", command_balance: "Balance", command_monthly_expenses: "Monthly expenses", command_label: "Name / detail", command_target: "Target", command_destination: "Page", command_note: "Note", command_navigation_done: "Opened ✓", command_expense_added: "Expense added ✓", command_income_added: "Income added ✓", command_note_added: "Note added ✓", command_goal_added: "Savings goal added ✓", command_countdown_added: "Countdown added ✓", command_invalid_amount: "Enter a positive amount.", command_date_needed: "Choose a future date.", command_label_needed: "Add a name or description.",
-    monthly_summary_title: "This month", monthly_summary_sub: "Income, spending and savings at a glance.", monthly_income: "Income", monthly_expense: "Expenses", monthly_net: "Net", monthly_rate: "Savings rate: {rate}%", monthly_no_income: "Add monthly income to calculate your savings rate.", monthly_share: "Share", monthly_share_title: "Share this month's spending", monthly_share_card_title: "This month's spending summary", monthly_share_income: "Income", monthly_share_expenses: "Expenses", monthly_share_net: "Net", monthly_share_rate: "Savings rate", monthly_share_ratio: "of monthly income", monthly_share_passive: "Passive coverage", monthly_share_footer: "The budget monster is still hungry.", monthly_share_reaction: "Budget reaction", monthly_share_preview_title: "Monthly spending card", monthly_share_preview_sub: "Preview it, then copy or download.", monthly_share_copy: "Copy image", monthly_share_download: "Download", monthly_share_system: "Share", monthly_share_close: "Close", monthly_share_copied: "Image copied.", monthly_share_copy_failed: "Image copy is not supported here. Use Download instead.", monthly_share_system_unavailable: "System sharing is not available here. Use Download instead.", monthly_share_text: "I spent {amount} this month.", monthly_share_downloaded: "Summary image downloaded.", monthly_share_failed: "Couldn't prepare the summary image.",
+    monthly_summary_title: "This month", monthly_summary_sub: "Income, spending and savings at a glance.", monthly_income: "Income", monthly_expense: "Expenses", monthly_net: "Net", monthly_rate: "Savings rate: {rate}%", monthly_no_income: "Add monthly income to calculate your savings rate.", monthly_share: "Share", monthly_share_title: "Share this month's spending", monthly_share_card_title: "This month's spending summary", monthly_share_income: "Income", monthly_share_expenses: "Expenses", monthly_share_net: "Net", monthly_share_rate: "Savings rate", monthly_share_preview_title: "Monthly spending card", monthly_share_preview_sub: "Preview it, then copy or download.", monthly_share_copy: "Copy image", monthly_share_download: "Download", monthly_share_system: "Share", monthly_share_close: "Close", monthly_share_copied: "Image copied.", monthly_share_copy_failed: "Image copy is not supported here. Use Download instead.", monthly_share_system_unavailable: "System sharing is not available here. Use Download instead.", monthly_share_text: "I spent {amount} this month.", monthly_share_downloaded: "Summary image downloaded.", monthly_share_failed: "Couldn't prepare the summary image.",
     health_title: "Financial health", health_sub: "A score based on your current data.", health_note: "Savings rate, passive income, buffer and diversification.", health_weak: "Needs attention", health_fair: "Getting stronger", health_good: "Healthy", health_excellent: "Excellent",
     market_summary_title: "FX & gold", market_summary_sub: "Current TRY market snapshot.", market_usd: "USD / TRY", market_eur: "EUR / TRY", market_gold: "Gram gold", market_loading: "Loading live prices…", market_unavailable: "Price unavailable",
     weather_title: "Weather", weather_sub: "Local forecast at a glance.", weather_change_location: "Change location", weather_refresh: "Refresh weather", weather_search_ph: "Search city…", weather_use_location: "Use my location", weather_current_location: "Current location", weather_loading: "Loading weather…", weather_unavailable: "Weather is unavailable right now.", weather_no_results: "No matching city found.", weather_location_denied: "Location access was not available. Search for a city instead.", weather_feels_like: "Feels like {temp}", weather_wind: "Wind {speed}", weather_rain: "Rain {rate}%", weather_updated: "Updated {time}", weather_today: "Today", weather_tomorrow: "Tomorrow", weather_clear: "Clear", weather_partly_cloudy: "Partly cloudy", weather_cloudy: "Cloudy", weather_fog: "Foggy", weather_drizzle: "Drizzle", weather_rainy: "Rainy", weather_snow: "Snowy", weather_showers: "Showers", weather_thunderstorm: "Thunderstorm",
@@ -475,7 +475,7 @@ const I18N = {
     home_widget_freedom: "Özgürlük hesaplayıcısı", home_widget_portfolio: "Portföy", home_widget_income: "Gelirler", home_widget_expenses: "Giderler", home_widget_monthly: "Bu ay", home_widget_health: "Finansal sağlık", home_widget_markets: "Kur ve altın", home_widget_weather: "Hava durumu", home_widget_car: "Aracım", home_widget_watch: "Takip listesi", home_widget_goals: "Birikim hedefleri", home_widget_notes: "Mini notlar", home_widget_insights: "Akıllı içgörüler", home_widget_alerts: "Fiyat alarmları", home_widget_countdown: "Geri sayımlar",
     home_holdings: "{count} varlık", home_passive: "Aylık {amount} pasif", home_upcoming: "{count} yaklaşan ödeme", home_vehicles: "{count} araç", home_last_trip: "Son yolculuk: {route}", home_no_route: "Kayıtlı rota yok", home_watch_count: "{count} takip edilen varlık", home_watch_empty: "Takip edilen varlık yok", home_freedom_summary: "{name} · {amount}",
     command_nav: "Komut", command_nav_title: "Komut çubuğunu aç", command_eyebrow: "Akıllı komut", command_title: "Komut yaz", command_sub: "Doğal Türkçe yaz. Portföy değişiklikleri her zaman önce onaylanır.", command_input_label: "Komutun", command_placeholder: "Bir şey yaz…", command_send: "Komutu gönder", command_detected: "Algılanan", command_buy: "Satın alma algılandı", command_sell: "Satış algılandı", command_swap: "Dönüştürme algılandı", command_alert: "Fiyat alarmı algılandı", command_open: "Varlık sayfası algılandı", command_favorite: "Favori değişikliği algılandı", command_currency: "Ana para birimi değişikliği algılandı", command_query: "Portföy analizi algılandı", command_asset: "Varlık", command_quantity: "Miktar", command_price: "Fiyat", command_total: "Toplam", command_date: "Tarih", command_confirm: "Onayla", command_edit: "Düzenle", command_cancel: "İptal", command_applied: "Komut uygulandı ✓", command_understood: "Bu komutu anladım.", command_low_confidence: "Bunu tam anlayamadım.", command_no_asset: "Önce desteklenen bir varlık seç.", command_no_action: "Bu varlıkla ne yapmak istiyorsun?", command_ambiguous: "Hangi eşleşen varlığı kastettin?", command_suggestion_buy: "Portföye ekle", command_suggestion_sell: "Satış olarak kaydet", command_suggestion_cancel: "Vazgeç", command_needs_price: "Bu önizlemeyi hazırlamak için canlı fiyat gerekiyor.", command_current_price: "Güncel fiyat", command_average_cost: "Ağırlıklı ortalama maliyet", command_pnl: "Bu ayın K/Z'si", command_realized: "Gerçekleşen", command_unrealized: "Gerçekleşmemiş", command_allocation: "Portföy ağırlığı", command_top_performer: "En çok kazandıran", command_no_data: "Henüz yeterli portföy verisi yok.", command_no_holding: "Bu varlık portföyünde yok.", command_insufficient: "Portföyünde bu varlıktan yeterli miktar yok.", command_eur_unsupported: "EUR ana para birimi bu sürümde kullanılamıyor.", command_percent: "Değişim", command_condition: "Koşul", command_above: "üzerine çıkarsa", command_below: "altına düşerse", command_percent_up: "% yükselirse", command_percent_down: "% düşerse", command_today: "bugün", command_not_saved: "Herhangi bir değişiklik yapılmadı.", command_help_title: "Kullanabileceğin komutlar", command_help_intro: "Aşağıdaki örneklerden birini yazıp gönder.", command_help_trade: "İşlem ve alarm", command_help_portfolio: "Portföy", command_help_asset: "Varlık ve favoriler", command_help_settings: "Ayarlar", command_app: "Uygulama verileri", command_navigation: "Gezinme", command_help_queries: "Hızlı raporlar", command_expenses: "Gider", command_income: "Gelir", command_balance: "Bakiye", command_monthly_expenses: "Aylık gider", command_label: "Ad / detay", command_target: "Hedef", command_destination: "Sayfa", command_note: "Not", command_navigation_done: "Açıldı ✓", command_expense_added: "Gider eklendi ✓", command_income_added: "Gelir eklendi ✓", command_note_added: "Not eklendi ✓", command_goal_added: "Birikim hedefi eklendi ✓", command_countdown_added: "Geri sayım eklendi ✓", command_invalid_amount: "Pozitif bir tutar gir.", command_date_needed: "Gelecekte bir tarih seç.", command_label_needed: "Bir ad veya açıklama ekle.",
-    monthly_summary_title: "Bu ayın özeti", monthly_summary_sub: "Gelir, gider ve birikim tek bakışta.", monthly_income: "Gelir", monthly_expense: "Gider", monthly_net: "Net", monthly_rate: "Birikim oranı: %{rate}", monthly_no_income: "Birikim oranını hesaplamak için aylık gelir ekle.", monthly_share: "Paylaş", monthly_share_title: "Bu ayki harcamalarını paylaş", monthly_share_card_title: "Bu ayın harcama özeti", monthly_share_income: "Gelir", monthly_share_expenses: "Harcamalar", monthly_share_net: "Net", monthly_share_rate: "Birikim oranı", monthly_share_ratio: "gelirinin harcanan kısmı", monthly_share_passive: "Pasif karşılama", monthly_share_footer: "Bütçe canavarı yine doymadı.", monthly_share_reaction: "Bütçe tepkisi", monthly_share_preview_title: "Aylık harcama kartı", monthly_share_preview_sub: "Önizle, sonra kopyala veya indir.", monthly_share_copy: "Görseli kopyala", monthly_share_download: "İndir", monthly_share_system: "Paylaş", monthly_share_close: "Kapat", monthly_share_copied: "Görsel kopyalandı.", monthly_share_copy_failed: "Görsel kopyalama desteklenmiyor. Bunun yerine indirebilirsin.", monthly_share_system_unavailable: "Sistem paylaşımı bu cihazda kullanılamıyor. Bunun yerine indirebilirsin.", monthly_share_text: "Bu ay {amount} harcadım.", monthly_share_downloaded: "Özet görseli indirildi.", monthly_share_failed: "Özet görseli hazırlanamadı.",
+    monthly_summary_title: "Bu ayın özeti", monthly_summary_sub: "Gelir, gider ve birikim tek bakışta.", monthly_income: "Gelir", monthly_expense: "Gider", monthly_net: "Net", monthly_rate: "Birikim oranı: %{rate}", monthly_no_income: "Birikim oranını hesaplamak için aylık gelir ekle.", monthly_share: "Paylaş", monthly_share_title: "Bu ayki harcamalarını paylaş", monthly_share_card_title: "Bu ayın harcama özeti", monthly_share_income: "Gelir", monthly_share_expenses: "Harcamalar", monthly_share_net: "Net", monthly_share_rate: "Birikim oranı", monthly_share_preview_title: "Aylık harcama kartı", monthly_share_preview_sub: "Önizle, sonra kopyala veya indir.", monthly_share_copy: "Görseli kopyala", monthly_share_download: "İndir", monthly_share_system: "Paylaş", monthly_share_close: "Kapat", monthly_share_copied: "Görsel kopyalandı.", monthly_share_copy_failed: "Görsel kopyalama desteklenmiyor. Bunun yerine indirebilirsin.", monthly_share_system_unavailable: "Sistem paylaşımı bu cihazda kullanılamıyor. Bunun yerine indirebilirsin.", monthly_share_text: "Bu ay {amount} harcadım.", monthly_share_downloaded: "Özet görseli indirildi.", monthly_share_failed: "Özet görseli hazırlanamadı.",
     health_title: "Finansal sağlık", health_sub: "Mevcut verilerine göre hesaplanan skor.", health_note: "Birikim oranı, pasif gelir, varlık tamponu ve çeşitlilik.", health_weak: "Dikkat gerekli", health_fair: "Güçleniyor", health_good: "Sağlıklı", health_excellent: "Mükemmel",
     market_summary_title: "Kur ve altın", market_summary_sub: "Güncel TL piyasa özeti.", market_usd: "Dolar / TL", market_eur: "Euro / TL", market_gold: "Gram altın", market_loading: "Canlı fiyatlar yükleniyor…", market_unavailable: "Fiyat alınamadı",
     weather_title: "Hava durumu", weather_sub: "Yerel tahmin tek bakışta.", weather_change_location: "Konumu değiştir", weather_refresh: "Hava durumunu yenile", weather_search_ph: "Şehir ara…", weather_use_location: "Konumumu kullan", weather_current_location: "Mevcut konum", weather_loading: "Hava durumu yükleniyor…", weather_unavailable: "Hava durumu şu anda alınamıyor.", weather_no_results: "Eşleşen şehir bulunamadı.", weather_location_denied: "Konum bilgisine ulaşılamadı. Bunun yerine şehir arayabilirsin.", weather_feels_like: "Hissedilen {temp}", weather_wind: "Rüzgâr {speed}", weather_rain: "Yağış %{rate}", weather_updated: "{time} güncellendi", weather_today: "Bugün", weather_tomorrow: "Yarın", weather_clear: "Açık", weather_partly_cloudy: "Parçalı bulutlu", weather_cloudy: "Bulutlu", weather_fog: "Sisli", weather_drizzle: "Çisenti", weather_rainy: "Yağmurlu", weather_snow: "Karlı", weather_showers: "Sağanak", weather_thunderstorm: "Gök gürültülü",
@@ -3468,86 +3468,6 @@ function monthlyShareRoundRect(ctx, x, y, width, height, radius) {
   ctx.closePath();
 }
 
-function monthlyShareCoin(ctx, x, y, radius, color, rotation = 0) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(rotation);
-  ctx.fillStyle = color;
-  ctx.strokeStyle = "rgba(255, 255, 255, .34)";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.arc(0, 0, radius, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-  ctx.fillStyle = "rgba(255, 255, 255, .5)";
-  ctx.beginPath();
-  ctx.arc(-radius * .32, -radius * .3, radius * .22, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = "rgba(28, 22, 10, .52)";
-  ctx.font = `800 ${Math.max(13, radius * .72)}px Arial, sans-serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(state.currency === "TL" ? "₺" : "$", 0, 1);
-  ctx.restore();
-}
-
-function monthlyShareMonster(ctx, x, y, scale = 1) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.scale(scale, scale);
-
-  ctx.fillStyle = "rgba(0, 0, 0, .26)";
-  ctx.beginPath();
-  ctx.ellipse(0, 218, 188, 30, 0, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.strokeStyle = "rgba(255, 130, 170, .7)";
-  ctx.lineWidth = 18;
-  ctx.lineCap = "round";
-  ctx.beginPath();
-  ctx.moveTo(-140, 52); ctx.quadraticCurveTo(-230, 95, -214, 168);
-  ctx.moveTo(140, 52); ctx.quadraticCurveTo(230, 95, 214, 168);
-  ctx.stroke();
-
-  ctx.fillStyle = "rgba(255, 104, 157, .2)";
-  ctx.strokeStyle = "rgba(255, 138, 182, .7)";
-  ctx.lineWidth = 5;
-  ctx.beginPath();
-  ctx.ellipse(0, 54, 172, 194, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.fillStyle = "rgba(255, 231, 242, .9)";
-  ctx.beginPath();
-  ctx.moveTo(-78, -75); ctx.lineTo(-132, -145); ctx.lineTo(-30, -106); ctx.closePath();
-  ctx.moveTo(78, -75); ctx.lineTo(132, -145); ctx.lineTo(30, -106); ctx.closePath();
-  ctx.fill();
-
-  ctx.fillStyle = "#07101e";
-  ctx.beginPath();
-  ctx.ellipse(-62, 25, 32, 42, 0, 0, Math.PI * 2);
-  ctx.ellipse(62, 25, 32, 42, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = "#bff5ff";
-  ctx.beginPath();
-  ctx.arc(-52, 14, 10, 0, Math.PI * 2);
-  ctx.arc(72, 14, 10, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "#050812";
-  ctx.beginPath();
-  ctx.ellipse(0, 126, 94, 62, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = "#fff0f6";
-  for (let i = -3; i <= 3; i += 1) {
-    ctx.beginPath();
-    ctx.moveTo(i * 23 - 10, 91); ctx.lineTo(i * 23, 116); ctx.lineTo(i * 23 + 10, 91); ctx.closePath();
-    ctx.fill();
-  }
-  monthlyShareCoin(ctx, 0, 150, 27, "#f7c948", -.12);
-  ctx.restore();
-}
-
 const MONTHLY_SHARE_REACTION_IMAGES = Object.freeze([
   "/assets/monthly-share/cat-shout.png",
   "/assets/monthly-share/cat-blurry.png",
@@ -3584,11 +3504,11 @@ async function loadRandomMonthlyShareImage() {
   return null;
 }
 
-function monthlyShareReactionPanel(ctx, image, x, y, width, height) {
-  monthlyShareRoundRect(ctx, x, y, width, height, 28);
+function monthlyShareCoverImage(ctx, image, x, y, width, height) {
   ctx.save();
+  monthlyShareRoundRect(ctx, x, y, width, height, 42);
   ctx.clip();
-  ctx.fillStyle = "#09101b";
+  ctx.fillStyle = "#0a0c18";
   ctx.fillRect(x, y, width, height);
   if (image) {
     ctx.imageSmoothingEnabled = true;
@@ -3597,26 +3517,22 @@ function monthlyShareReactionPanel(ctx, image, x, y, width, height) {
     const imageWidth = image.width * imageScale;
     const imageHeight = image.height * imageScale;
     ctx.drawImage(image, x + (width - imageWidth) / 2, y + (height - imageHeight) / 2, imageWidth, imageHeight);
-    const shade = ctx.createLinearGradient(0, y, 0, y + height);
-    shade.addColorStop(0, "rgba(3, 7, 16, .06)");
-    shade.addColorStop(.54, "rgba(3, 7, 16, .18)");
-    shade.addColorStop(1, "rgba(3, 7, 16, .9)");
-    ctx.fillStyle = shade;
-    ctx.fillRect(x, y, width, height);
   }
+
+  const overallShade = ctx.createLinearGradient(0, y, 0, y + height);
+  overallShade.addColorStop(0, "rgba(3, 6, 16, .38)");
+  overallShade.addColorStop(.48, "rgba(3, 6, 16, .22)");
+  overallShade.addColorStop(1, "rgba(3, 6, 16, .72)");
+  ctx.fillStyle = overallShade;
+  ctx.fillRect(x, y, width, height);
+
+  const textShade = ctx.createLinearGradient(x, 0, x + 790, 0);
+  textShade.addColorStop(0, "rgba(3, 6, 16, .92)");
+  textShade.addColorStop(.55, "rgba(3, 6, 16, .66)");
+  textShade.addColorStop(1, "rgba(3, 6, 16, 0)");
+  ctx.fillStyle = textShade;
+  ctx.fillRect(x, y, 820, height);
   ctx.restore();
-
-  monthlyShareRoundRect(ctx, x, y, width, height, 28);
-  ctx.strokeStyle = image ? "rgba(255, 126, 182, .58)" : "rgba(255, 138, 182, .7)";
-  ctx.lineWidth = 3;
-  ctx.stroke();
-
-  monthlyShareRoundRect(ctx, x + 18, y + 18, 148, 30, 15);
-  ctx.fillStyle = "rgba(5, 10, 22, .64)";
-  ctx.fill();
-  ctx.fillStyle = "#ffd2e6";
-  ctx.font = '800 11px Inter, Arial, sans-serif';
-  ctx.fillText(t("monthly_share_reaction").toUpperCase(), x + 31, y + 38);
 }
 
 async function monthlyShareCanvas(snapshot) {
@@ -3626,140 +3542,93 @@ async function monthlyShareCanvas(snapshot) {
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas unavailable");
   const reactionImage = await loadRandomMonthlyShareImage();
+  const cardX = 30;
+  const cardY = 30;
+  const cardWidth = 1020;
+  const cardHeight = 1290;
 
-  const background = ctx.createLinearGradient(0, 0, 1080, 1350);
-  background.addColorStop(0, "#080710");
-  background.addColorStop(0.5, "#111331");
-  background.addColorStop(1, "#082a31");
-  ctx.fillStyle = background;
+  const fallback = ctx.createLinearGradient(0, 0, 1080, 1350);
+  fallback.addColorStop(0, "#11152b");
+  fallback.addColorStop(.55, "#17172b");
+  fallback.addColorStop(1, "#072b32");
+  ctx.fillStyle = fallback;
   ctx.fillRect(0, 0, 1080, 1350);
+  monthlyShareCoverImage(ctx, reactionImage, cardX, cardY, cardWidth, cardHeight);
 
-  const glow = ctx.createRadialGradient(880, 300, 10, 880, 300, 420);
-  glow.addColorStop(0, "rgba(255, 92, 166, .22)");
-  glow.addColorStop(1, "rgba(33, 212, 253, 0)");
-  ctx.fillStyle = glow;
-  ctx.fillRect(510, 0, 570, 700);
-
-  const tealGlow = ctx.createRadialGradient(80, 1180, 10, 80, 1180, 390);
-  tealGlow.addColorStop(0, "rgba(33, 212, 253, .16)");
-  tealGlow.addColorStop(1, "rgba(33, 212, 253, 0)");
-  ctx.fillStyle = tealGlow;
-  ctx.fillRect(0, 850, 500, 500);
-
-  monthlyShareRoundRect(ctx, 30, 30, 1020, 1290, 42);
-  ctx.fillStyle = "rgba(2, 7, 18, .68)";
-  ctx.fill();
-  ctx.strokeStyle = "rgba(112, 190, 255, .28)";
-  ctx.lineWidth = 2;
+  monthlyShareRoundRect(ctx, cardX, cardY, cardWidth, cardHeight, 42);
+  ctx.strokeStyle = "rgba(225, 242, 255, .42)";
+  ctx.lineWidth = 3;
   ctx.stroke();
 
-  ctx.fillStyle = "#f2f7ff";
-  ctx.font = '800 32px "Sora", Arial, sans-serif';
-  ctx.fillText("NumBrrr", 80, 106);
-  ctx.fillStyle = "#ff7eb6";
-  ctx.font = '800 13px Inter, Arial, sans-serif';
-  ctx.fillText(t("monthly_share_card_title").toUpperCase(), 80, 136);
+  ctx.fillStyle = "#f7fbff";
+  ctx.font = '800 42px "Sora", Arial, sans-serif';
+  ctx.fillText("NumBrrr", 80, 112);
+  ctx.fillStyle = "rgba(255, 255, 255, .78)";
+  ctx.font = '800 18px Inter, Arial, sans-serif';
+  ctx.fillText(t("monthly_share_card_title").toUpperCase(), 80, 150);
 
   const month = monthLabel(state.expenses.month);
-  monthlyShareRoundRect(ctx, 820, 72, 190, 42, 21);
-  ctx.fillStyle = "rgba(33, 212, 253, .1)";
+  monthlyShareRoundRect(ctx, 790, 74, 220, 58, 29);
+  ctx.fillStyle = "rgba(4, 10, 23, .54)";
   ctx.fill();
-  ctx.strokeStyle = "rgba(33, 212, 253, .34)";
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = "rgba(137, 225, 255, .48)";
+  ctx.lineWidth = 2;
   ctx.stroke();
-  ctx.fillStyle = "#a6dff7";
-  ctx.font = '700 14px Inter, Arial, sans-serif';
+  ctx.fillStyle = "#d2f4ff";
+  ctx.font = '800 20px Inter, Arial, sans-serif';
   ctx.textAlign = "center";
-  ctx.fillText(month, 915, 99);
+  ctx.fillText(month, 900, 111);
   ctx.textAlign = "left";
 
-  monthlyShareReactionPanel(ctx, reactionImage, 690, 170, 310, 370);
-  if (!reactionImage) monthlyShareMonster(ctx, 830, 385, .78);
-  monthlyShareCoin(ctx, 654, 210, 23, "#f7c948", -.22);
-  monthlyShareCoin(ctx, 1000, 270, 18, "#21d4fd", .16);
-  monthlyShareCoin(ctx, 730, 560, 16, "#2ee6a6", .3);
-  ctx.save();
-  ctx.translate(760, 650);
-  ctx.rotate(-.12);
-  ctx.fillStyle = "rgba(255, 126, 182, .1)";
-  ctx.font = '900 55px "Sora", Arial, sans-serif';
-  ctx.fillText(state.lang === "tr" ? "YİNE Mİ?" : "AGAIN?", 0, 0);
-  ctx.restore();
-
-  ctx.fillStyle = "rgba(159, 184, 211, .74)";
-  ctx.font = '800 14px Inter, Arial, sans-serif';
-  ctx.fillText(t("monthly_share_expenses"), 80, 232);
-  ctx.fillStyle = "#f5f9ff";
-  let mainExpense = snapshot.expenses > 0 ? `−${formatMoney(snapshot.expenses)}` : formatMoney(0);
-  let mainFontSize = 84;
+  ctx.fillStyle = "rgba(255, 255, 255, .84)";
+  ctx.font = '800 22px Inter, Arial, sans-serif';
+  ctx.fillText(t("monthly_share_expenses").toUpperCase(), 80, 300);
+  const mainExpense = snapshot.expenses > 0 ? `−${formatMoney(snapshot.expenses)}` : formatMoney(0);
+  let mainFontSize = 118;
   ctx.font = `800 ${mainFontSize}px "Sora", Arial, sans-serif`;
-  while (ctx.measureText(mainExpense).width > 690 && mainFontSize > 44) {
+  while (ctx.measureText(mainExpense).width > 820 && mainFontSize > 62) {
     mainFontSize -= 2;
     ctx.font = `800 ${mainFontSize}px "Sora", Arial, sans-serif`;
   }
-  ctx.fillText(mainExpense, 80, 335);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillText(mainExpense, 80, 430);
 
   const expenseRate = snapshot.income > 0 ? Math.round((snapshot.expenses / snapshot.income) * 100) : null;
-  ctx.fillStyle = "#ff7eb6";
-  ctx.font = '800 49px "Sora", Arial, sans-serif';
-  ctx.fillText(expenseRate == null ? "—" : `−${expenseRate}%`, 80, 414);
-  ctx.fillStyle = "rgba(213, 224, 240, .7)";
-  ctx.font = '700 15px Inter, Arial, sans-serif';
-  ctx.fillText(t("monthly_share_ratio"), 80, 447);
+  ctx.fillStyle = "#ff86b8";
+  ctx.font = '800 70px "Sora", Arial, sans-serif';
+  ctx.fillText(expenseRate == null ? "—" : `−${expenseRate}%`, 80, 530);
 
-  const statCards = [
-    { label: t("monthly_share_income"), value: formatMoney(snapshot.income), color: "#8fdcff" },
-    { label: t("monthly_share_net"), value: formatMoney(snapshot.net), color: snapshot.net >= 0 ? "#2ee6a6" : "#ff8787" },
-    { label: t("monthly_share_rate"), value: snapshot.income > 0 ? `${Math.round(snapshot.savingsRate)}%` : "—", color: snapshot.savingsRate >= 0 ? "#2ee6a6" : "#ff8787" },
-    { label: t("monthly_share_passive"), value: snapshot.expenses > 0 ? `${Math.round(snapshot.passiveCoverage)}%` : "—", color: "#c7a6ff" },
+  const statRows = [
+    { label: t("monthly_share_income"), value: formatMoney(snapshot.income), color: "#a9e5ff" },
+    { label: t("monthly_share_net"), value: formatMoney(snapshot.net), color: snapshot.net >= 0 ? "#5df0bd" : "#ff9a9a" },
+    { label: t("monthly_share_rate"), value: snapshot.income > 0 ? `${Math.round(snapshot.savingsRate)}%` : "—", color: snapshot.savingsRate >= 0 ? "#5df0bd" : "#ff9a9a" },
   ];
-  statCards.forEach((card, index) => {
-    const x = 80 + (index % 2) * 480;
-    const y = 570 + Math.floor(index / 2) * 164;
-    monthlyShareRoundRect(ctx, x, y, 440, 136, 20);
-    ctx.fillStyle = "rgba(255, 255, 255, .045)";
+  statRows.forEach((row, index) => {
+    const y = 650 + index * 128;
+    monthlyShareRoundRect(ctx, 80, y, 920, 96, 22);
+    ctx.fillStyle = "rgba(3, 8, 20, .58)";
     ctx.fill();
-    ctx.strokeStyle = "rgba(166, 196, 225, .18)";
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgba(225, 242, 255, .25)";
+    ctx.lineWidth = 2;
     ctx.stroke();
-    ctx.fillStyle = "rgba(174, 197, 220, .72)";
-    ctx.font = '800 12px Inter, Arial, sans-serif';
-    ctx.fillText(card.label.toUpperCase(), x + 22, y + 35);
-    let fontSize = 27;
-    ctx.font = `800 ${fontSize}px "Sora", Arial, sans-serif`;
-    while (ctx.measureText(card.value).width > 390 && fontSize > 17) {
-      fontSize -= 1;
-      ctx.font = `800 ${fontSize}px "Sora", Arial, sans-serif`;
+    ctx.fillStyle = "rgba(235, 245, 255, .78)";
+    ctx.font = '800 19px Inter, Arial, sans-serif';
+    ctx.fillText(row.label.toUpperCase(), 108, y + 58);
+    let valueFontSize = 38;
+    ctx.font = `800 ${valueFontSize}px "Sora", Arial, sans-serif`;
+    while (ctx.measureText(row.value).width > 520 && valueFontSize > 24) {
+      valueFontSize -= 1;
+      ctx.font = `800 ${valueFontSize}px "Sora", Arial, sans-serif`;
     }
-    ctx.fillStyle = card.color;
-    ctx.fillText(card.value, x + 22, y + 91);
+    ctx.fillStyle = row.color;
+    ctx.textAlign = "right";
+    ctx.fillText(row.value, 972, y + 63);
+    ctx.textAlign = "left";
   });
 
-  const rate = snapshot.income > 0 ? Math.max(0, Math.min(100, snapshot.savingsRate)) : 0;
-  ctx.fillStyle = "rgba(174, 197, 220, .72)";
-  ctx.font = '700 13px Inter, Arial, sans-serif';
-  ctx.fillText(snapshot.income > 0 ? t("monthly_rate", { rate: Math.round(snapshot.savingsRate) }) : t("monthly_no_income"), 80, 948);
-  monthlyShareRoundRect(ctx, 80, 970, 920, 10, 5);
-  ctx.fillStyle = "rgba(255, 255, 255, .09)";
-  ctx.fill();
-  if (rate > 0) {
-    const progress = ctx.createLinearGradient(80, 0, 1000, 0);
-    progress.addColorStop(0, "#21d4fd");
-    progress.addColorStop(1, "#2ee6a6");
-    monthlyShareRoundRect(ctx, 80, 970, 920 * (rate / 100), 10, 5);
-    ctx.fillStyle = progress;
-    ctx.fill();
-  }
-
-  ctx.fillStyle = "rgba(174, 197, 220, .7)";
-  ctx.font = '700 14px Inter, Arial, sans-serif';
-  ctx.fillText(t("monthly_share_footer"), 80, 1080);
-  ctx.fillStyle = "rgba(174, 197, 220, .5)";
-  ctx.font = '600 12px Inter, Arial, sans-serif';
-  ctx.fillText("numbr.app", 80, 1238);
-  ctx.textAlign = "right";
-  ctx.fillText(t("monthly_share_text", { amount: formatMoney(snapshot.expenses) }), 1000, 1238);
-  ctx.textAlign = "left";
+  ctx.fillStyle = "rgba(245, 250, 255, .72)";
+  ctx.font = '700 16px Inter, Arial, sans-serif';
+  ctx.fillText("numbr.app", 80, 1248);
   return canvas;
 }
 

@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=52" />
+  <link rel="stylesheet" href="styles.css?v=53" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -807,6 +807,40 @@
     </div>
   </div>
 
+  <!-- ============ MONTHLY SPENDING SHARE CARD ============ -->
+  <div class="monthly-share-modal" id="monthlyShareModal" hidden>
+    <div class="monthly-share-backdrop" id="monthlyShareBackdrop"></div>
+    <div class="monthly-share-dialog glass" role="dialog" aria-modal="true" aria-labelledby="monthlySharePreviewTitle">
+      <div class="monthly-share-head">
+        <div class="monthly-share-heading">
+          <span class="monthly-share-heading-icon" aria-hidden="true">📊</span>
+          <div>
+            <h2 id="monthlySharePreviewTitle" data-i18n="monthly_share_preview_title">Monthly spending card</h2>
+            <p data-i18n="monthly_share_preview_sub">Preview it, then copy or download.</p>
+          </div>
+        </div>
+        <button class="monthly-share-close" id="monthlyShareClose" type="button" data-i18n-title="monthly_share_close" title="Close">×</button>
+      </div>
+      <div class="monthly-share-preview-stage">
+        <img class="monthly-share-preview" id="monthlySharePreviewImage" alt="Monthly spending card" />
+      </div>
+      <div class="monthly-share-actions">
+        <button class="settings-action monthly-share-action" id="monthlyShareCopy" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3M6 8h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z"></path></svg>
+          <span data-i18n="monthly_share_copy">Copy image</span>
+        </button>
+        <button class="settings-action monthly-share-action" id="monthlyShareDownload" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14"></path></svg>
+          <span data-i18n="monthly_share_download">Download</span>
+        </button>
+        <button class="settings-action settings-action--primary monthly-share-action" id="monthlyShareSystem" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0 4 4m-4-4-4 4M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6"></path></svg>
+          <span data-i18n="monthly_share_system">Share</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ FIRST-RUN ONBOARDING (shown once) ============ -->
   <div class="onboard" id="onboard" hidden>
     <div class="onboard-card glass">
@@ -853,7 +887,7 @@
   </div>
 
   <script src="command-parser.js?v=3"></script>
-  <script src="app.js?v=55"></script>
+  <script src="app.js?v=56"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

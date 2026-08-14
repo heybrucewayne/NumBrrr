@@ -721,8 +721,17 @@ body {
   border-color: color-mix(in srgb, var(--accent-2) 34%, var(--glass-border));
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-2) 10%, transparent), 0 15px 34px rgba(0, 0, 0, .18);
 }
+.dashboard-grid.is-editing > [data-countdown-id]:not([hidden]) {
+  border-color: color-mix(in srgb, var(--accent-2) 34%, var(--glass-border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-2) 10%, transparent), 0 15px 34px rgba(0, 0, 0, .18);
+}
 .dashboard-grid.is-editing > [data-home-widget].is-dragging,
 .dashboard-grid.is-editing > [data-home-widget].is-dragging .dashboard-widget {
+  opacity: .7;
+  transform: rotate(.45deg) scale(.985);
+  z-index: 20;
+}
+.dashboard-grid.is-editing > [data-countdown-id].is-dragging {
   opacity: .7;
   transform: rotate(.45deg) scale(.985);
   z-index: 20;

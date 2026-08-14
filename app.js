@@ -644,7 +644,7 @@ const state = {
   portTotalUSD: false, // when currency is TL, show the total portfolio value in USD instead
   watchlist: [], // [{ type, key, name }] — assets to monitor (price + 24h/1mo/1yr performance)
   notifications: { enabled: false, vehicleDays: 7, priceAlerts: [], seq: 0, sent: {} },
-  homeLayout: { order: [...HOME_WIDGET_IDS], hidden: [], freedomExpanded: false },
+  homeLayout: { order: [...HOME_WIDGET_IDS], itemOrder: [...HOME_WIDGET_IDS], hidden: [], freedomExpanded: false },
   weather: {
     location: { name: "İstanbul", latitude: 41.0082, longitude: 28.9784 },
     data: null,
@@ -2986,7 +2986,29 @@ function normalizeHomeLayout(value) {
   });
   const hidden = Array.isArray(source.hidden) ? [...new Set(source.hidden.filter((id) => HOME_WIDGET_IDS.includes(id)))] : [];
   if (hidden.length >= HOME_WIDGET_IDS.length) hidden.pop();
-  return { order, hidden, freedomExpanded: !!source.freedomExpanded };
+  const countdownEntries = Array.isArray(state.countdowns?.items) ? state.countdowns.items : [];
+  const countdownIds = new Set(countdownEntries.map((item) => item && typeof item.id === "string" ? item.id : "").filter(Boolean));
+  const isCountdownToken = (id) => typeof id === "string" && id.startsWith("countdown:");
+  const validToken = (id) => HOME_WIDGET_IDS.includes(id) || (isCountdownToken(id) && countdownIds.has(id.slice("countdown:".length)));
+  const suppliedItems = Array.isArray(source.itemOrder) ? source.itemOrder.filter(validToken) : [];
+  const itemOrder = [];
+  let baseIndex = 0;
+  suppliedItems.forEach((id) => {
+    if (isCountdownToken(id)) itemOrder.push(id);
+    else if (baseIndex < order.length) itemOrder.push(order[baseIndex++]);
+  });
+  while (baseIndex < order.length) itemOrder.push(order[baseIndex++]);
+  const countdownOrder = normalizeCountdownOrder(state.countdowns?.order, countdownEntries);
+  const missingCountdownTokens = countdownOrder
+    .map((id) => `countdown:${id}`)
+    .filter((token) => !itemOrder.includes(token));
+  if (missingCountdownTokens.length) {
+    let insertAt = itemOrder.reduce((last, id, index) => id.startsWith("countdown:") ? index : last, -1);
+    if (insertAt < 0) insertAt = itemOrder.lastIndexOf("countdown");
+    if (insertAt < 0) insertAt = itemOrder.length - 1;
+    itemOrder.splice(insertAt + 1, 0, ...missingCountdownTokens);
+  }
+  return { order, itemOrder: [...new Set(itemOrder)], hidden, freedomExpanded: !!source.freedomExpanded };
 }
 
 function normalizeCountdownOrder(value, items = []) {
@@ -3004,8 +3026,16 @@ function normalizeCountdownOrder(value, items = []) {
 function applyHomeLayout() {
   if (!el.dashboardGrid) return;
   state.homeLayout = normalizeHomeLayout(state.homeLayout);
-  state.homeLayout.order.forEach((id) => {
-    const widget = el.dashboardGrid.querySelector(`[data-home-widget="${id}"]`);
+  state.homeLayout.itemOrder.forEach((id) => {
+    if (id.startsWith("countdown:")) {
+      const countdownId = id.slice("countdown:".length);
+      const tile = [...el.dashboardGrid.querySelectorAll("[data-countdown-id]")].find((node) => node.dataset.countdownId === countdownId);
+      if (!tile) return;
+      tile.hidden = state.homeLayout.hidden.includes("countdown");
+      el.dashboardGrid.appendChild(tile);
+      return;
+    }
+    const widget = [...el.dashboardGrid.querySelectorAll("[data-home-widget]")].find((node) => node.dataset.homeWidget === id);
     if (!widget) return;
     widget.hidden = state.homeLayout.hidden.includes(id);
     el.dashboardGrid.appendChild(widget);
@@ -3064,12 +3094,34 @@ function setHomeDashboardEditing(enabled) {
   }
 }
 
+function dashboardLayoutRect(node) {
+  if (!node) return null;
+  const rawRect = node.getBoundingClientRect();
+  if (rawRect.width > 0 && rawRect.height > 0) return rawRect;
+  const surface = node.matches("[data-countdown-id]") ? node : homeWidgetSurface(node);
+  return surface ? surface.getBoundingClientRect() : rawRect;
+}
+
+function dashboardLayoutItems(exclude) {
+  if (!el.dashboardGrid) return [];
+  return [...el.dashboardGrid.children].filter((node) => {
+    if (node === exclude || node.matches(".dashboard-drag-placeholder")) return false;
+    if (!node.matches("[data-home-widget], [data-countdown-id]") || node.hidden) return false;
+    const rect = dashboardLayoutRect(node);
+    return rect && rect.width > 0 && rect.height > 0;
+  });
+}
+
 function syncHomeOrderFromDashboard() {
   if (!el.dashboardGrid) return;
-  const order = [...el.dashboardGrid.children]
-    .filter((node) => node.matches("[data-home-widget]"))
-    .map((node) => node.dataset.homeWidget);
-  state.homeLayout = normalizeHomeLayout({ order, hidden: state.homeLayout.hidden, freedomExpanded: state.homeLayout.freedomExpanded });
+  const itemOrder = [...el.dashboardGrid.children]
+    .filter((node) => node.matches("[data-home-widget], [data-countdown-id]"))
+    .map((node) => node.matches("[data-countdown-id]") ? `countdown:${node.dataset.countdownId}` : node.dataset.homeWidget);
+  const order = itemOrder.filter((id) => HOME_WIDGET_IDS.includes(id));
+  state.homeLayout = normalizeHomeLayout({ ...state.homeLayout, order, itemOrder });
+  state.countdowns.order = itemOrder
+    .filter((id) => id.startsWith("countdown:"))
+    .map((id) => id.slice("countdown:".length));
   saveState();
   applyHomeLayout();
   renderHomeCardSettings();
@@ -3138,13 +3190,9 @@ function startHomeDashboardReorder(event) {
     e.preventDefault();
     wrapper.style.left = `${Math.round(e.clientX - pointerOffset.x)}px`;
     wrapper.style.top = `${Math.round(e.clientY - pointerOffset.y)}px`;
-    const siblings = [...grid.children].filter((node) => {
-      if (!node.matches("[data-home-widget]") || node.hidden) return false;
-      const rect = node.getBoundingClientRect();
-      return rect.width > 0 && rect.height > 0;
-    });
+    const siblings = dashboardLayoutItems(wrapper);
     const before = siblings.find((item) => {
-      const rect = item.getBoundingClientRect();
+      const rect = dashboardLayoutRect(item);
       const sameRow = Math.abs(e.clientY - (rect.top + rect.height / 2)) <= rect.height * .58;
       return sameRow ? e.clientX < rect.left + rect.width / 2 : e.clientY < rect.top + rect.height / 2;
     });
@@ -3168,23 +3216,14 @@ function startHomeDashboardReorder(event) {
   document.addEventListener("pointercancel", finish);
 }
 
-function syncCountdownOrderFromTiles() {
-  if (!el.countdownList) return;
-  const order = [...el.countdownList.children]
-    .filter((node) => node.matches("[data-countdown-id]"))
-    .map((node) => node.dataset.countdownId);
-  state.countdowns.order = normalizeCountdownOrder(order, state.countdowns.items);
-  saveState();
-}
-
 function startCountdownReorder(event) {
   if (!homeDashboardEditing) return;
   event.preventDefault();
   event.stopPropagation();
   const handle = event.currentTarget;
   const tile = handle.closest("[data-countdown-id]");
-  const list = el.countdownList;
-  if (!tile || !list) return;
+  const grid = el.dashboardGrid;
+  if (!tile || !grid) return;
   const tileRect = tile.getBoundingClientRect();
   if (!tileRect.width || !tileRect.height) return;
   const placeholder = document.createElement("div");
@@ -3205,7 +3244,8 @@ function startCountdownReorder(event) {
     transform: tile.style.transform,
   };
   const pointerOffset = { x: event.clientX - tileRect.left, y: event.clientY - tileRect.top };
-  list.insertBefore(placeholder, tile);
+  if (tile.parentNode !== grid) grid.appendChild(tile);
+  grid.insertBefore(placeholder, tile);
   document.body.appendChild(tile);
   tile.classList.add("is-dragging", "dashboard-drag-clone");
   Object.assign(tile.style, {
@@ -3237,17 +3277,13 @@ function startCountdownReorder(event) {
     e.preventDefault();
     tile.style.left = `${Math.round(e.clientX - pointerOffset.x)}px`;
     tile.style.top = `${Math.round(e.clientY - pointerOffset.y)}px`;
-    const siblings = [...list.children].filter((node) => {
-      if (!node.matches("[data-countdown-id]") || node.hidden) return false;
-      const rect = node.getBoundingClientRect();
-      return rect.width > 0 && rect.height > 0;
-    });
+    const siblings = dashboardLayoutItems(tile);
     const before = siblings.find((item) => {
-      const rect = item.getBoundingClientRect();
+      const rect = dashboardLayoutRect(item);
       const sameRow = Math.abs(e.clientY - (rect.top + rect.height / 2)) <= rect.height * .58;
       return sameRow ? e.clientX < rect.left + rect.width / 2 : e.clientY < rect.top + rect.height / 2;
     });
-    if (before) list.insertBefore(placeholder, before); else list.appendChild(placeholder);
+    if (before) grid.insertBefore(placeholder, before); else grid.appendChild(placeholder);
     setDropTarget(before || siblings[siblings.length - 1]);
   };
   const finish = () => {
@@ -3259,7 +3295,7 @@ function startCountdownReorder(event) {
     placeholder.remove();
     tile.classList.remove("is-dragging", "dashboard-drag-clone");
     Object.assign(tile.style, originalStyles);
-    syncCountdownOrderFromTiles();
+    syncHomeOrderFromDashboard();
   };
   document.addEventListener("pointermove", move);
   document.addEventListener("pointerup", finish);
@@ -3290,7 +3326,7 @@ function moveHomeCard(id, direction) {
 function syncHomeOrderFromList() {
   if (!el.homeCardList) return;
   const order = [...el.homeCardList.querySelectorAll("[data-home-item]")].map((row) => row.dataset.homeItem);
-  state.homeLayout = normalizeHomeLayout({ order, hidden: state.homeLayout.hidden, freedomExpanded: state.homeLayout.freedomExpanded });
+  state.homeLayout = normalizeHomeLayout({ ...state.homeLayout, order, itemOrder: state.homeLayout.itemOrder });
   saveState(); applyHomeLayout(); renderHomeCardSettings();
 }
 
@@ -3928,6 +3964,7 @@ function renderCountdowns() {
   const items = state.countdowns.order.map((id) => itemsById.get(id)).filter(Boolean);
   if (!items.length) {
     el.countdownList.innerHTML = "";
+    applyHomeLayout();
     return;
   }
   const locale = state.lang === "tr" ? "tr-TR" : "en-US";
@@ -3950,6 +3987,7 @@ function renderCountdowns() {
   el.countdownList.querySelectorAll("[data-countdown-del]").forEach((button) => button.addEventListener("click", () => {
     state.countdowns.items = state.countdowns.items.filter((item) => item.id !== button.dataset.countdownDel);
     state.countdowns.order = state.countdowns.order.filter((id) => id !== button.dataset.countdownDel);
+    state.homeLayout.itemOrder = state.homeLayout.itemOrder.filter((id) => id !== `countdown:${button.dataset.countdownDel}`);
     saveState(); renderCountdowns();
   }));
   el.countdownList.querySelectorAll("[data-countdown-unit]").forEach((button) => button.addEventListener("click", () => {
@@ -3958,6 +3996,7 @@ function renderCountdowns() {
     item.unit = item.unit === "months" ? "days" : "months";
     saveState(); renderCountdowns();
   }));
+  applyHomeLayout();
 }
 
 function addCountdown(event) {
@@ -6728,7 +6767,7 @@ function loadState() {
       sent,
     };
   }
-  state.homeLayout = normalizeHomeLayout(s.homeLayout);
+  state.homeLayout = s.homeLayout && typeof s.homeLayout === "object" ? s.homeLayout : state.homeLayout;
   if (s.weather && typeof s.weather === "object") {
     const savedLocation = s.weather.location;
     const latitude = savedLocation && Number(savedLocation.latitude);
@@ -6793,6 +6832,7 @@ function loadState() {
     const savedOrder = Array.isArray(s.countdowns.order) ? s.countdowns.order.filter((id) => typeof id === "string").slice(0, 200) : [];
     state.countdowns = { items, order: normalizeCountdownOrder(savedOrder, items), seq: Math.max(savedSeq, highestItemSeq) };
   }
+  state.homeLayout = normalizeHomeLayout(state.homeLayout);
   if (typeof s.portTotalUSD === "boolean") state.portTotalUSD = s.portTotalUSD;
   // normalize any legacy/removed asset types from older saves
   if (state.portfolio && Array.isArray(state.portfolio.holdings)) {

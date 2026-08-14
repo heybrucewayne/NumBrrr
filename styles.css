@@ -158,11 +158,24 @@ body {
 .smart-command:focus-within::after { transform: translateX(100%); }
 .smart-command-head { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
 .smart-command-mark {
-  display: grid; place-items: center; flex: none; width: 38px; height: 38px;
-  border-radius: 13px; color: #fff; font-size: 20px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  box-shadow: 0 8px 24px rgba(125, 107, 255, .35);
+  position: relative; display: grid; place-items: center; flex: none; width: 44px; height: 44px;
+  border: 1px solid rgba(141, 229, 255, .28); border-radius: 50%; isolation: isolate;
+  background: radial-gradient(circle at 35% 25%, rgba(255,255,255,.16), rgba(53, 176, 255, .2) 35%, rgba(79, 70, 229, .22) 72%, rgba(8, 15, 42, .45));
+  box-shadow: 0 0 18px rgba(65, 221, 255, .3), 0 0 30px rgba(125, 77, 255, .2);
+  filter: drop-shadow(0 5px 13px rgba(83, 228, 255, .42));
+  animation: command-orb-breathe 2.4s ease-in-out infinite;
 }
+.smart-command-mark::before {
+  content: ""; position: absolute; inset: 2px; z-index: -1; border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, rgba(255,255,255,.82), rgba(93,225,255,.28) 24%, rgba(93,117,255,.16) 56%, transparent 74%);
+  box-shadow: 0 0 17px rgba(65, 221, 255, .58), 0 0 27px rgba(125, 77, 255, .34);
+  opacity: .9; animation: command-orb-halo 2.2s ease-in-out infinite;
+}
+.smart-command-mark::after {
+  content: ""; position: absolute; inset: 1px; z-index: 2; border: 1px solid rgba(255,255,255,.48);
+  border-radius: 50%; pointer-events: none; opacity: .78; animation: command-orb-ring 3.8s linear infinite;
+}
+.smart-command-mark canvas { position: relative; z-index: 1; display: block; width: 44px; height: 44px; }
 .smart-command-eyebrow { display: block; margin-bottom: 3px; color: var(--accent-2); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .smart-command h2 { margin: 0; font-family: "Sora", sans-serif; font-size: 18px; letter-spacing: -.02em; }
 .smart-command-head p { margin: 4px 0 0; color: var(--text-faint); font-size: 12px; }

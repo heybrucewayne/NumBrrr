@@ -691,6 +691,7 @@ const el = {
   smartCommandSend: document.getElementById("smartCommandSend"),
   smartCommandStatus: document.getElementById("smartCommandStatus"),
   smartCommandPreview: document.getElementById("smartCommandPreview"),
+  commandOrbCanvas: document.getElementById("commandOrbCanvas"),
   currencySymbol: document.getElementById("currencySymbol"),
   expenses: document.getElementById("expenses"),
   realMode: document.getElementById("realMode"),
@@ -4871,7 +4872,94 @@ function executeSmartCommand() {
   }
 }
 
+const commandOrbRuntime = { canvas: null, ctx: null, raf: 0, phase: 0, last: 0, dpr: 1 };
+
+function commandOrbMotionAllowed() {
+  return state.motion && !document.hidden && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+}
+
+function paintCommandOrb() {
+  const canvas = commandOrbRuntime.canvas;
+  const ctx = commandOrbRuntime.ctx;
+  if (!canvas || !ctx) return;
+  const size = 28;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  if (canvas.width !== size * dpr || canvas.height !== size * dpr) {
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    commandOrbRuntime.dpr = dpr;
+  }
+  ctx.setTransform(commandOrbRuntime.dpr, 0, 0, commandOrbRuntime.dpr, 0, 0);
+  ctx.clearRect(0, 0, size, size);
+  const cx = size / 2, cy = size / 2, radius = 10.5;
+  const pulse = 0.8 + Math.sin(commandOrbRuntime.phase * 1.7) * 0.12;
+  const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 1.35);
+  glow.addColorStop(0, `rgba(130, 240, 255, ${0.28 * pulse})`);
+  glow.addColorStop(.45, "rgba(73, 167, 255, .12)");
+  glow.addColorStop(1, "rgba(123, 77, 255, 0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius * 1.35, 0, Math.PI * 2);
+  ctx.fill();
+
+  const dots = 64;
+  ctx.globalCompositeOperation = "lighter";
+  for (let i = 0; i < dots; i += 1) {
+    const y = 1 - ((i + .5) / dots) * 2;
+    const ring = Math.sqrt(Math.max(0, 1 - y * y));
+    const angle = i * 2.399963 + commandOrbRuntime.phase;
+    const x = Math.cos(angle) * ring;
+    const z = Math.sin(angle) * ring;
+    const depth = (z + 1) / 2;
+    const dotRadius = .35 + depth * .78;
+    const alpha = .16 + depth * .78;
+    const px = cx + x * radius;
+    const py = cy + y * radius * .96;
+    ctx.fillStyle = `hsla(${190 + depth * 55}, 98%, ${70 + depth * 18}%, ${alpha})`;
+    ctx.beginPath();
+    ctx.arc(px, py, dotRadius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalCompositeOperation = "source-over";
+}
+
+function stopCommandOrbMotion() {
+  if (commandOrbRuntime.raf) cancelAnimationFrame(commandOrbRuntime.raf);
+  commandOrbRuntime.raf = 0;
+  commandOrbRuntime.last = 0;
+  paintCommandOrb();
+}
+
+function syncCommandOrbMotion() {
+  if (!commandOrbRuntime.canvas) return;
+  if (!commandOrbMotionAllowed()) {
+    stopCommandOrbMotion();
+    return;
+  }
+  if (commandOrbRuntime.raf) return;
+  const tick = (now) => {
+    if (!commandOrbMotionAllowed()) {
+      stopCommandOrbMotion();
+      return;
+    }
+    if (commandOrbRuntime.last) commandOrbRuntime.phase += Math.min(40, now - commandOrbRuntime.last) * .0018;
+    commandOrbRuntime.last = now;
+    paintCommandOrb();
+    commandOrbRuntime.raf = requestAnimationFrame(tick);
+  };
+  commandOrbRuntime.raf = requestAnimationFrame(tick);
+}
+
+function initCommandOrb() {
+  if (!el.commandOrbCanvas || !el.commandOrbCanvas.getContext) return;
+  commandOrbRuntime.canvas = el.commandOrbCanvas;
+  commandOrbRuntime.ctx = el.commandOrbCanvas.getContext("2d");
+  paintCommandOrb();
+  syncCommandOrbMotion();
+}
+
 function wireSmartCommand() {
+  initCommandOrb();
   if (!el.smartCommandForm || !el.smartCommandInput) return;
   el.smartCommandForm.addEventListener("submit", (event) => { event.preventDefault(); parseSmartCommand(); });
   document.querySelectorAll("[data-command-example]").forEach((button) => button.addEventListener("click", () => {
@@ -5718,6 +5806,7 @@ function applyMotion(enabled) {
   if (toggle) toggle.checked = state.motion;
   if (!state.motion) stopBubbles();
   else if (el.watchBubbles && el.watchBubbles.offsetParent !== null) kickBubbles();
+  syncCommandOrbMotion();
   saveState();
 }
 // Warm the browser cache with the wallpaper-backed themes so switching to them is
@@ -6425,4 +6514,4 @@ scheduleStartupBackgroundWork();
 
 setInterval(() => { checkVehicleNotifications(); refreshWatchData(); }, 60 * 60 * 1000);
 setInterval(renderCountdowns, 60 * 1000);
-document.addEventListener("visibilitychange", () => { if (!document.hidden) { checkVehicleNotifications(); refreshWatchData(); } });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { checkVehicleNotifications(); refreshWatchData(); } syncCommandOrbMotion(); });

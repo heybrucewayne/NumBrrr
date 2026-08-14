@@ -1819,10 +1819,41 @@ body {
   animation: command-tab-pulse 2.5s ease-in-out infinite;
 }
 .tab--command:hover { color: #fff !important; filter: brightness(1.14) saturate(1.16); }
-.tab--command svg {
+.command-orb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 50%;
+  isolation: isolate;
   filter: drop-shadow(0 3px 8px rgba(83, 228, 255, .72));
-  animation: command-tab-icon 2.4s ease-in-out infinite;
+  animation: command-orb-breathe 2.4s ease-in-out infinite;
 }
+.command-orb::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, rgba(255,255,255,.85), rgba(93,225,255,.3) 24%, rgba(93,117,255,.18) 56%, transparent 74%);
+  box-shadow: 0 0 14px rgba(65, 221, 255, .62), 0 0 24px rgba(125, 77, 255, .42);
+  opacity: .88;
+  animation: command-orb-halo 2.2s ease-in-out infinite;
+}
+.command-orb::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: 2;
+  border: 1px solid rgba(255,255,255,.46);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .75;
+  animation: command-orb-ring 3.8s linear infinite;
+}
+.command-orb canvas { position: relative; z-index: 1; display: block; width: 28px; height: 28px; }
 .tab--command span { text-shadow: 0 1px 8px rgba(0, 30, 90, .7); }
 @keyframes command-tab-gradient {
   0%, 100% { background-position: 0% 50%; }
@@ -1841,16 +1872,25 @@ body {
   0%, 100% { opacity: .38; transform: scale(.985); }
   50% { opacity: .9; transform: scale(1); }
 }
-@keyframes command-tab-icon {
-  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-  35% { transform: translateY(-1px) rotate(-3deg) scale(1.06); }
-  70% { transform: translateY(1px) rotate(3deg) scale(1.02); }
+@keyframes command-orb-breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-1px) scale(1.08); }
+}
+@keyframes command-orb-halo {
+  0%, 100% { transform: scale(.88); opacity: .52; }
+  50% { transform: scale(1.14); opacity: .98; }
+}
+@keyframes command-orb-ring {
+  0% { transform: rotate(0deg) scale(.94); opacity: .35; }
+  50% { transform: rotate(180deg) scale(1.05); opacity: .9; }
+  100% { transform: rotate(360deg) scale(.94); opacity: .35; }
 }
 .tab > * { position: relative; z-index: 1; }
 .tab:hover { color: var(--text-dim); }
 .tab:active { transform: scale(0.9); }
 /* Springy icon bounce on tap (class added + removed in JS) */
 .tab.is-bouncing svg { animation: tab-bounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.tab.is-bouncing .command-orb { animation: tab-bounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes tab-bounce {
   0% { transform: scale(1); }
   35% { transform: scale(0.8) translateY(1.5px); }
@@ -1879,6 +1919,7 @@ body {
   animation: tab-pop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .tab.is-active svg { filter: drop-shadow(0 3px 8px rgba(124, 92, 255, 0.6)); }
+.tab.is-active .command-orb { filter: drop-shadow(0 3px 10px rgba(124, 92, 255, 0.78)); }
 @keyframes tab-pop {
   0% { transform: scale(0.82); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }

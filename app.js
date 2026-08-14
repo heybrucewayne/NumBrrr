@@ -5114,7 +5114,7 @@ function commandHelpGroups() {
   if (state.lang === "tr") {
     return [
       { title: t("command_help_trade"), examples: [
-        "100 SOL aldım", "20 SOL 150 dolardan aldım", "500 USDC sattım",
+        "100 SOL aldım", "XMR 100 adet aldım", "20 SOL 150 dolardan aldım", "500 USDC sattım",
         "20 SOL'u USDC'ye çevirdim", "100 USD bakiye ekle", "SOL 200 olunca haber ver", "BTC %10 düşerse bildir",
       ] },
       { title: t("command_help_portfolio"), examples: [

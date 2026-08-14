@@ -6,6 +6,7 @@ const assets = [
   { type: "crypto", key: "solana", sym: "SOL", name: "Solana", aliases: ["sol"] },
   { type: "crypto", key: "bitcoin", sym: "BTC", name: "Bitcoin", aliases: ["bitcoin"] },
   { type: "crypto", key: "ethereum", sym: "ETH", name: "Ethereum", aliases: ["ethereum"] },
+  { type: "crypto", key: "monero", sym: "XMR", name: "Monero", aliases: ["monero"] },
   { type: "crypto", key: "usd-coin", sym: "USDC", name: "USD Coin", aliases: ["usd coin"] },
   { type: "fiat", key: "usd", sym: "USD", name: "US Dollar", aliases: ["dolar"] },
 ];
@@ -24,6 +25,30 @@ test("buy synonyms produce the same intent and quantity", () => {
     assert.equal(result.amount, 100, text);
     assert.ok(result.confidence >= 0.7, text);
   });
+});
+
+test("asset-first and quantity-unit buy phrases resolve consistently", () => {
+  const examples = [
+    ["1000 XMR aldım", 1000],
+    ["XMR 100 adet aldım", 100],
+    ["100 adet XMR aldım", 100],
+    ["XMR100 tane aldım", 100],
+  ];
+  examples.forEach(([text, amount]) => {
+    const result = parse(text);
+    assert.equal(result.intent, "BUY", text);
+    assert.equal(result.asset, "XMR", text);
+    assert.equal(result.amount, amount, text);
+    assert.deepEqual(result.missing, [], text);
+  });
+});
+
+test("asset-first quantity is not confused with an explicit trade price", () => {
+  const result = parse("XMR 100 adet 150 dolardan aldım");
+  assert.equal(result.intent, "BUY");
+  assert.equal(result.asset, "XMR");
+  assert.equal(result.amount, 100);
+  assert.equal(result.price, 150);
 });
 
 test("fiat amount, explicit price, half quantity, and relative date are extracted", () => {

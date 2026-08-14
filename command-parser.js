@@ -188,6 +188,14 @@
     return item ? item.value : undefined;
   }
 
+  function isQuantityNumber(candidate) {
+    return /^(adet|tane|lot|coin|token|birim|pay|hisse|unit|units|share|shares)\b/.test(normalized(candidate && candidate.after));
+  }
+
+  function isPriceNumber(candidate) {
+    return /^(usd|dolar\w*|euro\w*|eur|tl|try|lira\w*)\b/.test(normalized(candidate && candidate.after));
+  }
+
   function commandLabel(text, words) {
     let value = normalized(text)
       .replace(/\b20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}\b/g, " ")
@@ -300,13 +308,15 @@
     const numberBeforeAsset = amountNumbers.find((candidate) => candidate.index < assetIndex);
     const half = /\b(yarim|1\/2|half)\b/.test(source);
     if (intent === "BUY" || intent === "SELL" || intent === "SWAP" || intent === "ADD_BALANCE" || intent === "REMOVE_BALANCE" || intent === "SET_MONTHLY_EXPENSES" || intent === "ADD_EXPENSE" || intent === "ADD_INCOME" || intent === "ADD_GOAL") {
-      amount = half ? 0.5 : (numberBeforeAsset ? numberBeforeAsset.value : firstAmount(amountNumbers, (candidate) => !candidate.after.includes("%")));
+      const priced = assetIndex >= 0 ? amountNumbers.find((candidate) => candidate.index > assetIndex && isPriceNumber(candidate)) : undefined;
+      const explicitQuantity = amountNumbers.find(isQuantityNumber);
+      const firstNonPriceAmount = firstAmount(amountNumbers, (candidate) => candidate !== priced && !candidate.after.includes("%"));
+      amount = half ? 0.5 : (explicitQuantity ? explicitQuantity.value : (numberBeforeAsset ? numberBeforeAsset.value : firstNonPriceAmount));
       const fiatPhrase = source.match(/(\d[\d.,]*)\s*(usd|dolar|euro|eur|tl|try|lira)\s*(?:lik|lık|luk|lük)/);
       if (fiatPhrase && assetIndex >= 0 && source.indexOf(fiatPhrase[0]) < assetIndex) {
         fiatAmount = parseNumber(fiatPhrase[1]);
         amount = undefined;
       }
-      const priced = amountNumbers.find((candidate) => candidate.index > assetIndex && /\b(usd|dolar\w*|euro\w*|eur|tl|try|lira\w*)\b/.test(candidate.after));
       if (priced) price = priced.value;
       if (intent === "SWAP" && !amount && numberBeforeAsset) amount = numberBeforeAsset.value;
     }

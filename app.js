@@ -321,7 +321,8 @@ const I18N = {
     theme_doge: "Doge", theme_doge_desc: "such wow · much finance · very meme",
     theme_neon: "Neon", theme_neon_desc: "80s neon dream · A E S T H E T I C",
     theme_solana: "Solana", theme_solana_desc: "Purple & green · degen mode",
-    theme_black: "Black Theme", theme_black_desc: "Pure black · minimal",
+    theme_black: "Liquid Black", theme_black_desc: "Focused, fluid and minimal",
+    product_context: "Finance hub",
     more_soon: "More features coming soon ✨",
     nav_car: "My car",
     car_title: "My car",
@@ -508,7 +509,8 @@ const I18N = {
     theme_doge: "Doge", theme_doge_desc: "çok vov · büyük para · efsane meme",
     theme_neon: "Neon", theme_neon_desc: "80'ler neon rüyası · A E S T H E T I C",
     theme_solana: "Solana", theme_solana_desc: "Mor & yeşil · degen modu",
-    theme_black: "Siyah Tema", theme_black_desc: "Simsiyah · minimal",
+    theme_black: "Liquid Black", theme_black_desc: "Odaklı, akışkan ve sade",
+    product_context: "Finans merkezi",
     more_soon: "Yeni özellikler yakında ✨",
     nav_car: "Aracım",
     car_title: "Aracım",
@@ -656,8 +658,7 @@ const state = {
   income: { amounts: {}, passive: {}, custom: [], seq: 0 },
 };
 INCOME_CATEGORIES.forEach((c) => { state.income.amounts[c.id] = 0; state.income.passive[c.id] = c.passive; });
-// start with a few empty holding rows (no preset values)
-[0, 1, 2].forEach(() => state.portfolio.holdings.push({ id: "h" + ++state.portfolio.seq, label: "", value: 0, assetType: "usstock" }));
+// New users start with a clean portfolio; the add action creates the first row.
 
 // ---- i18n helpers ----
 function langPack() { return I18N[state.lang] || I18N.en; }

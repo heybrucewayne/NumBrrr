@@ -4197,3 +4197,419 @@ body.modal-open { overflow: hidden; }
   outline: none !important;
   box-shadow: inset 0 0 0 2px rgba(255,255,255,.42) !important;
 }
+
+/* ============================================================
+   NUMBRRR PRODUCT UI — Liquid Black
+   X-like clarity, restrained liquid-glass depth and app-scale UX.
+   ============================================================ */
+[data-theme="black"] {
+  --bg-base: #00070d;
+  --glass-bg: rgba(12, 18, 25, .74);
+  --glass-bg-strong: rgba(17, 24, 32, .9);
+  --glass-border: rgba(239, 243, 244, .14);
+  --glass-border-soft: rgba(239, 243, 244, .09);
+  --text: #f2f4f5;
+  --text-dim: #aeb8c2;
+  --text-faint: #73808c;
+  --accent: #1d9bf0;
+  --accent-2: #56bdf8;
+  --good: #00ba7c;
+  --warn: #f4c430;
+  --shadow: 0 18px 60px rgba(0, 0, 0, .28);
+  --radius-lg: 20px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+}
+[data-theme="black"] body {
+  color: var(--text);
+  background: #00070d;
+}
+[data-theme="black"] .bg {
+  background:
+    radial-gradient(900px 520px at 50% -170px, rgba(29, 155, 240, .16), transparent 66%),
+    radial-gradient(620px 500px at 105% 30%, rgba(0, 186, 124, .045), transparent 70%),
+    linear-gradient(180deg, #00070d 0%, #000 54%, #00070d 100%);
+}
+[data-theme="black"] .blob,
+[data-theme="black"] .money-rain { display: none; }
+
+[data-theme="black"] .shell {
+  width: min(100%, 1160px);
+  gap: 16px;
+  padding: 20px 20px calc(116px + env(safe-area-inset-bottom));
+}
+[data-theme="black"] .view { gap: 14px; }
+[data-theme="black"] #view-home { gap: 14px; }
+
+.product-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 0 4px;
+}
+.product-brand { display: inline-flex; align-items: center; gap: 10px; }
+.product-brand strong {
+  font-family: "Sora", "Inter", system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
+.product-mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(119, 203, 255, .24);
+  border-radius: 10px;
+  color: #fff;
+  background: rgba(29, 155, 240, .14);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.13), 0 6px 18px rgba(29,155,240,.08);
+  font-family: "Sora", sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+}
+.product-context {
+  color: var(--text-faint);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+/* One calm glass primitive instead of unrelated card treatments. */
+[data-theme="black"] .glass,
+[data-theme="black"] .card {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012) 42%, transparent),
+    rgba(10, 16, 23, .76);
+  border: 1px solid rgba(239, 243, 244, .1);
+  border-radius: 20px;
+  box-shadow: 0 18px 54px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.075);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+  backdrop-filter: blur(22px) saturate(135%);
+}
+[data-theme="black"] .glass::after,
+[data-theme="black"] .card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(520px 105px at 14% -12%, rgba(123, 205, 255, .075), transparent 65%);
+  pointer-events: none;
+}
+[data-theme="black"] .glass > *,
+[data-theme="black"] .card > * { position: relative; z-index: 1; }
+[data-theme="black"] .glass:hover,
+[data-theme="black"] .card:hover { border-color: rgba(239,243,244,.16); }
+
+[data-theme="black"] .view-title {
+  margin: 0;
+  color: #f7f9fa;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  font-size: clamp(27px, 4vw, 36px);
+  letter-spacing: -.055em;
+  line-height: 1.08;
+}
+[data-theme="black"] .home-dashboard-head { min-height: 50px; padding: 0 3px 2px; }
+[data-theme="black"] .dashboard-edit {
+  min-height: 38px;
+  padding: 8px 13px;
+  border-color: rgba(239,243,244,.13);
+  background: rgba(239,243,244,.045);
+  color: var(--text-dim);
+  font-size: 11px;
+}
+[data-theme="black"] .dashboard-edit:hover { color: #fff; background: rgba(239,243,244,.075); border-color: rgba(239,243,244,.22); }
+
+/* Command is a product tool, not a glowing promo banner. */
+[data-theme="black"] .smart-command {
+  padding: 18px;
+  border-color: rgba(86, 189, 248, .17);
+  background:
+    radial-gradient(430px 150px at 0% 0%, rgba(29,155,240,.075), transparent 72%),
+    rgba(10,16,23,.8);
+}
+[data-theme="black"] .smart-command::after { display: none; }
+[data-theme="black"] .smart-command-head { margin-bottom: 12px; }
+[data-theme="black"] .smart-command-mark { width: 38px; height: 38px; border-color: rgba(239,243,244,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
+[data-theme="black"] .smart-command-mark canvas { width: 38px; height: 38px; }
+[data-theme="black"] .smart-command h2 {
+  color: var(--text);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  animation: none;
+  text-shadow: none;
+  font-size: 16px;
+  letter-spacing: -.025em;
+}
+[data-theme="black"] .smart-command-form {
+  min-height: 52px;
+  padding: 5px 5px 5px 14px;
+  border-color: rgba(239,243,244,.12);
+  border-radius: 15px;
+  background: rgba(0,0,0,.34);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+}
+[data-theme="black"] .smart-command-form:focus-within { border-color: rgba(29,155,240,.64); box-shadow: 0 0 0 3px rgba(29,155,240,.11); }
+[data-theme="black"] .smart-command-form input { font-size: 14px; }
+[data-theme="black"] .smart-command-send {
+  width: 40px; height: 40px; border-radius: 12px; background: #eff3f4; color: #0f1419;
+  box-shadow: none; font-size: 19px;
+}
+[data-theme="black"] .smart-command-send:hover { filter: none; background: #fff; }
+[data-theme="black"] .smart-command-chip,
+[data-theme="black"] .smart-command-help-list button,
+[data-theme="black"] .smart-command-actions button {
+  border-color: rgba(239,243,244,.1);
+  background: rgba(239,243,244,.035);
+  color: var(--text-faint);
+}
+[data-theme="black"] .smart-command-chip:hover,
+[data-theme="black"] .smart-command-help-list button:hover { color: #d9f0ff; background: rgba(29,155,240,.08); border-color: rgba(29,155,240,.25); }
+
+/* Dashboard rhythm and a consistent data-card language. */
+[data-theme="black"] .dashboard-grid { gap: 12px; }
+[data-theme="black"] .dashboard-widget--half { grid-column: span 3; }
+[data-theme="black"] .dashboard-widget { border-radius: 18px; }
+[data-theme="black"] .dashboard-widget:hover { transform: translateY(-2px); box-shadow: 0 18px 44px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.08); }
+[data-theme="black"] .dashboard-widget-icon,
+[data-theme="black"] .home-card-icon,
+[data-theme="black"] .modern-section-icon,
+[data-theme="black"] .income-summary-icon,
+[data-theme="black"] .car-section-icon,
+[data-theme="black"] .veh-empty-icon {
+  color: #72c7f7;
+  background: rgba(29,155,240,.09);
+  border-color: rgba(86,189,248,.2);
+  border-radius: 13px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+}
+[data-theme="black"] .modern-section-icon--expense,
+[data-theme="black"] .modern-section-icon--recurring,
+[data-theme="black"] .modern-section-icon--spending,
+[data-theme="black"] .modern-section-icon--income,
+[data-theme="black"] .modern-section-icon--watch,
+[data-theme="black"] .modern-section-icon--leaders,
+[data-theme="black"] .modern-section-icon--ipo { color: #72c7f7; background: rgba(29,155,240,.09); border-color: rgba(86,189,248,.2); }
+[data-theme="black"] .settings-label,
+[data-theme="black"] .field-label,
+[data-theme="black"] .exp-stat-label,
+[data-theme="black"] .savings-total-label {
+  color: var(--text-faint);
+  letter-spacing: .045em;
+  text-transform: none;
+}
+[data-theme="black"] .home-card-title,
+[data-theme="black"] .modern-section-title h2,
+[data-theme="black"] .modern-section-title .settings-label,
+[data-theme="black"] .car-section-title h3 { color: var(--text); letter-spacing: -.025em; text-transform: none; }
+[data-theme="black"] .dashboard-widget-value,
+[data-theme="black"] .savings-total-value,
+[data-theme="black"] .exp-stat-value { color: #f7f9fa; letter-spacing: -.055em; }
+
+/* Forms and controls share the same touch target, focus and button hierarchy. */
+[data-theme="black"] input,
+[data-theme="black"] select,
+[data-theme="black"] textarea,
+[data-theme="black"] .money-input,
+[data-theme="black"] .rate-input,
+[data-theme="black"] .watch-search,
+[data-theme="black"] .car-select,
+[data-theme="black"] .car-num,
+[data-theme="black"] .qty-field {
+  color: var(--text);
+  background-color: rgba(0, 4, 8, .5);
+  border-color: rgba(239,243,244,.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+[data-theme="black"] input::placeholder,
+[data-theme="black"] textarea::placeholder { color: #5f6b76; opacity: 1; }
+[data-theme="black"] input:focus,
+[data-theme="black"] select:focus,
+[data-theme="black"] textarea:focus,
+[data-theme="black"] .money-input:focus-within,
+[data-theme="black"] .rate-input:focus-within,
+[data-theme="black"] .watch-search:focus,
+[data-theme="black"] .car-select:focus,
+[data-theme="black"] .car-num:focus {
+  border-color: rgba(29,155,240,.72);
+  box-shadow: 0 0 0 3px rgba(29,155,240,.1);
+}
+[data-theme="black"] .settings-action--primary,
+[data-theme="black"] .onboard-start,
+[data-theme="black"] .car-calc,
+[data-theme="black"] .goal-form button,
+[data-theme="black"] .countdown-form button,
+[data-theme="black"] .mini-note-form button {
+  border-color: #1d9bf0;
+  color: #fff;
+  background: #1d9bf0;
+  box-shadow: none;
+}
+[data-theme="black"] .settings-action--primary:hover,
+[data-theme="black"] .onboard-start:hover,
+[data-theme="black"] .car-calc:hover { background: #35a7f2; border-color: #35a7f2; }
+[data-theme="black"] .add-cat,
+[data-theme="black"] .veh-add-btn,
+[data-theme="black"] .car-map-link,
+[data-theme="black"] .rule-link {
+  border: 1px solid rgba(239,243,244,.14);
+  border-radius: 13px;
+  color: #d9e1e7;
+  background: rgba(239,243,244,.045);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+}
+[data-theme="black"] .add-cat:hover,
+[data-theme="black"] .veh-add-btn:hover,
+[data-theme="black"] .car-map-link:hover,
+[data-theme="black"] .rule-link:hover { color: #fff; border-color: rgba(29,155,240,.36); background: rgba(29,155,240,.08); }
+
+/* Remove decorative circles/gradients that made sections feel template-made. */
+[data-theme="black"] .expense-hero,
+[data-theme="black"] .income-summary-card,
+[data-theme="black"] .budget-panel,
+[data-theme="black"] .veh-card,
+[data-theme="black"] .expense-list-panel .exp-row,
+[data-theme="black"] .inc-row,
+[data-theme="black"] .watch-row { background-image: none; }
+[data-theme="black"] .exp-stat::after,
+[data-theme="black"] .income-summary-card::after,
+[data-theme="black"] .veh-card::after { opacity: .35; }
+[data-theme="black"] .port-row,
+[data-theme="black"] .inc-row,
+[data-theme="black"] .exp-row,
+[data-theme="black"] .watch-row,
+[data-theme="black"] .top-perf-row,
+[data-theme="black"] .ipo-row,
+[data-theme="black"] .tr-row,
+[data-theme="black"] .budget-overview > div,
+[data-theme="black"] .veh-specs .car-field,
+[data-theme="black"] .veh-sub {
+  background: rgba(0, 4, 8, .28);
+  border-color: rgba(239,243,244,.09);
+}
+[data-theme="black"] .port-row:hover,
+[data-theme="black"] .inc-row:hover,
+[data-theme="black"] .exp-row:hover,
+[data-theme="black"] .watch-row:hover,
+[data-theme="black"] .top-perf-row:hover,
+[data-theme="black"] .ipo-row:hover,
+[data-theme="black"] .tr-row:hover { background: rgba(239,243,244,.045); border-color: rgba(239,243,244,.15); }
+
+/* Liquid navigation: compact, readable, and equal-weight. */
+[data-theme="black"] .tabbar {
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  width: min(calc(100% - 24px), 720px);
+  padding: 6px;
+  gap: 2px;
+  border: 1px solid rgba(239,243,244,.13);
+  border-radius: 22px;
+  background: rgba(9, 15, 21, .82);
+  box-shadow: 0 22px 60px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.075);
+  -webkit-backdrop-filter: blur(24px) saturate(145%);
+  backdrop-filter: blur(24px) saturate(145%);
+}
+[data-theme="black"] .tabbar::before { display: none; }
+[data-theme="black"] .tab,
+[data-theme="black"] .tabbar .tab[data-view="home"],
+[data-theme="black"] .tab--command {
+  min-width: 0;
+  min-height: 54px;
+  padding: 7px 8px 6px;
+  border-radius: 16px;
+  color: #66737e;
+  background: transparent;
+  box-shadow: none;
+  filter: none;
+}
+[data-theme="black"] .tab--command::before,
+[data-theme="black"] .tab--command::after { display: none; }
+[data-theme="black"] .tab:hover { color: #c7d0d7; background: rgba(239,243,244,.035); }
+[data-theme="black"] .tab.is-active,
+[data-theme="black"] .tab--command:focus { color: #fff; }
+[data-theme="black"] .tab.is-active::before {
+  inset: 0;
+  border: 1px solid rgba(86,189,248,.18);
+  border-radius: 16px;
+  background: rgba(29,155,240,.11);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045);
+}
+[data-theme="black"] .tab.is-active .tab-icon:not(.command-orb) { background: transparent; border-color: transparent; box-shadow: none; }
+[data-theme="black"] .tab.is-active .tab-icon svg { filter: none; }
+[data-theme="black"] .tab-icon { width: 25px; height: 25px; }
+[data-theme="black"] .tab-label { margin-top: 2px; font-size: 9px; font-weight: 650; }
+[data-theme="black"] .command-orb {
+  width: 29px; height: 29px; padding: 0; border: 1px solid rgba(86,189,248,.2); background: rgba(29,155,240,.1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08); filter: none;
+}
+[data-theme="black"] .command-orb::before,
+[data-theme="black"] .command-orb::after { opacity: .28; }
+[data-theme="black"] .tab--command .tab-label { color: #7bcaff; text-shadow: none; }
+
+/* Settings read like native preference rows, not large landing-page cards. */
+[data-theme="black"] #view-settings .settings-group {
+  padding: 18px 20px;
+  border-radius: 18px;
+  background-image: none;
+}
+[data-theme="black"] #view-settings .settings-group:hover { transform: none; box-shadow: 0 18px 54px rgba(0,0,0,.18); }
+[data-theme="black"] #view-settings .settings-group > .settings-label:first-child::before { width: 5px; height: 5px; background: #1d9bf0; box-shadow: 0 0 0 3px rgba(29,155,240,.1); }
+[data-theme="black"] #view-settings .opt { min-height: 48px; border-radius: 13px; background: rgba(0,4,8,.3); }
+[data-theme="black"] #view-settings .opt.is-active { border-color: rgba(29,155,240,.75); box-shadow: inset 0 0 0 1px rgba(29,155,240,.75); background: rgba(29,155,240,.075); }
+
+/* High-density mobile layout for a real app, without shrinking tap targets. */
+@media (max-width: 620px) {
+  [data-theme="black"] .shell { gap: 12px; padding: 12px 9px calc(98px + env(safe-area-inset-bottom)); }
+  [data-theme="black"] .view,
+  [data-theme="black"] #view-home { gap: 10px; }
+  .product-bar { min-height: 38px; padding: 0 5px; }
+  .product-mark { width: 28px; height: 28px; border-radius: 9px; }
+  .product-context { display: none; }
+  [data-theme="black"] .view-title { font-size: 25px; }
+  [data-theme="black"] .home-dashboard-head { min-height: 43px; }
+  [data-theme="black"] .glass,
+  [data-theme="black"] .card { border-radius: 17px; }
+  [data-theme="black"] .smart-command { padding: 14px; }
+  [data-theme="black"] .smart-command-mark,
+  [data-theme="black"] .smart-command-mark canvas { width: 34px; height: 34px; }
+  [data-theme="black"] .smart-command h2 { font-size: 14px; }
+  [data-theme="black"] .smart-command-form { min-height: 48px; }
+  [data-theme="black"] .smart-command-chip { padding: 6px 8px; font-size: 9.5px; }
+  [data-theme="black"] .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  [data-theme="black"] .dashboard-widget--compact { grid-column: span 1; min-height: 130px; }
+  [data-theme="black"] [data-home-widget="watch"] { grid-column: 1 / -1; }
+  [data-theme="black"] .dashboard-widget--freedom,
+  [data-theme="black"] .dashboard-widget--metric,
+  [data-theme="black"] .dashboard-widget--feature,
+  [data-theme="black"] .dashboard-widget--half,
+  [data-theme="black"] .dashboard-widget--alerts,
+  [data-theme="black"] .dashboard-widget--countdown,
+  [data-theme="black"] .countdown-tile { grid-column: 1 / -1; }
+  [data-theme="black"] .dashboard-widget { border-radius: 16px; }
+  [data-theme="black"] #view-settings .settings-group,
+  [data-theme="black"] .income-sources-panel,
+  [data-theme="black"] .expense-list-panel,
+  [data-theme="black"] .watch-panel,
+  [data-theme="black"] .watch-data-panel,
+  [data-theme="black"] .car-panel { padding: 15px 14px; border-radius: 17px; }
+  [data-theme="black"] .tabbar { width: calc(100% - 14px); bottom: calc(7px + env(safe-area-inset-bottom)); padding: 5px; gap: 1px; border-radius: 19px; }
+  [data-theme="black"] .tab,
+  [data-theme="black"] .tabbar .tab[data-view="home"],
+  [data-theme="black"] .tab--command { min-height: 50px; padding: 7px 1px 5px; border-radius: 14px; }
+  [data-theme="black"] .tab-icon { width: 23px; height: 23px; }
+  [data-theme="black"] .tab-label { display: none; font-size: 7.5px; letter-spacing: -.02em; white-space: nowrap; }
+  [data-theme="black"] .tab.is-active .tab-label,
+  [data-theme="black"] .tab--command .tab-label { display: block; }
+  [data-theme="black"] .command-orb { width: 25px; height: 25px; }
+  [data-theme="black"] .command-orb canvas { width: 24px; height: 24px; }
+}
+
+@media (max-width: 390px) {
+  [data-theme="black"] .dashboard-widget--compact { min-height: 124px; }
+  [data-theme="black"] .home-card-title { font-size: 11px; }
+  [data-theme="black"] .dashboard-widget-value { font-size: 19px; }
+  [data-theme="black"] .tab-label { font-size: 7px; }
+}

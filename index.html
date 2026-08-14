@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="NumBrrr, calculate the total savings you need to become financially free." />
-  <meta name="theme-color" content="#07101f" />
+  <meta name="theme-color" content="#00070d" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="NumBrrr" />
@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=59" />
+  <link rel="stylesheet" href="styles.css?v=60" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -51,6 +51,10 @@
   </div>
 
   <main class="shell">
+    <header class="product-bar" aria-label="NumBrrr">
+      <div class="product-brand"><span class="product-mark" aria-hidden="true">N</span><strong>NumBrrr</strong></div>
+      <span class="product-context" data-i18n="product_context">Finans merkezi</span>
+    </header>
 
     <!-- ============ HOME DASHBOARD ============ -->
     <div class="view" id="view-home">
@@ -898,7 +902,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=62"></script>
+  <script src="app.js?v=63"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

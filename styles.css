@@ -128,7 +128,7 @@ body {
 /* ---------- Layout shell ---------- */
 .shell {
   width: 100%;
-  max-width: 1800px;
+  max-width: 1640px;
   margin: 0 auto;
   padding: 32px clamp(14px, 1.5vw, 28px) calc(124px + env(safe-area-inset-bottom));
   display: flex;

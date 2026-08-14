@@ -2214,22 +2214,6 @@ body {
 }
 .tab.is-active .tab-icon svg { filter: drop-shadow(0 3px 8px rgba(83, 204, 255, 0.48)); }
 .tab.is-active .command-orb { filter: drop-shadow(0 3px 10px rgba(124, 92, 255, 0.78)); }
-.tab:not(.tab--command)::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 3px;
-  z-index: 2;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #7ddfff;
-  box-shadow: 0 0 9px rgba(78, 207, 255, .8);
-  opacity: 0;
-  transform: translate(-50%, 4px) scale(.5);
-  transition: opacity .22s ease, transform .3s cubic-bezier(.2,.8,.2,1);
-}
-.tab.is-active:not(.tab--command)::after { opacity: 1; transform: translate(-50%, 0) scale(1); }
 @keyframes navIconSettle {
   0% { transform: translateY(4px) scale(.84); opacity: .45; }
   70% { transform: translateY(-1px) scale(1.06); opacity: 1; }

@@ -3071,11 +3071,63 @@ function startHomeDashboardReorder(event) {
   const wrapper = handle.closest("[data-home-widget]");
   const grid = el.dashboardGrid;
   if (!wrapper || !grid) return;
-  wrapper.classList.add("is-dragging");
+  const surface = homeWidgetSurface(wrapper);
+  if (!surface) return;
+  const rawWrapperRect = wrapper.getBoundingClientRect();
+  const wrapperRect = rawWrapperRect.width > 0 && rawWrapperRect.height > 0 ? rawWrapperRect : surface.getBoundingClientRect();
+  const placeholder = document.createElement("div");
+  placeholder.className = "dashboard-drag-placeholder";
+  placeholder.textContent = t("home_card_drop");
+  placeholder.style.minHeight = `${Math.max(96, Math.round(wrapperRect.height))}px`;
+  placeholder.style.gridColumn = getComputedStyle(surface).gridColumn;
+  const originalStyles = {
+    position: wrapper.style.position,
+    left: wrapper.style.left,
+    top: wrapper.style.top,
+    width: wrapper.style.width,
+    height: wrapper.style.height,
+    zIndex: wrapper.style.zIndex,
+    display: wrapper.style.display,
+    pointerEvents: wrapper.style.pointerEvents,
+    transition: wrapper.style.transition,
+    transform: wrapper.style.transform,
+  };
+  const pointerOffset = { x: event.clientX - wrapperRect.left, y: event.clientY - wrapperRect.top };
+  grid.insertBefore(placeholder, wrapper);
+  document.body.appendChild(wrapper);
+  wrapper.classList.add("is-dragging", "dashboard-drag-clone");
+  surface.classList.add("is-dragging-surface");
+  Object.assign(wrapper.style, {
+    position: "fixed",
+    left: `${Math.round(event.clientX - pointerOffset.x)}px`,
+    top: `${Math.round(event.clientY - pointerOffset.y)}px`,
+    width: `${Math.round(wrapperRect.width)}px`,
+    height: `${Math.round(wrapperRect.height)}px`,
+    zIndex: "100",
+    display: "block",
+    pointerEvents: "none",
+    transition: "none",
+    transform: "rotate(.65deg) scale(1.025)",
+  });
   if (handle.setPointerCapture) try { handle.setPointerCapture(event.pointerId); } catch (e) {}
+  let dropTarget = null;
+  const clearDropTarget = () => {
+    if (dropTarget) dropTarget.classList.remove("is-drop-target");
+    dropTarget = null;
+  };
+  const setDropTarget = (target) => {
+    clearDropTarget();
+    if (target) {
+      target.classList.add("is-drop-target");
+      dropTarget = target;
+    }
+  };
   const move = (e) => {
+    e.preventDefault();
+    wrapper.style.left = `${Math.round(e.clientX - pointerOffset.x)}px`;
+    wrapper.style.top = `${Math.round(e.clientY - pointerOffset.y)}px`;
     const siblings = [...grid.children].filter((node) => {
-      if (!node.matches("[data-home-widget]") || node === wrapper || node.hidden) return false;
+      if (!node.matches("[data-home-widget]") || node.hidden) return false;
       const rect = node.getBoundingClientRect();
       return rect.width > 0 && rect.height > 0;
     });
@@ -3084,13 +3136,19 @@ function startHomeDashboardReorder(event) {
       const sameRow = Math.abs(e.clientY - (rect.top + rect.height / 2)) <= rect.height * .58;
       return sameRow ? e.clientX < rect.left + rect.width / 2 : e.clientY < rect.top + rect.height / 2;
     });
-    if (before) grid.insertBefore(wrapper, before); else grid.appendChild(wrapper);
+    if (before) grid.insertBefore(placeholder, before); else grid.appendChild(placeholder);
+    setDropTarget(before || siblings[siblings.length - 1]);
   };
   const finish = () => {
     document.removeEventListener("pointermove", move);
     document.removeEventListener("pointerup", finish);
     document.removeEventListener("pointercancel", finish);
-    wrapper.classList.remove("is-dragging");
+    clearDropTarget();
+    if (placeholder.parentNode) placeholder.parentNode.insertBefore(wrapper, placeholder);
+    placeholder.remove();
+    wrapper.classList.remove("is-dragging", "dashboard-drag-clone");
+    surface.classList.remove("is-dragging-surface");
+    Object.assign(wrapper.style, originalStyles);
     syncHomeOrderFromDashboard();
   };
   document.addEventListener("pointermove", move);

@@ -727,6 +727,47 @@ body {
   transform: rotate(.45deg) scale(.985);
   z-index: 20;
 }
+.dashboard-grid.is-editing > [data-home-widget].is-drop-target,
+.dashboard-grid.is-editing > [data-home-widget].is-drop-target .dashboard-widget {
+  border-color: color-mix(in srgb, var(--accent-2) 78%, var(--glass-border));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-2) 24%, transparent), 0 0 30px color-mix(in srgb, var(--accent-2) 18%, transparent);
+  animation: dashboardDropTarget 1s ease-in-out infinite;
+}
+.dashboard-drag-placeholder {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px dashed color-mix(in srgb, var(--accent-2) 76%, var(--glass-border));
+  border-radius: 16px;
+  color: var(--accent-2);
+  background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--accent-2) 8%, transparent) 0 12px, transparent 12px 24px), rgba(7, 14, 32, .28);
+  box-shadow: inset 0 0 28px color-mix(in srgb, var(--accent-2) 10%, transparent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  animation: dashboardDropPlaceholder 1.1s ease-in-out infinite;
+}
+.dashboard-drag-clone,
+.dashboard-drag-clone .dashboard-widget {
+  opacity: .98 !important;
+  border-color: color-mix(in srgb, var(--accent-2) 82%, var(--glass-border)) !important;
+  box-shadow: 0 18px 44px rgba(0,0,0,.38), 0 0 0 2px color-mix(in srgb, var(--accent-2) 26%, transparent) !important;
+}
+.dashboard-drag-clone .dashboard-card-controls {
+  opacity: 1;
+  pointer-events: none;
+  transform: translateY(0) scale(1);
+}
+@keyframes dashboardDropTarget {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.12); }
+}
+@keyframes dashboardDropPlaceholder {
+  0%, 100% { opacity: .58; }
+  50% { opacity: 1; }
+}
 .dashboard-card-controls {
   position: absolute;
   top: 10px;

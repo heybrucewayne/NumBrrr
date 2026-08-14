@@ -127,9 +127,10 @@ body {
 
 /* ---------- Layout shell ---------- */
 .shell {
-  max-width: 1080px;
+  width: 100%;
+  max-width: 2200px;
   margin: 0 auto;
-  padding: 32px 22px calc(124px + env(safe-area-inset-bottom));
+  padding: 32px clamp(14px, 1.5vw, 28px) calc(124px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   gap: 20px;

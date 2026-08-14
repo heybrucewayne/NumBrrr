@@ -4893,6 +4893,10 @@ function paintCommandOrb() {
     }
     ctx.setTransform(entry.dpr, 0, 0, entry.dpr, 0, 0);
     ctx.clearRect(0, 0, size, size);
+    if (entry.style === "thinking") {
+      paintThinkingOrb(entry);
+      return;
+    }
     const cx = size / 2, cy = size / 2, radius = size * .375;
     const pulse = 0.8 + Math.sin(commandOrbRuntime.phase * 1.7) * 0.12;
     const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 1.35);
@@ -4926,6 +4930,63 @@ function paintCommandOrb() {
   });
 }
 
+function paintThinkingOrb(entry) {
+  const { ctx, size } = entry;
+  const cx = size / 2, cy = size / 2, radius = size * .37;
+  const pulse = 0.72 + Math.sin(commandOrbRuntime.phase * 1.35) * 0.08;
+  const glow = ctx.createRadialGradient(cx, cy, radius * .08, cx, cy, radius * 1.18);
+  glow.addColorStop(0, `rgba(255, 255, 255, ${.08 * pulse})`);
+  glow.addColorStop(.54, "rgba(180, 188, 198, .035)");
+  glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius * 1.18, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.globalCompositeOperation = "lighter";
+  const meridians = 17;
+  const steps = 26;
+  for (let meridian = 0; meridian < meridians; meridian += 1) {
+    const longitude = (meridian / meridians) * Math.PI * 2 + commandOrbRuntime.phase * .45;
+    for (let step = 0; step < steps; step += 1) {
+      const latitude = (step / (steps - 1)) * Math.PI;
+      const sinLatitude = Math.sin(latitude);
+      const x = sinLatitude * Math.cos(longitude);
+      const y = Math.cos(latitude);
+      const z = sinLatitude * Math.sin(longitude);
+      const depth = (z + 1) / 2;
+      const px = cx + x * radius;
+      const py = cy + y * radius;
+      const dotRadius = size * (.006 + depth * .012);
+      const light = Math.round(120 + depth * 120);
+      const alpha = (.07 + depth * .5) * pulse;
+      ctx.fillStyle = `rgba(${light}, ${light}, ${light}, ${alpha})`;
+      ctx.beginPath();
+      ctx.arc(px, py, dotRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  const dust = 72;
+  for (let i = 0; i < dust; i += 1) {
+    const y = 1 - ((i + .5) / dust) * 2;
+    const ring = Math.sqrt(Math.max(0, 1 - y * y));
+    const angle = i * 2.399963 + commandOrbRuntime.phase * .82;
+    const x = Math.cos(angle) * ring;
+    const z = Math.sin(angle) * ring;
+    const depth = (z + 1) / 2;
+    const px = cx + x * radius;
+    const py = cy + y * radius;
+    const dotRadius = size * (.005 + depth * .012);
+    const light = Math.round(145 + depth * 105);
+    ctx.fillStyle = `rgba(${light}, ${light}, ${light}, ${(0.08 + depth * .42) * pulse})`;
+    ctx.beginPath();
+    ctx.arc(px, py, dotRadius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalCompositeOperation = "source-over";
+}
+
 function stopCommandOrbMotion() {
   if (commandOrbRuntime.raf) cancelAnimationFrame(commandOrbRuntime.raf);
   commandOrbRuntime.raf = 0;
@@ -4955,14 +5016,15 @@ function syncCommandOrbMotion() {
 
 function initCommandOrb() {
   const canvases = [
-    { canvas: el.commandOrbCanvas, size: 28 },
-    { canvas: el.smartCommandOrbCanvas, size: 44 },
+    { canvas: el.commandOrbCanvas, size: 28, style: "color" },
+    { canvas: el.smartCommandOrbCanvas, size: 46, style: "thinking" },
   ].filter(({ canvas }) => canvas && canvas.getContext);
   if (!canvases.length) return;
-  commandOrbRuntime.entries = canvases.map(({ canvas, size }) => ({
+  commandOrbRuntime.entries = canvases.map(({ canvas, size, style }) => ({
     canvas,
     ctx: canvas.getContext("2d"),
     size,
+    style,
     dpr: 1,
   }));
   paintCommandOrb();

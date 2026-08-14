@@ -733,6 +733,11 @@ body {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-2) 24%, transparent), 0 0 30px color-mix(in srgb, var(--accent-2) 18%, transparent);
   animation: dashboardDropTarget 1s ease-in-out infinite;
 }
+.dashboard-grid.is-editing [data-countdown-id].is-drop-target {
+  border-color: color-mix(in srgb, var(--accent-2) 78%, var(--glass-border));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-2) 24%, transparent), 0 0 30px color-mix(in srgb, var(--accent-2) 18%, transparent);
+  animation: dashboardDropTarget 1s ease-in-out infinite;
+}
 .dashboard-drag-placeholder {
   display: grid;
   place-items: center;
@@ -1182,6 +1187,10 @@ body {
 .countdown-tile-heading { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
 .countdown-tile-heading strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
 .countdown-tile-heading small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-faint); font-size: 10.5px; }
+.countdown-tile-actions { display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
+.countdown-tile-grip { display: none; width: 30px; height: 30px; font-size: 18px; }
+.dashboard-grid.is-editing .countdown-tile-grip,
+.dashboard-drag-clone .countdown-tile-grip { display: grid; }
 .countdown-tile-remove { width: 30px; height: 30px; padding: 0; border: 1px solid transparent; border-radius: 9px; background: transparent; color: var(--text-faint); font: inherit; font-size: 18px; cursor: pointer; }
 .countdown-tile-remove:hover { border-color: var(--glass-border-soft); background: rgba(255,255,255,.05); color: var(--text); }
 .countdown-tile-value { display: flex; align-items: baseline; gap: 7px; min-width: 0; }

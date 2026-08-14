@@ -284,7 +284,7 @@ const I18N = {
     punch_empty: "Toggle on the habits you want to quit and type what you spend to see your number.",
     savings_note: "Projection compounds yearly contributions: FV = annual × [((1 + r)ⁿ − 1) / r], where r is the selected annual return. Returns are assumptions, not guarantees.",
     settings_title: "Settings", language: "Language", theme: "Theme", country: "Country", sound: "Sound", sound_fx: "Sound effects", motion: "Motion", animations: "Animations", animations_sub: "Show interface transitions and decorative motion",
-    home_customize_title: "Home screen", home_customize_desc: "Drag cards to reorder them or hide the ones you do not use. Restore hidden cards here.", home_customize_reset: "Reset layout", home_move_up: "Move up", home_move_down: "Move down", home_hide: "Show this widget", home_card_drag: "Drag to move", home_card_hide: "Hide card", home_card_show: "Show card", home_last_card: "At least one widget must remain visible.",
+    home_customize_title: "Home screen", home_customize_desc: "Drag cards to reorder them or hide the ones you do not use. Restore hidden cards here.", home_customize_reset: "Reset layout", home_move_up: "Move up", home_move_down: "Move down", home_hide: "Show this widget", home_card_drag: "Drag to move", home_card_drop: "Drop here", home_card_hide: "Hide card", home_card_show: "Show card", home_last_card: "At least one widget must remain visible.",
     home_widget_freedom: "Freedom calculator", home_widget_portfolio: "Portfolio", home_widget_income: "Income", home_widget_expenses: "Expenses", home_widget_monthly: "This month", home_widget_health: "Financial health", home_widget_markets: "FX & gold", home_widget_weather: "Weather", home_widget_car: "My car", home_widget_watch: "Watchlist", home_widget_goals: "Savings goals", home_widget_notes: "Mini notes", home_widget_insights: "Smart insights", home_widget_alerts: "Price alerts", home_widget_countdown: "Countdowns",
     home_holdings: "{count} holdings", home_passive: "{amount} passive / month", home_upcoming: "{count} upcoming payments", home_vehicles: "{count} vehicles", home_last_trip: "Last trip: {route}", home_no_route: "No saved route", home_watch_count: "{count} tracked assets", home_watch_empty: "No tracked assets", home_freedom_summary: "{amount} · {name}",
     command_nav: "Command", command_nav_title: "Open command bar", command_eyebrow: "Smart command", command_title: "Write a command", command_sub: "Write naturally in Turkish. Portfolio changes are always confirmed first.", command_input_label: "Your command", command_placeholder: "Bir şey yaz…", command_send: "Send command", command_detected: "Detected", command_buy: "Purchase detected", command_sell: "Sale detected", command_swap: "Swap detected", command_alert: "Price alert detected", command_open: "Asset page detected", command_favorite: "Favorite change detected", command_currency: "Base currency change detected", command_query: "Portfolio insight detected", command_asset: "Asset", command_quantity: "Quantity", command_price: "Price", command_total: "Total", command_date: "Date", command_confirm: "Confirm", command_edit: "Edit", command_cancel: "Cancel", command_applied: "Command applied ✓", command_understood: "I understood this command.", command_low_confidence: "I couldn't fully understand that.", command_no_asset: "Choose a supported asset first.", command_no_action: "What would you like to do with this asset?", command_ambiguous: "Which matching asset did you mean?", command_suggestion_buy: "Add to portfolio", command_suggestion_sell: "Record a sale", command_suggestion_cancel: "Cancel", command_needs_price: "A live price is needed to prepare this preview.", command_current_price: "Current price", command_average_cost: "Weighted average cost", command_pnl: "This month's PnL", command_realized: "Realized", command_unrealized: "Unrealized", command_allocation: "Portfolio allocation", command_top_performer: "Top performer", command_no_data: "There is not enough portfolio data yet.", command_no_holding: "This asset is not in your portfolio.", command_insufficient: "The portfolio does not contain enough of this asset.", command_eur_unsupported: "EUR base currency is not available in this version.", command_percent: "Change", command_condition: "Condition", command_above: "above", command_below: "below", command_percent_up: "% up", command_percent_down: "% down", command_today: "today", command_not_saved: "Nothing was changed.", command_help_title: "Available commands", command_help_intro: "Write one of these examples and send it.", command_help_trade: "Transactions & alerts", command_help_portfolio: "Portfolio", command_help_asset: "Assets & favorites", command_help_settings: "Settings", command_app: "App data", command_navigation: "Navigation", command_help_queries: "Quick reports", command_expenses: "Expense", command_income: "Income", command_balance: "Balance", command_monthly_expenses: "Monthly expenses", command_label: "Name / detail", command_target: "Target", command_destination: "Page", command_note: "Note", command_navigation_done: "Opened ✓", command_expense_added: "Expense added ✓", command_income_added: "Income added ✓", command_note_added: "Note added ✓", command_goal_added: "Savings goal added ✓", command_countdown_added: "Countdown added ✓", command_invalid_amount: "Enter a positive amount.", command_date_needed: "Choose a future date.", command_label_needed: "Add a name or description.",
@@ -471,7 +471,7 @@ const I18N = {
     punch_empty: "Bırakmak istediğin alışkanlıkları aç ve harcamanı yaz; rakamını gör.",
     savings_note: "Projeksiyon yıllık katkıları bileşik hesaplar: GD = yıllık × [((1 + r)ⁿ − 1) / r], r seçilen yıllık getiridir. Getiriler varsayımdır, garanti değildir.",
     settings_title: "Ayarlar", language: "Dil", theme: "Tema", country: "Ülke", sound: "Ses", sound_fx: "Ses efektleri", motion: "Hareket", animations: "Animasyonlar", animations_sub: "Arayüz geçişlerini ve dekoratif hareketleri göster",
-    home_customize_title: "Ana sayfa", home_customize_desc: "Kartları tutup sırala veya kullanmadıklarını gizle. Gizlenenleri buradan geri aç.", home_customize_reset: "Düzeni sıfırla", home_move_up: "Yukarı taşı", home_move_down: "Aşağı taşı", home_hide: "Bu widget'ı göster", home_card_drag: "Taşımak için tut", home_card_hide: "Kartı gizle", home_card_show: "Kartı göster", home_last_card: "En az bir widget görünür kalmalı.",
+    home_customize_title: "Ana sayfa", home_customize_desc: "Kartları tutup sırala veya kullanmadıklarını gizle. Gizlenenleri buradan geri aç.", home_customize_reset: "Düzeni sıfırla", home_move_up: "Yukarı taşı", home_move_down: "Aşağı taşı", home_hide: "Bu widget'ı göster", home_card_drag: "Taşımak için tut", home_card_drop: "Buraya bırak", home_card_hide: "Kartı gizle", home_card_show: "Kartı göster", home_last_card: "En az bir widget görünür kalmalı.",
     home_widget_freedom: "Özgürlük hesaplayıcısı", home_widget_portfolio: "Portföy", home_widget_income: "Gelirler", home_widget_expenses: "Giderler", home_widget_monthly: "Bu ay", home_widget_health: "Finansal sağlık", home_widget_markets: "Kur ve altın", home_widget_weather: "Hava durumu", home_widget_car: "Aracım", home_widget_watch: "Takip listesi", home_widget_goals: "Birikim hedefleri", home_widget_notes: "Mini notlar", home_widget_insights: "Akıllı içgörüler", home_widget_alerts: "Fiyat alarmları", home_widget_countdown: "Geri sayımlar",
     home_holdings: "{count} varlık", home_passive: "Aylık {amount} pasif", home_upcoming: "{count} yaklaşan ödeme", home_vehicles: "{count} araç", home_last_trip: "Son yolculuk: {route}", home_no_route: "Kayıtlı rota yok", home_watch_count: "{count} takip edilen varlık", home_watch_empty: "Takip edilen varlık yok", home_freedom_summary: "{name} · {amount}",
     command_nav: "Komut", command_nav_title: "Komut çubuğunu aç", command_eyebrow: "Akıllı komut", command_title: "Komut yaz", command_sub: "Doğal Türkçe yaz. Portföy değişiklikleri her zaman önce onaylanır.", command_input_label: "Komutun", command_placeholder: "Bir şey yaz…", command_send: "Komutu gönder", command_detected: "Algılanan", command_buy: "Satın alma algılandı", command_sell: "Satış algılandı", command_swap: "Dönüştürme algılandı", command_alert: "Fiyat alarmı algılandı", command_open: "Varlık sayfası algılandı", command_favorite: "Favori değişikliği algılandı", command_currency: "Ana para birimi değişikliği algılandı", command_query: "Portföy analizi algılandı", command_asset: "Varlık", command_quantity: "Miktar", command_price: "Fiyat", command_total: "Toplam", command_date: "Tarih", command_confirm: "Onayla", command_edit: "Düzenle", command_cancel: "İptal", command_applied: "Komut uygulandı ✓", command_understood: "Bu komutu anladım.", command_low_confidence: "Bunu tam anlayamadım.", command_no_asset: "Önce desteklenen bir varlık seç.", command_no_action: "Bu varlıkla ne yapmak istiyorsun?", command_ambiguous: "Hangi eşleşen varlığı kastettin?", command_suggestion_buy: "Portföye ekle", command_suggestion_sell: "Satış olarak kaydet", command_suggestion_cancel: "Vazgeç", command_needs_price: "Bu önizlemeyi hazırlamak için canlı fiyat gerekiyor.", command_current_price: "Güncel fiyat", command_average_cost: "Ağırlıklı ortalama maliyet", command_pnl: "Bu ayın K/Z'si", command_realized: "Gerçekleşen", command_unrealized: "Gerçekleşmemiş", command_allocation: "Portföy ağırlığı", command_top_performer: "En çok kazandıran", command_no_data: "Henüz yeterli portföy verisi yok.", command_no_holding: "Bu varlık portföyünde yok.", command_insufficient: "Portföyünde bu varlıktan yeterli miktar yok.", command_eur_unsupported: "EUR ana para birimi bu sürümde kullanılamıyor.", command_percent: "Değişim", command_condition: "Koşul", command_above: "üzerine çıkarsa", command_below: "altına düşerse", command_percent_up: "% yükselirse", command_percent_down: "% düşerse", command_today: "bugün", command_not_saved: "Herhangi bir değişiklik yapılmadı.", command_help_title: "Kullanabileceğin komutlar", command_help_intro: "Aşağıdaki örneklerden birini yazıp gönder.", command_help_trade: "İşlem ve alarm", command_help_portfolio: "Portföy", command_help_asset: "Varlık ve favoriler", command_help_settings: "Ayarlar", command_app: "Uygulama verileri", command_navigation: "Gezinme", command_help_queries: "Hızlı raporlar", command_expenses: "Gider", command_income: "Gelir", command_balance: "Bakiye", command_monthly_expenses: "Aylık gider", command_label: "Ad / detay", command_target: "Hedef", command_destination: "Sayfa", command_note: "Not", command_navigation_done: "Açıldı ✓", command_expense_added: "Gider eklendi ✓", command_income_added: "Gelir eklendi ✓", command_note_added: "Not eklendi ✓", command_goal_added: "Birikim hedefi eklendi ✓", command_countdown_added: "Geri sayım eklendi ✓", command_invalid_amount: "Pozitif bir tutar gir.", command_date_needed: "Gelecekte bir tarih seç.", command_label_needed: "Bir ad veya açıklama ekle.",
@@ -652,7 +652,7 @@ const state = {
   },
   savingsGoals: { items: [], seq: 0 },
   homeNotes: { items: [], seq: 0 },
-  countdowns: { items: [], seq: 0 },
+  countdowns: { items: [], order: [], seq: 0 },
   income: { amounts: {}, passive: {}, custom: [], seq: 0 },
 };
 INCOME_CATEGORIES.forEach((c) => { state.income.amounts[c.id] = 0; state.income.passive[c.id] = c.passive; });
@@ -2989,6 +2989,18 @@ function normalizeHomeLayout(value) {
   return { order, hidden, freedomExpanded: !!source.freedomExpanded };
 }
 
+function normalizeCountdownOrder(value, items = []) {
+  const entries = Array.isArray(items) ? items : [];
+  const ids = new Set(entries.map((item) => item && typeof item.id === "string" ? item.id : "").filter(Boolean));
+  const supplied = Array.isArray(value) ? value.filter((id) => ids.has(id)) : [];
+  const order = [...new Set(supplied)];
+  const fallback = [...entries]
+    .filter((item) => item && typeof item.id === "string" && !order.includes(item.id))
+    .sort((a, b) => Date.parse(a.target) - Date.parse(b.target))
+    .map((item) => item.id);
+  return [...order, ...fallback];
+}
+
 function applyHomeLayout() {
   if (!el.dashboardGrid) return;
   state.homeLayout = normalizeHomeLayout(state.homeLayout);
@@ -3032,7 +3044,7 @@ function ensureHomeCardControls() {
 }
 
 function refreshHomeCardControlLabels() {
-  document.querySelectorAll("[data-home-drag]").forEach((button) => {
+  document.querySelectorAll("[data-home-drag], [data-countdown-drag]").forEach((button) => {
     button.title = t("home_card_drag");
     button.setAttribute("aria-label", t("home_card_drag"));
   });
@@ -3150,6 +3162,104 @@ function startHomeDashboardReorder(event) {
     surface.classList.remove("is-dragging-surface");
     Object.assign(wrapper.style, originalStyles);
     syncHomeOrderFromDashboard();
+  };
+  document.addEventListener("pointermove", move);
+  document.addEventListener("pointerup", finish);
+  document.addEventListener("pointercancel", finish);
+}
+
+function syncCountdownOrderFromTiles() {
+  if (!el.countdownList) return;
+  const order = [...el.countdownList.children]
+    .filter((node) => node.matches("[data-countdown-id]"))
+    .map((node) => node.dataset.countdownId);
+  state.countdowns.order = normalizeCountdownOrder(order, state.countdowns.items);
+  saveState();
+}
+
+function startCountdownReorder(event) {
+  if (!homeDashboardEditing) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const handle = event.currentTarget;
+  const tile = handle.closest("[data-countdown-id]");
+  const list = el.countdownList;
+  if (!tile || !list) return;
+  const tileRect = tile.getBoundingClientRect();
+  if (!tileRect.width || !tileRect.height) return;
+  const placeholder = document.createElement("div");
+  placeholder.className = "dashboard-drag-placeholder countdown-drag-placeholder";
+  placeholder.textContent = t("home_card_drop");
+  placeholder.style.minHeight = `${Math.max(96, Math.round(tileRect.height))}px`;
+  placeholder.style.gridColumn = getComputedStyle(tile).gridColumn;
+  const originalStyles = {
+    position: tile.style.position,
+    left: tile.style.left,
+    top: tile.style.top,
+    width: tile.style.width,
+    height: tile.style.height,
+    zIndex: tile.style.zIndex,
+    display: tile.style.display,
+    pointerEvents: tile.style.pointerEvents,
+    transition: tile.style.transition,
+    transform: tile.style.transform,
+  };
+  const pointerOffset = { x: event.clientX - tileRect.left, y: event.clientY - tileRect.top };
+  list.insertBefore(placeholder, tile);
+  document.body.appendChild(tile);
+  tile.classList.add("is-dragging", "dashboard-drag-clone");
+  Object.assign(tile.style, {
+    position: "fixed",
+    left: `${Math.round(event.clientX - pointerOffset.x)}px`,
+    top: `${Math.round(event.clientY - pointerOffset.y)}px`,
+    width: `${Math.round(tileRect.width)}px`,
+    height: `${Math.round(tileRect.height)}px`,
+    zIndex: "100",
+    display: "flex",
+    pointerEvents: "none",
+    transition: "none",
+    transform: "rotate(.65deg) scale(1.025)",
+  });
+  if (handle.setPointerCapture) try { handle.setPointerCapture(event.pointerId); } catch (e) {}
+  let dropTarget = null;
+  const clearDropTarget = () => {
+    if (dropTarget) dropTarget.classList.remove("is-drop-target");
+    dropTarget = null;
+  };
+  const setDropTarget = (target) => {
+    clearDropTarget();
+    if (target) {
+      target.classList.add("is-drop-target");
+      dropTarget = target;
+    }
+  };
+  const move = (e) => {
+    e.preventDefault();
+    tile.style.left = `${Math.round(e.clientX - pointerOffset.x)}px`;
+    tile.style.top = `${Math.round(e.clientY - pointerOffset.y)}px`;
+    const siblings = [...list.children].filter((node) => {
+      if (!node.matches("[data-countdown-id]") || node.hidden) return false;
+      const rect = node.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    });
+    const before = siblings.find((item) => {
+      const rect = item.getBoundingClientRect();
+      const sameRow = Math.abs(e.clientY - (rect.top + rect.height / 2)) <= rect.height * .58;
+      return sameRow ? e.clientX < rect.left + rect.width / 2 : e.clientY < rect.top + rect.height / 2;
+    });
+    if (before) list.insertBefore(placeholder, before); else list.appendChild(placeholder);
+    setDropTarget(before || siblings[siblings.length - 1]);
+  };
+  const finish = () => {
+    document.removeEventListener("pointermove", move);
+    document.removeEventListener("pointerup", finish);
+    document.removeEventListener("pointercancel", finish);
+    clearDropTarget();
+    if (placeholder.parentNode) placeholder.parentNode.insertBefore(tile, placeholder);
+    placeholder.remove();
+    tile.classList.remove("is-dragging", "dashboard-drag-clone");
+    Object.assign(tile.style, originalStyles);
+    syncCountdownOrderFromTiles();
   };
   document.addEventListener("pointermove", move);
   document.addEventListener("pointerup", finish);
@@ -3813,7 +3923,9 @@ function countdownParts(item, now = Date.now()) {
 
 function renderCountdowns() {
   if (!el.countdownList) return;
-  const items = [...state.countdowns.items].sort((a, b) => Date.parse(a.target) - Date.parse(b.target));
+  state.countdowns.order = normalizeCountdownOrder(state.countdowns.order, state.countdowns.items);
+  const itemsById = new Map(state.countdowns.items.map((item) => [item.id, item]));
+  const items = state.countdowns.order.map((id) => itemsById.get(id)).filter(Boolean);
   if (!items.length) {
     el.countdownList.innerHTML = "";
     return;
@@ -3828,14 +3940,16 @@ function renderCountdowns() {
       <div class="countdown-tile-head">
         <span class="dashboard-widget-icon" aria-hidden="true">⏳</span>
         <div class="countdown-tile-heading"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(category)}</small></div>
-        <button class="countdown-tile-remove" type="button" data-countdown-del="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("countdown_remove"))}">×</button>
+        <div class="countdown-tile-actions"><button class="dashboard-card-grip countdown-tile-grip" type="button" data-countdown-drag="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("home_card_drag"))}" title="${escapeHtml(t("home_card_drag"))}"><span aria-hidden="true">⠿</span></button><button class="countdown-tile-remove" type="button" data-countdown-del="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("countdown_remove"))}">×</button></div>
       </div>
       <div class="countdown-tile-value"><b>${remaining.done ? "✓" : remaining.value}</b><span>${escapeHtml(remaining.label)}</span></div>
       <div class="countdown-tile-footer"><small>${escapeHtml(t("countdown_target", { date }))}</small><button type="button" data-countdown-unit="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("countdown_switch_unit"))}">${item.unit === "months" ? t("countdown_days") : t("countdown_months")}</button></div>
     </article>`;
   }).join("");
+  el.countdownList.querySelectorAll("[data-countdown-drag]").forEach((button) => button.addEventListener("pointerdown", startCountdownReorder));
   el.countdownList.querySelectorAll("[data-countdown-del]").forEach((button) => button.addEventListener("click", () => {
     state.countdowns.items = state.countdowns.items.filter((item) => item.id !== button.dataset.countdownDel);
+    state.countdowns.order = state.countdowns.order.filter((id) => id !== button.dataset.countdownDel);
     saveState(); renderCountdowns();
   }));
   el.countdownList.querySelectorAll("[data-countdown-unit]").forEach((button) => button.addEventListener("click", () => {
@@ -3857,6 +3971,7 @@ function addCountdown(event) {
   if (!name || !target || target <= today) { showAppToast(t("countdown_invalid")); return; }
   const id = "cd" + ++state.countdowns.seq;
   state.countdowns.items.push({ id, name: name.slice(0, 80), category: category.slice(0, 40), date, target: target.toISOString(), unit });
+  state.countdowns.order = normalizeCountdownOrder([...state.countdowns.order, id], state.countdowns.items);
   el.countdownName.value = "";
   el.countdownCategory.value = "";
   el.countdownDate.value = "";
@@ -4962,7 +5077,9 @@ function applySmartCommandAppAction(draft) {
     const target = parseDateInput(draft.date);
     const today = new Date(); today.setHours(0, 0, 0, 0);
     if (!target || target <= today) throw new Error(t("command_date_needed"));
-    state.countdowns.items.push({ id: "cd" + ++state.countdowns.seq, name: draft.label.slice(0, 80), category: "", date: draft.date, target: target.toISOString(), unit: "days" });
+    const id = "cd" + ++state.countdowns.seq;
+    state.countdowns.items.push({ id, name: draft.label.slice(0, 80), category: "", date: draft.date, target: target.toISOString(), unit: "days" });
+    state.countdowns.order = normalizeCountdownOrder([...state.countdowns.order, id], state.countdowns.items);
     saveState(); renderCountdowns(); renderSmartInsights();
     return t("command_countdown_added");
   }
@@ -6673,7 +6790,8 @@ function loadState() {
     }).slice(0, 200) : [];
     const highestItemSeq = items.reduce((max, item) => Math.max(max, Number((/^cd(\d+)$/.exec(item.id) || [])[1]) || 0), 0);
     const savedSeq = Number.isFinite(s.countdowns.seq) ? Math.max(0, Math.round(s.countdowns.seq)) : 0;
-    state.countdowns = { items, seq: Math.max(savedSeq, highestItemSeq) };
+    const savedOrder = Array.isArray(s.countdowns.order) ? s.countdowns.order.filter((id) => typeof id === "string").slice(0, 200) : [];
+    state.countdowns = { items, order: normalizeCountdownOrder(savedOrder, items), seq: Math.max(savedSeq, highestItemSeq) };
   }
   if (typeof s.portTotalUSD === "boolean") state.portTotalUSD = s.portTotalUSD;
   // normalize any legacy/removed asset types from older saves

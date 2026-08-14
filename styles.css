@@ -864,6 +864,8 @@ body {
 .dashboard-widget--half { grid-column: span 4; }
 .dashboard-widget--compact { min-height: 174px; }
 .dashboard-widget-icon {
+  position: relative;
+  overflow: hidden;
   display: grid;
   place-items: center;
   flex: none;
@@ -871,10 +873,48 @@ body {
   height: 42px;
   border: 1px solid color-mix(in srgb, var(--accent-2) 22%, var(--glass-border-soft));
   border-radius: 14px;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, transparent), color-mix(in srgb, var(--accent-2) 12%, transparent));
+  color: var(--widget-color, var(--accent-2));
+  background:
+    radial-gradient(circle at 32% 24%, color-mix(in srgb, var(--widget-color, var(--accent-2)) 24%, transparent), transparent 54%),
+    linear-gradient(145deg, color-mix(in srgb, var(--widget-color, var(--accent-2)) 13%, transparent), rgba(255,255,255,.025));
   font-size: 20px;
-  transition: transform .24s cubic-bezier(.2, .72, .2, 1), border-color .2s ease;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 8px 22px color-mix(in srgb, var(--widget-color, var(--accent-2)) 8%, transparent);
+  transition: transform .24s cubic-bezier(.2, .72, .2, 1), border-color .2s ease, box-shadow .2s ease;
 }
+.dashboard-widget-icon::after {
+  content: "";
+  position: absolute;
+  inset: -55%;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.22) 49%, transparent 58%);
+  transform: translateX(-52%) rotate(14deg);
+  transition: transform .65s cubic-bezier(.2,.72,.2,1);
+}
+.dashboard-widget-icon svg {
+  position: relative;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+[data-home-widget="freedom"] { --widget-color: #47c8ff; }
+[data-home-widget="portfolio"] { --widget-color: #8db4ff; }
+[data-home-widget="income"] { --widget-color: #46dfad; }
+[data-home-widget="expenses"] { --widget-color: #ff9b8f; }
+[data-home-widget="monthly"] { --widget-color: #64b9ff; }
+[data-home-widget="health"] { --widget-color: #ff7896; }
+[data-home-widget="markets"] { --widget-color: #5bded5; }
+[data-home-widget="countdown"] { --widget-color: #77bfff; }
+[data-home-widget="car"] { --widget-color: #a8b6ca; }
+[data-home-widget="watch"] { --widget-color: #ffd76b; }
+[data-home-widget="goals"] { --widget-color: #83df90; }
+[data-home-widget="notes"] { --widget-color: #b99cff; }
+[data-home-widget="insights"] { --widget-color: #6ee7ff; }
+[data-home-widget="alerts"] { --widget-color: #ffc65c; }
 
 /* A few calm motion accents keep the dashboard alive without animating everything. */
 [data-home-widget="monthly"] .dashboard-widget-icon,
@@ -886,8 +926,8 @@ body {
 [data-home-widget="insights"] .dashboard-widget-icon { animation-delay: -3.2s; }
 
 @keyframes homeIconFloat {
-  0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(32, 179, 255, 0); }
-  50% { transform: translateY(-3px); box-shadow: 0 8px 22px color-mix(in srgb, var(--accent-2) 13%, transparent); }
+  0%, 100% { transform: translateY(0); box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 8px 22px color-mix(in srgb, var(--widget-color, var(--accent-2)) 8%, transparent); }
+  50% { transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 12px 27px color-mix(in srgb, var(--widget-color, var(--accent-2)) 17%, transparent); }
 }
 .dashboard-widget-open,
 .dashboard-freedom-toggle {
@@ -1294,6 +1334,7 @@ body {
 @media (hover: hover) and (pointer: fine) {
   .dashboard-widget--compact:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent-2) 28%, var(--glass-border-soft)); }
   .dashboard-widget--compact:hover .dashboard-widget-icon { transform: translateY(-1px) scale(1.045) rotate(-2deg); border-color: color-mix(in srgb, var(--accent-2) 45%, transparent); }
+  .dashboard-widget:hover .dashboard-widget-icon::after { transform: translateX(52%) rotate(14deg); }
   [data-home-widget="monthly"]:hover .dashboard-widget-icon,
   [data-home-widget="health"]:hover .dashboard-widget-icon,
   [data-home-widget="insights"]:hover .dashboard-widget-icon { animation-play-state: paused; }
@@ -1940,21 +1981,22 @@ body {
   transform: translateX(-50%);
   z-index: 50;
   display: flex;
-  gap: 4px;
+  gap: 3px;
   width: auto;
   max-width: calc(100% - 28px);
-  padding: 6px;
-  border-radius: 25px;
+  padding: 5px;
+  border-radius: 27px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 38%, rgba(255, 255, 255, 0) 100%),
-    rgba(18, 22, 42, 0.42);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.105) 0%, rgba(255, 255, 255, 0.018) 48%, rgba(255, 255, 255, 0) 100%),
+    rgba(11, 15, 29, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   -webkit-backdrop-filter: blur(32px) saturate(200%) brightness(1.06);
   backdrop-filter: blur(32px) saturate(200%) brightness(1.06);
   box-shadow:
-    0 18px 50px rgba(6, 9, 24, 0.5),
-    0 2px 8px rgba(6, 9, 24, 0.3),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.45),
+    0 20px 56px rgba(2, 5, 18, 0.56),
+    0 2px 9px rgba(6, 9, 24, 0.34),
+    0 0 0 1px rgba(56, 174, 255, .035),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.38),
     inset 0 -1px 1px rgba(255, 255, 255, 0.06),
     inset 0 0 0 0.5px rgba(255, 255, 255, 0.05);
 }
@@ -1965,8 +2007,12 @@ body {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(120% 80% at 30% -10%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 55%);
+  background:
+    radial-gradient(120% 80% at 30% -10%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(90deg, transparent 5%, rgba(83, 218, 255, .12) 48%, rgba(128, 91, 255, .1) 72%, transparent 96%);
+  background-size: auto, 180% 100%;
   mix-blend-mode: screen;
+  animation: navAmbientShift 8s ease-in-out infinite alternate;
 }
 .tab {
   position: relative;
@@ -1975,7 +2021,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   white-space: nowrap;
   border: 0;
   background: transparent;
@@ -1984,16 +2030,27 @@ body {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.01em;
-  padding: 7px 4px 5px;
-  min-height: 52px;
-  border-radius: 17px;
+  padding: 6px 5px 4px;
+  min-height: 54px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: color 0.25s ease, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: color 0.25s ease, transform 0.22s cubic-bezier(0.2, .72, .2, 1), background .2s ease;
 }
-.tab svg { width: 20px; height: 20px; display: block; flex: none; transition: filter 0.25s ease; }
-.tab span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.tab-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  transition: transform .28s cubic-bezier(.2,.72,.2,1), background .24s ease, border-color .24s ease, box-shadow .24s ease;
+}
+.tab-icon svg { width: 21px; height: 21px; display: block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: filter 0.25s ease; }
+.tab-label { max-width: 100%; overflow: hidden; text-overflow: ellipsis; transition: color .2s ease, opacity .2s ease; }
 .tabbar .tab[data-view="home"] { min-width: 72px; }
-.tabbar .tab[data-view="home"] span { overflow: visible; text-overflow: clip; }
+.tabbar .tab[data-view="home"] .tab-label { overflow: visible; text-overflow: clip; }
 .tab--command {
   isolation: isolate;
   overflow: hidden;
@@ -2042,6 +2099,7 @@ body {
   filter: drop-shadow(0 3px 8px rgba(83, 228, 255, .72));
   animation: command-orb-breathe 2.4s ease-in-out infinite;
 }
+.tab--command .tab-icon { border: 0; background: transparent; box-shadow: none; }
 .command-orb::before {
   content: "";
   position: absolute;
@@ -2065,7 +2123,11 @@ body {
   animation: command-orb-ring 3.8s linear infinite;
 }
 .command-orb canvas { position: relative; z-index: 1; display: block; width: 28px; height: 28px; }
-.tab--command span { text-shadow: 0 1px 8px rgba(0, 30, 90, .7); }
+.tab--command .tab-label { text-shadow: 0 1px 8px rgba(0, 30, 90, .7); }
+@keyframes navAmbientShift {
+  from { background-position: 0 0, 0% 50%; }
+  to { background-position: 0 0, 100% 50%; }
+}
 @keyframes command-tab-gradient {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -2123,30 +2185,68 @@ body {
 }
 .tab.is-active {
   color: #fff;
+  font-weight: 760;
 }
 /* Liquid-glass pill behind the active tab */
 .tab.is-active::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 1px;
   z-index: 0;
   border-radius: inherit;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 255, 255, 0) 100%),
-    linear-gradient(135deg, rgba(124, 92, 255, 0.38), rgba(33, 212, 253, 0.26));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.025) 55%, rgba(255, 255, 255, 0) 100%),
+    linear-gradient(135deg, rgba(56, 174, 255, 0.28), rgba(124, 92, 255, 0.3));
   box-shadow:
     inset 0 1px 0.5px rgba(255, 255, 255, 0.55),
     inset 0 -1px 2px rgba(124, 92, 255, 0.25),
-    0 4px 14px rgba(124, 92, 255, 0.32);
+    0 5px 18px rgba(68, 125, 255, 0.26);
   -webkit-backdrop-filter: blur(6px) saturate(160%);
   backdrop-filter: blur(6px) saturate(160%);
   animation: tab-pop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.tab.is-active svg { filter: drop-shadow(0 3px 8px rgba(124, 92, 255, 0.6)); }
+.tab.is-active .tab-icon:not(.command-orb) {
+  color: #fff;
+  border-color: rgba(255,255,255,.13);
+  background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(68, 184, 255, .08));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.16), 0 5px 14px rgba(30, 128, 255, .16);
+  animation: navIconSettle .42s cubic-bezier(.2,.9,.2,1) both;
+}
+.tab.is-active .tab-icon svg { filter: drop-shadow(0 3px 8px rgba(83, 204, 255, 0.48)); }
 .tab.is-active .command-orb { filter: drop-shadow(0 3px 10px rgba(124, 92, 255, 0.78)); }
+.tab:not(.tab--command)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  z-index: 2;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #7ddfff;
+  box-shadow: 0 0 9px rgba(78, 207, 255, .8);
+  opacity: 0;
+  transform: translate(-50%, 4px) scale(.5);
+  transition: opacity .22s ease, transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.tab.is-active:not(.tab--command)::after { opacity: 1; transform: translate(-50%, 0) scale(1); }
+@keyframes navIconSettle {
+  0% { transform: translateY(4px) scale(.84); opacity: .45; }
+  70% { transform: translateY(-1px) scale(1.06); opacity: 1; }
+  100% { transform: none; opacity: 1; }
+}
 @keyframes tab-pop {
   0% { transform: scale(0.82); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tab:not(.is-active):not(.tab--command):hover .tab-icon {
+    transform: translateY(-2px);
+    color: var(--text);
+    border-color: rgba(255,255,255,.08);
+    background: rgba(255,255,255,.055);
+  }
 }
 .tab[data-soon] { position: relative; }
 .tab[data-soon]::after {
@@ -2302,7 +2402,8 @@ body.modal-open { overflow: hidden; }
   .tab { min-width: 0; font-size: 9.5px; letter-spacing: 0; padding: 9px 1px 7px; }
   .tabbar .tab[data-view="home"] { flex: 1.25; min-width: 0; font-size: 9px; letter-spacing: -.02em; }
   .tabbar .tab--command { min-width: 0; }
-  .tab svg { width: 21px; height: 21px; }
+  .tab-icon { width: 29px; height: 29px; border-radius: 11px; }
+  .tab-icon svg { width: 20px; height: 20px; }
   .watch-ccy, .watch-chart, .watch-del, .cat-remove, .exp-paid { min-width: 44px; width: 44px; height: 44px; }
   .monthly-share-dialog { padding: 11px; border-radius: 20px; }
   .monthly-share-preview { width: min(100%, 340px); max-height: calc(100vh - 285px); }

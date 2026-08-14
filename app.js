@@ -4394,7 +4394,7 @@ function renderCountdowns() {
     const category = item.category ? item.category : t("countdown_title");
     return `<article class="glass dashboard-widget dashboard-widget--compact countdown-tile${remaining.done ? " is-done" : ""}" data-countdown-id="${escapeHtml(item.id)}">
       <div class="countdown-tile-head">
-        <span class="dashboard-widget-icon" aria-hidden="true">⏳</span>
+        <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10M7 21h10M8 3c0 4 1.3 5.4 4 7 2.7-1.6 4-3 4-7M8 21c0-4 1.3-5.4 4-7 2.7 1.6 4 3 4 7"></path></svg></span>
         <div class="countdown-tile-heading"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(category)}</small></div>
         <div class="countdown-tile-actions"><button class="dashboard-card-grip countdown-tile-grip" type="button" data-countdown-drag="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("home_card_drag"))}" title="${escapeHtml(t("home_card_drag"))}"><span aria-hidden="true">⠿</span></button><button class="countdown-tile-remove" type="button" data-countdown-del="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("countdown_remove"))}">×</button></div>
       </div>

@@ -225,7 +225,7 @@ const I18N = {
   en: {
     nav_home: "Home", nav_savings: "Expenses", nav_settings: "Settings", nav_more: "More",
     home_title: "Freedom", home_sub: "See how much to save so passive returns cover your expenses.",
-    dashboard_title: "Home", dashboard_sub: "Everything important, at a glance.", dashboard_edit: "Edit widgets",
+    dashboard_title: "Home", dashboard_sub: "Everything important, at a glance.", dashboard_edit: "Edit cards", dashboard_done: "Done",
     currency: "Currency", monthly_expenses: "Monthly expenses", per_month: "/ month",
     real_mode: "Real return mode", real_mode_sub: "Subtract inflation from each rate",
     inflation_label: "Inflation (annual %)",
@@ -284,7 +284,7 @@ const I18N = {
     punch_empty: "Toggle on the habits you want to quit and type what you spend to see your number.",
     savings_note: "Projection compounds yearly contributions: FV = annual × [((1 + r)ⁿ − 1) / r], where r is the selected annual return. Returns are assumptions, not guarantees.",
     settings_title: "Settings", language: "Language", theme: "Theme", country: "Country", sound: "Sound", sound_fx: "Sound effects", motion: "Motion", animations: "Animations", animations_sub: "Show interface transitions and decorative motion",
-    home_customize_title: "Home screen", home_customize_desc: "Reorder widgets or hide the ones you do not use.", home_customize_reset: "Reset layout", home_move_up: "Move up", home_move_down: "Move down", home_hide: "Show this widget", home_last_card: "At least one widget must remain visible.",
+    home_customize_title: "Home screen", home_customize_desc: "Drag cards to reorder them or hide the ones you do not use. Restore hidden cards here.", home_customize_reset: "Reset layout", home_move_up: "Move up", home_move_down: "Move down", home_hide: "Show this widget", home_card_drag: "Drag to move", home_card_hide: "Hide card", home_card_show: "Show card", home_last_card: "At least one widget must remain visible.",
     home_widget_freedom: "Freedom calculator", home_widget_portfolio: "Portfolio", home_widget_income: "Income", home_widget_expenses: "Expenses", home_widget_monthly: "This month", home_widget_health: "Financial health", home_widget_markets: "FX & gold", home_widget_weather: "Weather", home_widget_car: "My car", home_widget_watch: "Watchlist", home_widget_goals: "Savings goals", home_widget_notes: "Mini notes", home_widget_insights: "Smart insights", home_widget_alerts: "Price alerts", home_widget_countdown: "Countdowns",
     home_holdings: "{count} holdings", home_passive: "{amount} passive / month", home_upcoming: "{count} upcoming payments", home_vehicles: "{count} vehicles", home_last_trip: "Last trip: {route}", home_no_route: "No saved route", home_watch_count: "{count} tracked assets", home_watch_empty: "No tracked assets", home_freedom_summary: "{amount} · {name}",
     command_nav: "Command", command_nav_title: "Open command bar", command_eyebrow: "Smart command", command_title: "Write a command", command_sub: "Write naturally in Turkish. Portfolio changes are always confirmed first.", command_input_label: "Your command", command_placeholder: "Bir şey yaz…", command_send: "Send command", command_detected: "Detected", command_buy: "Purchase detected", command_sell: "Sale detected", command_swap: "Swap detected", command_alert: "Price alert detected", command_open: "Asset page detected", command_favorite: "Favorite change detected", command_currency: "Base currency change detected", command_query: "Portfolio insight detected", command_asset: "Asset", command_quantity: "Quantity", command_price: "Price", command_total: "Total", command_date: "Date", command_confirm: "Confirm", command_edit: "Edit", command_cancel: "Cancel", command_applied: "Command applied ✓", command_understood: "I understood this command.", command_low_confidence: "I couldn't fully understand that.", command_no_asset: "Choose a supported asset first.", command_no_action: "What would you like to do with this asset?", command_ambiguous: "Which matching asset did you mean?", command_suggestion_buy: "Add to portfolio", command_suggestion_sell: "Record a sale", command_suggestion_cancel: "Cancel", command_needs_price: "A live price is needed to prepare this preview.", command_current_price: "Current price", command_average_cost: "Weighted average cost", command_pnl: "This month's PnL", command_realized: "Realized", command_unrealized: "Unrealized", command_allocation: "Portfolio allocation", command_top_performer: "Top performer", command_no_data: "There is not enough portfolio data yet.", command_no_holding: "This asset is not in your portfolio.", command_insufficient: "The portfolio does not contain enough of this asset.", command_eur_unsupported: "EUR base currency is not available in this version.", command_percent: "Change", command_condition: "Condition", command_above: "above", command_below: "below", command_percent_up: "% up", command_percent_down: "% down", command_today: "today", command_not_saved: "Nothing was changed.", command_help_title: "Available commands", command_help_intro: "Write one of these examples and send it.", command_help_trade: "Transactions & alerts", command_help_portfolio: "Portfolio", command_help_asset: "Assets & favorites", command_help_settings: "Settings", command_app: "App data", command_navigation: "Navigation", command_help_queries: "Quick reports", command_expenses: "Expense", command_income: "Income", command_balance: "Balance", command_monthly_expenses: "Monthly expenses", command_label: "Name / detail", command_target: "Target", command_destination: "Page", command_note: "Note", command_navigation_done: "Opened ✓", command_expense_added: "Expense added ✓", command_income_added: "Income added ✓", command_note_added: "Note added ✓", command_goal_added: "Savings goal added ✓", command_countdown_added: "Countdown added ✓", command_invalid_amount: "Enter a positive amount.", command_date_needed: "Choose a future date.", command_label_needed: "Add a name or description.",
@@ -412,7 +412,7 @@ const I18N = {
   tr: {
     nav_home: "Ana Sayfa", nav_savings: "Gider", nav_settings: "Ayarlar", nav_more: "Daha",
     home_title: "Özgürlük", home_sub: "Giderlerini pasif gelirle karşılamak için ne kadar biriktirmen gerektiğini gör.",
-    dashboard_title: "Ana Sayfa", dashboard_sub: "Önemli olan her şey tek bakışta.", dashboard_edit: "Widget'ları düzenle",
+    dashboard_title: "Ana Sayfa", dashboard_sub: "Önemli olan her şey tek bakışta.", dashboard_edit: "Kartları düzenle", dashboard_done: "Bitti",
     currency: "Para Birimi", monthly_expenses: "Aylık giderler", per_month: "/ ay",
     real_mode: "Reel getiri modu", real_mode_sub: "Her orandan enflasyonu düş",
     inflation_label: "Enflasyon (yıllık %)",
@@ -471,7 +471,7 @@ const I18N = {
     punch_empty: "Bırakmak istediğin alışkanlıkları aç ve harcamanı yaz; rakamını gör.",
     savings_note: "Projeksiyon yıllık katkıları bileşik hesaplar: GD = yıllık × [((1 + r)ⁿ − 1) / r], r seçilen yıllık getiridir. Getiriler varsayımdır, garanti değildir.",
     settings_title: "Ayarlar", language: "Dil", theme: "Tema", country: "Ülke", sound: "Ses", sound_fx: "Ses efektleri", motion: "Hareket", animations: "Animasyonlar", animations_sub: "Arayüz geçişlerini ve dekoratif hareketleri göster",
-    home_customize_title: "Ana sayfa", home_customize_desc: "Widget'ları sırala veya kullanmadıklarını gizle.", home_customize_reset: "Düzeni sıfırla", home_move_up: "Yukarı taşı", home_move_down: "Aşağı taşı", home_hide: "Bu widget'ı göster", home_last_card: "En az bir widget görünür kalmalı.",
+    home_customize_title: "Ana sayfa", home_customize_desc: "Kartları tutup sırala veya kullanmadıklarını gizle. Gizlenenleri buradan geri aç.", home_customize_reset: "Düzeni sıfırla", home_move_up: "Yukarı taşı", home_move_down: "Aşağı taşı", home_hide: "Bu widget'ı göster", home_card_drag: "Taşımak için tut", home_card_hide: "Kartı gizle", home_card_show: "Kartı göster", home_last_card: "En az bir widget görünür kalmalı.",
     home_widget_freedom: "Özgürlük hesaplayıcısı", home_widget_portfolio: "Portföy", home_widget_income: "Gelirler", home_widget_expenses: "Giderler", home_widget_monthly: "Bu ay", home_widget_health: "Finansal sağlık", home_widget_markets: "Kur ve altın", home_widget_weather: "Hava durumu", home_widget_car: "Aracım", home_widget_watch: "Takip listesi", home_widget_goals: "Birikim hedefleri", home_widget_notes: "Mini notlar", home_widget_insights: "Akıllı içgörüler", home_widget_alerts: "Fiyat alarmları", home_widget_countdown: "Geri sayımlar",
     home_holdings: "{count} varlık", home_passive: "Aylık {amount} pasif", home_upcoming: "{count} yaklaşan ödeme", home_vehicles: "{count} araç", home_last_trip: "Son yolculuk: {route}", home_no_route: "Kayıtlı rota yok", home_watch_count: "{count} takip edilen varlık", home_watch_empty: "Takip edilen varlık yok", home_freedom_summary: "{name} · {amount}",
     command_nav: "Komut", command_nav_title: "Komut çubuğunu aç", command_eyebrow: "Akıllı komut", command_title: "Komut yaz", command_sub: "Doğal Türkçe yaz. Portföy değişiklikleri her zaman önce onaylanır.", command_input_label: "Komutun", command_placeholder: "Bir şey yaz…", command_send: "Komutu gönder", command_detected: "Algılanan", command_buy: "Satın alma algılandı", command_sell: "Satış algılandı", command_swap: "Dönüştürme algılandı", command_alert: "Fiyat alarmı algılandı", command_open: "Varlık sayfası algılandı", command_favorite: "Favori değişikliği algılandı", command_currency: "Ana para birimi değişikliği algılandı", command_query: "Portföy analizi algılandı", command_asset: "Varlık", command_quantity: "Miktar", command_price: "Fiyat", command_total: "Toplam", command_date: "Tarih", command_confirm: "Onayla", command_edit: "Düzenle", command_cancel: "İptal", command_applied: "Komut uygulandı ✓", command_understood: "Bu komutu anladım.", command_low_confidence: "Bunu tam anlayamadım.", command_no_asset: "Önce desteklenen bir varlık seç.", command_no_action: "Bu varlıkla ne yapmak istiyorsun?", command_ambiguous: "Hangi eşleşen varlığı kastettin?", command_suggestion_buy: "Portföye ekle", command_suggestion_sell: "Satış olarak kaydet", command_suggestion_cancel: "Vazgeç", command_needs_price: "Bu önizlemeyi hazırlamak için canlı fiyat gerekiyor.", command_current_price: "Güncel fiyat", command_average_cost: "Ağırlıklı ortalama maliyet", command_pnl: "Bu ayın K/Z'si", command_realized: "Gerçekleşen", command_unrealized: "Gerçekleşmemiş", command_allocation: "Portföy ağırlığı", command_top_performer: "En çok kazandıran", command_no_data: "Henüz yeterli portföy verisi yok.", command_no_holding: "Bu varlık portföyünde yok.", command_insufficient: "Portföyünde bu varlıktan yeterli miktar yok.", command_eur_unsupported: "EUR ana para birimi bu sürümde kullanılamıyor.", command_percent: "Değişim", command_condition: "Koşul", command_above: "üzerine çıkarsa", command_below: "altına düşerse", command_percent_up: "% yükselirse", command_percent_down: "% düşerse", command_today: "bugün", command_not_saved: "Herhangi bir değişiklik yapılmadı.", command_help_title: "Kullanabileceğin komutlar", command_help_intro: "Aşağıdaki örneklerden birini yazıp gönder.", command_help_trade: "İşlem ve alarm", command_help_portfolio: "Portföy", command_help_asset: "Varlık ve favoriler", command_help_settings: "Ayarlar", command_app: "Uygulama verileri", command_navigation: "Gezinme", command_help_queries: "Hızlı raporlar", command_expenses: "Gider", command_income: "Gelir", command_balance: "Bakiye", command_monthly_expenses: "Aylık gider", command_label: "Ad / detay", command_target: "Hedef", command_destination: "Sayfa", command_note: "Not", command_navigation_done: "Açıldı ✓", command_expense_added: "Gider eklendi ✓", command_income_added: "Gelir eklendi ✓", command_note_added: "Not eklendi ✓", command_goal_added: "Birikim hedefi eklendi ✓", command_countdown_added: "Geri sayım eklendi ✓", command_invalid_amount: "Pozitif bir tutar gir.", command_date_needed: "Gelecekte bir tarih seç.", command_label_needed: "Bir ad veya açıklama ekle.",
@@ -802,7 +802,6 @@ const el = {
   watchBubbles: document.getElementById("watchBubbles"),
   homeCardList: document.getElementById("homeCardList"),
   resetHomeCards: document.getElementById("resetHomeCards"),
-  homeCustomizePanel: document.getElementById("homeCustomizePanel"),
   dashboardGrid: document.getElementById("dashboardGrid"),
   editHome: document.getElementById("editHome"),
   freedomWidgetToggle: document.getElementById("freedomWidgetToggle"),
@@ -3006,6 +3005,111 @@ function applyHomeLayout() {
   }
 }
 
+let homeDashboardEditing = false;
+
+function homeWidgetSurface(wrapper) {
+  if (!wrapper) return null;
+  return wrapper.classList.contains("dashboard-widget") ? wrapper : wrapper.querySelector(".dashboard-widget");
+}
+
+function ensureHomeCardControls() {
+  if (!el.dashboardGrid) return;
+  [...el.dashboardGrid.children].filter((node) => node.matches("[data-home-widget]")).forEach((wrapper) => {
+    const surface = homeWidgetSurface(wrapper);
+    if (!surface || surface.querySelector(".dashboard-card-controls")) return;
+    const id = wrapper.dataset.homeWidget;
+    const controls = document.createElement("div");
+    controls.className = "dashboard-card-controls";
+    controls.innerHTML = `<button class="dashboard-card-grip" type="button" data-home-drag="${escapeHtml(id)}" aria-label="${escapeHtml(t("home_card_drag"))}" title="${escapeHtml(t("home_card_drag"))}"><span aria-hidden="true">⠿</span></button><button class="dashboard-card-hide" type="button" data-home-hide="${escapeHtml(id)}" aria-label="${escapeHtml(t("home_card_hide"))}" title="${escapeHtml(t("home_card_hide"))}">×</button>`;
+    surface.prepend(controls);
+    controls.querySelector("[data-home-drag]").addEventListener("pointerdown", startHomeDashboardReorder);
+    controls.querySelector("[data-home-hide]").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      hideHomeCard(id);
+    });
+  });
+}
+
+function refreshHomeCardControlLabels() {
+  document.querySelectorAll("[data-home-drag]").forEach((button) => {
+    button.title = t("home_card_drag");
+    button.setAttribute("aria-label", t("home_card_drag"));
+  });
+  document.querySelectorAll("[data-home-hide]").forEach((button) => {
+    button.title = t("home_card_hide");
+    button.setAttribute("aria-label", t("home_card_hide"));
+  });
+}
+
+function setHomeDashboardEditing(enabled) {
+  homeDashboardEditing = !!enabled;
+  if (el.dashboardGrid) el.dashboardGrid.classList.toggle("is-editing", homeDashboardEditing);
+  if (el.editHome) {
+    el.editHome.dataset.i18n = homeDashboardEditing ? "dashboard_done" : "dashboard_edit";
+    el.editHome.textContent = t(el.editHome.dataset.i18n);
+    el.editHome.setAttribute("aria-pressed", String(homeDashboardEditing));
+  }
+}
+
+function syncHomeOrderFromDashboard() {
+  if (!el.dashboardGrid) return;
+  const order = [...el.dashboardGrid.children]
+    .filter((node) => node.matches("[data-home-widget]"))
+    .map((node) => node.dataset.homeWidget);
+  state.homeLayout = normalizeHomeLayout({ order, hidden: state.homeLayout.hidden, freedomExpanded: state.homeLayout.freedomExpanded });
+  saveState();
+  applyHomeLayout();
+  renderHomeCardSettings();
+}
+
+function startHomeDashboardReorder(event) {
+  if (!homeDashboardEditing) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const handle = event.currentTarget;
+  const wrapper = handle.closest("[data-home-widget]");
+  const grid = el.dashboardGrid;
+  if (!wrapper || !grid) return;
+  wrapper.classList.add("is-dragging");
+  if (handle.setPointerCapture) try { handle.setPointerCapture(event.pointerId); } catch (e) {}
+  const move = (e) => {
+    const siblings = [...grid.children].filter((node) => {
+      if (!node.matches("[data-home-widget]") || node === wrapper || node.hidden) return false;
+      const rect = node.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    });
+    const before = siblings.find((item) => {
+      const rect = item.getBoundingClientRect();
+      const sameRow = Math.abs(e.clientY - (rect.top + rect.height / 2)) <= rect.height * .58;
+      return sameRow ? e.clientX < rect.left + rect.width / 2 : e.clientY < rect.top + rect.height / 2;
+    });
+    if (before) grid.insertBefore(wrapper, before); else grid.appendChild(wrapper);
+  };
+  const finish = () => {
+    document.removeEventListener("pointermove", move);
+    document.removeEventListener("pointerup", finish);
+    document.removeEventListener("pointercancel", finish);
+    wrapper.classList.remove("is-dragging");
+    syncHomeOrderFromDashboard();
+  };
+  document.addEventListener("pointermove", move);
+  document.addEventListener("pointerup", finish);
+  document.addEventListener("pointercancel", finish);
+}
+
+function hideHomeCard(id) {
+  if (!HOME_WIDGET_IDS.includes(id)) return;
+  if (state.homeLayout.hidden.length >= HOME_WIDGET_IDS.length - 1) {
+    showAppToast(t("home_last_card"));
+    return;
+  }
+  state.homeLayout.hidden = [...new Set([...state.homeLayout.hidden, id])];
+  saveState();
+  applyHomeLayout();
+  renderHomeCardSettings();
+}
+
 function moveHomeCard(id, direction) {
   const order = state.homeLayout.order;
   const from = order.indexOf(id);
@@ -3062,8 +3166,8 @@ function renderHomeCardSettings() {
         <button type="button" data-home-up="${id}" aria-label="${escapeHtml(t("home_move_up"))}"${index === 0 ? " disabled" : ""}>↑</button>
         <button type="button" data-home-down="${id}" aria-label="${escapeHtml(t("home_move_down"))}"${index === state.homeLayout.order.length - 1 ? " disabled" : ""}>↓</button>
       </div>
-      <label class="switch home-card-switch" title="${escapeHtml(t("home_hide"))}">
-        <input type="checkbox" data-home-visible="${id}" ${visible ? "checked" : ""} aria-label="${escapeHtml(t("home_widget_" + id))}" />
+      <label class="switch home-card-switch" title="${escapeHtml(t(visible ? "home_card_hide" : "home_card_show"))}">
+        <input type="checkbox" data-home-visible="${id}" ${visible ? "checked" : ""} aria-label="${escapeHtml(`${t(visible ? "home_card_hide" : "home_card_show")}: ${t("home_widget_" + id)}`)}" />
         <span class="switch-track"><span class="switch-thumb"></span></span>
       </label>
     </div>`;
@@ -3709,17 +3813,15 @@ function addCountdown(event) {
 
 function wireHomeDashboard() {
   if (!el.dashboardGrid) return;
+  ensureHomeCardControls();
+  setHomeDashboardEditing(false);
   el.freedomWidgetToggle.addEventListener("click", () => setFreedomWidgetExpanded(!state.homeLayout.freedomExpanded));
   el.dashboardGrid.querySelectorAll("[data-open-view]").forEach((button) => button.addEventListener("click", () => {
     const tab = document.querySelector(`.tab[data-view="${button.dataset.openView}"]`);
     if (tab) tab.click();
   }));
   el.editHome.addEventListener("click", () => {
-    const settingsTab = document.querySelector('.tab[data-view="settings"]');
-    if (!settingsTab) return;
-    settingsTab.click();
-    if (el.homeCustomizePanel) el.homeCustomizePanel.open = true;
-    setTimeout(() => (el.homeCustomizePanel || document.getElementById("homeCustomizeTitle")).scrollIntoView({ block: "start", behavior: "smooth" }), 0);
+    setHomeDashboardEditing(!homeDashboardEditing);
   });
   el.savingsGoalForm.addEventListener("submit", addSavingsGoal);
   el.homeNoteForm.addEventListener("submit", addHomeNote);
@@ -5860,6 +5962,7 @@ function applyLanguage(lang) {
   buildWatchlist();
   renderHomeDashboard(false);
   renderHomeCardSettings();
+  refreshHomeCardControlLabels();
   renderPwaSettings();
   renderNotificationSettings();
   updateSettingsActive();
@@ -6164,6 +6267,7 @@ document.querySelectorAll('[data-theme-pick="black"]').forEach((b) => b.addEvent
     tabs.forEach((tt) => { const on = tt === tab; tt.classList.toggle("is-active", on); if (on) tt.setAttribute("aria-current", "page"); else tt.removeAttribute("aria-current"); });
   }
   function showView(name) {
+    if (name !== "home") setHomeDashboardEditing(false);
     document.getElementById("view-home").hidden = name !== "home";
     document.getElementById("view-savings").hidden = name !== "savings";
     document.getElementById("view-car").hidden = name !== "car";

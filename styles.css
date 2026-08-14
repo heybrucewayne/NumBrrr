@@ -697,6 +697,7 @@ body {
   align-items: stretch;
 }
 .dashboard-widget {
+  position: relative;
   min-width: 0;
   overflow: hidden;
   grid-column: span 2;
@@ -715,6 +716,64 @@ body {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 .dashboard-widget[hidden] { display: none; }
+.dashboard-grid.is-editing { gap: 17px; }
+.dashboard-grid.is-editing > [data-home-widget]:not([hidden]) .dashboard-widget {
+  border-color: color-mix(in srgb, var(--accent-2) 34%, var(--glass-border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-2) 10%, transparent), 0 15px 34px rgba(0, 0, 0, .18);
+}
+.dashboard-grid.is-editing > [data-home-widget].is-dragging,
+.dashboard-grid.is-editing > [data-home-widget].is-dragging .dashboard-widget {
+  opacity: .7;
+  transform: rotate(.45deg) scale(.985);
+  z-index: 20;
+}
+.dashboard-card-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 30;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px) scale(.96);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.dashboard-grid.is-editing .dashboard-card-controls {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+.dashboard-card-grip,
+.dashboard-card-hide {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.19);
+  border-radius: 11px;
+  color: var(--text-dim);
+  background: rgba(8, 12, 25, .78);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: 0 6px 16px rgba(0,0,0,.18);
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color .16s ease, border-color .16s ease, background .16s ease, transform .16s ease;
+}
+.dashboard-card-grip { touch-action: none; cursor: grab; font-size: 21px; letter-spacing: -4px; }
+.dashboard-card-grip:active { cursor: grabbing; }
+.dashboard-card-hide { color: #ffb3b3; font-size: 22px; }
+.dashboard-card-grip:hover,
+.dashboard-card-hide:hover { color: var(--text); border-color: color-mix(in srgb, var(--accent-2) 58%, transparent); background: rgba(30, 47, 80, .9); transform: translateY(-1px); }
+.dashboard-card-hide:hover { color: #fff; border-color: rgba(255, 137, 137, .62); background: rgba(110, 35, 52, .82); }
+.dashboard-grid.is-editing .dashboard-widget-open,
+.dashboard-grid.is-editing .dashboard-freedom-toggle { padding-right: 104px; }
+.dashboard-grid.is-editing .dashboard-widget-caret,
+.dashboard-grid.is-editing .dashboard-widget-top > span:last-child { opacity: .25; }
 .dashboard-widget--freedom,
 .dashboard-widget--feature,
 .dashboard-widget--alerts,

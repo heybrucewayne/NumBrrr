@@ -704,6 +704,7 @@ body {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 14px;
+  grid-auto-flow: row dense;
   align-items: stretch;
 }
 .dashboard-widget {
@@ -843,7 +844,8 @@ body {
 .dashboard-widget--feature,
 .dashboard-widget--alerts,
 .dashboard-widget--countdown { grid-column: 1 / -1; }
-.dashboard-widget--half { grid-column: span 3; }
+/* Wide cards occupy two compact-card slots so mixed rows stay balanced. */
+.dashboard-widget--half { grid-column: span 4; }
 .dashboard-widget--compact { min-height: 174px; }
 .dashboard-widget-icon {
   display: grid;

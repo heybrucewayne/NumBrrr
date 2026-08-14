@@ -1,18 +1,22 @@
-const SHELL_CACHE = "numbrrr-shell-v61";
+const SHELL_CACHE = "numbrrr-shell-v62";
 const DATA_CACHE = "numbrrr-data-v2";
 const APP_SHELL = [
   "/",
   "/index.html",
   "/styles.css?v=53",
   "/command-parser.js?v=3",
-  "/app.js?v=56",
+  "/app.js?v=57",
   "/manifest.webmanifest",
   "/icons/icon.svg",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
   "/icons/icon-maskable-512.png",
   "/icons/apple-touch-icon.png",
-  "/icons/badge-96.png"
+  "/icons/badge-96.png",
+  "/assets/monthly-share/cat-shout.png",
+  "/assets/monthly-share/cat-blurry.png",
+  "/assets/monthly-share/cat-close.png",
+  "/assets/monthly-share/cat-wide.png"
 ];
 
 self.addEventListener("install", (event) => {

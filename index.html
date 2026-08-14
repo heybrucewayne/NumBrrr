@@ -212,9 +212,15 @@
         </article>
 
         <article class="glass dashboard-widget dashboard-widget--metric" data-home-widget="monthly" aria-labelledby="monthlySummaryTitle">
-          <div class="home-card-head">
-            <span class="dashboard-widget-icon" aria-hidden="true">📊</span>
-            <div><h2 id="monthlySummaryTitle" data-i18n="monthly_summary_title">This month</h2></div>
+          <div class="home-card-head home-card-head--share">
+            <div class="home-card-head-content">
+              <span class="dashboard-widget-icon" aria-hidden="true">📊</span>
+              <div><h2 id="monthlySummaryTitle" data-i18n="monthly_summary_title">This month</h2></div>
+            </div>
+            <button class="monthly-share-button" id="shareMonthlySummary" type="button" data-i18n-title="monthly_share_title" title="Share this month's spending">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0 4 4m-4-4-4 4M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6"></path></svg>
+              <span data-i18n="monthly_share">Share</span>
+            </button>
           </div>
           <div class="monthly-summary-grid">
             <div><span data-i18n="monthly_income">Income</span><strong id="homeMonthlyIncome">—</strong></div>
@@ -847,7 +853,7 @@
   </div>
 
   <script src="command-parser.js?v=3"></script>
-  <script src="app.js?v=53"></script>
+  <script src="app.js?v=54"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

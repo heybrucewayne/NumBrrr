@@ -1346,6 +1346,13 @@ body {
   .countdown-tile:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent-2) 28%, var(--glass-border-soft)); background: rgba(255,255,255,.035); }
 }
 
+/* Wide displays gain an extra widget column instead of stretching every card. */
+@media (min-width: 1440px) {
+  .dashboard-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .dashboard-widget--pair { grid-column: span 2; }
+  .dashboard-widget--half { grid-column: span 4; }
+}
+
 @media (max-width: 860px) {
   .dashboard-widget { grid-column: span 3; }
   .dashboard-widget--freedom,

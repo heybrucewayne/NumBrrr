@@ -862,8 +862,9 @@ body {
 .dashboard-widget--feature,
 .dashboard-widget--alerts,
 .dashboard-widget--countdown { grid-column: 1 / -1; }
-/* Wide cards occupy two compact-card slots so mixed rows stay balanced. */
-.dashboard-widget--half { grid-column: span 4; }
+/* Paired cards split a desktop row evenly and never leave a dead third column. */
+.dashboard-widget--half,
+.dashboard-widget--pair { grid-column: span 3; }
 .dashboard-widget--compact { min-height: 174px; }
 .dashboard-widget-icon {
   position: relative;

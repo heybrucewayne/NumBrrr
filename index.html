@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=54" />
+  <link rel="stylesheet" href="styles.css?v=55" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -824,6 +824,17 @@
       <div class="monthly-share-preview-stage">
         <img class="monthly-share-preview" id="monthlySharePreviewImage" alt="Monthly spending card" />
       </div>
+      <div class="monthly-share-background-actions">
+        <button class="settings-action monthly-share-background-action" id="monthlyShareUpload" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 16l4-4 3 3 3-3 6 6M15 9h.01"></path></svg>
+          <span data-i18n="monthly_share_photo">Choose photo</span>
+        </button>
+        <button class="settings-action monthly-share-background-action" id="monthlyShareRandom" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg>
+          <span data-i18n="monthly_share_random">Random cat</span>
+        </button>
+        <input id="monthlySharePhotoInput" type="file" accept="image/*" hidden />
+      </div>
       <div class="monthly-share-actions">
         <button class="settings-action monthly-share-action" id="monthlyShareCopy" type="button">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3M6 8h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z"></path></svg>
@@ -887,7 +898,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=59"></script>
+  <script src="app.js?v=60"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

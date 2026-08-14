@@ -7320,19 +7320,9 @@ wireHomeDashboard();
 wireSmartCommand();
 
 let startupBackgroundStarted = false;
-function loadAppFonts() {
-  if (document.querySelector("link[data-app-fonts]")) return;
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.dataset.appFonts = "true";
-  link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap";
-  document.head.appendChild(link);
-}
 function startStartupBackgroundWork() {
   if (startupBackgroundStarted) return;
   startupBackgroundStarted = true;
-  if (document.readyState === "complete") loadAppFonts();
-  else window.addEventListener("load", loadAppFonts, { once: true });
   refreshHomeMarketSummary();
   refreshCryptoPrices();
   runNotificationChecks();

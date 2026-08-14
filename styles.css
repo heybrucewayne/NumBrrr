@@ -39,7 +39,9 @@ html, body {
 }
 
 body {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  /* Native app typography is available on the first paint, preventing a late
+     web-font swap from changing text size and card geometry after load. */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: var(--text);
   background: var(--bg-base);
   -webkit-font-smoothing: antialiased;

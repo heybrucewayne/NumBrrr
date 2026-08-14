@@ -551,7 +551,7 @@ body {
   transition: transform 0.28s cubic-bezier(0.2,0.7,0.2,1), border-color 0.28s ease, box-shadow 0.28s ease;
   position: relative;
   overflow: hidden;
-  animation: cardIn 0.5s cubic-bezier(0.2,0.7,0.2,1) both;
+  animation: cardIn 0.5s cubic-bezier(0.2,0.7,0.2,1) backwards;
 }
 @keyframes cardIn { from { opacity: 0; } to { opacity: 1; } }
 .card:hover {
@@ -674,7 +674,7 @@ body {
 
 /* ---------- Views (Home / Savings) ---------- */
 .view { display: flex; flex-direction: column; gap: 26px; }
-.view:not([hidden]) { animation: viewEnter .34s cubic-bezier(.2, .72, .2, 1) both; }
+.view:not([hidden]) { animation: viewEnter .34s cubic-bezier(.2, .72, .2, 1) backwards; }
 @keyframes viewEnter {
   from { opacity: 0; transform: translateY(7px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1013,7 +1013,7 @@ body {
   border-top: 1px solid var(--glass-border-soft);
 }
 .freedom-widget-body[hidden] { display: none; }
-.freedom-widget-body:not([hidden]) { animation: freedomReveal .3s cubic-bezier(.2, .72, .2, 1) both; }
+.freedom-widget-body:not([hidden]) { animation: freedomReveal .3s cubic-bezier(.2, .72, .2, 1) backwards; }
 @keyframes freedomReveal {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1291,7 +1291,7 @@ body {
 .countdown-form input[type="date"] { color-scheme: dark; }
 .countdown-tiles { display: contents; }
 .countdown-tile { min-height: 174px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; }
-.countdown-tile.is-new { animation: countdownEnter .36s cubic-bezier(.2, .8, .2, 1) both; }
+.countdown-tile.is-new { animation: countdownEnter .36s cubic-bezier(.2, .8, .2, 1) backwards; }
 .countdown-tile.is-done { opacity: .58; }
 .countdown-tile-head { min-width: 0; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; align-items: center; gap: 10px; }
 .countdown-tile-heading { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
@@ -2211,7 +2211,7 @@ body {
   border-color: rgba(255,255,255,.13);
   background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(68, 184, 255, .08));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.16), 0 5px 14px rgba(30, 128, 255, .16);
-  animation: navIconSettle .42s cubic-bezier(.2,.9,.2,1) both;
+  animation: navIconSettle .42s cubic-bezier(.2,.9,.2,1) backwards;
 }
 .tab.is-active .tab-icon svg { filter: drop-shadow(0 3px 8px rgba(83, 204, 255, 0.48)); }
 .tab.is-active .command-orb { filter: drop-shadow(0 3px 10px rgba(124, 92, 255, 0.78)); }
@@ -2537,7 +2537,7 @@ body.modal-open { overflow: hidden; }
   padding: 0 24px 22px;
   border-top: 1px solid transparent;
 }
-.settings-disclosure[open] .settings-disclosure-body { animation: settingsDisclosureIn .2s ease both; }
+.settings-disclosure[open] .settings-disclosure-body { animation: settingsDisclosureIn .2s ease backwards; }
 @keyframes settingsDisclosureIn {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }
@@ -2986,13 +2986,13 @@ body.modal-open { overflow: hidden; }
   display: grid; place-items: center; padding: 22px;
   background: rgba(3, 4, 8, 0.72);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  animation: ob-fade 0.25s ease both;
+  animation: ob-fade 0.25s ease backwards;
 }
 .onboard[hidden] { display: none; }
 .onboard-card {
   width: 100%; max-width: 440px; padding: 28px 24px;
   max-height: calc(100vh - 44px); overflow-y: auto;
-  animation: ob-rise 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: ob-rise 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 }
 .onboard-logo { font-size: 40px; text-align: center; line-height: 1; }
 .onboard-title {
@@ -3026,14 +3026,14 @@ body.modal-open { overflow: hidden; }
   display: grid; place-items: center; padding: 22px;
   background: rgba(3, 4, 8, 0.72);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  animation: ob-fade 0.25s ease both;
+  animation: ob-fade 0.25s ease backwards;
 }
 .guide[hidden] { display: none; }
 .guide-card {
   position: relative;
   width: 100%; max-width: 460px; padding: 26px 22px 22px;
   max-height: calc(100vh - 44px); overflow-y: auto;
-  animation: ob-rise 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: ob-rise 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 }
 .guide-close {
   position: absolute; top: 12px; right: 12px;
@@ -3044,7 +3044,6 @@ body.modal-open { overflow: hidden; }
 }
 .guide-close:hover { color: var(--text); background: rgba(255, 255, 255, 0.12); }
 .guide-title { margin: 2px 0 4px; font-family: "Sora", sans-serif; font-size: 22px; font-weight: 800; }
-.guide-intro { margin: 0 0 16px; color: var(--text-dim); font-size: 14px; }
 .guide-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
 .guide-item { display: flex; gap: 12px; align-items: flex-start; }
 .guide-ico {
@@ -3322,7 +3321,7 @@ body.modal-open { overflow: hidden; }
   border-radius: 50%; background: color-mix(in srgb, var(--accent) 15%, transparent); filter: blur(2px); pointer-events: none;
 }
 #view-car .car-panel > * { position: relative; z-index: 1; }
-#view-car:not([hidden]) .car-panel { animation: carPanelReveal .42s cubic-bezier(.2,.75,.2,1) both; }
+#view-car:not([hidden]) .car-panel { animation: carPanelReveal .42s cubic-bezier(.2,.75,.2,1) backwards; }
 #view-car:not([hidden]) .car-panel:nth-of-type(2) { animation-delay: 70ms; }
 #view-car:not([hidden]) .car-panel:nth-of-type(3) { animation-delay: 130ms; }
 @keyframes carPanelReveal { from { opacity: 0; transform: translateY(10px) scale(.995); } to { opacity: 1; transform: none; } }
@@ -3353,7 +3352,7 @@ body.modal-open { overflow: hidden; }
     linear-gradient(145deg, rgba(255,255,255,.052), rgba(255,255,255,.012));
   border-color: rgba(255,255,255,.1); box-shadow: inset 0 1px 0 rgba(255,255,255,.055), 0 20px 50px rgba(0,0,0,.12);
   transition: transform .28s cubic-bezier(.2,.75,.2,1), border-color .24s ease, background .24s ease, box-shadow .24s ease;
-  animation: vehicleCardReveal .38s cubic-bezier(.2,.8,.2,1) both;
+  animation: vehicleCardReveal .38s cubic-bezier(.2,.8,.2,1) backwards;
 }
 .veh-card::before { content: ""; position: absolute; inset: 0 16% auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(86,203,255,.8), rgba(126,91,255,.68), transparent); opacity: .78; }
 .veh-card::after { content: ""; position: absolute; z-index: -1; width: 240px; height: 240px; right: -120px; bottom: -155px; border-radius: 50%; background: rgba(62, 170, 255, .08); filter: blur(2px); pointer-events: none; }
@@ -3418,13 +3417,13 @@ body.modal-open { overflow: hidden; }
 .veh-sub-count { display: grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 8px; color: var(--text-faint); background: rgba(255,255,255,.045); font-size: 10px; }
 .veh-sub-head svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; transition: transform .24s ease; }
 .veh-sub[open] .veh-sub-head svg { transform: rotate(180deg); }
-.veh-sub-body { padding: 0 11px 11px; border-top: 1px solid rgba(255,255,255,.06); animation: vehSubReveal .24s cubic-bezier(.2,.75,.2,1) both; }
+.veh-sub-body { padding: 0 11px 11px; border-top: 1px solid rgba(255,255,255,.06); animation: vehSubReveal .24s cubic-bezier(.2,.75,.2,1) backwards; }
 @keyframes vehSubReveal { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 .veh-sched-wrap, .veh-exp-wrap { padding-top: 10px; }
 .veh-add-btn { min-height: 40px; border-style: solid; border-radius: 11px; background: rgba(255,255,255,.035); }
 .veh-empty-state {
   display: flex; align-items: center; gap: 14px; min-height: 104px; padding: 17px; border: 1px dashed var(--glass-border-soft); border-radius: 17px;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent); animation: vehicleCardReveal .38s ease both;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent); animation: vehicleCardReveal .38s ease backwards;
 }
 .veh-empty-icon { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; color: var(--text-faint); background: rgba(255,255,255,.04); border: 1px solid var(--glass-border-soft); }
 .veh-empty-state strong { display: block; margin-bottom: 4px; font-size: 14px; }
@@ -3475,7 +3474,7 @@ body.modal-open { overflow: hidden; }
 .car-extra-costs label { padding: 10px; border: 1px solid var(--glass-border-soft); border-radius: 13px; background: rgba(0,0,0,.09); }
 .car-extra-costs label:focus-within { border-color: color-mix(in srgb, var(--accent) 38%, transparent); }
 .car-extra-costs .money-input { min-height: 40px; border-radius: 10px; }
-.car-results:not([hidden]), .car-map-wrap:not([hidden]), .car-save-trip:not([hidden]) { animation: carResultReveal .34s cubic-bezier(.2,.75,.2,1) both; }
+.car-results:not([hidden]), .car-map-wrap:not([hidden]), .car-save-trip:not([hidden]) { animation: carResultReveal .34s cubic-bezier(.2,.75,.2,1) backwards; }
 @keyframes carResultReveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .car-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .car-stat { min-height: 84px; justify-content: center; border-radius: 14px; }
@@ -3547,7 +3546,7 @@ body.modal-open { overflow: hidden; }
   cursor: grab; user-select: none; -webkit-user-select: none; touch-action: pan-y;
   contain: layout paint style; backface-visibility: hidden;
   transform: translate3d(0, 0, 0); will-change: transform;
-  animation: bubble-pop 0.4s ease both;
+  animation: bubble-pop 0.4s ease backwards;
 }
 .bubble:active, .bubble.is-drag { cursor: grabbing; }
 .bubble.is-drag { z-index: 5; }
@@ -4003,7 +4002,7 @@ body.modal-open { overflow: hidden; }
 #view-income:not([hidden]) > *,
 #view-savings:not([hidden]) > *,
 #view-watch:not([hidden]) > *,
-#view-settings:not([hidden]) > * { animation: coreSectionReveal .4s cubic-bezier(.2,.75,.2,1) both; }
+#view-settings:not([hidden]) > * { animation: coreSectionReveal .4s cubic-bezier(.2,.75,.2,1) backwards; }
 #view-income:not([hidden]) > :nth-child(2),
 #view-savings:not([hidden]) > :nth-child(2),
 #view-watch:not([hidden]) > :nth-child(2),
@@ -4243,40 +4242,6 @@ body.modal-open { overflow: hidden; }
 [data-theme="black"] .view { gap: 14px; }
 [data-theme="black"] #view-home { gap: 14px; }
 
-.product-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 42px;
-  padding: 0 4px;
-}
-.product-brand { display: inline-flex; align-items: center; gap: 10px; }
-.product-brand strong {
-  font-family: "Sora", "Inter", system-ui, sans-serif;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: -.035em;
-}
-.product-mark {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid rgba(119, 203, 255, .24);
-  border-radius: 10px;
-  color: #fff;
-  background: rgba(29, 155, 240, .14);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.13), 0 6px 18px rgba(29,155,240,.08);
-  font-family: "Sora", sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-}
-.product-context {
-  color: var(--text-faint);
-  font-size: 11px;
-  font-weight: 650;
-}
-
 /* One calm glass primitive instead of unrelated card treatments. */
 [data-theme="black"] .glass,
 [data-theme="black"] .card {
@@ -4284,12 +4249,14 @@ body.modal-open { overflow: hidden; }
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012) 42%, transparent),
-    rgba(10, 16, 23, .76);
+    rgba(10, 16, 23, .94);
   border: 1px solid rgba(239, 243, 244, .1);
   border-radius: 20px;
   box-shadow: 0 18px 54px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.075);
-  -webkit-backdrop-filter: blur(22px) saturate(135%);
-  backdrop-filter: blur(22px) saturate(135%);
+  /* The black theme already has an opaque-enough surface. Avoiding dozens of
+     live backdrop filters prevents flashing and repaint lag while scrolling. */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 [data-theme="black"] .glass::after,
 [data-theme="black"] .card::after {
@@ -4305,6 +4272,14 @@ body.modal-open { overflow: hidden; }
 [data-theme="black"] .card > * { position: relative; z-index: 1; }
 [data-theme="black"] .glass:hover,
 [data-theme="black"] .card:hover { border-color: rgba(239,243,244,.16); }
+
+[data-theme="black"] .dashboard-card-grip,
+[data-theme="black"] .dashboard-card-hide,
+[data-theme="black"] .toast {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background-color: rgba(8, 13, 20, .97);
+}
 
 [data-theme="black"] .view-title {
   margin: 0;
@@ -4567,9 +4542,6 @@ body.modal-open { overflow: hidden; }
   [data-theme="black"] .shell { gap: 12px; padding: 12px 9px calc(98px + env(safe-area-inset-bottom)); }
   [data-theme="black"] .view,
   [data-theme="black"] #view-home { gap: 10px; }
-  .product-bar { min-height: 38px; padding: 0 5px; }
-  .product-mark { width: 28px; height: 28px; border-radius: 9px; }
-  .product-context { display: none; }
   [data-theme="black"] .view-title { font-size: 25px; }
   [data-theme="black"] .home-dashboard-head { min-height: 43px; }
   [data-theme="black"] .glass,
@@ -4607,6 +4579,28 @@ body.modal-open { overflow: hidden; }
   [data-theme="black"] .tab--command .tab-label { display: block; }
   [data-theme="black"] .command-orb { width: 25px; height: 25px; }
   [data-theme="black"] .command-orb canvas { width: 24px; height: 24px; }
+}
+
+/* Touch devices need stable, low-cost layers while the page is moving. Keep
+   the command orb alive, but pause decorative card motion and make the fixed
+   navigation surface opaque enough to avoid a full-screen blur repaint. */
+@media (hover: none), (pointer: coarse), (max-width: 860px) {
+  [data-theme="black"] .tabbar {
+    background: rgba(9, 15, 21, .97);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  [data-theme="black"] .dashboard-widget,
+  [data-theme="black"] .dashboard-widget:hover {
+    transform: none;
+    box-shadow: 0 12px 34px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.065);
+  }
+  [data-theme="black"] .dashboard-widget-icon,
+  [data-theme="black"] .health-ring,
+  [data-theme="black"] .monthly-summary-net strong,
+  [data-theme="black"] .countdown-tile-value b {
+    animation: none;
+  }
 }
 
 @media (max-width: 390px) {

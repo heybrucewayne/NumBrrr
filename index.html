@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=58" />
+  <link rel="stylesheet" href="styles.css?v=59" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -435,7 +435,7 @@
           <span class="car-section-count" id="vehCount">0</span>
         </div>
         <div class="veh-list" id="vehList"></div>
-        <button class="add-cat car-add-vehicle" id="addVehicle" type="button" data-i18n="veh_add">+ Add car</button>
+        <button class="add-cat car-add-vehicle" id="addVehicle" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg><span data-i18n="veh_add">Add vehicle</span></button>
       </section>
       <datalist id="vehSchedList"></datalist>
       <datalist id="vehCatList"></datalist>
@@ -898,7 +898,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=61"></script>
+  <script src="app.js?v=62"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

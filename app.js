@@ -270,7 +270,7 @@ const I18N = {
     budget_save: "Save limit", budget_empty: "No category limit yet.", budget_vehicle: "Vehicle",
     budget_progress: "{rate}% of the monthly budget used", budget_no_limit: "Add a category limit to start planning.",
     budget_over: "Budget exceeded by {amount}", budget_unbudgeted: "{amount} has no category limit.", budget_saved: "Category limit saved.", budget_invalid: "Enter a category and an amount above zero.",
-    veh_title: "My vehicles", veh_sub: "Keep vehicle details, reminders and expenses together.", veh_add: "+ Add vehicle", veh_model_ph: "Vehicle model",
+    veh_title: "My vehicles", veh_sub: "Keep vehicle details, reminders and expenses together.", veh_add: "Add vehicle", veh_model_ph: "Vehicle model",
     veh_count: "{count} vehicles", veh_empty_title: "Your garage is empty", veh_empty_sub: "Add a vehicle to calculate route fuel costs and track maintenance.", veh_remove: "Remove vehicle",
     veh_reminders: "Payment reminders", veh_add_reminder: "+ Add reminder", veh_label_ph: "Insurance, tax…",
     veh_expenses: "Expenses", veh_add_expense: "+ Add expense", veh_monthly: "This month",
@@ -457,7 +457,7 @@ const I18N = {
     budget_save: "Limiti kaydet", budget_empty: "Henüz kategori limiti yok.", budget_vehicle: "Araç",
     budget_progress: "Aylık bütçenin %{rate} kadarı kullanıldı", budget_no_limit: "Planlamaya başlamak için kategori limiti ekle.",
     budget_over: "Bütçe {amount} aşıldı", budget_unbudgeted: "{amount} harcamanın kategori limiti yok.", budget_saved: "Kategori limiti kaydedildi.", budget_invalid: "Kategori ve sıfırdan büyük bir tutar gir.",
-    veh_title: "Araçlarım", veh_sub: "Araç bilgilerini, hatırlatmaları ve harcamaları tek yerde yönet.", veh_add: "+ Araç ekle", veh_model_ph: "Araç modeli",
+    veh_title: "Araçlarım", veh_sub: "Araç bilgilerini, hatırlatmaları ve harcamaları tek yerde yönet.", veh_add: "Araç ekle", veh_model_ph: "Araç modeli",
     veh_count: "{count} araç", veh_empty_title: "Garajın henüz boş", veh_empty_sub: "Rota yakıt maliyetini hesaplamak ve bakımları takip etmek için araç ekle.", veh_remove: "Aracı kaldır",
     veh_reminders: "Ödeme hatırlatmaları", veh_add_reminder: "+ Hatırlatma ekle", veh_label_ph: "Sigorta, vergi…",
     veh_expenses: "Harcamalar", veh_add_expense: "+ Harcama ekle", veh_monthly: "Bu ay",
@@ -1560,7 +1560,7 @@ function refreshVehicles() {
     const card = el.vehList.querySelector(`[data-veh="${v.id}"]`);
     if (!card) return;
     const tEl = card.querySelector("[data-veh-total]");
-    if (tEl) tEl.textContent = `${t("veh_monthly")}: ${formatMoney(vehMonthlyTotal(v))}`;
+    if (tEl) tEl.textContent = formatMoney(vehMonthlyTotal(v));
     const lm = card.querySelector("[data-veh-lastmonth]");
     if (lm) {
       lm.hidden = !(v.lastMonthSpent > 0);
@@ -1578,22 +1578,31 @@ function makeVehicleCard(v) {
   const multi = (state.vehicles || []).length > 1;
   const isActive = (activeVehicle() || {}).id === v.id;
   const card = document.createElement("div");
-  card.className = "veh-card" + (multi && isActive ? " is-active" : "");
+  card.className = "veh-card" + (isActive ? " is-active" : "");
   card.dataset.veh = v.id;
   const fuelOpts = CAR_FUELS.map((f) => `<option value="${f}"${v.fuel === f ? " selected" : ""}>${t("car_fuel_" + f)}</option>`).join("");
   card.innerHTML = `
     <div class="veh-head">
       <div class="veh-head-main">
-        <span class="veh-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 15v-2a2 2 0 0 1 2-2h1.5l1.7-3a2 2 0 0 1 1.7-1h4.2a2 2 0 0 1 1.7 1l1.7 3H19a2 2 0 0 1 2 2v2h-2M5 15H3m4 0h10M8 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path></svg></span>
         <div class="veh-identity"><span>${t("car_vehicle")}</span><input class="veh-plate" data-veh-plate value="${escapeHtml(v.plate || "")}" placeholder="${escapeHtml(t("car_model_ph"))}" /></div>
       </div>
       <div class="veh-head-actions">
-        <span class="veh-monthly" data-veh-total></span>
-        ${multi ? `<button class="car-prof-pick veh-active" type="button" data-veh-active aria-label="${t("car_active")}" title="${t("car_active")}"></button>` : ""}
+        ${multi ? `<button class="veh-active" type="button" data-veh-active aria-label="${t("car_active")}" title="${t("car_active")}" aria-pressed="${isActive}"><span aria-hidden="true"></span>${t("car_active")}</button>` : `<span class="veh-active-label"><span aria-hidden="true"></span>${t("car_active")}</span>`}
         <button class="cat-remove veh-del" type="button" data-veh-del aria-label="${t("veh_remove")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"></path></svg></button>
       </div>
     </div>
-    <div class="veh-lastmonth" data-veh-lastmonth hidden></div>
+    <div class="veh-showcase">
+      <div class="veh-showcase-art" aria-hidden="true">
+        <span class="veh-showcase-orbit"></span>
+        <svg viewBox="0 0 160 72"><path d="M17 48h8l10-18c3-6 8-9 15-9h48c8 0 13 3 18 9l14 18h11c5 0 9 4 9 9v3h-11"></path><path d="M21 60H10v-6c0-3 3-6 7-6h15m96 0h15M46 60h65"></path><circle cx="35" cy="59" r="11"></circle><circle cx="123" cy="59" r="11"></circle><path d="M48 30h53l12 18H38zM75 30v18"></path></svg>
+        <span class="veh-showcase-floor"></span>
+      </div>
+      <div class="veh-monthly">
+        <span>${t("veh_monthly")}</span>
+        <strong data-veh-total>—</strong>
+        <small class="veh-lastmonth" data-veh-lastmonth hidden></small>
+      </div>
+    </div>
     <div class="car-prof-grid veh-specs">
       <label class="car-field"><span>${t("car_fuel_type")}</span><select class="car-select" data-veh-fuel>${fuelOpts}</select></label>
       <label class="car-field"><span>${t("car_consumption")} <small>${t("car_consumption_hint")}</small></span>
@@ -1602,16 +1611,14 @@ function makeVehicleCard(v) {
         <div class="money-input money-input--sm"><span class="money-symbol">${sym}</span><input inputmode="decimal" data-veh-price value="${v.price ? locDec(v.price) : ""}" placeholder="0" /></div></label>
     </div>
     <div class="veh-sub-grid">
-      <div class="veh-sub veh-sub--reminders">
-        <div class="veh-sub-head">${t("veh_reminders")}</div>
-        <div class="veh-sched-wrap" data-veh-sched-list></div>
-        <button class="veh-add-btn" type="button" data-veh-add-sched>${t("veh_add_reminder")}</button>
-      </div>
-      <div class="veh-sub veh-sub--expenses">
-        <div class="veh-sub-head">${t("veh_expenses")}</div>
-        <div class="veh-exp-wrap" data-veh-exp-list></div>
-        <button class="veh-add-btn" type="button" data-veh-add-exp>${t("veh_add_expense")}</button>
-      </div>
+      <details class="veh-sub veh-sub--reminders">
+        <summary class="veh-sub-head"><span>${t("veh_reminders")}</span><span class="veh-sub-count" data-veh-reminder-count>${(v.sched || []).length}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"></path></svg></summary>
+        <div class="veh-sub-body"><div class="veh-sched-wrap" data-veh-sched-list></div><button class="veh-add-btn" type="button" data-veh-add-sched>${t("veh_add_reminder")}</button></div>
+      </details>
+      <details class="veh-sub veh-sub--expenses">
+        <summary class="veh-sub-head"><span>${t("veh_expenses")}</span><span class="veh-sub-count" data-veh-expense-count>${(v.oneoff || []).length}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"></path></svg></summary>
+        <div class="veh-sub-body"><div class="veh-exp-wrap" data-veh-exp-list></div><button class="veh-add-btn" type="button" data-veh-add-exp>${t("veh_add_expense")}</button></div>
+      </details>
     </div>`;
 
   card.querySelector("[data-veh-plate]").addEventListener("input", (e) => { v.plate = e.target.value; saveState(); });
@@ -1638,18 +1645,26 @@ function makeVehicleCard(v) {
   card.querySelector("[data-veh-add-sched]").addEventListener("click", () => {
     const s = { id: "s" + ++v.schedSeq, label: "", amount: 0, date: "", paidMonth: "" };
     v.sched.push(s);
-    const row = makeVehSchedRow(v, s); sl.appendChild(row);
+    const row = makeVehSchedRow(v, s); sl.appendChild(row); syncVehicleCardCounts(card, v);
     row.querySelector("[data-vs-label]").focus();
     refreshExpenses();
   });
   card.querySelector("[data-veh-add-exp]").addEventListener("click", () => {
     const o = { id: "x" + ++v.expSeq, day: new Date().getDate(), cat: "", amount: 0 };
     v.oneoff.push(o);
-    const row = makeVehExpRow(v, o); xl.appendChild(row);
+    const row = makeVehExpRow(v, o); xl.appendChild(row); syncVehicleCardCounts(card, v);
     row.querySelector("[data-vx-cat]").focus();
     refreshExpenses();
   });
   return card;
+}
+
+function syncVehicleCardCounts(card, vehicle) {
+  if (!card || !vehicle) return;
+  const reminders = card.querySelector("[data-veh-reminder-count]");
+  const expenses = card.querySelector("[data-veh-expense-count]");
+  if (reminders) reminders.textContent = String((vehicle.sched || []).length);
+  if (expenses) expenses.textContent = String((vehicle.oneoff || []).length);
 }
 
 function makeVehSchedRow(v, s) {
@@ -1670,7 +1685,7 @@ function makeVehSchedRow(v, s) {
   const amt = row.querySelector("[data-vs-amt]");
   amt.addEventListener("input", () => { s.amount = parseNumber(amt.value); refreshExpenses(); });
   amt.addEventListener("blur", () => { if (s.amount > 0) amt.value = formatThousands(s.amount); });
-  row.querySelector("[data-vs-del]").addEventListener("click", () => { v.sched = v.sched.filter((x) => x.id !== s.id); row.remove(); refreshExpenses(); });
+  row.querySelector("[data-vs-del]").addEventListener("click", () => { v.sched = v.sched.filter((x) => x.id !== s.id); const card = row.closest(".veh-card"); row.remove(); syncVehicleCardCounts(card, v); refreshExpenses(); });
   updateVehSchedStatus(row, s);
   return row;
 }
@@ -1704,7 +1719,7 @@ function makeVehExpRow(v, o) {
   const amt = row.querySelector("[data-vx-amt]");
   amt.addEventListener("input", () => { o.amount = parseNumber(amt.value); refreshExpenses(); });
   amt.addEventListener("blur", () => { if (o.amount > 0) amt.value = formatThousands(o.amount); });
-  row.querySelector("[data-vx-del]").addEventListener("click", () => { v.oneoff = v.oneoff.filter((x) => x.id !== o.id); row.remove(); refreshExpenses(); });
+  row.querySelector("[data-vx-del]").addEventListener("click", () => { v.oneoff = v.oneoff.filter((x) => x.id !== o.id); const card = row.closest(".veh-card"); row.remove(); syncVehicleCardCounts(card, v); refreshExpenses(); });
   return row;
 }
 

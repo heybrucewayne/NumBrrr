@@ -225,7 +225,7 @@ body {
 .smart-command-head p { margin: 4px 0 0; color: var(--text-faint); font-size: 12px; }
 .smart-command-workspace { display: grid; grid-template-columns: minmax(380px, 1.25fr) minmax(0, 1.75fr); gap: 14px; align-items: center; }
 .smart-command-primary { min-width: 0; }
-.smart-command-examples { min-width: 0; display: flex; align-items: center; gap: 12px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.12); border-radius: 15px; background: rgba(2, 6, 18, .24); }
+.smart-command-examples { position: relative; top: -10px; min-width: 0; display: flex; align-items: center; gap: 12px; margin-bottom: -10px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.12); border-radius: 15px; background: rgba(2, 6, 18, .24); }
 .smart-command-examples-title { display: block; color: var(--text-faint); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .smart-command-form { display: flex; align-items: center; gap: 9px; padding: 6px 6px 6px 16px; border: 1px solid rgba(255,255,255,.2); border-radius: 16px; background: rgba(3, 7, 20, .42); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 10px 30px rgba(8, 8, 30, .18); }
 .smart-command-form:focus-within { border-color: rgba(255,255,255,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 10px 30px rgba(8, 8, 30, .18); }
@@ -272,7 +272,7 @@ body {
   .smart-command { padding: 17px; }
   .smart-command-head p { line-height: 1.4; }
   .smart-command-workspace { display: block; }
-  .smart-command-examples { margin-top: 12px; }
+  .smart-command-examples { top: 0; margin-top: 12px; margin-bottom: 0; }
   .smart-command-examples { display: block; }
   .smart-command-chips { display: flex; flex-wrap: wrap; }
   .smart-command-chips { margin-top: 10px; }

@@ -1467,6 +1467,17 @@ body {
   .dashboard-grid {
     grid-auto-rows: minmax(174px, auto);
   }
+  .dashboard-widget--metric,
+  .dashboard-widget--market-data {
+    min-height: 232px;
+  }
+  .dashboard-widget--market-data {
+    height: 232px;
+  }
+  .home-top-perf-list,
+  .home-ipo-list {
+    max-height: 154px;
+  }
   .dashboard-widget--half {
     grid-row: span 2;
     min-height: calc(174px * 2 + 14px);

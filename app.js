@@ -598,6 +598,7 @@ const I18N = {
 };
 
 I18N.en.command_note_added = "Note added ✓";
+I18N.tr.command_examples_title = "Önerilen komutlar";
 
 // ---- State ----
 const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "marketSnapshot", "topPerformers", "ipos", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];

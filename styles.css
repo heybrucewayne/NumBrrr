@@ -1334,15 +1334,18 @@ body {
 .goal-form select,
 .mini-note-form input,
 .savings-goal-foot input { width: 100%; min-width: 0; min-height: 44px; padding: 10px 11px; border: 1px solid var(--glass-border-soft); border-radius: 11px; background: rgba(4,12,28,.38); color: var(--text); font: inherit; font-size: 13px; }
-.savings-goal-list { display: flex; flex-direction: column; gap: 9px; margin-top: 15px; max-height: 390px; overflow-y: auto; overscroll-behavior: contain; }
-.savings-goal-row { padding: 12px; border: 1px solid var(--glass-border-soft); border-radius: 14px; background: rgba(0,0,0,.14); }
+.savings-goal-widget-group { display: contents; }
+.savings-goal-widget-group[hidden] { display: none; }
+.savings-goal-list { display: contents; }
+.savings-goal-list > .countdown-empty { grid-column: 1 / -1; }
+.savings-goal-row { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; padding: 18px; }
 .savings-goal-row.is-complete { border-color: color-mix(in srgb, var(--good) 46%, var(--glass-border-soft)); }
 .savings-goal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .savings-goal-head > div { min-width: 0; display: flex; align-items: center; gap: 8px; }
 .savings-goal-head strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13.5px; }
 .savings-goal-head span { padding: 3px 7px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 17%, transparent); color: var(--accent-2); font-size: 9px; font-weight: 800; }
 .savings-goal-head b { flex: none; color: var(--accent-2); font-family: "Sora", sans-serif; font-size: 14px; }
-.savings-goal-track { height: 7px; margin: 10px 0; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.07); }
+.savings-goal-track { height: 7px; margin-top: auto; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.07); }
 .savings-goal-track span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--good)); }
 .savings-goal-foot { display: grid; grid-template-columns: minmax(0,1fr) minmax(180px,260px) 44px; align-items: end; gap: 9px; }
 .savings-goal-foot > span { align-self: center; color: var(--text-faint); font-size: 11px; line-height: 1.35; }

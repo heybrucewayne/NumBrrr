@@ -20,7 +20,7 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="icon" href="/icons/numbr-logo.png" type="image/png" />
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=83" />
+  <link rel="stylesheet" href="styles.css?v=84" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -303,20 +303,22 @@
           </button>
         </article>
 
-        <article class="glass dashboard-widget dashboard-widget--feature" data-home-widget="goals" aria-labelledby="savingsGoalsTitle">
-          <div class="dashboard-feature-head">
-            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 21V4m0 1h10l-2 3 2 3H6"></path></svg></span>
-            <div><h2 id="savingsGoalsTitle" data-i18n="goal_title">Savings goals</h2></div>
-          </div>
-          <form class="goal-form" id="savingsGoalForm">
-            <label><span data-i18n="goal_name">Goal</span><input id="savingsGoalName" type="text" maxlength="60" autocomplete="off" data-i18n-placeholder="goal_name_ph" placeholder="Emergency fund, car…" /></label>
-            <label><span data-i18n="goal_target">Target</span><input id="savingsGoalTarget" type="text" inputmode="numeric" autocomplete="off" placeholder="0" /></label>
-            <label><span data-i18n="goal_current">Saved</span><input id="savingsGoalCurrent" type="text" inputmode="numeric" autocomplete="off" placeholder="0" /></label>
-            <label><span data-i18n="goal_currency">Currency</span><select id="savingsGoalCurrency"><option value="TL">₺ TL</option><option value="USD">$ USD</option></select></label>
-            <button class="settings-action settings-action--primary" type="submit" data-i18n="goal_add">Add goal</button>
-          </form>
+        <div class="savings-goal-widget-group" data-home-widget="goals">
+          <article class="glass dashboard-widget dashboard-widget--feature" aria-labelledby="savingsGoalsTitle">
+            <div class="dashboard-feature-head">
+              <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 21V4m0 1h10l-2 3 2 3H6"></path></svg></span>
+              <div><h2 id="savingsGoalsTitle" data-i18n="goal_title">Savings goals</h2></div>
+            </div>
+            <form class="goal-form" id="savingsGoalForm">
+              <label><span data-i18n="goal_name">Goal</span><input id="savingsGoalName" type="text" maxlength="60" autocomplete="off" data-i18n-placeholder="goal_name_ph" placeholder="Emergency fund, car…" /></label>
+              <label><span data-i18n="goal_target">Target</span><input id="savingsGoalTarget" type="text" inputmode="numeric" autocomplete="off" placeholder="0" /></label>
+              <label><span data-i18n="goal_current">Saved</span><input id="savingsGoalCurrent" type="text" inputmode="numeric" autocomplete="off" placeholder="0" /></label>
+              <label><span data-i18n="goal_currency">Currency</span><select id="savingsGoalCurrency"><option value="TL">₺ TL</option><option value="USD">$ USD</option></select></label>
+              <button class="settings-action settings-action--primary" type="submit" data-i18n="goal_add">Add goal</button>
+            </form>
+          </article>
           <div class="savings-goal-list" id="savingsGoalList" aria-live="polite"></div>
-        </article>
+        </div>
 
         <article class="glass dashboard-widget dashboard-widget--half" data-home-widget="notes" aria-labelledby="homeNotesTitle">
           <div class="home-card-head">

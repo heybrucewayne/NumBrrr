@@ -4215,10 +4215,10 @@ function renderSavingsGoals() {
   el.savingsGoalList.innerHTML = items.map((goal) => {
     const percent = goal.target > 0 ? Math.max(0, Math.min(100, (goal.current / goal.target) * 100)) : 0;
     const completed = goal.current >= goal.target;
-    return `<article class="savings-goal-row${completed ? " is-complete" : ""}" data-goal-id="${escapeHtml(goal.id)}">
+    return `<article class="glass dashboard-widget dashboard-widget--compact savings-goal-row${completed ? " is-complete" : ""}" data-goal-id="${escapeHtml(goal.id)}">
       <div class="savings-goal-head"><div><strong>${escapeHtml(goal.name)}</strong><span>${escapeHtml(goal.currency)}</span></div><b>${completed ? "✓" : Math.round(percent) + "%"}</b></div>
-      <div class="savings-goal-track" aria-hidden="true"><span style="width:${percent}%"></span></div>
       <div class="savings-goal-foot"><span>${escapeHtml(completed ? t("goal_completed") : t("goal_progress", { current: formatMoneyCcy(goal.current, goal.currency), target: formatMoneyCcy(goal.target, goal.currency) }))}</span><label><span>${escapeHtml(t("goal_current"))}</span><input type="text" inputmode="numeric" data-goal-current="${escapeHtml(goal.id)}" value="${goal.current ? formatThousands(goal.current) : ""}" placeholder="0" aria-label="${escapeHtml(goal.name + " · " + t("goal_current"))}" /></label><button type="button" data-goal-del="${escapeHtml(goal.id)}" aria-label="${escapeHtml(t("goal_remove"))}">×</button></div>
+      <div class="savings-goal-track" aria-hidden="true"><span style="width:${percent}%"></span></div>
     </article>`;
   }).join("");
   el.savingsGoalList.querySelectorAll("[data-goal-current]").forEach((input) => {

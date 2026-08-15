@@ -764,7 +764,7 @@ body {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 14px;
   grid-auto-flow: row dense;
-  align-items: start;
+  align-items: stretch;
 }
 .dashboard-widget {
   position: relative;
@@ -907,6 +907,8 @@ body {
 .dashboard-widget--half,
 .dashboard-widget--pair { grid-column: span 3; }
 .dashboard-widget--compact { min-height: 174px; }
+.dashboard-widget--compact > .dashboard-widget-open,
+.dashboard-widget--pair > .dashboard-widget-open { height: 100%; }
 .dashboard-widget--market-data {
   min-height: 232px;
   padding: 16px;

@@ -1347,9 +1347,10 @@ body {
 .savings-goal-head b { flex: none; color: var(--accent-2); font-family: "Sora", sans-serif; font-size: 14px; }
 .savings-goal-track { height: 7px; margin-top: auto; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.07); }
 .savings-goal-track span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--good)); }
-.savings-goal-foot { display: grid; grid-template-columns: minmax(0,1fr) minmax(180px,260px) 44px; align-items: end; gap: 9px; }
-.savings-goal-foot > span { align-self: center; color: var(--text-faint); font-size: 11px; line-height: 1.35; }
-.savings-goal-foot label { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 8px; color: var(--text-faint); font-size: 10px; font-weight: 700; }
+.savings-goal-foot { display: grid; grid-template-columns: minmax(0,1fr) 44px; align-items: end; gap: 9px; }
+.savings-goal-foot > span { grid-column: 1 / -1; align-self: center; color: var(--text-faint); font-size: 11px; line-height: 1.35; }
+.savings-goal-foot label { grid-column: 1; display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 8px; color: var(--text-faint); font-size: 10px; font-weight: 700; }
+.savings-goal-foot button { grid-column: 2; }
 .savings-goal-foot input { min-height: 40px; padding: 8px 10px; text-align: right; }
 .savings-goal-foot button,
 .mini-note-row > button { width: 44px; height: 44px; padding: 0; border: 1px solid var(--glass-border-soft); border-radius: 11px; background: rgba(255,255,255,.035); color: var(--text-dim); font: inherit; font-size: 20px; cursor: pointer; }

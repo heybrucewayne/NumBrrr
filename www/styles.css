@@ -1595,10 +1595,17 @@ body {
   .savings-goal-foot > span { grid-column: 1 / -1; }
   .savings-goal-foot label { grid-column: 1; }
   .savings-goal-foot button { grid-column: 2; }
-  .countdown-form { grid-template-columns: 1fr 1fr; }
+  /* Native date controls keep a larger intrinsic width on iPhone. A single
+     column prevents the date field and unit picker from colliding. */
+  .countdown-form { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .countdown-form label,
   .countdown-form label:first-child,
   .countdown-form label:nth-child(2),
-  .countdown-form .settings-action { grid-column: 1 / -1; }
+  .countdown-form .settings-action { grid-column: 1; }
+  .countdown-form input,
+  .countdown-form select { min-height: 46px; }
+  .countdown-form input[type="date"] { min-width: 0; }
+  .countdown-form .settings-action { width: 100%; min-height: 46px; }
 }
 
 @media (max-width: 360px) {

@@ -4461,3 +4461,13 @@ body.modal-open { overflow: hidden; }
     animation: none;
   }
 }
+
+/* Keep every countdown surface on the same hourglass artwork, including
+   dynamically created countdown cards moved into the dashboard grid. */
+[data-home-widget="countdown"] .dashboard-widget-icon,
+[data-countdown-id] .dashboard-widget-icon {
+  background: url("assets/ui-icons/countdown.png") center / cover no-repeat;
+  border-color: rgba(116, 205, 255, .28);
+}
+[data-home-widget="countdown"] .dashboard-widget-icon svg,
+[data-countdown-id] .dashboard-widget-icon svg { display: none; }

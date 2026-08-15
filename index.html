@@ -66,19 +66,26 @@
             <h2 id="smartCommandTitle" data-i18n="command_title">Write a command</h2>
           </div>
         </div>
-        <form id="smartCommandForm" class="smart-command-form" autocomplete="off">
-          <label class="sr-only" for="smartCommandInput" data-i18n="command_input_label">Your command</label>
-          <input id="smartCommandInput" type="text" maxlength="240" spellcheck="true" data-i18n-placeholder="command_placeholder" placeholder="Bir şey yaz…" />
-          <button id="smartCommandSend" class="smart-command-send" type="submit" aria-label="Send command" data-i18n-title="command_send"><span aria-hidden="true">↗</span></button>
-        </form>
-        <div class="smart-command-chips" aria-label="Command examples">
-          <button type="button" class="smart-command-chip" data-command-example="100 SOL aldım">100 SOL aldım</button>
-          <button type="button" class="smart-command-chip" data-command-example="SOL 200 olunca haber ver">SOL 200 olunca haber ver</button>
-          <button type="button" class="smart-command-chip" data-command-example="SOL grafiğini aç">SOL grafiğini aç</button>
-          <button type="button" class="smart-command-chip" data-command-example="bütün komutlar">Bütün komutlar</button>
+        <div class="smart-command-workspace">
+          <div class="smart-command-primary">
+            <form id="smartCommandForm" class="smart-command-form" autocomplete="off">
+              <label class="sr-only" for="smartCommandInput" data-i18n="command_input_label">Your command</label>
+              <input id="smartCommandInput" type="text" maxlength="240" spellcheck="true" data-i18n-placeholder="command_placeholder" placeholder="Bir şey yaz…" />
+              <button id="smartCommandSend" class="smart-command-send" type="submit" aria-label="Send command" data-i18n-title="command_send"><span aria-hidden="true">↗</span></button>
+            </form>
+            <p id="smartCommandStatus" class="smart-command-status" role="status" aria-live="polite"></p>
+            <div id="smartCommandPreview" class="smart-command-preview" hidden></div>
+          </div>
+          <aside class="smart-command-examples" aria-label="Suggested commands">
+            <span class="smart-command-examples-title" data-i18n="command_examples_title">Önerilen komutlar</span>
+            <div class="smart-command-chips">
+              <button type="button" class="smart-command-chip" data-command-example="100 SOL aldım">100 SOL aldım</button>
+              <button type="button" class="smart-command-chip" data-command-example="SOL 200 olunca haber ver">SOL 200 olunca haber ver</button>
+              <button type="button" class="smart-command-chip" data-command-example="SOL grafiğini aç">SOL grafiğini aç</button>
+              <button type="button" class="smart-command-chip" data-command-example="bütün komutlar">Bütün komutlar</button>
+            </div>
+          </aside>
         </div>
-        <p id="smartCommandStatus" class="smart-command-status" role="status" aria-live="polite"></p>
-        <div id="smartCommandPreview" class="smart-command-preview" hidden></div>
       </section>
 
       <section class="dashboard-grid" id="dashboardGrid" aria-label="Home widgets">
@@ -901,7 +908,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=73"></script>
+  <script src="app.js?v=74"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

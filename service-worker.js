@@ -1,9 +1,9 @@
-const SHELL_CACHE = "numbrrr-shell-v90";
+const SHELL_CACHE = "numbrrr-shell-v91";
 const DATA_CACHE = "numbrrr-data-v2";
 const APP_SHELL = [
   "/",
   "/index.html",
-  "/styles.css?v=77",
+  "/styles.css?v=78",
   "/command-parser.js?v=4",
   "/app.js?v=70",
   "/manifest.webmanifest",

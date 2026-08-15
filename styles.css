@@ -764,7 +764,7 @@ body {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 14px;
   grid-auto-flow: row dense;
-  align-items: stretch;
+  align-items: start;
 }
 .dashboard-widget {
   position: relative;
@@ -1454,6 +1454,17 @@ body {
   .dashboard-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   .dashboard-widget--pair { grid-column: span 2; }
   .dashboard-widget--half { grid-column: span 4; }
+}
+
+/* Keep a half-width card aligned with two standard widgets stacked vertically. */
+@media (min-width: 861px) {
+  .dashboard-grid {
+    grid-auto-rows: minmax(174px, auto);
+  }
+  .dashboard-widget--half {
+    grid-row: span 2;
+    min-height: calc(174px * 2 + 14px);
+  }
 }
 
 @media (max-width: 860px) {

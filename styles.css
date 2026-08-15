@@ -3208,14 +3208,16 @@ body.modal-open { overflow: hidden; }
 /* ============ First-run onboarding overlay ============ */
 .onboard {
   position: fixed; inset: 0; z-index: 100;
+  width: 100vw; max-width: 100vw; min-width: 0;
   display: grid; place-items: center; padding: 22px;
+  overflow-x: hidden; overflow-y: auto;
   background: rgba(3, 4, 8, 0.72);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   animation: ob-fade 0.25s ease backwards;
 }
 .onboard[hidden] { display: none; }
 .onboard-card {
-  width: 100%; max-width: 440px; padding: 28px 24px;
+  width: min(440px, 100%); max-width: calc(100vw - 44px); min-width: 0; padding: 28px 24px;
   max-height: calc(100vh - 44px); overflow-y: auto;
   animation: ob-rise 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 }
@@ -3231,7 +3233,7 @@ body.modal-open { overflow: hidden; }
   letter-spacing: 0.07em; color: var(--text-faint); font-weight: 700;
 }
 .onboard-options { display: flex; gap: 10px; flex-wrap: wrap; }
-.ob-country, .ob-lang { flex: 1; min-width: 130px; justify-content: center; font-size: 16px; font-weight: 600; }
+.ob-country, .ob-lang { flex: 1 1 0; min-width: 0; justify-content: center; font-size: 16px; font-weight: 600; }
 .onboard-start {
   width: 100%; margin-top: 6px; padding: 15px 16px;
   border: none; border-radius: 14px; cursor: pointer;
@@ -3248,7 +3250,9 @@ body.modal-open { overflow: hidden; }
 /* ============ First-run section guide ============ */
 .guide {
   position: fixed; inset: 0; z-index: 100;
+  width: 100vw; max-width: 100vw; min-width: 0;
   display: grid; place-items: center; padding: 22px;
+  overflow-x: hidden; overflow-y: auto;
   background: rgba(3, 4, 8, 0.72);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   animation: ob-fade 0.25s ease backwards;
@@ -3256,7 +3260,7 @@ body.modal-open { overflow: hidden; }
 .guide[hidden] { display: none; }
 .guide-card {
   position: relative;
-  width: 100%; max-width: 460px; padding: 26px 22px 22px;
+  width: min(460px, 100%); max-width: calc(100vw - 44px); min-width: 0; padding: 26px 22px 22px;
   max-height: calc(100vh - 44px); overflow-y: auto;
   animation: ob-rise 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 }
@@ -3278,6 +3282,22 @@ body.modal-open { overflow: hidden; }
 }
 .guide-txt b { display: block; font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
 .guide-txt p { margin: 0; font-size: 13px; color: var(--text-dim); line-height: 1.45; }
+
+@media (max-width: 560px) {
+  .onboard,
+  .guide { padding: 14px; place-items: start center; }
+  .onboard-card,
+  .guide-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 22px 16px;
+  }
+  .onboard-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ob-country,
+  .ob-lang { width: 100%; min-width: 0; }
+  .onboard-title { font-size: 21px; }
+  .onboard-sub { font-size: 13px; }
+}
 
 /* ============ Portfolio total + currency toggle ============ */
 .port-total-card { padding: 20px 22px; }

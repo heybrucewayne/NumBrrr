@@ -986,6 +986,38 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+/* Glossy icon tiles supplied for the dashboard widget set. */
+[data-home-widget="freedom"] .dashboard-widget-icon,
+[data-home-widget="goals"] .dashboard-widget-icon { background: url("assets/ui-icons/goals.png") center / cover no-repeat; border-color: rgba(255, 215, 107, .22); }
+[data-home-widget="portfolio"] .dashboard-widget-icon { background: url("assets/ui-icons/portfolio.png") center / cover no-repeat; border-color: rgba(141, 180, 255, .24); }
+[data-home-widget="income"] .dashboard-widget-icon { background: url("assets/ui-icons/income.png") center / cover no-repeat; border-color: rgba(70, 223, 173, .24); }
+[data-home-widget="expenses"] .dashboard-widget-icon { background: url("assets/ui-icons/expenses.png") center / cover no-repeat; border-color: rgba(255, 155, 143, .24); }
+[data-home-widget="health"] .dashboard-widget-icon { background: url("assets/ui-icons/health.png") center / cover no-repeat; border-color: rgba(255, 148, 187, .24); }
+[data-home-widget="markets"] .dashboard-widget-icon { background: url("assets/ui-icons/markets.png") center / cover no-repeat; border-color: rgba(90, 220, 212, .24); }
+[data-home-widget="monthly"] .dashboard-widget-icon,
+[data-home-widget="marketSnapshot"] .dashboard-widget-icon,
+[data-home-widget="topPerformers"] .dashboard-widget-icon,
+[data-home-widget="ipos"] .dashboard-widget-icon,
+[data-home-widget="countdown"] .dashboard-widget-icon,
+[data-home-widget="car"] .dashboard-widget-icon,
+[data-home-widget="watch"] .dashboard-widget-icon,
+[data-home-widget="notes"] .dashboard-widget-icon,
+[data-home-widget="insights"] .dashboard-widget-icon,
+[data-home-widget="alerts"] .dashboard-widget-icon { background-size: cover; background-position: center; }
+[data-home-widget="monthly"] .dashboard-widget-icon,
+[data-home-widget="marketSnapshot"] .dashboard-widget-icon { background-image: url("assets/ui-icons/market-data.png"); }
+[data-home-widget="topPerformers"] .dashboard-widget-icon { background-image: url("assets/ui-icons/top-performers.png"); }
+[data-home-widget="ipos"] .dashboard-widget-icon { background-image: url("assets/ui-icons/ipos.png"); }
+[data-home-widget="countdown"] .dashboard-widget-icon,
+.countdown-tile .dashboard-widget-icon { background-image: url("assets/ui-icons/countdown.png"); }
+[data-home-widget="car"] .dashboard-widget-icon { background-image: url("assets/ui-icons/car.png"); }
+[data-home-widget="watch"] .dashboard-widget-icon { background-image: url("assets/ui-icons/watch.png"); }
+[data-home-widget="notes"] .dashboard-widget-icon { background-image: url("assets/ui-icons/notes.png"); }
+[data-home-widget="insights"] .dashboard-widget-icon { background-image: url("assets/ui-icons/insights.png"); }
+[data-home-widget="alerts"] .dashboard-widget-icon { background-image: url("assets/ui-icons/alerts.png"); }
+[data-home-widget] .dashboard-widget-icon svg,
+[data-home-widget] .dashboard-widget-icon:has(svg) svg { display: none; }
+.countdown-tile .dashboard-widget-icon svg { display: none; }
 [data-home-widget="freedom"] { --widget-color: #47c8ff; }
 [data-home-widget="portfolio"] { --widget-color: #8db4ff; }
 [data-home-widget="income"] { --widget-color: #46dfad; }
@@ -4157,6 +4189,16 @@ body.modal-open { overflow: hidden; }
 .modern-section-icon--market { color: var(--accent-2); }
 .modern-section-icon--leaders { color: #ffd05f; background: rgba(255,208,95,.1); border-color: rgba(255,208,95,.25); }
 .modern-section-icon--ipo { color: #ff94bb; background: rgba(255,148,187,.1); border-color: rgba(255,148,187,.24); }
+.modern-section-icon--expense { background-image: url("assets/ui-icons/expenses.png"); background-size: cover; }
+.modern-section-icon--recurring { background-image: url("assets/ui-icons/countdown.png"); background-size: cover; }
+.modern-section-icon--spending { background-image: url("assets/ui-icons/income.png"); background-size: cover; }
+.modern-section-icon--income { background-image: url("assets/ui-icons/growth.png"); background-size: cover; }
+.modern-section-icon--watch { background-image: url("assets/ui-icons/watch.png"); background-size: cover; }
+.modern-section-icon--expense svg,
+.modern-section-icon--recurring svg,
+.modern-section-icon--spending svg,
+.modern-section-icon--income svg,
+.modern-section-icon--watch svg { display: none; }
 .modern-section-count {
   flex: none; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   padding: 7px 11px; border-radius: 999px; color: var(--text-dim); background: color-mix(in srgb, var(--accent) 9%, transparent);

@@ -174,7 +174,7 @@ body {
 .smart-command[data-command-state="typing"] .smart-command-form { border-color: rgba(125, 183, 255, .46); }
 .smart-command[data-command-state="processing"] .smart-command-form { border-color: rgba(112, 224, 255, .72); animation: command-form-process 1.1s ease-in-out infinite; }
 .smart-command[data-command-state="processing"] .smart-command-send { animation: command-send-process .9s ease-in-out infinite; }
-.smart-command-head { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+.smart-command-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
 .smart-command-mark {
   position: relative; display: grid; place-items: center; flex: none; width: 46px; height: 46px;
   border: 1px solid rgba(255, 255, 255, .13); border-radius: 50%; isolation: isolate;

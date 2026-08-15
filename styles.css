@@ -1484,6 +1484,19 @@ body {
     min-height: calc(var(--dashboard-unit-height) * 2 + 14px);
     height: calc(var(--dashboard-unit-height) * 2 + 14px);
   }
+  [data-home-widget="notes"] {
+    display: flex;
+    flex-direction: column;
+  }
+  [data-home-widget="notes"] .mini-note-list {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+    padding: 2px;
+    border: 1px solid rgba(255,255,255,.045);
+    border-radius: 13px;
+    background: linear-gradient(180deg, rgba(255,255,255,.018), rgba(0,0,0,.08));
+  }
 }
 
 @media (max-width: 860px) {

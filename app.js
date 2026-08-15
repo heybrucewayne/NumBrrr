@@ -285,7 +285,7 @@ const I18N = {
     savings_note: "Projection compounds yearly contributions: FV = annual × [((1 + r)ⁿ − 1) / r], where r is the selected annual return. Returns are assumptions, not guarantees.",
     settings_title: "Settings", language: "Language", theme: "Theme", country: "Country", sound: "Sound", sound_fx: "Sound effects", motion: "Motion", animations: "Animations", animations_sub: "Show interface transitions and decorative motion",
     home_customize_title: "Home screen", home_customize_desc: "Drag cards to reorder them or hide the ones you do not use. Restore hidden cards here.", home_customize_reset: "Reset layout", home_move_up: "Move up", home_move_down: "Move down", home_hide: "Show this widget", home_card_drag: "Drag to move", home_card_drop: "Drop here", home_card_hide: "Hide card", home_card_show: "Show card", home_last_card: "At least one widget must remain visible.",
-    home_widget_freedom: "Freedom calculator", home_widget_portfolio: "Portfolio", home_widget_income: "Income", home_widget_expenses: "Expenses", home_widget_monthly: "This month", home_widget_health: "Financial health", home_widget_markets: "FX & gold", home_widget_weather: "Weather", home_widget_car: "My car", home_widget_watch: "Watchlist", home_widget_goals: "Savings goals", home_widget_notes: "Mini notes", home_widget_insights: "Smart insights", home_widget_alerts: "Price alerts", home_widget_countdown: "Countdowns",
+    home_widget_freedom: "Freedom calculator", home_widget_portfolio: "Portfolio", home_widget_income: "Income", home_widget_expenses: "Expenses", home_widget_monthly: "This month", home_widget_health: "Financial health", home_widget_markets: "FX & gold", home_widget_marketSnapshot: "Market snapshot", home_widget_topPerformers: "Top performers", home_widget_ipos: "Latest IPOs", home_widget_weather: "Weather", home_widget_car: "My car", home_widget_watch: "Watchlist", home_widget_goals: "Savings goals", home_widget_notes: "Mini notes", home_widget_insights: "Smart insights", home_widget_alerts: "Price alerts", home_widget_countdown: "Countdowns",
     home_holdings: "{count} holdings", home_passive: "{amount} passive / month", home_upcoming: "{count} upcoming payments", home_vehicles: "{count} vehicles", home_last_trip: "Last trip: {route}", home_no_route: "No saved route", home_watch_count: "{count} tracked assets", home_watch_empty: "No tracked assets", home_freedom_summary: "{amount} · {name}",
     command_nav: "Command", command_nav_title: "Open command bar", command_eyebrow: "Smart command", command_title: "Write a command", command_sub: "Write naturally in Turkish. Portfolio changes are always confirmed first.", command_input_label: "Your command", command_placeholder: "Bir şey yaz…", command_send: "Send command", command_detected: "Detected", command_buy: "Purchase detected", command_sell: "Sale detected", command_swap: "Swap detected", command_alert: "Price alert detected", command_open: "Asset page detected", command_favorite: "Favorite change detected", command_currency: "Base currency change detected", command_query: "Portfolio insight detected", command_asset: "Asset", command_quantity: "Quantity", command_price: "Price", command_total: "Total", command_date: "Date", command_confirm: "Confirm", command_edit: "Edit", command_cancel: "Cancel", command_applied: "Command applied ✓", command_understood: "I understood this command.", command_low_confidence: "I couldn't fully understand that.", command_no_asset: "Choose a supported asset first.", command_no_action: "What would you like to do with this asset?", command_ambiguous: "Which matching asset did you mean?", command_suggestion_buy: "Add to portfolio", command_suggestion_sell: "Record a sale", command_suggestion_cancel: "Cancel", command_needs_price: "A live price is needed to prepare this preview.", command_current_price: "Current price", command_average_cost: "Weighted average cost", command_pnl: "This month's PnL", command_realized: "Realized", command_unrealized: "Unrealized", command_allocation: "Portfolio allocation", command_top_performer: "Top performer", command_no_data: "There is not enough portfolio data yet.", command_no_holding: "This asset is not in your portfolio.", command_insufficient: "The portfolio does not contain enough of this asset.", command_eur_unsupported: "EUR base currency is not available in this version.", command_percent: "Change", command_condition: "Condition", command_above: "above", command_below: "below", command_percent_up: "% up", command_percent_down: "% down", command_today: "today", command_not_saved: "Nothing was changed.", command_help_title: "Available commands", command_help_intro: "Write one of these examples and send it.", command_help_trade: "Transactions & alerts", command_help_portfolio: "Portfolio", command_help_asset: "Assets & favorites", command_help_settings: "Settings", command_app: "App data", command_navigation: "Navigation", command_help_queries: "Quick reports", command_expenses: "Expense", command_income: "Income", command_balance: "Balance", command_monthly_expenses: "Monthly expenses", command_label: "Name / detail", command_target: "Target", command_destination: "Page", command_note: "Note", command_navigation_done: "Opened ✓", command_expense_added: "Expense added ✓", command_income_added: "Income added ✓", command_note_added: "Note added ✓", command_goal_added: "Savings goal added ✓", command_countdown_added: "Countdown added ✓", command_invalid_amount: "Enter a positive amount.", command_date_needed: "Choose a future date.", command_label_needed: "Add a name or description.",
     monthly_summary_title: "This month", monthly_summary_sub: "Income, spending and savings at a glance.", monthly_income: "Income", monthly_expense: "Expenses", monthly_net: "Net", monthly_rate: "Savings rate: {rate}%", monthly_no_income: "Add monthly income to calculate your savings rate.", monthly_share: "Share", monthly_share_title: "Share this month's spending", monthly_share_card_title: "Monthly spending", monthly_share_expenses: "Total spent", monthly_share_daily: "Daily average", monthly_share_largest: "Largest expense", monthly_share_records: "Expense entries", monthly_share_no_category: "Uncategorized", monthly_share_photo: "Choose photo", monthly_share_random: "Random cat", monthly_share_photo_loaded: "Photo applied to the card.", monthly_share_photo_failed: "Choose a supported image under 12 MB.", monthly_share_random_loaded: "Random cat background selected.", monthly_share_preview_title: "Monthly spending card", monthly_share_preview_sub: "Choose a background, then copy or download.", monthly_share_copy: "Copy image", monthly_share_download: "Download", monthly_share_system: "Share", monthly_share_close: "Close", monthly_share_copied: "Image copied.", monthly_share_copy_failed: "Image copy is not supported here. Use Download instead.", monthly_share_system_unavailable: "System sharing is not available here. Use Download instead.", monthly_share_text: "I spent {amount} this month.", monthly_share_downloaded: "Summary image downloaded.", monthly_share_failed: "Couldn't prepare the summary image.",
@@ -472,7 +472,7 @@ const I18N = {
     savings_note: "Projeksiyon yıllık katkıları bileşik hesaplar: GD = yıllık × [((1 + r)ⁿ − 1) / r], r seçilen yıllık getiridir. Getiriler varsayımdır, garanti değildir.",
     settings_title: "Ayarlar", language: "Dil", theme: "Tema", country: "Ülke", sound: "Ses", sound_fx: "Ses efektleri", motion: "Hareket", animations: "Animasyonlar", animations_sub: "Arayüz geçişlerini ve dekoratif hareketleri göster",
     home_customize_title: "Ana sayfa", home_customize_desc: "Kartları tutup sırala veya kullanmadıklarını gizle. Gizlenenleri buradan geri aç.", home_customize_reset: "Düzeni sıfırla", home_move_up: "Yukarı taşı", home_move_down: "Aşağı taşı", home_hide: "Bu widget'ı göster", home_card_drag: "Taşımak için tut", home_card_drop: "Buraya bırak", home_card_hide: "Kartı gizle", home_card_show: "Kartı göster", home_last_card: "En az bir widget görünür kalmalı.",
-    home_widget_freedom: "Özgürlük hesaplayıcısı", home_widget_portfolio: "Portföy", home_widget_income: "Gelirler", home_widget_expenses: "Giderler", home_widget_monthly: "Bu ay", home_widget_health: "Finansal sağlık", home_widget_markets: "Kur ve altın", home_widget_weather: "Hava durumu", home_widget_car: "Aracım", home_widget_watch: "Takip listesi", home_widget_goals: "Birikim hedefleri", home_widget_notes: "Mini notlar", home_widget_insights: "Akıllı içgörüler", home_widget_alerts: "Fiyat alarmları", home_widget_countdown: "Geri sayımlar",
+    home_widget_freedom: "Özgürlük hesaplayıcısı", home_widget_portfolio: "Portföy", home_widget_income: "Gelirler", home_widget_expenses: "Giderler", home_widget_monthly: "Bu ay", home_widget_health: "Finansal sağlık", home_widget_markets: "Kur ve altın", home_widget_marketSnapshot: "Piyasa özeti", home_widget_topPerformers: "Son 1 yılın yıldızları", home_widget_ipos: "En yeni halka arzlar", home_widget_weather: "Hava durumu", home_widget_car: "Aracım", home_widget_watch: "Takip listesi", home_widget_goals: "Birikim hedefleri", home_widget_notes: "Mini notlar", home_widget_insights: "Akıllı içgörüler", home_widget_alerts: "Fiyat alarmları", home_widget_countdown: "Geri sayımlar",
     home_holdings: "{count} varlık", home_passive: "Aylık {amount} pasif", home_upcoming: "{count} yaklaşan ödeme", home_vehicles: "{count} araç", home_last_trip: "Son yolculuk: {route}", home_no_route: "Kayıtlı rota yok", home_watch_count: "{count} takip edilen varlık", home_watch_empty: "Takip edilen varlık yok", home_freedom_summary: "{name} · {amount}",
     command_nav: "Komut", command_nav_title: "Komut çubuğunu aç", command_eyebrow: "Akıllı komut", command_title: "Komut yaz", command_sub: "Doğal Türkçe yaz. Portföy değişiklikleri her zaman önce onaylanır.", command_input_label: "Komutun", command_placeholder: "Bir şey yaz…", command_send: "Komutu gönder", command_detected: "Algılanan", command_buy: "Satın alma algılandı", command_sell: "Satış algılandı", command_swap: "Dönüştürme algılandı", command_alert: "Fiyat alarmı algılandı", command_open: "Varlık sayfası algılandı", command_favorite: "Favori değişikliği algılandı", command_currency: "Ana para birimi değişikliği algılandı", command_query: "Portföy analizi algılandı", command_asset: "Varlık", command_quantity: "Miktar", command_price: "Fiyat", command_total: "Toplam", command_date: "Tarih", command_confirm: "Onayla", command_edit: "Düzenle", command_cancel: "İptal", command_applied: "Komut uygulandı ✓", command_understood: "Bu komutu anladım.", command_low_confidence: "Bunu tam anlayamadım.", command_no_asset: "Önce desteklenen bir varlık seç.", command_no_action: "Bu varlıkla ne yapmak istiyorsun?", command_ambiguous: "Hangi eşleşen varlığı kastettin?", command_suggestion_buy: "Portföye ekle", command_suggestion_sell: "Satış olarak kaydet", command_suggestion_cancel: "Vazgeç", command_needs_price: "Bu önizlemeyi hazırlamak için canlı fiyat gerekiyor.", command_current_price: "Güncel fiyat", command_average_cost: "Ağırlıklı ortalama maliyet", command_pnl: "Bu ayın K/Z'si", command_realized: "Gerçekleşen", command_unrealized: "Gerçekleşmemiş", command_allocation: "Portföy ağırlığı", command_top_performer: "En çok kazandıran", command_no_data: "Henüz yeterli portföy verisi yok.", command_no_holding: "Bu varlık portföyünde yok.", command_insufficient: "Portföyünde bu varlıktan yeterli miktar yok.", command_eur_unsupported: "EUR ana para birimi bu sürümde kullanılamıyor.", command_percent: "Değişim", command_condition: "Koşul", command_above: "üzerine çıkarsa", command_below: "altına düşerse", command_percent_up: "% yükselirse", command_percent_down: "% düşerse", command_today: "bugün", command_not_saved: "Herhangi bir değişiklik yapılmadı.", command_help_title: "Kullanabileceğin komutlar", command_help_intro: "Aşağıdaki örneklerden birini yazıp gönder.", command_help_trade: "İşlem ve alarm", command_help_portfolio: "Portföy", command_help_asset: "Varlık ve favoriler", command_help_settings: "Ayarlar", command_app: "Uygulama verileri", command_navigation: "Gezinme", command_help_queries: "Hızlı raporlar", command_expenses: "Gider", command_income: "Gelir", command_balance: "Bakiye", command_monthly_expenses: "Aylık gider", command_label: "Ad / detay", command_target: "Hedef", command_destination: "Sayfa", command_note: "Not", command_navigation_done: "Açıldı ✓", command_expense_added: "Gider eklendi ✓", command_income_added: "Gelir eklendi ✓", command_note_added: "Not eklendi ✓", command_goal_added: "Birikim hedefi eklendi ✓", command_countdown_added: "Geri sayım eklendi ✓", command_invalid_amount: "Pozitif bir tutar gir.", command_date_needed: "Gelecekte bir tarih seç.", command_label_needed: "Bir ad veya açıklama ekle.",
     monthly_summary_title: "Bu ayın özeti", monthly_summary_sub: "Gelir, gider ve birikim tek bakışta.", monthly_income: "Gelir", monthly_expense: "Gider", monthly_net: "Net", monthly_rate: "Birikim oranı: %{rate}", monthly_no_income: "Birikim oranını hesaplamak için aylık gelir ekle.", monthly_share: "Paylaş", monthly_share_title: "Bu ayki harcamalarını paylaş", monthly_share_card_title: "Aylık harcama", monthly_share_expenses: "Toplam harcama", monthly_share_daily: "Günlük ortalama", monthly_share_largest: "En büyük harcama", monthly_share_records: "Harcama kaydı", monthly_share_no_category: "Kategorisiz", monthly_share_photo: "Fotoğraf seç", monthly_share_random: "Rastgele kedi", monthly_share_photo_loaded: "Fotoğraf karta uygulandı.", monthly_share_photo_failed: "12 MB altında desteklenen bir görsel seç.", monthly_share_random_loaded: "Rastgele kedi arka planı seçildi.", monthly_share_preview_title: "Aylık harcama kartı", monthly_share_preview_sub: "Arka planını seç, sonra kopyala veya indir.", monthly_share_copy: "Görseli kopyala", monthly_share_download: "İndir", monthly_share_system: "Paylaş", monthly_share_close: "Kapat", monthly_share_copied: "Görsel kopyalandı.", monthly_share_copy_failed: "Görsel kopyalama desteklenmiyor. Bunun yerine indirebilirsin.", monthly_share_system_unavailable: "Sistem paylaşımı bu cihazda kullanılamıyor. Bunun yerine indirebilirsin.", monthly_share_text: "Bu ay {amount} harcadım.", monthly_share_downloaded: "Özet görseli indirildi.", monthly_share_failed: "Özet görseli hazırlanamadı.",
@@ -598,7 +598,7 @@ const I18N = {
 };
 
 // ---- State ----
-const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
+const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "marketSnapshot", "topPerformers", "ipos", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
 const state = {
   lang: "en",
   theme: "black",
@@ -4340,9 +4340,9 @@ function renderHomeSummaries() {
   if (el.homeCarValue) el.homeCarValue.textContent = vehicle && vehicle.plate ? vehicle.plate : t("home_vehicles", { count: state.vehicles.length });
   const lastTrip = state.vehicleHub.trips[0];
   if (el.homeCarNote) el.homeCarNote.textContent = lastTrip ? t("home_last_trip", { route: `${lastTrip.from} → ${lastTrip.to}` }) : t("home_no_route");
-  if (el.homeWatchValue) el.homeWatchValue.textContent = state.watchlist.length ? t("home_watch_count", { count: state.watchlist.length }) : t("home_watch_empty");
-  const firstWatch = state.watchlist[0];
-  if (el.homeWatchNote) el.homeWatchNote.textContent = firstWatch ? `${firstWatch.name} · ${watchPriceLabel(firstWatch)}` : t("watch_search_ph");
+  const watchPreview = state.watchlist.slice(0, 3).map((item) => item.sym || item.name).filter(Boolean).join(" · ");
+  if (el.homeWatchValue) el.homeWatchValue.textContent = watchPreview || t("home_watch_empty");
+  if (el.homeWatchNote) el.homeWatchNote.textContent = state.watchlist.length ? t("home_watch_count", { count: state.watchlist.length }) : t("watch_search_ph");
   const snapshot = financialSnapshot();
   renderMonthlySummary(snapshot);
   renderFinancialHealth(snapshot);
@@ -4363,6 +4363,9 @@ function renderHomeDashboard(refreshMarket = true) {
   renderHomeSummaries();
   applyHomeLayout();
   renderCountdowns();
+  buildTrPanel();
+  buildTopPerformers();
+  buildIpoList();
   if (refreshMarket) {
     refreshHomeMarketSummary();
   }
@@ -6374,7 +6377,8 @@ function decorateTopPerfNames(items) {
 
 async function buildTopPerformers() {
   const listEl = document.getElementById("topPerfList");
-  if (!listEl) return;
+  const homeListEl = document.getElementById("homeTopPerfList");
+  if (!listEl && !homeListEl) return;
   if (topPerfData && topPerfBuiltFor === state.currency) { renderTopPerformers(); return; }
   const built = state.currency; // guard against currency changing mid-fetch
   const today = localDateKey();
@@ -6389,7 +6393,7 @@ async function buildTopPerformers() {
       return;
     }
   } catch (e) {}
-  if (topPerfBuiltFor !== built || !listEl.children.length) listEl.innerHTML = `<div class="top-perf-msg">${t("top_perf_loading")}</div>`;
+  if (topPerfBuiltFor !== built || !((listEl && listEl.children.length) || (homeListEl && homeListEl.children.length))) renderTopPerformers();
   topPerfBuiltFor = built;
   // Server-computed daily leaderboard (Vercel CDN caches it for a day and
   // refreshes it by itself, so this is one cheap request, not ~35 quotes).
@@ -6466,12 +6470,11 @@ function perfPrice(c) {
   if (c.type === "index") return fmtPrice(c.price); // index level, no currency symbol
   return (c.ccy === "TRY" ? "₺" : "$") + fmtPrice(c.price);
 }
-function renderTopPerformers() {
-  const listEl = document.getElementById("topPerfList");
+function renderTopPerfList(listEl, ranked, limit) {
   if (!listEl) return;
-  const ranked = topPerfData || [];
-  if (!ranked.length) { listEl.innerHTML = `<div class="top-perf-msg">${t("top_perf_loading")}</div>`; return; }
-  listEl.innerHTML = ranked.map((c, i) => {
+  const visible = ranked.slice(0, limit);
+  if (!visible.length) { listEl.innerHTML = `<div class="top-perf-msg">${t("top_perf_loading")}</div>`; return; }
+  listEl.innerHTML = visible.map((c, i) => {
     const cls = c.chg1y >= 0 ? "up" : "down";
     const txt = (c.chg1y >= 0 ? "+" : "") + c.chg1y.toFixed(1) + "%";
     return `<button class="top-perf-row" type="button" data-tv="${c.type}|${c.key}|${c.sym}" title="${t("watch_chart")}">
@@ -6487,6 +6490,11 @@ function renderTopPerformers() {
     openTradingView({ type: p[0], key: p[1], sym: p[2], name: item ? item.name : p[2] });
   }));
 }
+function renderTopPerformers() {
+  const ranked = topPerfData || [];
+  renderTopPerfList(document.getElementById("topPerfList"), ranked, 15);
+  renderTopPerfList(document.getElementById("homeTopPerfList"), ranked, 3);
+}
 
 // ---- New IPOs (Türkiye-only): XHARZ index members via /api/ipo, daily ----
 // Same-day localStorage cache -> instant render; endpoint is CDN-cached a day
@@ -6494,8 +6502,9 @@ function renderTopPerformers() {
 // USD mode. Tapping a row opens the TradingView chart.
 async function buildIpoList() {
   const sec = document.getElementById("ipoSec"), listEl = document.getElementById("ipoList");
-  if (!sec) return;
-  if (state.currency !== "TL") { sec.hidden = true; return; }
+  const homeSec = document.querySelector('[data-home-widget="ipos"]'), homeList = document.getElementById("homeIpoList");
+  if (!sec && !homeSec) return;
+  if (state.currency !== "TL") { if (sec) sec.hidden = true; if (homeSec) homeSec.hidden = true; return; }
   let items = null;
   try {
     const c = JSON.parse(localStorage.getItem("numbr_ipo_v2") || "null");
@@ -6513,18 +6522,24 @@ async function buildIpoList() {
       }
     } catch (e) {}
   }
-  if (state.currency !== "TL" || !items || !items.length) { sec.hidden = true; return; }
+  if (state.currency !== "TL" || !items || !items.length) { if (sec) sec.hidden = true; if (homeSec) homeSec.hidden = true; return; }
   items = items.slice().sort((a, b) => (b.listedAt || "").localeCompare(a.listedAt || "")).slice(0, 5);
-  sec.hidden = false;
-  listEl.innerHTML = items.map((it) => `
+  if (sec) sec.hidden = false;
+  if (homeSec) homeSec.hidden = false;
+  const renderIpoList = (target, limit) => {
+    if (!target) return;
+    target.innerHTML = items.slice(0, limit).map((it) => `
     <button class="ipo-row" type="button" data-ipo="${escapeHtml(it.sym)}" data-name="${escapeHtml(it.name)}" title="${t("watch_chart")}">
       <span class="ipo-sym">${escapeHtml(it.sym)}</span>
       <span class="ipo-name">${escapeHtml(it.name)}</span>
       ${it.listedAt ? `<span class="ipo-date">${new Date(it.listedAt + "T00:00:00").toLocaleDateString(state.lang === "tr" ? "tr-TR" : "en-US", { day: "numeric", month: "short", year: "numeric" })}</span>` : ""}
     </button>`).join("");
-  listEl.querySelectorAll("[data-ipo]").forEach((b) => b.addEventListener("click", () => {
-    openTradingView({ type: "bist", key: b.dataset.ipo, sym: b.dataset.ipo, name: b.dataset.name });
-  }));
+    target.querySelectorAll("[data-ipo]").forEach((b) => b.addEventListener("click", () => {
+      openTradingView({ type: "bist", key: b.dataset.ipo, sym: b.dataset.ipo, name: b.dataset.name });
+    }));
+  };
+  renderIpoList(listEl, 5);
+  renderIpoList(homeList, 3);
 }
 
 // ---- Turkey panel: live FX rates + gram/quarter gold in lira (TL mode only) ----
@@ -6544,31 +6559,37 @@ function trRow(name, price, chg24) {
   return `<div class="tr-row"><span class="tr-name">${name}</span><span class="tr-vals"><span class="tr-price">${price}</span>${trChgHtml(chg24)}</span></div>`;
 }
 // One flat list (no headings): BIST 100, USD/TRY, EUR/TRY, gram / quarter / full gold.
-function trListHtml(bist, usdtry, eurtry) {
+function trListHtml(bist, usdtry, eurtry, compact = false) {
   const gram = goldPriceGram; // TL per gram when on TL
   const fx = (d, isTry) => d && d.price != null ? (isTry ? "₺" : "$") + fmtPrice(d.price) : "…";
   const gold = (m) => gram > 0 ? formatMoney(gram * m) : "…";
-  return [
+  const rows = [
     trRow("BIST 100", bist && bist.price != null ? fmtPrice(bist.price) : "…"),
     trRow("USD/TRY", fx(usdtry, true)),
     trRow("EUR/TRY", fx(eurtry, true)),
     trRow(t("gold_gram"), gold(GOLD_COIN_MULT.gram)),
     trRow(t("gold_quarter"), gold(GOLD_COIN_MULT.quarter)),
     trRow(t("gold_full"), gold(GOLD_COIN_MULT.full)),
-  ].join("");
+  ];
+  return rows.slice(0, compact ? 4 : rows.length).join("");
 }
 async function buildTrPanel() {
   const sec = document.getElementById("trPanel");
-  if (!sec) return;
-  if (state.currency !== "TL") { sec.hidden = true; return; }
-  sec.hidden = false;
+  const homeSec = document.querySelector('[data-home-widget="marketSnapshot"]');
+  const homeList = document.getElementById("homeTrList");
+  if (!sec && !homeSec) return;
+  if (state.currency !== "TL") { if (sec) sec.hidden = true; if (homeSec) homeSec.hidden = true; return; }
+  if (sec) sec.hidden = false;
+  if (homeSec) homeSec.hidden = false;
   const listEl = document.getElementById("trList");
-  if (!listEl) return;
+  if (!listEl && !homeList) return;
   // Gold is instant; index/forex fill in once fetched (show "…" placeholders meanwhile).
-  listEl.innerHTML = trListHtml(null, null, null);
+  if (listEl) listEl.innerHTML = trListHtml(null, null, null);
+  if (homeList) homeList.innerHTML = trListHtml(null, null, null, true);
   const [bist, usdtry, eurtry] = await Promise.all([getFxQuote("XU100.IS"), getFxQuote("TRY=X"), getFxQuote("EURTRY=X")]);
   if (state.currency !== "TL") return; // currency changed mid-fetch
-  listEl.innerHTML = trListHtml(bist, usdtry, eurtry);
+  if (listEl) listEl.innerHTML = trListHtml(bist, usdtry, eurtry);
+  if (homeList) homeList.innerHTML = trListHtml(bist, usdtry, eurtry, true);
 }
 function wireWatchSearch() {
   const search = el.watchSearch, dd = el.watchDd;

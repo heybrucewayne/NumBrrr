@@ -20,7 +20,7 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="icon" href="/icons/numbr-logo.png" type="image/png" />
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=73" />
+  <link rel="stylesheet" href="styles.css?v=74" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -244,6 +244,30 @@
             <div><h2 id="marketSummaryTitle" data-i18n="market_summary_title">FX & gold</h2></div>
           </div>
           <div class="home-market-list" id="homeMarketList" aria-live="polite"></div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--market-data" data-home-widget="marketSnapshot" aria-labelledby="homeMarketSnapshotTitle">
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m6 14v-7m5 7V3"></path></svg></span>
+            <div><h2 id="homeMarketSnapshotTitle" data-i18n="home_widget_marketSnapshot">Piyasa özeti</h2></div>
+          </div>
+          <div class="tr-list home-market-snapshot-list" id="homeTrList" aria-live="polite"></div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--market-data" data-home-widget="topPerformers" aria-labelledby="homeTopPerfTitle">
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Z"></path></svg></span>
+            <div><h2 id="homeTopPerfTitle" data-i18n="home_widget_topPerformers">Son 1 yılın yıldızları</h2></div>
+          </div>
+          <div class="top-perf-list home-top-perf-list" id="homeTopPerfList" aria-live="polite"></div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--market-data" data-home-widget="ipos" aria-labelledby="homeIpoTitle" hidden>
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 16l4-4 3 2 5-7m-4 0h4v4"></path></svg></span>
+            <div><h2 id="homeIpoTitle" data-i18n="home_widget_ipos">En yeni halka arzlar</h2></div>
+          </div>
+          <div class="ipo-list home-ipo-list" id="homeIpoList" aria-live="polite"></div>
         </article>
 
         <div class="countdown-widget-group" data-home-widget="countdown">
@@ -893,7 +917,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=67"></script>
+  <script src="app.js?v=68"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

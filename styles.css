@@ -888,6 +888,29 @@ body {
 .dashboard-widget--half,
 .dashboard-widget--pair { grid-column: span 3; }
 .dashboard-widget--compact { min-height: 174px; }
+.dashboard-widget--market-data {
+  min-height: 192px;
+  padding: 16px;
+}
+.dashboard-widget--market-data .home-card-head { margin-bottom: 10px; }
+.dashboard-widget--market-data .dashboard-widget-icon { width: 36px; height: 36px; border-radius: 12px; }
+.dashboard-widget--market-data .dashboard-widget-icon svg { width: 19px; height: 19px; }
+.dashboard-widget--market-data .tr-row { padding: 7px 2px; }
+.dashboard-widget--market-data .tr-name { font-size: 11px; }
+.dashboard-widget--market-data .tr-price { font-size: 11.5px; }
+.dashboard-widget--market-data .tr-chg { font-size: 10px; }
+.home-top-perf-list,
+.home-ipo-list { gap: 5px; max-height: 132px; overflow: hidden; }
+.home-top-perf-list .top-perf-row,
+.home-ipo-list .ipo-row { min-height: 0; padding: 7px 8px; gap: 7px; border-radius: 9px; }
+.home-top-perf-list .top-perf-rank { width: 18px; height: 18px; border-radius: 6px; font-size: 10px; }
+.home-top-perf-list .top-perf-name { font-size: 11px; }
+.home-top-perf-list .top-perf-name small { font-size: 9px; }
+.home-top-perf-list .top-perf-price,
+.home-top-perf-list .top-perf-chg { font-size: 10px; }
+.home-ipo-list .ipo-sym { min-width: 44px; font-size: 10px; }
+.home-ipo-list .ipo-name { font-size: 10.5px; }
+.home-ipo-list .ipo-date { font-size: 9px; }
 .dashboard-widget-icon {
   position: relative;
   overflow: hidden;

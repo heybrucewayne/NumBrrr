@@ -843,7 +843,7 @@ const el = {
   weatherStatus: document.getElementById("weatherStatus"),
   homeCarValue: document.getElementById("homeCarValue"),
   homeCarNote: document.getElementById("homeCarNote"),
-  homeWatchValue: document.getElementById("homeWatchValue"),
+  homeWatchPreview: document.getElementById("homeWatchPreview"),
   homeWatchNote: document.getElementById("homeWatchNote"),
   savingsGoalForm: document.getElementById("savingsGoalForm"),
   savingsGoalName: document.getElementById("savingsGoalName"),
@@ -4340,8 +4340,15 @@ function renderHomeSummaries() {
   if (el.homeCarValue) el.homeCarValue.textContent = vehicle && vehicle.plate ? vehicle.plate : t("home_vehicles", { count: state.vehicles.length });
   const lastTrip = state.vehicleHub.trips[0];
   if (el.homeCarNote) el.homeCarNote.textContent = lastTrip ? t("home_last_trip", { route: `${lastTrip.from} → ${lastTrip.to}` }) : t("home_no_route");
-  const watchPreview = state.watchlist.slice(0, 3).map((item) => item.sym || item.name).filter(Boolean).join(" · ");
-  if (el.homeWatchValue) el.homeWatchValue.textContent = watchPreview || t("home_watch_empty");
+  const watched = state.watchlist.slice(0, 3);
+  if (el.homeWatchPreview) {
+    el.homeWatchPreview.innerHTML = watched.length
+      ? watched.map((item) => {
+        const label = item.sym || item.name || "—";
+        return `<div class="home-watch-row"><span class="home-watch-name">${escapeHtml(label)}</span><span class="home-watch-price">${escapeHtml(watchPriceLabel(item))}</span></div>`;
+      }).join("")
+      : `<span class="home-watch-empty">${escapeHtml(t("home_watch_empty"))}</span>`;
+  }
   if (el.homeWatchNote) el.homeWatchNote.textContent = state.watchlist.length ? t("home_watch_count", { count: state.watchlist.length }) : t("watch_search_ph");
   const snapshot = financialSnapshot();
   renderMonthlySummary(snapshot);
@@ -5293,6 +5300,19 @@ function renderSmartCommandMessage(message, isError = false) {
   el.smartCommandStatus.classList.toggle("is-success", !isError && !!message);
 }
 
+function setSmartCommandMode(mode) {
+  const command = el.smartCommandForm?.closest(".smart-command");
+  if (!command) return;
+  const next = ["idle", "typing", "processing", "success"].includes(mode) ? mode : "idle";
+  command.dataset.commandState = next;
+  command.classList.toggle("is-typing", next === "typing");
+  command.classList.toggle("is-processing", next === "processing");
+  command.classList.toggle("is-success", next === "success");
+  command.setAttribute("aria-busy", String(next === "processing"));
+  commandOrbRuntime.entries.forEach((entry) => { entry.mode = next; });
+  paintCommandOrb();
+}
+
 function renderSmartCommandSuggestions() {
   if (!el.smartCommandPreview) return;
   el.smartCommandPreview.innerHTML = `<div class="smart-command-preview-head"><div><div class="smart-command-preview-kicker">${escapeHtml(t("command_detected"))}</div><div class="smart-command-preview-title">${escapeHtml(t("command_no_action"))}</div></div></div><div class="smart-command-suggestions"><button type="button" data-command-suggest="buy">${escapeHtml(t("command_suggestion_buy"))}</button><button type="button" data-command-suggest="sell">${escapeHtml(t("command_suggestion_sell"))}</button><button type="button" data-command-suggest="cancel">${escapeHtml(t("command_suggestion_cancel"))}</button></div>`;
@@ -5387,14 +5407,17 @@ function renderSmartCommandHelp() {
 
 function clearSmartCommand() {
   smartCommandDraft = null;
+  smartCommandRequest += 1;
   if (el.smartCommandPreview) { el.smartCommandPreview.hidden = true; el.smartCommandPreview.innerHTML = ""; }
   renderSmartCommandMessage("");
+  setSmartCommandMode("idle");
 }
 
 async function parseSmartCommand() {
   const text = el.smartCommandInput && el.smartCommandInput.value.trim();
   if (!text) return;
   const request = ++smartCommandRequest;
+  setSmartCommandMode("processing");
   el.smartCommandSend.disabled = true;
   renderSmartCommandMessage(t("command_understood"));
   let parsed = NumBrrrCommandParser.parseCommand(text, { assets: commandAssetCatalog() });
@@ -5410,18 +5433,21 @@ async function parseSmartCommand() {
     smartCommandDraft = null;
     renderSmartCommandMessage(t("command_low_confidence"), true);
     renderSmartCommandSuggestions();
+    setSmartCommandMode("idle");
     return;
   }
   if (parsed.ambiguity && parsed.ambiguity.length > 1) {
     smartCommandDraft = null;
     renderSmartCommandMessage(t("command_ambiguous"), true);
     renderSmartCommandAmbiguity(parsed);
+    setSmartCommandMode("idle");
     return;
   }
   if (parsed.intent === "COMMAND_HELP") {
     smartCommandDraft = null;
     renderSmartCommandHelp();
     renderSmartCommandMessage(t("command_understood"));
+    setSmartCommandMode("idle");
     return;
   }
   if (parsed.confidence < 0.7 || parsed.missing.length) {
@@ -5429,6 +5455,7 @@ async function parseSmartCommand() {
     renderSmartCommandMessage(parsed.missing.includes("asset") ? t("command_no_asset") : t("command_low_confidence"), true);
     if (parsed.asset && parsed.missing.includes("amount")) renderSmartCommandSuggestions();
     else if (el.smartCommandPreview) el.smartCommandPreview.hidden = true;
+    setSmartCommandMode("idle");
     return;
   }
   try {
@@ -5436,10 +5463,12 @@ async function parseSmartCommand() {
     if (request !== smartCommandRequest) return;
     renderSmartCommandPreview(smartCommandDraft);
     renderSmartCommandMessage(t("command_understood"));
+    setSmartCommandMode("idle");
   } catch (error) {
     smartCommandDraft = null;
     renderSmartCommandMessage(error.message || t("command_low_confidence"), true);
     if (el.smartCommandPreview) el.smartCommandPreview.hidden = true;
+    setSmartCommandMode("idle");
   } finally {
     if (request === smartCommandRequest) el.smartCommandSend.disabled = false;
   }
@@ -5537,6 +5566,9 @@ function finishSmartCommand(message) {
   if (el.smartCommandPreview) { el.smartCommandPreview.hidden = true; el.smartCommandPreview.innerHTML = ""; }
   if (el.smartCommandInput) el.smartCommandInput.value = "";
   renderSmartCommandMessage(message || t("command_applied"));
+  setSmartCommandMode("success");
+  clearTimeout(finishSmartCommand._modeTimer);
+  finishSmartCommand._modeTimer = setTimeout(() => setSmartCommandMode("idle"), 1000);
 }
 
 function navigateToCommandPage(page) {
@@ -5597,6 +5629,7 @@ function applySmartCommandAppAction(draft) {
 function executeSmartCommand() {
   const draft = smartCommandDraft;
   if (!draft) return;
+  setSmartCommandMode("processing");
   try {
     if (draft.kind === "trade") {
       if (draft.parsed.intent === "SWAP") {
@@ -5655,6 +5688,7 @@ function executeSmartCommand() {
     if (draft.kind === "query") { renderSmartCommandMessage(`${draft.result.title}: ${draft.result.body}`); if (el.smartCommandPreview) el.smartCommandPreview.hidden = true; smartCommandDraft = null; return; }
   } catch (error) {
     renderSmartCommandMessage(error.message || t("command_low_confidence"), true);
+    setSmartCommandMode("idle");
   }
 }
 
@@ -5717,11 +5751,17 @@ function paintCommandOrb() {
 
 function paintThinkingOrb(entry) {
   const { ctx, size } = entry;
+  const mode = entry.mode || "idle";
+  const isTyping = mode === "typing";
+  const isProcessing = mode === "processing";
+  const isSuccess = mode === "success";
   const cx = size / 2, cy = size / 2, radius = size * .37;
-  const pulse = 0.72 + Math.sin(commandOrbRuntime.phase * 1.35) * 0.08;
+  const pulse = (isProcessing ? 0.92 : isTyping ? 0.82 : 0.72) + Math.sin(commandOrbRuntime.phase * (isProcessing ? 2.2 : isTyping ? 1.7 : 1.35)) * (isProcessing ? 0.13 : 0.08);
+  const hue = isSuccess ? 155 : isProcessing ? 192 : isTyping ? 205 : 0;
+  const color = isSuccess ? [82, 230, 167] : isProcessing ? [112, 224, 255] : isTyping ? [149, 180, 255] : [180, 188, 198];
   const glow = ctx.createRadialGradient(cx, cy, radius * .08, cx, cy, radius * 1.18);
-  glow.addColorStop(0, `rgba(255, 255, 255, ${.08 * pulse})`);
-  glow.addColorStop(.54, "rgba(180, 188, 198, .035)");
+  glow.addColorStop(0, `hsla(${hue}, 92%, 84%, ${.1 * pulse})`);
+  glow.addColorStop(.54, `rgba(${color.join(", ")}, .05)`);
   glow.addColorStop(1, "rgba(0, 0, 0, 0)");
   ctx.fillStyle = glow;
   ctx.beginPath();
@@ -5743,9 +5783,11 @@ function paintThinkingOrb(entry) {
       const px = cx + x * radius;
       const py = cy + y * radius;
       const dotRadius = size * (.006 + depth * .012);
-      const light = Math.round(120 + depth * 120);
+      const light = Math.round((isProcessing ? 145 : isTyping ? 130 : 120) + depth * 120);
       const alpha = (.07 + depth * .5) * pulse;
-      ctx.fillStyle = `rgba(${light}, ${light}, ${light}, ${alpha})`;
+      ctx.fillStyle = isSuccess
+        ? `rgba(82, 230, 167, ${alpha})`
+        : `rgba(${isProcessing ? 100 : isTyping ? 135 : light}, ${isProcessing ? 220 : isTyping ? 175 : light}, ${isProcessing ? 255 : isTyping ? 255 : light}, ${alpha})`;
       ctx.beginPath();
       ctx.arc(px, py, dotRadius, 0, Math.PI * 2);
       ctx.fill();
@@ -5764,7 +5806,9 @@ function paintThinkingOrb(entry) {
     const py = cy + y * radius;
     const dotRadius = size * (.005 + depth * .012);
     const light = Math.round(145 + depth * 105);
-    ctx.fillStyle = `rgba(${light}, ${light}, ${light}, ${(0.08 + depth * .42) * pulse})`;
+    ctx.fillStyle = isSuccess
+      ? `rgba(82, 230, 167, ${(0.08 + depth * .42) * pulse})`
+      : `rgba(${isProcessing ? 100 : isTyping ? 135 : light}, ${isProcessing ? 220 : isTyping ? 175 : light}, ${isProcessing ? 255 : isTyping ? 255 : light}, ${(0.08 + depth * .42) * pulse})`;
     ctx.beginPath();
     ctx.arc(px, py, dotRadius, 0, Math.PI * 2);
     ctx.fill();
@@ -5811,6 +5855,7 @@ function initCommandOrb() {
     size,
     style,
     dpr: 1,
+    mode: "idle",
   }));
   paintCommandOrb();
   syncCommandOrbMotion();
@@ -5825,6 +5870,8 @@ function wireSmartCommand() {
     el.smartCommandInput.focus();
     parseSmartCommand();
   }));
+  el.smartCommandInput.addEventListener("input", () => setSmartCommandMode(el.smartCommandInput.value.trim() ? "typing" : "idle"));
+  el.smartCommandInput.addEventListener("focus", () => { if (el.smartCommandInput.value.trim()) setSmartCommandMode("typing"); });
   el.smartCommandInput.addEventListener("keydown", (event) => { if (event.key === "Escape") clearSmartCommand(); });
   document.querySelector("[data-command-focus]")?.addEventListener("click", focusSmartCommand);
 }
@@ -6493,7 +6540,7 @@ function renderTopPerfList(listEl, ranked, limit) {
 function renderTopPerformers() {
   const ranked = topPerfData || [];
   renderTopPerfList(document.getElementById("topPerfList"), ranked, 15);
-  renderTopPerfList(document.getElementById("homeTopPerfList"), ranked, 3);
+  renderTopPerfList(document.getElementById("homeTopPerfList"), ranked, 15);
 }
 
 // ---- New IPOs (Türkiye-only): XHARZ index members via /api/ipo, daily ----

@@ -159,6 +159,21 @@ body {
   transition: transform .8s ease;
 }
 .smart-command:focus-within::after { transform: translateX(100%); }
+.smart-command[data-command-state="typing"] {
+  border-color: rgba(125, 183, 255, .52);
+  box-shadow: 0 0 0 1px rgba(125, 183, 255, .08), 0 16px 42px rgba(45, 106, 220, .16);
+}
+.smart-command[data-command-state="processing"] {
+  border-color: rgba(112, 224, 255, .62);
+  box-shadow: 0 0 0 1px rgba(112, 224, 255, .1), 0 0 34px rgba(63, 207, 230, .18);
+}
+.smart-command[data-command-state="success"] { border-color: rgba(82, 230, 167, .52); }
+.smart-command[data-command-state="typing"] .smart-command-mark { animation-duration: 2.2s; }
+.smart-command[data-command-state="processing"] .smart-command-mark { animation: thinking-orb-process 1.15s ease-in-out infinite; }
+.smart-command[data-command-state="success"] .smart-command-mark { animation: thinking-orb-success .7s ease-out; }
+.smart-command[data-command-state="typing"] .smart-command-form { border-color: rgba(125, 183, 255, .46); }
+.smart-command[data-command-state="processing"] .smart-command-form { border-color: rgba(112, 224, 255, .72); animation: command-form-process 1.1s ease-in-out infinite; }
+.smart-command[data-command-state="processing"] .smart-command-send { animation: command-send-process .9s ease-in-out infinite; }
 .smart-command-head { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
 .smart-command-mark {
   position: relative; display: grid; place-items: center; flex: none; width: 46px; height: 46px;
@@ -244,6 +259,10 @@ body {
 .smart-command-help-list button { padding: 7px 9px; border: 1px solid var(--glass-border-soft); border-radius: 9px; color: var(--text-dim); background: rgba(255,255,255,.035); font: inherit; font-size: 11px; text-align: left; cursor: pointer; transition: border-color .18s ease, color .18s ease, background .18s ease; }
 .smart-command-help-list button:hover { border-color: rgba(63,207,230,.55); color: var(--text); background: rgba(63,207,230,.09); }
 @keyframes command-preview-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes thinking-orb-process { 0%, 100% { transform: scale(.96); filter: drop-shadow(0 4px 10px rgba(0,0,0,.5)); } 50% { transform: scale(1.08); filter: drop-shadow(0 0 18px rgba(112,224,255,.62)); } }
+@keyframes thinking-orb-success { 0% { transform: scale(.94); } 55% { transform: scale(1.12); filter: drop-shadow(0 0 18px rgba(82,230,167,.72)); } 100% { transform: scale(1); filter: drop-shadow(0 4px 10px rgba(0,0,0,.5)); } }
+@keyframes command-form-process { 0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 10px 30px rgba(8,8,30,.18); } 50% { box-shadow: inset 0 1px 0 rgba(255,255,255,.16), 0 0 24px rgba(63,207,230,.2); } }
+@keyframes command-send-process { 0%, 100% { transform: scale(.98); } 50% { transform: scale(1.06); filter: brightness(1.18); } }
 
 @media (max-width: 620px) {
   .smart-command { padding: 17px; }
@@ -745,7 +764,7 @@ body {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 14px;
   grid-auto-flow: row dense;
-  align-items: stretch;
+  align-items: start;
 }
 .dashboard-widget {
   position: relative;
@@ -889,18 +908,20 @@ body {
 .dashboard-widget--pair { grid-column: span 3; }
 .dashboard-widget--compact { min-height: 174px; }
 .dashboard-widget--market-data {
-  min-height: 192px;
+  min-height: 232px;
   padding: 16px;
 }
 .dashboard-widget--market-data .home-card-head { margin-bottom: 10px; }
 .dashboard-widget--market-data .dashboard-widget-icon { width: 36px; height: 36px; border-radius: 12px; }
 .dashboard-widget--market-data .dashboard-widget-icon svg { width: 19px; height: 19px; }
 .dashboard-widget--market-data .tr-row { padding: 7px 2px; }
+.dashboard-widget--market-data .tr-list { grid-template-columns: 1fr; gap: 0; }
+.dashboard-widget--market-data .tr-row { border-radius: 0; border-left: 0; border-right: 0; background: transparent; }
 .dashboard-widget--market-data .tr-name { font-size: 11px; }
 .dashboard-widget--market-data .tr-price { font-size: 11.5px; }
 .dashboard-widget--market-data .tr-chg { font-size: 10px; }
 .home-top-perf-list,
-.home-ipo-list { gap: 5px; max-height: 132px; overflow: hidden; }
+.home-ipo-list { gap: 5px; max-height: 166px; overflow-y: auto; overscroll-behavior: contain; }
 .home-top-perf-list .top-perf-row,
 .home-ipo-list .ipo-row { min-height: 0; padding: 7px 8px; gap: 7px; border-radius: 9px; }
 .home-top-perf-list .top-perf-rank { width: 18px; height: 18px; border-radius: 6px; font-size: 10px; }
@@ -1028,6 +1049,42 @@ body {
   color: var(--text-faint);
   font-size: 11.5px;
 }
+.home-watch-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  margin-top: 2px;
+}
+.home-watch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding: 7px 9px;
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 10px;
+  background: rgba(0,0,0,.12);
+}
+.home-watch-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-dim);
+  font-size: 11.5px;
+  font-weight: 750;
+}
+.home-watch-price {
+  flex: none;
+  color: var(--text);
+  font-family: "Sora", sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+.home-watch-empty { color: var(--text-faint); font-size: 11.5px; }
 .dashboard-freedom-toggle {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr) 36px;
@@ -1287,7 +1344,7 @@ body {
 .mini-note-row > button { width: 44px; height: 44px; padding: 0; border: 1px solid var(--glass-border-soft); border-radius: 11px; background: rgba(255,255,255,.035); color: var(--text-dim); font: inherit; font-size: 20px; cursor: pointer; }
 
 .mini-note-form { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; }
-.mini-note-list { display: flex; flex-direction: column; gap: 7px; margin-top: 12px; max-height: 280px; overflow-y: auto; overscroll-behavior: contain; }
+.mini-note-list { display: flex; flex-direction: column; gap: 7px; margin-top: 12px; max-height: 220px; overflow-y: auto; overscroll-behavior: contain; }
 .mini-note-row { display: grid; grid-template-columns: minmax(0,1fr) 44px; align-items: center; gap: 8px; padding: 7px 7px 7px 10px; border: 1px solid var(--glass-border-soft); border-radius: 12px; background: rgba(0,0,0,.12); }
 .mini-note-row label { min-width: 0; min-height: 40px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
 .mini-note-row input { flex: none; width: 18px; height: 18px; accent-color: var(--accent-2); }

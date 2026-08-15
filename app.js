@@ -1187,13 +1187,13 @@ function updateBar(row, r, best, max) {
 
 function renderHeadline(best, results, reachableCount) {
   if (!best) {
-    el.bestAmount.textContent = t("not_reachable");
+    setAnimatedText(el.bestAmount, t("not_reachable"));
     el.bestLabel.textContent = t("no_beat_inflation");
     el.bestRate.textContent = "";
     el.headlineNote.textContent = t("not_reachable_note");
     return;
   }
-  el.bestAmount.textContent = formatMoney(best.required);
+  setAnimatedText(el.bestAmount, formatMoney(best.required));
   el.bestLabel.textContent = t("via", { name: instName(best.inst.id) });
   el.bestRate.textContent = `${formatRate(best.eff)} ${state.realMode ? t("real_word") + " " : ""}${t("return_word")}`;
   const note = t("headline_note", { name: instName(best.inst.id), monthly: formatMoney(state.monthlyExpenses) });
@@ -1201,7 +1201,40 @@ function renderHeadline(best, results, reachableCount) {
 }
 
 function renderRule() {
-  el.ruleNumber.textContent = formatMoney(state.monthlyExpenses * 12 * 25);
+  setAnimatedText(el.ruleNumber, formatMoney(state.monthlyExpenses * 12 * 25));
+}
+
+function setAnimatedText(node, value) {
+  if (!node || node.textContent === value) return;
+  node.textContent = value;
+  if (!state.motion || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+  node.classList.remove("value-change");
+  void node.offsetWidth;
+  node.classList.add("value-change");
+  node.addEventListener("animationend", () => node.classList.remove("value-change"), { once: true });
+}
+
+function setupScrollReveal() {
+  const savings = document.getElementById("view-savings");
+  const targets = [
+    ...(savings ? savings.querySelectorAll(":scope > section, :scope > article, :scope > .expense-list-panel") : []),
+    ...document.querySelectorAll("#freedomWidgetBody > .controls, #freedomWidgetBody > .headline, #freedomWidgetBody > #learn, #freedomWidgetBody > #compare, #freedomWidgetBody > .chart, #freedomWidgetBody > .disclaimer"),
+  ];
+  if (!targets.length) return;
+  targets.forEach((target) => target.classList.add("reveal-item"));
+  const reveal = (target) => target.classList.add("is-visible");
+  if (!state.motion || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) || !("IntersectionObserver" in window)) {
+    targets.forEach(reveal);
+    return;
+  }
+  const observer = new IntersectionObserver((entries, currentObserver) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      reveal(entry.target);
+      currentObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -8%" });
+  targets.forEach((target) => observer.observe(target));
 }
 
 // ============================================================
@@ -7316,6 +7349,7 @@ wireWatchSearch();
 wirePriceAlertSearch();
 wireHomeDashboard();
 wireSmartCommand();
+setupScrollReveal();
 
 let startupBackgroundStarted = false;
 function startStartupBackgroundWork() {

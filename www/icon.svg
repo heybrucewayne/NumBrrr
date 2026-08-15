@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="NumBrrr">
+  <defs>
+    <linearGradient id="bg" x1="72" y1="40" x2="452" y2="476" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#776cff"/>
+      <stop offset="1" stop-color="#27cbe9"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="150" y1="98" x2="340" y2="390" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#d8f8ff" stop-opacity=".88"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#020a18" flood-opacity=".42"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="126" fill="#07101f"/>
+  <rect x="30" y="30" width="452" height="452" rx="106" fill="url(#bg)" filter="url(#shadow)"/>
+  <path d="M74 161C145 68 341 45 445 126C393 91 324 88 258 108C190 129 132 169 96 224C73 260 61 299 61 340C43 272 47 211 74 161Z" fill="#fff" opacity=".16"/>
+  <path d="M144 365V147h54l117 137V147h57v218h-52L201 226v139h-57Z" fill="url(#shine)"/>
+  <circle cx="384" cy="372" r="38" fill="#07101f" opacity=".92"/>
+  <path d="M384 350v44M369 365h30" stroke="#69e5f7" stroke-width="10" stroke-linecap="round"/>
+</svg>

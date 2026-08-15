@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="black">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NumBrrr, calculate the total savings you need to become financially free." />
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="NumBrrr" />
+  <title>NumBrrr</title>
+  <script>
+    try {
+      document.documentElement.dataset.theme = "black";
+      localStorage.setItem("numbr_theme", "black");
+      const savedState = JSON.parse(localStorage.getItem("numbr_state") || "null");
+      if (savedState && savedState.motion === false) document.documentElement.dataset.motion = "off";
+    } catch (error) {}
+  </script>
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/icons/numbr-logo.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="styles.css?v=95" />
+</head>
+<body>
+  <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
+  <!-- Fluid gradient background -->
+  <div class="bg" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+    <span class="blob blob-4"></span>
+  </div>
+
+  <!-- Floating winged-money (Liquid Glass theme only; sits behind the frosted glass) -->
+  <div class="money-rain" aria-hidden="true">
+    <span class="money" style="left:5%;  font-size:30px; --money-op:.5;  --sway:24px;  --rot:18deg;  animation-duration:15s; animation-delay:-1s;">💸</span>
+    <span class="money" style="left:14%; font-size:44px; --money-op:.45; --sway:-30px; --rot:-22deg; animation-duration:19s; animation-delay:-6s;">💸</span>
+    <span class="money" style="left:24%; font-size:24px; --money-op:.55; --sway:34px;  --rot:30deg;  animation-duration:13s; animation-delay:-9s;">💸</span>
+    <span class="money" style="left:33%; font-size:52px; --money-op:.4;  --sway:-20px; --rot:-14deg; animation-duration:22s; animation-delay:-3s;">💸</span>
+    <span class="money" style="left:43%; font-size:28px; --money-op:.5;  --sway:28px;  --rot:24deg;  animation-duration:16s; animation-delay:-12s;">💸</span>
+    <span class="money" style="left:52%; font-size:38px; --money-op:.5;  --sway:-26px; --rot:-20deg; animation-duration:18s; animation-delay:-7s;">💸</span>
+    <span class="money" style="left:61%; font-size:22px; --money-op:.6;  --sway:32px;  --rot:28deg;  animation-duration:12s; animation-delay:-2s;">💸</span>
+    <span class="money" style="left:70%; font-size:48px; --money-op:.4;  --sway:-34px; --rot:-26deg; animation-duration:21s; animation-delay:-10s;">💸</span>
+    <span class="money" style="left:79%; font-size:30px; --money-op:.5;  --sway:22px;  --rot:16deg;  animation-duration:14s; animation-delay:-5s;">💸</span>
+    <span class="money" style="left:88%; font-size:40px; --money-op:.45; --sway:-28px; --rot:-22deg; animation-duration:17s; animation-delay:-13s;">💸</span>
+    <span class="money" style="left:95%; font-size:26px; --money-op:.55; --sway:30px;  --rot:26deg;  animation-duration:20s; animation-delay:-8s;">💸</span>
+  </div>
+
+  <main class="shell">
+    <!-- ============ HOME DASHBOARD ============ -->
+    <div class="view" id="view-home">
+      <header class="home-dashboard-head">
+        <div>
+          <h1 class="view-title" data-i18n="dashboard_title">Home</h1>
+        </div>
+        <button class="dashboard-edit" id="editHome" type="button" data-i18n="dashboard_edit" aria-pressed="false">Edit cards</button>
+      </header>
+
+      <section class="smart-command glass" aria-labelledby="smartCommandTitle">
+        <div class="smart-command-head">
+          <div class="smart-command-mark" aria-hidden="true">
+            <canvas id="smartCommandOrbCanvas" width="46" height="46"></canvas>
+          </div>
+          <div>
+            <h2 id="smartCommandTitle" data-i18n="command_title">Write a command</h2>
+          </div>
+        </div>
+        <div class="smart-command-workspace">
+          <div class="smart-command-primary">
+            <form id="smartCommandForm" class="smart-command-form" autocomplete="off">
+              <label class="sr-only" for="smartCommandInput" data-i18n="command_input_label">Your command</label>
+              <input id="smartCommandInput" type="text" maxlength="240" spellcheck="true" data-i18n-placeholder="command_placeholder" placeholder="Bir şey yaz…" />
+              <button id="smartCommandSend" class="smart-command-send" type="submit" aria-label="Send command" data-i18n-title="command_send"><span aria-hidden="true">↗</span></button>
+            </form>
+            <p id="smartCommandStatus" class="smart-command-status" role="status" aria-live="polite"></p>
+            <div id="smartCommandPreview" class="smart-command-preview" hidden></div>
+          </div>
+          <aside class="smart-command-examples" aria-label="Suggested commands">
+            <span class="smart-command-examples-title" data-i18n="command_examples_title">Önerilen komutlar</span>
+            <div class="smart-command-chips">
+              <button type="button" class="smart-command-chip" data-command-example="100 SOL aldım">100 SOL aldım</button>
+              <button type="button" class="smart-command-chip" data-command-example="SOL 200 olunca haber ver">SOL 200 olunca haber ver</button>
+              <button type="button" class="smart-command-chip" data-command-example="SOL grafiğini aç">SOL grafiğini aç</button>
+              <button type="button" class="smart-command-chip" data-command-example="portföyümü göster">Portföyümü göster</button>
+              <button type="button" class="smart-command-chip" data-command-example="bu ay ne kadar kazandım">Bu ay ne kadar kazandım</button>
+              <button type="button" class="smart-command-chip" data-command-example="giderlerimi göster">Giderlerimi göster</button>
+              <button type="button" class="smart-command-chip" data-command-example="bakiyemi göster">Bakiyemi göster</button>
+              <button type="button" class="smart-command-chip" data-command-example="gelirimi göster">Gelirimi göster</button>
+              <button type="button" class="smart-command-chip" data-command-example="takibi aç">Takibi aç</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="dashboard-grid" id="dashboardGrid" aria-label="Home widgets">
+        <article class="glass dashboard-widget dashboard-widget--freedom" data-home-widget="freedom">
+          <button class="dashboard-freedom-toggle" id="freedomWidgetToggle" type="button" aria-expanded="false" aria-controls="freedomWidgetBody">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle><path d="m14.5 9.5 5-5m0 0v4m0-4h-4"></path></svg></span>
+            <span class="dashboard-widget-heading"><strong data-i18n="home_widget_freedom">Freedom calculator</strong><small id="homeFreedomSummary">—</small></span>
+            <span class="dashboard-widget-caret" aria-hidden="true">⌄</span>
+          </button>
+          <div class="freedom-widget-body" id="freedomWidgetBody" hidden>
+
+    <!-- Controls -->
+    <section class="glass controls" aria-label="Inputs">
+      <div class="control-row">
+        <!-- Monthly expenses -->
+        <div class="field field-grow">
+          <label class="field-label" for="expenses" data-i18n="monthly_expenses">Monthly expenses</label>
+          <div class="money-input">
+            <span class="money-symbol" id="currencySymbol">$</span>
+            <input id="expenses" type="text" inputmode="numeric" value="3,000" autocomplete="off" />
+            <span class="money-suffix" data-i18n="per_month">/ month</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-row control-row--meta">
+        <!-- Real return toggle -->
+        <label class="switch">
+          <input type="checkbox" id="realMode" />
+          <span class="switch-track"><span class="switch-thumb"></span></span>
+          <span class="switch-label">
+            <span data-i18n="real_mode">Real return mode</span>
+            <small data-i18n="real_mode_sub">Subtract inflation from each rate</small>
+          </span>
+        </label>
+
+        <!-- Inflation input (only in real mode) -->
+        <div class="field inflation-field" id="inflationField" hidden>
+          <label class="field-label" for="inflation" data-i18n="inflation_label">Inflation (annual %)</label>
+          <div class="rate-input rate-input--inflation">
+            <input id="inflation" type="text" inputmode="decimal" value="3" autocomplete="off" />
+            <span class="rate-sign">%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Headline result -->
+    <section class="glass headline" id="headline">
+      <div class="headline-tag" data-i18n="headline_tag">Your easiest path to freedom</div>
+      <div class="headline-body">
+        <div class="headline-amount" id="bestAmount">—</div>
+        <div class="headline-meta">
+          <span id="bestLabel">—</span>
+          <span class="headline-sep">·</span>
+          <span id="bestRate">—</span>
+        </div>
+      </div>
+      <p class="headline-note" id="headlineNote"></p>
+    </section>
+
+    <!-- The 4% Rule / Trinity Study -->
+    <section id="learn" class="glass rule" aria-label="The 4% rule and the Trinity Study">
+      <div class="rule-head">
+        <span class="rule-badge" data-i18n="rule_badge">📚 The 4% Rule · Trinity Study</span>
+        <h2 data-i18n="rule_title">25× your annual expenses</h2>
+      </div>
+      <p class="rule-text" data-i18n-html="rule_text">
+        Earn about <strong>4% a year</strong> and you need roughly <strong>25× your annual expenses</strong>, so the returns alone cover your life without draining the principal.
+      </p>
+      <div class="rule-foot">
+        <div class="rule-number">
+          <span class="rule-number-label" data-i18n="rule_number_label">Your 25× number (at 4%)</span>
+          <span class="rule-number-value" id="ruleNumber">—</span>
+        </div>
+        <a class="rule-link" href="https://en.wikipedia.org/wiki/Trinity_study" target="_blank" rel="noopener noreferrer" data-i18n="rule_link">
+          Read the Trinity Study →
+        </a>
+      </div>
+    </section>
+
+    <!-- Comparison cards -->
+    <section id="compare" aria-label="Investment comparison">
+      <div class="section-head">
+        <h2 data-i18n="compare_title">Compare instruments</h2>
+      </div>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <!-- Bar chart -->
+    <section class="glass chart" aria-label="Savings required comparison chart">
+      <div class="section-head section-head--chart">
+        <h2 data-i18n="chart_title">Savings required</h2>
+      </div>
+      <div class="bars" id="bars"></div>
+    </section>
+
+    <!-- Disclaimer -->
+    <footer class="disclaimer glass">
+      <p data-i18n="disc_1">Estimates for education, not financial advice. Returns are historical or assumed, not guaranteed, and every rate is editable.</p>
+    </footer>
+          </div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--compact" data-home-widget="portfolio">
+          <button class="dashboard-widget-open" type="button" data-open-view="portfolio">
+            <span class="dashboard-widget-top"><span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h16v11H4zM9 8V5h6v3M4 12h16M10 12v2h4v-2"></path></svg></span><span data-i18n="home_widget_portfolio">Portfolio</span><span aria-hidden="true">→</span></span>
+            <strong class="dashboard-widget-value" id="homePortfolioValue">—</strong>
+            <small class="dashboard-widget-note" id="homePortfolioNote">—</small>
+          </button>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--compact" data-home-widget="income">
+          <button class="dashboard-widget-open" type="button" data-open-view="income">
+            <span class="dashboard-widget-top"><span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h15a2 2 0 0 1 2 2v10H4zM4 7V5h13v2M15 13h6M17 13h.01"></path><path d="m8 15 3-3 2 2 3-4"></path></svg></span><span data-i18n="home_widget_income">Income</span><span aria-hidden="true">→</span></span>
+            <strong class="dashboard-widget-value" id="homeIncomeValue">—</strong>
+            <small class="dashboard-widget-note" id="homeIncomeNote">—</small>
+          </button>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--compact" data-home-widget="expenses">
+          <button class="dashboard-widget-open" type="button" data-open-view="savings">
+            <span class="dashboard-widget-top"><span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"></path></svg></span><span data-i18n="home_widget_expenses">Expenses</span><span aria-hidden="true">→</span></span>
+            <strong class="dashboard-widget-value" id="homeExpensesValue">—</strong>
+            <small class="dashboard-widget-note" id="homeExpensesNote">—</small>
+          </button>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--metric" data-home-widget="monthly" aria-labelledby="monthlySummaryTitle">
+          <div class="home-card-head home-card-head--share">
+            <div class="home-card-head-content">
+              <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10h4v10M10 20V4h4v16M16 20v-7h4v7M3 20h18"></path></svg></span>
+              <div><h2 id="monthlySummaryTitle" data-i18n="monthly_summary_title">This month</h2></div>
+            </div>
+            <button class="monthly-share-button" id="shareMonthlySummary" type="button" data-i18n-title="monthly_share_title" title="Share this month's spending">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0 4 4m-4-4-4 4M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6"></path></svg>
+              <span data-i18n="monthly_share">Share</span>
+            </button>
+          </div>
+          <div class="monthly-summary-grid">
+            <div><span data-i18n="monthly_income">Income</span><strong id="homeMonthlyIncome">—</strong></div>
+            <div><span data-i18n="monthly_expense">Expenses</span><strong id="homeMonthlyExpense">—</strong></div>
+            <div class="monthly-summary-net"><span data-i18n="monthly_net">Net</span><strong id="homeMonthlyNet">—</strong></div>
+          </div>
+          <div class="home-progress" aria-hidden="true"><span id="homeMonthlyBar"></span></div>
+          <p class="home-card-note" id="homeMonthlyRate">—</p>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--metric" data-home-widget="health" aria-labelledby="healthScoreTitle">
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.8 5.8a5.4 5.4 0 0 0-7.6 0L12 7l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6L12 22l8.8-8.6a5.4 5.4 0 0 0 0-7.6Z"></path><path d="m7 13 2-2 2 4 2-6 2 4h3"></path></svg></span>
+            <div><h2 id="healthScoreTitle" data-i18n="health_title">Financial health</h2></div>
+          </div>
+          <div class="health-score-wrap">
+            <div class="health-ring" id="healthRing" style="--score:0"><strong id="healthScore">0</strong><span>/100</span></div>
+            <div class="health-copy"><strong id="healthLabel">—</strong></div>
+          </div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--metric" data-home-widget="markets" aria-labelledby="marketSummaryTitle">
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h14m0 0-3-3m3 3-3 3M20 17H6m0 0 3 3m-3-3 3-3"></path></svg></span>
+            <div><h2 id="marketSummaryTitle" data-i18n="market_summary_title">FX & gold</h2></div>
+          </div>
+          <div class="home-market-list" id="homeMarketList" aria-live="polite"></div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--market-data" data-home-widget="marketSnapshot" aria-labelledby="homeMarketSnapshotTitle">
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m6 14v-7m5 7V3"></path></svg></span>
+            <div><h2 id="homeMarketSnapshotTitle" data-i18n="home_widget_marketSnapshot">Piyasa özeti</h2></div>
+          </div>
+          <div class="tr-list home-market-snapshot-list" id="homeTrList" aria-live="polite"></div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--market-data" data-home-widget="topPerformers" aria-labelledby="homeTopPerfTitle">
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Z"></path></svg></span>
+            <div><h2 id="homeTopPerfTitle" data-i18n="home_widget_topPerformers">Son 1 yılın yıldızları</h2></div>
+          </div>
+          <div class="top-perf-list home-top-perf-list" id="homeTopPerfList" aria-live="polite"></div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--market-data" data-home-widget="ipos" aria-labelledby="homeIpoTitle" hidden>
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 16l4-4 3 2 5-7m-4 0h4v4"></path></svg></span>
+            <div><h2 id="homeIpoTitle" data-i18n="home_widget_ipos">En yeni halka arzlar</h2></div>
+          </div>
+          <div class="ipo-list home-ipo-list" id="homeIpoList" aria-live="polite"></div>
+        </article>
+
+        <div class="countdown-widget-group" data-home-widget="countdown">
+          <article class="glass dashboard-widget dashboard-widget--countdown">
+            <div class="countdown-head">
+              <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10M7 21h10M8 3c0 4 1.3 5.4 4 7 2.7-1.6 4-3 4-7M8 21c0-4 1.3-5.4 4-7 2.7 1.6 4 3 4 7"></path></svg></span>
+              <div><h2 data-i18n="countdown_title">Countdowns</h2></div>
+            </div>
+            <form class="countdown-form" id="countdownForm">
+              <label><span data-i18n="countdown_name">Name</span><input id="countdownName" type="text" maxlength="80" autocomplete="off" /></label>
+              <label><span data-i18n="countdown_category">Category</span><input id="countdownCategory" type="text" maxlength="40" autocomplete="off" /></label>
+              <label><span data-i18n="countdown_date">Target date</span><input id="countdownDate" type="date" required /></label>
+              <label><span data-i18n="countdown_unit">Show as</span><select id="countdownUnit"><option value="days" data-i18n="countdown_days">Days</option><option value="months" data-i18n="countdown_months">Months</option></select></label>
+              <button class="settings-action settings-action--primary" type="submit" data-i18n="countdown_add">Add countdown</button>
+            </form>
+          </article>
+          <div class="countdown-tiles" id="countdownList" aria-live="polite"></div>
+        </div>
+
+        <article class="glass dashboard-widget dashboard-widget--compact dashboard-widget--pair" data-home-widget="car">
+          <button class="dashboard-widget-open" type="button" data-open-view="car">
+            <span class="dashboard-widget-top"><span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 11 2-5h10l2 5M4 11h16v7H4zM7 18v2m10-2v2M7.5 14h.01m8.99 0h.01"></path></svg></span><span data-i18n="home_widget_car">My car</span><span aria-hidden="true">→</span></span>
+            <strong class="dashboard-widget-value dashboard-widget-value--text" id="homeCarValue">—</strong>
+            <small class="dashboard-widget-note" id="homeCarNote">—</small>
+          </button>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--compact dashboard-widget--pair" data-home-widget="watch">
+          <button class="dashboard-widget-open" type="button" data-open-view="watch">
+            <span class="dashboard-widget-top"><span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"></path></svg></span><span data-i18n="home_widget_watch">Watchlist</span><span aria-hidden="true">→</span></span>
+            <div class="home-watch-preview" id="homeWatchPreview" aria-live="polite"></div>
+            <small class="dashboard-widget-note" id="homeWatchNote">—</small>
+          </button>
+        </article>
+
+        <div class="savings-goal-widget-group" data-home-widget="goals">
+          <article class="glass dashboard-widget dashboard-widget--feature" aria-labelledby="savingsGoalsTitle">
+            <div class="dashboard-feature-head">
+              <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 21V4m0 1h10l-2 3 2 3H6"></path></svg></span>
+              <div><h2 id="savingsGoalsTitle" data-i18n="goal_title">Savings goals</h2></div>
+            </div>
+            <form class="goal-form" id="savingsGoalForm">
+              <label><span data-i18n="goal_name">Goal</span><input id="savingsGoalName" type="text" maxlength="60" autocomplete="off" data-i18n-placeholder="goal_name_ph" placeholder="Emergency fund, car…" /></label>
+              <label><span data-i18n="goal_target">Target</span><input id="savingsGoalTarget" type="text" inputmode="numeric" data-format-thousands autocomplete="off" placeholder="0" /></label>
+              <label><span data-i18n="goal_current">Saved</span><input id="savingsGoalCurrent" type="text" inputmode="numeric" data-format-thousands autocomplete="off" placeholder="0" /></label>
+              <label><span data-i18n="goal_currency">Currency</span><select id="savingsGoalCurrency"><option value="TL">₺ TL</option><option value="USD">$ USD</option></select></label>
+              <button class="settings-action settings-action--primary" type="submit" data-i18n="goal_add">Add goal</button>
+            </form>
+          </article>
+          <div class="savings-goal-list" id="savingsGoalList" aria-live="polite"></div>
+        </div>
+
+        <article class="glass dashboard-widget dashboard-widget--half" data-home-widget="notes" aria-labelledby="homeNotesTitle">
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6zM14 3v4h4M9 11h6M9 15h6"></path></svg></span>
+            <div><h2 id="homeNotesTitle" data-i18n="notes_title">Mini notes</h2></div>
+          </div>
+          <form class="mini-note-form" id="homeNoteForm">
+            <input id="homeNoteInput" type="text" maxlength="120" autocomplete="off" data-i18n-placeholder="note_ph" placeholder="Write a short note…" />
+            <button class="settings-action settings-action--primary" type="submit" data-i18n="note_add">Add</button>
+          </form>
+          <div class="mini-note-list" id="homeNoteList" aria-live="polite"></div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--half" data-home-widget="insights" aria-labelledby="smartInsightsTitle">
+          <div class="home-card-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 1.3 4.2L17 9l-3.7 1.8L12 15l-1.3-4.2L7 9l3.7-1.8zM19 15l.7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7zM5 13l.7 2.3L8 16l-2.3.7L5 19l-.7-2.3L2 16l2.3-.7z"></path></svg></span>
+            <div><h2 id="smartInsightsTitle" data-i18n="insights_title">Smart insights</h2></div>
+          </div>
+          <div class="smart-insight-list" id="smartInsightList" aria-live="polite"></div>
+        </article>
+
+        <article class="glass dashboard-widget dashboard-widget--alerts" data-home-widget="alerts" aria-labelledby="homePriceAlertsTitle">
+          <div class="dashboard-feature-head">
+            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0v5l2 3H4l2-3zM10 20h4"></path></svg></span>
+            <div><h2 id="homePriceAlertsTitle" data-i18n="price_alerts">Price alerts</h2></div>
+          </div>
+          <div class="alert-form alert-form--home">
+            <label class="alert-search-field"><span data-i18n="alert_asset">Asset</span><span class="alert-search"><input id="homePriceAlertSearch" type="text" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="homePriceAlertDd" aria-expanded="false" /><span class="coin-dropdown alert-search-dd" id="homePriceAlertDd" role="listbox" hidden></span></span></label>
+            <label><span data-i18n="alert_condition">Condition</span><select id="homePriceAlertCondition"><option value="above" data-i18n="alert_above">Rises above</option><option value="below" data-i18n="alert_below">Falls below</option></select></label>
+            <label><span data-i18n="alert_target">Target price</span><input id="homePriceAlertTarget" type="text" inputmode="decimal" autocomplete="off" placeholder="0" /></label>
+            <button class="settings-action settings-action--primary" id="homeAddPriceAlert" type="button" data-i18n="alert_add">Add alert</button>
+          </div>
+          <div class="alert-list" id="homePriceAlertList" aria-live="polite"></div>
+        </article>
+
+      </section>
+    </div><!-- /view-home -->
+
+    <!-- ============ EXPENSES VIEW (Gider) ============ -->
+    <div class="view" id="view-savings" hidden>
+      <div class="glass expense-hero">
+        <div class="modern-section-title">
+          <span class="modern-section-icon modern-section-icon--expense" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-4 2-4-2-3 2V5a2 2 0 0 1 2-2Zm2 5h6M9 12h6"></path></svg></span>
+          <div><h2 data-i18n="expenses_page_title">Expenses</h2></div>
+        </div>
+        <span class="feature-month-chip" id="expMonthLabel">—</span>
+      </div>
+
+      <!-- Summary: this month's spend + upcoming payments, side by side -->
+      <div class="exp-summary">
+        <section class="glass exp-stat" aria-label="This month's expenses">
+          <span class="exp-stat-label" data-i18n="exp_total">This month's expenses</span>
+          <span class="exp-stat-value" id="expTotal">—</span>
+        </section>
+        <section class="glass exp-stat exp-stat--due" aria-label="Upcoming payments">
+          <span class="exp-stat-label" data-i18n="exp_reminders">Upcoming payments</span>
+          <span class="exp-stat-value" id="expRemTotal">—</span>
+        </section>
+      </div>
+
+      <!-- Upcoming payment reminders (recurring bills + vehicle payments) -->
+      <section class="glass exp-reminders" id="expReminders" aria-label="Upcoming payments" hidden>
+        <div class="exp-reminder-list" id="expReminderList"></div>
+      </section>
+
+      <!-- Category-based monthly budget -->
+      <section class="glass budget-panel" aria-labelledby="budgetTitle">
+        <div class="feature-section-head">
+          <div>
+            <h3 class="settings-label" id="budgetTitle" data-i18n="budget_title">Monthly budget</h3>
+          </div>
+          <span class="feature-month-chip" id="budgetMonth">—</span>
+        </div>
+        <div class="budget-overview">
+          <div><span data-i18n="budget_spent">Spent</span><strong id="budgetSpent">—</strong></div>
+          <div><span data-i18n="budget_limit">Budget</span><strong id="budgetLimit">—</strong></div>
+          <div><span data-i18n="budget_remaining">Remaining</span><strong id="budgetRemaining">—</strong></div>
+        </div>
+        <div class="budget-progress" id="budgetProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="budgetProgressText">
+          <span id="budgetProgressFill"></span>
+        </div>
+        <p class="budget-progress-text" id="budgetProgressText">—</p>
+        <div class="budget-list" id="budgetList" aria-live="polite"></div>
+        <p class="feature-empty" id="budgetEmpty" data-i18n="budget_empty">No category limit yet.</p>
+        <form class="budget-form" id="budgetForm">
+          <label><span data-i18n="budget_category">Category</span><input id="budgetCategory" list="expCatList" maxlength="40" required data-i18n-placeholder="exp_cat_ph" placeholder="Category" /></label>
+          <label><span data-i18n="budget_limit">Budget</span><span class="money-input money-input--sm"><span class="money-symbol exp-symbol">$</span><input id="budgetAmount" type="text" inputmode="numeric" required placeholder="0" /></span></label>
+          <button class="settings-action settings-action--primary" type="submit" data-i18n="budget_save">Save limit</button>
+        </form>
+      </section>
+
+      <!-- Recurring expenses -->
+      <section class="glass savings-panel expense-list-panel" aria-labelledby="expRecurringTitle">
+        <div class="modern-section-head">
+          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--recurring" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7L20 8.6M20 4v4.6h-4.6M12 8v4l2.5 1.5"></path></svg></span><div><h3 class="settings-label" id="expRecurringTitle" data-i18n="exp_recurring">Recurring expenses</h3></div></div>
+        </div>
+        <div class="savings-list" id="expRecList"></div>
+        <button class="add-cat" id="addRecurring" type="button" data-i18n="exp_add_recurring">+ Add recurring</button>
+      </section>
+
+      <!-- This month's logged expenses -->
+      <section class="glass savings-panel expense-list-panel" aria-labelledby="expThisMonthTitle">
+        <div class="modern-section-head">
+          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--spending" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4zM4 10h16M8 15h3"></path></svg></span><div><h3 class="settings-label" id="expThisMonthTitle" data-i18n="exp_thismonth">This month</h3></div></div>
+        </div>
+        <div class="savings-list" id="expOneList"></div>
+        <button class="add-cat" id="addExpense" type="button" data-i18n="exp_add">+ Add expense</button>
+      </section>
+
+      <!-- Past months (archived totals) — collapsed behind a toggle -->
+      <section class="glass savings-panel exp-history" id="expHistorySec" aria-label="Past months" hidden>
+        <button class="exp-hist-toggle" id="expHistToggle" type="button" aria-expanded="false">
+          <span data-i18n="exp_history">Past months</span>
+          <span class="exp-hist-caret" aria-hidden="true">▾</span>
+        </button>
+        <div id="expHistList" hidden></div>
+      </section>
+
+      <datalist id="expCatList"></datalist>
+    </div><!-- /view-savings -->
+
+    <!-- ============ ARACIM VIEW (car hub) ============ -->
+    <div class="view" id="view-car" hidden>
+      <!-- My car(s): brand-model + fuel specs (used for route cost) + payment reminders
+           + logged costs. Costs still count toward monthly expenses (Gider). -->
+      <section class="glass car-panel car-garage-panel exp-vehicles" aria-labelledby="vehicleSectionTitle">
+        <div class="car-section-head">
+          <div class="car-section-title">
+            <span class="car-section-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 15v-2a2 2 0 0 1 2-2h1.5l1.7-3a2 2 0 0 1 1.7-1h4.2a2 2 0 0 1 1.7 1l1.7 3H19a2 2 0 0 1 2 2v2h-2M5 15H3m4 0h10M8 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path></svg>
+            </span>
+            <div>
+              <h3 class="settings-label exp-sec-label" id="vehicleSectionTitle" data-i18n="veh_title">My vehicles</h3>
+            </div>
+          </div>
+          <span class="car-section-count" id="vehCount">0</span>
+        </div>
+        <div class="veh-list" id="vehList"></div>
+        <button class="add-cat car-add-vehicle" id="addVehicle" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg><span data-i18n="veh_add">Add vehicle</span></button>
+      </section>
+      <datalist id="vehSchedList"></datalist>
+      <datalist id="vehCatList"></datalist>
+
+      <!-- Route planner (Türkiye-only: provinces/districts and OSRM routing are TR data) -->
+      <section class="glass car-panel car-route-panel" id="carRouteSec" aria-labelledby="carRouteTitle" hidden>
+        <div class="car-section-head">
+          <div class="car-section-title">
+            <span class="car-section-icon car-section-icon--route" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 20s-4-4.2-4-8a4 4 0 1 1 8 0c0 3.8-4 8-4 8Zm0-6.5A1.5 1.5 0 1 0 7 10a1.5 1.5 0 0 0 0 3.5ZM17 4s-4 4.2-4 8a4 4 0 1 0 8 0c0-3.8-4-8-4-8Zm0 6.5A1.5 1.5 0 1 1 17 14a1.5 1.5 0 0 1 0-3.5Z"></path></svg>
+            </span>
+            <div>
+              <h3 class="settings-label" id="carRouteTitle" data-i18n="car_route">Route</h3>
+            </div>
+          </div>
+        </div>
+        <div class="car-route-inputs">
+          <div class="car-loc car-loc--from">
+            <div class="car-loc-head"><span class="car-point">A</span><span class="car-loc-lbl" data-i18n="car_from">From</span></div>
+            <div class="car-loc-selects">
+              <select class="car-select" id="carFromP" aria-label="il"></select>
+              <select class="car-select car-select--d" id="carFromD" aria-label="ilçe"></select>
+            </div>
+          </div>
+          <span class="car-route-connector" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></span>
+          <div class="car-loc car-loc--to">
+            <div class="car-loc-head"><span class="car-point">B</span><span class="car-loc-lbl" data-i18n="car_to">To</span></div>
+            <div class="car-loc-selects">
+              <select class="car-select" id="carToP" aria-label="il"></select>
+              <select class="car-select car-select--d" id="carToD" aria-label="ilçe"></select>
+            </div>
+          </div>
+        </div>
+        <div class="car-trip-type" id="carTripType" role="group" aria-label="Trip type">
+          <button id="carOneWay" type="button" data-trip-type="oneway" data-i18n="car_oneway">One way</button>
+          <button id="carRoundTrip" type="button" data-trip-type="roundtrip" data-i18n="car_roundtrip">Round trip</button>
+        </div>
+        <div class="car-favorites" id="carFavorites" hidden></div>
+        <div class="car-route-actions">
+          <button class="add-cat car-calc" id="carCalc" type="button" data-i18n="car_calc">Calculate route</button>
+          <button class="car-icon-btn" id="carFavorite" type="button" data-i18n-title="car_add_favorite" title="Add favorite"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path></svg></button>
+          <button class="car-icon-btn" id="carClear" type="button" data-i18n-title="car_clear" title="Clear"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6M5.6 15a8 8 0 0 0 13-2M18.4 9A8 8 0 0 0 5.5 7"></path></svg></button>
+        </div>
+        <p class="car-route-msg" id="carRouteMsg" hidden></p>
+        <div class="car-extra-head"><span data-i18n="car_extra_costs_title">Additional trip costs</span></div>
+        <div class="car-extra-costs">
+          <label><span data-i18n="car_toll">Toll</span><div class="money-input money-input--sm"><span class="money-symbol">₺</span><input id="carToll" inputmode="numeric" placeholder="0"></div></label>
+          <label><span data-i18n="car_parking">Parking</span><div class="money-input money-input--sm"><span class="money-symbol">₺</span><input id="carParking" inputmode="numeric" placeholder="0"></div></label>
+          <label><span data-i18n="car_other_cost">Other</span><div class="money-input money-input--sm"><span class="money-symbol">₺</span><input id="carOther" inputmode="numeric" placeholder="0"></div></label>
+        </div>
+        <div class="car-results" id="carResults" hidden></div>
+        <div class="car-map-wrap" id="carMapWrap" hidden>
+          <div class="car-map-head"><strong data-i18n="car_route_map">Route map</strong><span data-i18n="car_map_hint">Drag and zoom the map</span></div>
+          <div class="car-map" id="carMap" role="img" aria-label="Route map"></div>
+        </div>
+        <button class="add-cat car-save-trip" id="carSaveTrip" type="button" data-i18n="car_save_trip" hidden>Save trip</button>
+      </section>
+
+      <!-- Trip history (with running total; Türkiye-only, tied to the route planner) -->
+      <section class="glass car-panel car-history-panel" id="carHistSec" aria-labelledby="carHistoryTitle" hidden>
+        <div class="car-section-head">
+          <div class="car-section-title">
+            <span class="car-section-icon car-section-icon--history" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.6M4 4v4.6h4.6M12 7v5l3 2"></path></svg>
+            </span>
+            <div>
+              <h3 class="settings-label" id="carHistoryTitle" data-i18n="car_history">Trip history</h3>
+            </div>
+          </div>
+        </div>
+        <div id="carHistList"></div>
+      </section>
+    </div><!-- /view-car -->
+
+    <!-- ============ SETTINGS VIEW ============ -->
+    <div class="view" id="view-settings" hidden>
+      <section class="glass settings-group">
+        <h3 class="settings-label" data-i18n="country">Country</h3>
+        <div class="settings-options settings-options--lang">
+          <button class="opt opt-cur" type="button" data-currency="USD"><span class="opt-name">🇺🇸 USA · USD</span></button>
+          <button class="opt opt-cur" type="button" data-currency="TL"><span class="opt-name">🇹🇷 Türkiye · TL</span></button>
+        </div>
+      </section>
+
+      <section class="glass settings-group">
+        <h3 class="settings-label" data-i18n="language">Language</h3>
+        <div class="settings-options settings-options--lang">
+          <button class="opt opt-lang" type="button" data-lang="tr"><span class="opt-name">Türkçe</span></button>
+          <button class="opt opt-lang" type="button" data-lang="en"><span class="opt-name">English</span></button>
+        </div>
+      </section>
+
+      <section class="glass settings-group settings-tools" aria-labelledby="notifyTitle">
+        <h3 class="settings-label" id="notifyTitle" data-i18n="notify_title">Notifications</h3>
+        <label class="switch settings-switch">
+          <input type="checkbox" id="notifyToggle" />
+          <span class="switch-track"><span class="switch-thumb"></span></span>
+          <span class="switch-label" data-i18n="notify_enable">Enable notifications</span>
+        </label>
+        <p class="settings-status" id="notifyStatus" role="status" aria-live="polite"></p>
+
+        <div class="settings-subgroup">
+          <label class="settings-field" for="vehicleNotifyDays">
+            <span data-i18n="vehicle_notify">Vehicle maintenance reminder</span>
+            <span class="settings-inline-input">
+              <input id="vehicleNotifyDays" type="number" min="0" max="30" inputmode="numeric" value="7" />
+              <span data-i18n="days_before">days before</span>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="glass settings-group">
+        <h3 class="settings-label" data-i18n="sound">Sound</h3>
+        <label class="switch sound-switch">
+          <input type="checkbox" id="soundToggle" checked />
+          <span class="switch-track"><span class="switch-thumb"></span></span>
+          <span class="switch-label" data-i18n="sound_fx">Sound effects</span>
+        </label>
+      </section>
+
+      <section class="glass settings-group">
+        <h3 class="settings-label" data-i18n="motion">Motion</h3>
+        <label class="switch sound-switch">
+          <input type="checkbox" id="motionToggle" checked />
+          <span class="switch-track"><span class="switch-thumb"></span></span>
+          <span class="switch-label">
+            <span data-i18n="animations">Animations</span>
+            <small data-i18n="animations_sub">Show interface transitions and decorative motion</small>
+          </span>
+        </label>
+      </section>
+
+      <details class="glass settings-group settings-tools settings-disclosure" id="homeCustomizePanel">
+        <summary class="settings-disclosure-summary">
+          <span class="settings-disclosure-copy">
+            <span class="settings-label" id="homeCustomizeTitle" data-i18n="home_customize_title">Home screen</span>
+            <span class="settings-note" data-i18n="home_customize_desc">Reorder the Freedom screen cards or hide the ones you do not use.</span>
+          </span>
+          <span class="settings-disclosure-caret" aria-hidden="true">⌄</span>
+        </summary>
+        <div class="settings-disclosure-body">
+          <div class="home-card-list" id="homeCardList"></div>
+          <button class="settings-action" id="resetHomeCards" type="button" data-i18n="home_customize_reset">Reset layout</button>
+        </div>
+      </details>
+
+      <section class="glass settings-group settings-tools" aria-labelledby="pwaTitle">
+        <h3 class="settings-label" id="pwaTitle" data-i18n="pwa_title">App & offline use</h3>
+        <p class="settings-status" id="pwaStatus" role="status" aria-live="polite"></p>
+        <button class="settings-action settings-action--primary" id="installPwa" type="button" data-i18n="pwa_install" hidden>Install app</button>
+      </section>
+
+      <section class="glass settings-group settings-tools" aria-labelledby="backupTitle">
+        <h3 class="settings-label" id="backupTitle" data-i18n="backup_title">Data backup</h3>
+        <div class="backup-actions">
+          <button class="settings-action settings-action--primary" id="exportData" type="button" data-i18n="backup_export">Export backup</button>
+          <label class="settings-action settings-file" for="importData"><span data-i18n="backup_import">Import backup</span></label>
+          <input class="visually-hidden" id="importData" type="file" accept="application/json,.json" />
+        </div>
+        <p class="settings-status" id="backupStatus" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="glass settings-group">
+        <h3 class="settings-label" data-i18n="theme">Theme</h3>
+        <div class="settings-options settings-options--theme">
+          <button class="opt opt-theme" type="button" data-theme-pick="black">
+            <span class="opt-name" data-i18n="theme_black">Black Theme</span>
+            <span class="opt-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="opt opt-theme" type="button" data-theme-pick="glass" hidden>
+            <span class="opt-name" data-i18n="theme_glass">Liquid Glass</span>
+            <span class="opt-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="opt opt-theme" type="button" data-theme-pick="xp" hidden>
+            <span class="opt-name" data-i18n="theme_xp">Windows XP</span>
+            <span class="opt-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="opt opt-theme" type="button" data-theme-pick="medieval" hidden>
+            <span class="opt-name" data-i18n="theme_medieval">Medieval</span>
+            <span class="opt-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="opt opt-theme" type="button" data-theme-pick="doge" hidden>
+            <span class="opt-name" data-i18n="theme_doge">Doge</span>
+            <span class="opt-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="opt opt-theme" type="button" data-theme-pick="neon" hidden>
+            <span class="opt-name" data-i18n="theme_neon">Neon</span>
+            <span class="opt-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="opt opt-theme" type="button" data-theme-pick="solana" hidden>
+            <span class="opt-name" data-i18n="theme_solana">Solana</span>
+            <span class="opt-check" aria-hidden="true">✓</span>
+          </button>
+        </div>
+      </section>
+    </div><!-- /view-settings -->
+
+    <!-- ============ PORTFOLIO VIEW ============ -->
+    <div class="view" id="view-portfolio" hidden>
+      <section class="glass savings-result port-total-card" aria-label="Total portfolio value">
+        <div class="savings-total">
+          <div class="port-total-head">
+            <button class="port-ccy-toggle" id="portCcyToggle" type="button" hidden>$ USD</button>
+            <span class="savings-total-label" data-i18n="total_value">Total portfolio value</span>
+          </div>
+          <span class="savings-total-value" id="portTotal">—</span>
+          <span class="port-24h" id="port24h" hidden></span>
+        </div>
+
+        <div class="port-chart" id="portChart">
+          <div class="donut-wrap">
+            <svg class="donut" id="portDonut" viewBox="0 0 42 42" role="img" aria-label="Portfolio allocation"></svg>
+            <div class="donut-center" id="donutCenter" hidden aria-live="polite">
+              <span class="dc-pct"></span>
+              <span class="dc-name"></span>
+            </div>
+          </div>
+          <div class="donut-legend" id="portLegend"></div>
+        </div>
+        <p class="savings-note" id="portEmpty" data-i18n="portfolio_empty">Add holdings below to see the breakdown.</p>
+      </section>
+
+      <section class="glass flow-card" aria-label="Monthly cash flow">
+        <h3 class="settings-label" data-i18n="flow_title">Monthly cash flow</h3>
+        <div class="flow-row"><span data-i18n="flow_income">Income</span><span class="flow-val pos" id="flowIncome">—</span></div>
+        <div class="flow-row"><span data-i18n="flow_expenses">Expenses</span><span class="flow-val neg" id="flowExpenses">—</span></div>
+        <div class="flow-subnote" id="flowLastMonth" hidden></div>
+        <div class="flow-net" id="flowNetRow"><span data-i18n="flow_net">Net / month</span><span class="flow-val" id="flowNet">—</span></div>
+        <p class="flow-note" id="flowSavings"></p>
+      </section>
+
+      <section class="glass savings-panel portfolio-holdings-panel" aria-labelledby="portfolioHoldingsTitle">
+        <div class="portfolio-holdings-head">
+          <div>
+            <h3 class="settings-label" id="portfolioHoldingsTitle" data-i18n="portfolio_holdings_title">My assets</h3>
+          </div>
+          <span class="portfolio-count" id="portHoldingCount">0</span>
+        </div>
+        <div class="savings-list" id="portList"></div>
+        <button class="add-cat" id="addHolding" type="button" data-i18n="add_holding">+ Add holding</button>
+      </section>
+    </div><!-- /view-portfolio -->
+
+    <!-- ============ INCOME VIEW ============ -->
+    <div class="view" id="view-income" hidden>
+      <section class="glass savings-panel income-sources-panel" aria-labelledby="incomeSourcesTitle">
+        <div class="modern-section-head">
+          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--income" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18V8m0 10h16M8 15l3-4 3 2 5-7m-4 0h4v4"></path></svg></span><div><h3 class="settings-label" id="incomeSourcesTitle" data-i18n="income_sources_title">Income sources</h3></div></div>
+          <span class="modern-section-count" id="incSourceCount">0</span>
+        </div>
+        <div class="savings-list" id="incList"></div>
+        <button class="add-cat" id="addIncome" type="button" data-i18n="add_income">+ Add income</button>
+      </section>
+
+      <section class="glass savings-result income-summary-card" aria-label="Income summary">
+        <div class="income-summary-top">
+          <span class="income-summary-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M17 7.5c0-1.9-2.2-3-5-3S7 5.6 7 7.5s1.8 2.8 5 3.5 5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"></path></svg></span>
+          <div class="savings-total">
+            <span class="savings-total-label" data-i18n="total_income">Total monthly income</span>
+            <span class="savings-total-value" id="incTotal">—</span>
+            <span class="savings-total-sub" id="incBreakdown"></span>
+          </div>
+        </div>
+
+        <div class="port-progress">
+          <div class="port-progress-head">
+            <span class="port-pct"><strong id="incPct">0%</strong> <small data-i18n="covered_by_passive">covered by passive income</small></span>
+          </div>
+          <div class="port-bar"><div class="port-bar-fill" id="incBarFill"></div></div>
+        </div>
+
+        <p class="savings-punch" id="incPunch"></p>
+        <p class="inc-surplus" id="incSurplus"></p>
+      </section>
+    </div><!-- /view-income -->
+
+    <!-- ============ WATCHLIST VIEW ============ -->
+    <div class="view" id="view-watch" hidden>
+      <section class="glass watch-panel" aria-labelledby="watchSectionTitle">
+        <div class="modern-section-head watch-section-head">
+          <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--watch" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path></svg></span><div><h3 class="settings-label" id="watchSectionTitle" data-i18n="watch_title">Watchlist</h3></div></div>
+          <span class="modern-section-count" id="watchCount">0</span>
+        </div>
+        <div class="coin-search watch-search-wrap"><span class="watch-search-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></span>
+          <input id="watchSearch" class="watch-search" type="text" autocomplete="off" placeholder="Search gold, stocks, crypto…" />
+          <div class="coin-dropdown" id="watchDd" hidden></div>
+        </div>
+        <div class="watch-list" id="watchList"></div>
+        <p class="savings-note" id="watchEmpty" data-i18n="watch_empty">Search above and tap to add assets to your watchlist.</p>
+      </section>
+
+      <!-- Crypto-bubbles overview (sized + colored by 24h change) -->
+      <section class="glass watch-bubbles-sec" id="watchBubblesSec" aria-label="Bubbles" hidden>
+        <div class="watch-bubbles" id="watchBubbles"></div>
+      </section>
+
+    </div><!-- /view-watch -->
+  </main>
+
+  <!-- Bottom navigation (app-style) -->
+  <nav class="tabbar" aria-label="Primary">
+    <button class="tab is-active" type="button" data-view="home" aria-current="page">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path></svg></span>
+      <span class="tab-label" data-i18n="nav_home">Home</span>
+    </button>
+    <button class="tab" type="button" data-view="portfolio">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v13H4zM9 7V4h6v3M4 12h16M10 12v2h4v-2"></path></svg></span>
+      <span class="tab-label" data-i18n="nav_portfolio">Portfolio</span>
+    </button>
+    <button class="tab" type="button" data-view="income">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h15a2 2 0 0 1 2 2v10H4zM4 7V5h13v2M15 13h6M17 13h.01"></path></svg></span>
+      <span class="tab-label" data-i18n="nav_income">Income</span>
+    </button>
+    <button class="tab" type="button" data-view="savings">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"></path></svg></span>
+      <span class="tab-label" data-i18n="nav_savings">Expenses</span>
+    </button>
+    <button class="tab" type="button" data-view="car">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 11 2-5h10l2 5M4 11h16v7H4zM7 18v2m10-2v2M7.5 14h.01m8.99 0h.01"></path></svg></span>
+      <span class="tab-label" data-i18n="nav_car">My car</span>
+    </button>
+    <button class="tab" type="button" data-view="watch">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"></path></svg></span>
+      <span class="tab-label" data-i18n="nav_watchlist">Watch</span>
+    </button>
+    <button class="tab" type="button" data-view="settings">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path></svg></span>
+      <span class="tab-label" data-i18n="nav_settings">Settings</span>
+    </button>
+    <button class="tab tab--command" type="button" data-command-focus data-i18n-title="command_nav_title" title="Open command bar">
+      <span class="tab-icon command-orb" aria-hidden="true"><canvas id="commandOrbCanvas" width="28" height="28"></canvas></span>
+      <span class="tab-label" data-i18n="command_nav">Command</span>
+    </button>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ============ TRADINGVIEW CHART POPUP ============ -->
+  <div class="tv-modal" id="tvModal" hidden>
+    <div class="tv-backdrop" id="tvBackdrop"></div>
+    <div class="tv-card glass" role="dialog" aria-modal="true" aria-label="Chart">
+      <div class="tv-head">
+        <span class="tv-title" id="tvTitle"></span>
+        <button class="tv-close" id="tvClose" type="button" aria-label="close">×</button>
+      </div>
+      <div class="tv-frame-wrap">
+        <iframe id="tvFrame" class="tv-frame" title="TradingView chart" frameborder="0" allowtransparency="true" scrolling="no" loading="lazy"></iframe>
+      </div>
+      <a class="tv-open" id="tvOpen" target="_blank" rel="noopener noreferrer" data-i18n="watch_chart_full">Open full chart on TradingView ↗</a>
+    </div>
+  </div>
+
+  <!-- ============ MONTHLY SPENDING SHARE CARD ============ -->
+  <div class="monthly-share-modal" id="monthlyShareModal" hidden>
+    <div class="monthly-share-backdrop" id="monthlyShareBackdrop"></div>
+    <div class="monthly-share-dialog glass" role="dialog" aria-modal="true" aria-labelledby="monthlySharePreviewTitle">
+      <div class="monthly-share-head">
+        <div class="monthly-share-heading">
+          <span class="monthly-share-heading-icon" aria-hidden="true">📊</span>
+          <div>
+            <h2 id="monthlySharePreviewTitle" data-i18n="monthly_share_preview_title">Monthly spending card</h2>
+            <p data-i18n="monthly_share_preview_sub">Preview it, then copy or download.</p>
+          </div>
+        </div>
+        <button class="monthly-share-close" id="monthlyShareClose" type="button" data-i18n-title="monthly_share_close" title="Close">×</button>
+      </div>
+      <div class="monthly-share-preview-stage">
+        <img class="monthly-share-preview" id="monthlySharePreviewImage" alt="Monthly spending card" />
+      </div>
+      <div class="monthly-share-background-actions">
+        <button class="settings-action monthly-share-background-action" id="monthlyShareUpload" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM4 16l4-4 3 3 3-3 6 6M15 9h.01"></path></svg>
+          <span data-i18n="monthly_share_photo">Choose photo</span>
+        </button>
+        <button class="settings-action monthly-share-background-action" id="monthlyShareRandom" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg>
+          <span data-i18n="monthly_share_random">Random cat</span>
+        </button>
+        <input id="monthlySharePhotoInput" type="file" accept="image/*" hidden />
+      </div>
+      <div class="monthly-share-actions">
+        <button class="settings-action monthly-share-action" id="monthlyShareCopy" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3M6 8h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z"></path></svg>
+          <span data-i18n="monthly_share_copy">Copy image</span>
+        </button>
+        <button class="settings-action monthly-share-action" id="monthlyShareDownload" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14"></path></svg>
+          <span data-i18n="monthly_share_download">Download</span>
+        </button>
+        <button class="settings-action settings-action--primary monthly-share-action" id="monthlyShareSystem" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0 4 4m-4-4-4 4M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6"></path></svg>
+          <span data-i18n="monthly_share_system">Share</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FIRST-RUN ONBOARDING (shown once) ============ -->
+  <div class="onboard" id="onboard" hidden>
+    <div class="onboard-card glass">
+      <div class="onboard-logo">💸</div>
+      <h2 class="onboard-title" data-i18n="onb_title">Welcome to NumBrrr</h2>
+      <p class="onboard-sub" data-i18n="onb_sub">Pick your country and language to get started. You can change these anytime in Settings.</p>
+
+      <div class="onboard-group">
+        <h3 class="onboard-label" data-i18n="onb_country">Country</h3>
+        <div class="onboard-options">
+          <button class="opt ob-country" type="button" data-ob-country="US"><span class="opt-name">🇺🇸 USA · USD</span></button>
+          <button class="opt ob-country" type="button" data-ob-country="TR"><span class="opt-name">🇹🇷 Türkiye · TL</span></button>
+        </div>
+      </div>
+
+      <div class="onboard-group">
+        <h3 class="onboard-label" data-i18n="onb_language">Language</h3>
+        <div class="onboard-options">
+          <button class="opt ob-lang" type="button" data-ob-lang="en"><span class="opt-name">English</span></button>
+          <button class="opt ob-lang" type="button" data-ob-lang="tr"><span class="opt-name">Türkçe</span></button>
+        </div>
+      </div>
+
+      <button class="onboard-start" id="obStart" type="button" data-i18n="onb_start">Continue</button>
+    </div>
+  </div>
+
+  <!-- ============ FIRST-RUN SECTION GUIDE (shown once) ============ -->
+  <div class="guide" id="guide" hidden>
+    <div class="guide-card glass">
+      <button class="guide-close" id="guideClose" type="button" aria-label="close">×</button>
+      <h2 class="guide-title" data-i18n="guide_title">Quick guide</h2>
+      <div class="guide-list">
+        <div class="guide-item"><span class="guide-ico">🏠</span><div class="guide-txt"><b data-i18n="nav_home">Home</b><p data-i18n="guide_freedom">—</p></div></div>
+        <div class="guide-item"><span class="guide-ico">💼</span><div class="guide-txt"><b data-i18n="nav_portfolio">Portfolio</b><p data-i18n="guide_portfolio">—</p></div></div>
+        <div class="guide-item"><span class="guide-ico">👛</span><div class="guide-txt"><b data-i18n="nav_income">Income</b><p data-i18n="guide_income">—</p></div></div>
+        <div class="guide-item"><span class="guide-ico">🧾</span><div class="guide-txt"><b data-i18n="nav_savings">Expenses</b><p data-i18n="guide_expenses">—</p></div></div>
+        <div class="guide-item"><span class="guide-ico">🚗</span><div class="guide-txt"><b data-i18n="nav_car">My car</b><p data-i18n="guide_car">—</p></div></div>
+        <div class="guide-item"><span class="guide-ico">⭐</span><div class="guide-txt"><b data-i18n="nav_watchlist">Watch</b><p data-i18n="guide_watch">—</p></div></div>
+      </div>
+      <button class="onboard-start" id="guideStart" type="button" data-i18n="guide_ok">Got it</button>
+    </div>
+  </div>
+
+  <script src="command-parser.js?v=4"></script>
+  <script src="app.js?v=76"></script>
+
+  <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

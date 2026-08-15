@@ -294,7 +294,7 @@ const I18N = {
     weather_title: "Weather", weather_sub: "Local forecast at a glance.", weather_change_location: "Change location", weather_refresh: "Refresh weather", weather_search_ph: "Search city…", weather_use_location: "Use my location", weather_current_location: "Current location", weather_loading: "Loading weather…", weather_unavailable: "Weather is unavailable right now.", weather_no_results: "No matching city found.", weather_location_denied: "Location access was not available. Search for a city instead.", weather_feels_like: "Feels like {temp}", weather_wind: "Wind {speed}", weather_rain: "Rain {rate}%", weather_updated: "Updated {time}", weather_today: "Today", weather_tomorrow: "Tomorrow", weather_clear: "Clear", weather_partly_cloudy: "Partly cloudy", weather_cloudy: "Cloudy", weather_fog: "Foggy", weather_drizzle: "Drizzle", weather_rainy: "Rainy", weather_snow: "Snowy", weather_showers: "Showers", weather_thunderstorm: "Thunderstorm",
     goal_title: "Savings goals", goal_sub: "Create separate goals in Turkish lira or US dollars.", goal_name: "Goal", goal_name_ph: "Emergency fund, car…", goal_target: "Target", goal_current: "Saved", goal_currency: "Currency", goal_add: "Add goal", goal_empty: "No savings goal yet.", goal_invalid: "Enter a goal name and a valid target amount.", goal_added: "Savings goal added ✓", goal_remove: "Remove goal", goal_progress: "{current} of {target}", goal_completed: "Goal reached",
     notes_title: "Mini notes", notes_sub: "Keep short reminders close.", note_ph: "Write a short note…", note_add: "Add", note_empty: "No notes yet.", note_remove: "Remove note",
-    insights_title: "Smart insights", insights_sub: "Automatic observations from your data.", insight_setup_title: "Complete your numbers", insight_setup_body: "Add income and expenses to unlock personalised insights.", insight_cash_positive_title: "Positive cash flow", insight_cash_positive_body: "Income is {amount} above expenses this month.", insight_cash_negative_title: "Spending is above income", insight_cash_negative_body: "You are currently {amount} short this month.", insight_rate_title: "Savings rate", insight_rate_body: "You are keeping {rate}% of monthly income.", insight_passive_title: "Passive coverage", insight_passive_body: "Passive income covers {rate}% of monthly expenses.", insight_expense_up_title: "Expenses increased", insight_expense_up_body: "This month is {rate}% above the last archived month.", insight_expense_down_title: "Expenses decreased", insight_expense_down_body: "This month is {rate}% below the last archived month.", insight_goal_title: "Closest savings goal", insight_goal_body: "{name} is {rate}% complete.", insight_upcoming_title: "Upcoming payments", insight_upcoming_body: "You have {count} unpaid payment or maintenance reminders.",
+    insights_title: "Smart insights", insights_sub: "Automatic observations from your data.", insight_setup_title: "Complete your numbers", insight_setup_body: "Add income and expenses to unlock personalised insights.", insight_cash_positive_title: "Positive cash flow", insight_cash_positive_body: "Income is {amount} above expenses this month.", insight_cash_negative_title: "Spending is above income", insight_cash_negative_body: "You are currently {amount} short this month.", insight_rate_title: "Savings rate", insight_rate_body: "You are keeping {rate}% of monthly income.", insight_passive_title: "Passive coverage", insight_passive_body: "Passive income covers {rate}% of monthly expenses.", insight_expense_up_title: "Expenses increased", insight_expense_up_body: "This month is {rate}% above the last archived month.", insight_expense_down_title: "Expenses decreased", insight_expense_down_body: "This month is {rate}% below the last archived month.", insight_goal_title: "Closest savings goal", insight_goal_body: "{name} is {rate}% complete.", insight_upcoming_title: "Upcoming payments", insight_upcoming_body: "You have {count} unpaid payment or maintenance reminders.", insight_budget_title: "Budget pressure", insight_budget_body: "{name} is at {rate}% of its monthly limit.", insight_concentration_title: "Portfolio concentration", insight_concentration_body: "{name} makes up {rate}% of your portfolio; one move has an outsized impact.", insight_runway_title: "Safety buffer", insight_runway_body: "Your portfolio could cover about {months} months of planned expenses.", insight_diversification_title: "Diversification gap", insight_diversification_body: "Your portfolio spans {count} asset groups; spreading risk can soften shocks.", insight_goal_momentum_title: "Goal momentum", insight_goal_momentum_body: "{name} is {rate}% complete; {amount} remains.", insight_more_title: "More data, sharper insights", insight_more_body: "Add income, expenses or goals so the analyser can surface more useful signals.",
     countdown_title: "Countdowns", countdown_sub: "Pick a target date from the calendar and follow it in days or months.", countdown_name: "Name", countdown_category: "Category", countdown_date: "Target date", countdown_unit: "Show as", countdown_days: "Days", countdown_months: "Months", countdown_add: "Add countdown", countdown_name_ph: "Vacation, exam, goal…", countdown_category_ph: "Travel, work, personal…", countdown_empty: "No countdown yet.", countdown_invalid: "Enter a name and choose a future date.", countdown_day_left: "day left", countdown_days_left: "days left", countdown_month_left: "month left", countdown_months_left: "months left", countdown_done: "Time's up", countdown_target: "Target: {date}", countdown_remove: "Remove countdown", countdown_switch_unit: "Switch days / months", countdown_added: "Countdown added ✓", countdown_active: "{count} active countdowns",
     pwa_title: "App & offline use", pwa_desc: "Install NumBrrr on your phone and keep using saved data without internet.", pwa_install: "Install app", pwa_ready: "Offline use is ready.", pwa_installed: "NumBrrr is installed on this device.", pwa_ios: "Use your browser's Add to Home Screen command to install.", pwa_unsupported: "This browser does not support app installation.", offline_banner: "You are offline · showing the latest saved data",
     notify_title: "Notifications", notify_desc: "Get price alerts and upcoming vehicle maintenance reminders, including while the app is closed when background service is available.", notify_enable: "Enable notifications",
@@ -481,7 +481,7 @@ const I18N = {
     weather_title: "Hava durumu", weather_sub: "Yerel tahmin tek bakışta.", weather_change_location: "Konumu değiştir", weather_refresh: "Hava durumunu yenile", weather_search_ph: "Şehir ara…", weather_use_location: "Konumumu kullan", weather_current_location: "Mevcut konum", weather_loading: "Hava durumu yükleniyor…", weather_unavailable: "Hava durumu şu anda alınamıyor.", weather_no_results: "Eşleşen şehir bulunamadı.", weather_location_denied: "Konum bilgisine ulaşılamadı. Bunun yerine şehir arayabilirsin.", weather_feels_like: "Hissedilen {temp}", weather_wind: "Rüzgâr {speed}", weather_rain: "Yağış %{rate}", weather_updated: "{time} güncellendi", weather_today: "Bugün", weather_tomorrow: "Yarın", weather_clear: "Açık", weather_partly_cloudy: "Parçalı bulutlu", weather_cloudy: "Bulutlu", weather_fog: "Sisli", weather_drizzle: "Çisenti", weather_rainy: "Yağmurlu", weather_snow: "Karlı", weather_showers: "Sağanak", weather_thunderstorm: "Gök gürültülü",
     goal_title: "Birikim hedefleri", goal_sub: "TL veya dolar cinsinden ayrı hedefler oluştur.", goal_name: "Hedef", goal_name_ph: "Acil durum fonu, araba…", goal_target: "Hedef tutar", goal_current: "Mevcut birikim", goal_currency: "Para birimi", goal_add: "Hedef ekle", goal_empty: "Henüz birikim hedefi yok.", goal_invalid: "Hedef adı ve geçerli bir hedef tutar gir.", goal_added: "Birikim hedefi eklendi ✓", goal_remove: "Hedefi kaldır", goal_progress: "{target} hedefinin {current} kadarı", goal_completed: "Hedefe ulaşıldı",
     notes_title: "Mini notlar", notes_sub: "Kısa hatırlatmalarını yanında tut.", note_ph: "Kısa bir not yaz…", note_add: "Ekle", note_empty: "Henüz not yok.", note_remove: "Notu kaldır",
-    insights_title: "Akıllı içgörüler", insights_sub: "Verilerinden otomatik çıkarılan kısa yorumlar.", insight_setup_title: "Rakamlarını tamamla", insight_setup_body: "Kişisel içgörüler için gelir ve gider bilgilerini ekle.", insight_cash_positive_title: "Pozitif nakit akışı", insight_cash_positive_body: "Bu ay gelirlerin giderlerinden {amount} fazla.", insight_cash_negative_title: "Gider geliri aşıyor", insight_cash_negative_body: "Bu ay şu anda {amount} açık var.", insight_rate_title: "Birikim oranı", insight_rate_body: "Aylık gelirinin %{rate} kadarını elinde tutuyorsun.", insight_passive_title: "Pasif gelir kapsaması", insight_passive_body: "Pasif gelirin aylık giderlerinin %{rate} kadarını karşılıyor.", insight_expense_up_title: "Giderler arttı", insight_expense_up_body: "Bu ay son arşivlenen aya göre %{rate} daha yüksek.", insight_expense_down_title: "Giderler azaldı", insight_expense_down_body: "Bu ay son arşivlenen aya göre %{rate} daha düşük.", insight_goal_title: "En yakın birikim hedefi", insight_goal_body: "{name} hedefinin %{rate} kadarı tamamlandı.", insight_upcoming_title: "Yaklaşan ödemeler", insight_upcoming_body: "Ödenmemiş {count} ödeme veya bakım hatırlatman var.",
+    insights_title: "Akıllı içgörüler", insights_sub: "Verilerinden otomatik çıkarılan kısa yorumlar.", insight_setup_title: "Rakamlarını tamamla", insight_setup_body: "Kişisel içgörüler için gelir ve gider bilgilerini ekle.", insight_cash_positive_title: "Pozitif nakit akışı", insight_cash_positive_body: "Bu ay gelirlerin giderlerinden {amount} fazla.", insight_cash_negative_title: "Gider geliri aşıyor", insight_cash_negative_body: "Bu ay şu anda {amount} açık var.", insight_rate_title: "Birikim oranı", insight_rate_body: "Aylık gelirinin %{rate} kadarını elinde tutuyorsun.", insight_passive_title: "Pasif gelir kapsaması", insight_passive_body: "Pasif gelirin aylık giderlerinin %{rate} kadarını karşılıyor.", insight_expense_up_title: "Giderler arttı", insight_expense_up_body: "Bu ay son arşivlenen aya göre %{rate} daha yüksek.", insight_expense_down_title: "Giderler azaldı", insight_expense_down_body: "Bu ay son arşivlenen aya göre %{rate} daha düşük.", insight_goal_title: "En yakın birikim hedefi", insight_goal_body: "{name} hedefinin %{rate} kadarı tamamlandı.", insight_upcoming_title: "Yaklaşan ödemeler", insight_upcoming_body: "Ödenmemiş {count} ödeme veya bakım hatırlatman var.", insight_budget_title: "Bütçe baskısı", insight_budget_body: "{name} aylık limitinin %{rate} kadarına ulaştı.", insight_concentration_title: "Portföy yoğunlaşması", insight_concentration_body: "Portföyünün %{rate} kadarı {name} varlığında; tek hareketin etkisi yüksek.", insight_runway_title: "Güvenlik tamponu", insight_runway_body: "Portföyün planlanan giderlerini yaklaşık {months} ay karşılayabilir.", insight_diversification_title: "Çeşitlendirme açığı", insight_diversification_body: "Portföyün {count} varlık grubuna yayılıyor; farklı gruplar riski yumuşatabilir.", insight_goal_momentum_title: "Hedef ivmesi", insight_goal_momentum_body: "{name} hedefinin %{rate} kadarı tamamlandı; {amount} kaldı.", insight_more_title: "Daha net içgörüler için", insight_more_body: "Gelir, gider veya hedef ekledikçe analiz daha anlamlı sinyaller gösterecek.",
     countdown_title: "Geri sayımlar", countdown_sub: "Takvimden hedef tarihi seç; gün veya ay olarak takip et.", countdown_name: "Başlık", countdown_category: "Kategori", countdown_date: "Hedef tarih", countdown_unit: "Gösterim", countdown_days: "Gün", countdown_months: "Ay", countdown_add: "Geri sayım ekle", countdown_name_ph: "Tatil, sınav, hedef…", countdown_category_ph: "Seyahat, iş, kişisel…", countdown_empty: "Henüz geri sayım yok.", countdown_invalid: "Bir başlık gir ve takvimden ileri bir tarih seç.", countdown_day_left: "gün kaldı", countdown_days_left: "gün kaldı", countdown_month_left: "ay kaldı", countdown_months_left: "ay kaldı", countdown_done: "Süre doldu", countdown_target: "Hedef: {date}", countdown_remove: "Geri sayımı kaldır", countdown_switch_unit: "Gün / ay görünümünü değiştir", countdown_added: "Geri sayım eklendi ✓", countdown_active: "{count} aktif geri sayım",
     pwa_title: "Uygulama ve çevrimdışı kullanım", pwa_desc: "NumBrrr'ı telefonuna kur; internet yokken kayıtlı verilerinle kullanmaya devam et.", pwa_install: "Uygulamayı yükle", pwa_ready: "Çevrimdışı kullanım hazır.", pwa_installed: "NumBrrr bu cihaza yüklendi.", pwa_ios: "Yüklemek için tarayıcı menüsündeki Ana Ekrana Ekle seçeneğini kullan.", pwa_unsupported: "Bu tarayıcı uygulama yüklemeyi desteklemiyor.", offline_banner: "Çevrimdışısın · son kaydedilen veriler gösteriliyor",
     notify_title: "Bildirimler", notify_desc: "Fiyat alarmlarını ve yaklaşan araç bakım hatırlatmalarını, arka plan hizmeti hazırsa uygulama kapalıyken de al.", notify_enable: "Bildirimleri aç",
@@ -4319,29 +4319,120 @@ function addHomeNote(event) {
   saveState(); renderHomeNotes(); sfx("add");
 }
 
+function insightPortfolioMetrics() {
+  const holdings = state.portfolio.holdings.filter((holding) => (holding.value || 0) > 0).map((holding) => ({
+    holding,
+    value: Math.max(0, holding.value || 0),
+  })).sort((a, b) => b.value - a.value);
+  const total = holdings.reduce((sum, item) => sum + item.value, 0);
+  const top = holdings[0];
+  return {
+    total,
+    count: holdings.length,
+    groups: new Set(holdings.map((item) => item.holding.assetType || "cash")).size,
+    topName: top ? (top.holding.label || top.holding.stockName || top.holding.coinSymbol || top.holding.symbol || t("command_asset")) : "",
+    topShare: top && total > 0 ? (top.value / total) * 100 : 0,
+  };
+}
+
+function insightBudgetMetrics() {
+  const items = currentBudgetItems().filter((item) => item.limit > 0).map((item) => {
+    const spent = budgetItemSpent(item);
+    return { item, spent, rate: (spent / item.limit) * 100 };
+  });
+  if (!items.length) return null;
+  const top = [...items].sort((a, b) => b.rate - a.rate)[0];
+  const limit = items.reduce((sum, entry) => sum + entry.item.limit, 0);
+  const spent = expensesTotal();
+  return {
+    top,
+    rate: limit > 0 ? (spent / limit) * 100 : 0,
+  };
+}
+
 function smartInsights(snapshot = financialSnapshot()) {
-  const insights = [];
-  if (snapshot.income <= 0 && snapshot.expenses <= 0) {
-    insights.push({ icon: "🧭", title: t("insight_setup_title"), body: t("insight_setup_body") });
-  } else {
-    insights.push(snapshot.net >= 0
-      ? { icon: "↗", tone: "good", title: t("insight_cash_positive_title"), body: t("insight_cash_positive_body", { amount: formatMoney(snapshot.net) }) }
-      : { icon: "↘", tone: "warn", title: t("insight_cash_negative_title"), body: t("insight_cash_negative_body", { amount: formatMoney(Math.abs(snapshot.net)) }) });
-    if (snapshot.income > 0) insights.push({ icon: "%", tone: snapshot.savingsRate >= 20 ? "good" : "", title: t("insight_rate_title"), body: t("insight_rate_body", { rate: Math.round(snapshot.savingsRate) }) });
-    if (snapshot.expenses > 0) insights.push({ icon: "◔", title: t("insight_passive_title"), body: t("insight_passive_body", { rate: Math.round(snapshot.passiveCoverage) }) });
+  const candidates = [];
+  const add = (id, priority, insight) => candidates.push({ id, priority, ...insight });
+  const portfolio = insightPortfolioMetrics();
+  const budget = insightBudgetMetrics();
+  const hasData = snapshot.income > 0 || snapshot.expenses > 0 || portfolio.total > 0 || state.savingsGoals.items.length > 0 || !!budget;
+
+  if (!hasData) return [{ icon: "🧭", title: t("insight_setup_title"), body: t("insight_setup_body") }];
+
+  // Score each observation by urgency so the widget surfaces decisions, not a fixed checklist.
+  if (snapshot.net < 0) {
+    const pressure = snapshot.expenses > 0 ? Math.min(40, (Math.abs(snapshot.net) / snapshot.expenses) * 40) : 20;
+    add("cash", 120 + pressure, { icon: "↘", tone: "warn", title: t("insight_cash_negative_title"), body: t("insight_cash_negative_body", { amount: formatMoney(Math.abs(snapshot.net)) }) });
+  } else if (snapshot.income > 0) {
+    add("cash", 62, { icon: "↗", tone: "good", title: t("insight_cash_positive_title"), body: t("insight_cash_positive_body", { amount: formatMoney(snapshot.net) }) });
   }
-  const lastMonth = state.expenses.history[0];
+
+  if (snapshot.income > 0) {
+    const savingsPriority = snapshot.savingsRate < 10 ? 108 : snapshot.savingsRate < 20 ? 82 : 55;
+    add("savings", savingsPriority, { icon: "%", tone: snapshot.savingsRate >= 20 ? "good" : "warn", title: t("insight_rate_title"), body: t("insight_rate_body", { rate: Math.round(snapshot.savingsRate) }) });
+  }
+
+  if (budget && budget.top) {
+    const rate = Math.round(Math.max(0, budget.top.rate));
+    if (rate >= 80) add("budget", rate >= 100 ? 132 : 104, {
+      icon: "₺", tone: rate >= 100 ? "warn" : "", title: t("insight_budget_title"),
+      body: t("insight_budget_body", { name: budgetItemLabel(budget.top.item), rate }),
+    });
+  }
+
+  if (portfolio.topShare >= 45) {
+    const share = Math.round(portfolio.topShare);
+    add("concentration", share >= 60 ? 126 : 92, {
+      icon: "◉", tone: share >= 60 ? "warn" : "", title: t("insight_concentration_title"),
+      body: t("insight_concentration_body", { name: portfolio.topName, rate: share }),
+    });
+  }
+
+  if (snapshot.expenses > 0 && portfolio.total > 0) {
+    const months = snapshot.bufferMonths;
+    const roundedMonths = Math.max(0.1, Math.round(months * 10) / 10);
+    add("buffer", months < 3 ? 118 : months < 6 ? 84 : 54, {
+      icon: "◌", tone: months < 3 ? "warn" : months >= 6 ? "good" : "",
+      title: t("insight_runway_title"), body: t("insight_runway_body", { months: roundedMonths }),
+    });
+  }
+
+  if (portfolio.count >= 2 && portfolio.groups < 3) {
+    add("diversification", portfolio.groups === 1 ? 88 : 70, {
+      icon: "◇", tone: portfolio.groups === 1 ? "warn" : "", title: t("insight_diversification_title"),
+      body: t("insight_diversification_body", { count: portfolio.groups }),
+    });
+  }
+
+  const lastMonth = state.expenses.history.find((month) => month.total > 0);
   if (lastMonth && lastMonth.total > 0 && snapshot.expenses > 0) {
     const change = ((snapshot.expenses / lastMonth.total) - 1) * 100;
-    if (Math.abs(change) >= 5) insights.push(change > 0
+    if (Math.abs(change) >= 5) add("trend", change > 0 ? 110 : 58, change > 0
       ? { icon: "↑", tone: "warn", title: t("insight_expense_up_title"), body: t("insight_expense_up_body", { rate: Math.round(Math.abs(change)) }) }
       : { icon: "↓", tone: "good", title: t("insight_expense_down_title"), body: t("insight_expense_down_body", { rate: Math.round(Math.abs(change)) }) });
   }
-  const closestGoal = [...state.savingsGoals.items].filter((goal) => goal.target > 0).sort((a, b) => (b.current / b.target) - (a.current / a.target))[0];
-  if (closestGoal) insights.push({ icon: "🏁", title: t("insight_goal_title"), body: t("insight_goal_body", { name: closestGoal.name, rate: Math.min(100, Math.round((closestGoal.current / closestGoal.target) * 100)) }) });
+
+  const closestGoal = [...state.savingsGoals.items]
+    .filter((goal) => goal.target > 0 && goal.current < goal.target)
+    .sort((a, b) => (b.current / b.target) - (a.current / a.target))[0];
+  if (closestGoal) {
+    const rate = Math.min(100, Math.round((closestGoal.current / closestGoal.target) * 100));
+    const remaining = formatMoneyCcy(Math.max(0, closestGoal.target - closestGoal.current), closestGoal.currency);
+    add("goal", rate >= 80 ? 78 : 64, {
+      icon: "🏁", title: rate >= 80 ? t("insight_goal_momentum_title") : t("insight_goal_title"),
+      body: rate >= 80 ? t("insight_goal_momentum_body", { name: closestGoal.name, rate, amount: remaining }) : t("insight_goal_body", { name: closestGoal.name, rate }),
+    });
+  }
+
+  if (snapshot.passiveCoverage > 0) add("passive", snapshot.passiveCoverage >= 50 ? 72 : 60, {
+    icon: "◔", tone: snapshot.passiveCoverage >= 50 ? "good" : "", title: t("insight_passive_title"), body: t("insight_passive_body", { rate: Math.round(snapshot.passiveCoverage) }),
+  });
+
   const upcoming = upcomingPaymentCount();
-  if (upcoming > 0) insights.push({ icon: "⏰", title: t("insight_upcoming_title"), body: t("insight_upcoming_body", { count: upcoming }) });
-  return insights.slice(0, 4);
+  if (upcoming > 0) add("upcoming", 68, { icon: "⏰", title: t("insight_upcoming_title"), body: t("insight_upcoming_body", { count: upcoming }) });
+
+  if (!candidates.length) return [{ icon: "🧭", title: t("insight_more_title"), body: t("insight_more_body") }];
+  return candidates.sort((a, b) => b.priority - a.priority).slice(0, 4).map(({ priority, id, ...insight }) => insight);
 }
 
 function renderSmartInsights(snapshot = financialSnapshot()) {

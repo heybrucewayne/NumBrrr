@@ -1462,17 +1462,18 @@ body {
   .dashboard-widget--half { grid-column: span 4; }
 }
 
-/* Keep a half-width card aligned with two standard widgets stacked vertically. */
+/* Desktop uses one shared widget unit; half-width cards occupy two stacked units. */
 @media (min-width: 861px) {
   .dashboard-grid {
-    grid-auto-rows: minmax(174px, auto);
+    --dashboard-unit-height: 232px;
+    grid-auto-rows: minmax(var(--dashboard-unit-height), auto);
   }
+  .dashboard-widget--compact,
   .dashboard-widget--metric,
-  .dashboard-widget--market-data {
-    min-height: 232px;
-  }
-  .dashboard-widget--market-data {
-    height: 232px;
+  .dashboard-widget--market-data,
+  .countdown-tile {
+    min-height: var(--dashboard-unit-height);
+    height: var(--dashboard-unit-height);
   }
   .home-top-perf-list,
   .home-ipo-list {
@@ -1480,7 +1481,8 @@ body {
   }
   .dashboard-widget--half {
     grid-row: span 2;
-    min-height: calc(174px * 2 + 14px);
+    min-height: calc(var(--dashboard-unit-height) * 2 + 14px);
+    height: calc(var(--dashboard-unit-height) * 2 + 14px);
   }
 }
 

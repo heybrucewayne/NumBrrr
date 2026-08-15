@@ -1466,7 +1466,8 @@ body {
 @media (min-width: 861px) {
   .dashboard-grid {
     --dashboard-unit-height: 232px;
-    grid-auto-rows: minmax(var(--dashboard-unit-height), auto);
+    /* Fixed units come from the cards themselves; full-width forms stay content-sized. */
+    grid-auto-rows: minmax(0, auto);
   }
   .dashboard-widget--compact,
   .dashboard-widget--metric,

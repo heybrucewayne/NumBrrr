@@ -914,6 +914,28 @@ function formatMoneyCcy(value, curKey, { compact = false } = {}) {
   }).format(value);
 }
 function formatThousands(n) { return new Intl.NumberFormat("en-US").format(Math.round(n)); }
+function formatThousandsInput(input) {
+  if (!input) return;
+  const raw = input.value || "";
+  const cursor = input.selectionStart == null ? raw.length : input.selectionStart;
+  const digitsBeforeCursor = (raw.slice(0, cursor).match(/\d/g) || []).length;
+  const digits = raw.replace(/\D/g, "");
+  if (!digits) { input.value = ""; return; }
+  const formatted = formatThousands(Number(digits));
+  input.value = formatted;
+  if (document.activeElement !== input || typeof input.setSelectionRange !== "function") return;
+  let nextCursor = 0, seen = 0;
+  while (nextCursor < formatted.length && seen < digitsBeforeCursor) {
+    if (/\d/.test(formatted[nextCursor])) seen += 1;
+    nextCursor += 1;
+  }
+  input.setSelectionRange(nextCursor, nextCursor);
+}
+function wireThousandsInput(input) {
+  if (!input || input.dataset.thousandsWired) return;
+  input.dataset.thousandsWired = "true";
+  input.addEventListener("input", () => formatThousandsInput(input));
+}
 function localDateKey(d = new Date()) {
   return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 }
@@ -4217,11 +4239,12 @@ function renderSavingsGoals() {
     const completed = goal.current >= goal.target;
     return `<article class="glass dashboard-widget dashboard-widget--compact savings-goal-row${completed ? " is-complete" : ""}" data-goal-id="${escapeHtml(goal.id)}">
       <div class="savings-goal-head"><div><strong>${escapeHtml(goal.name)}</strong><span>${escapeHtml(goal.currency)}</span></div><b>${completed ? "✓" : Math.round(percent) + "%"}</b></div>
-      <div class="savings-goal-foot"><span>${escapeHtml(completed ? t("goal_completed") : t("goal_progress", { current: formatMoneyCcy(goal.current, goal.currency), target: formatMoneyCcy(goal.target, goal.currency) }))}</span><label><span>${escapeHtml(t("goal_current"))}</span><input type="text" inputmode="numeric" data-goal-current="${escapeHtml(goal.id)}" value="${goal.current ? formatThousands(goal.current) : ""}" placeholder="0" aria-label="${escapeHtml(goal.name + " · " + t("goal_current"))}" /></label><button type="button" data-goal-del="${escapeHtml(goal.id)}" aria-label="${escapeHtml(t("goal_remove"))}">×</button></div>
+      <div class="savings-goal-foot"><span>${escapeHtml(completed ? t("goal_completed") : t("goal_progress", { current: formatMoneyCcy(goal.current, goal.currency), target: formatMoneyCcy(goal.target, goal.currency) }))}</span><label><span>${escapeHtml(t("goal_current"))}</span><input type="text" inputmode="numeric" data-format-thousands data-goal-current="${escapeHtml(goal.id)}" value="${goal.current ? formatThousands(goal.current) : ""}" placeholder="0" aria-label="${escapeHtml(goal.name + " · " + t("goal_current"))}" /></label><button type="button" data-goal-del="${escapeHtml(goal.id)}" aria-label="${escapeHtml(t("goal_remove"))}">×</button></div>
       <div class="savings-goal-track" aria-hidden="true"><span style="width:${percent}%"></span></div>
     </article>`;
   }).join("");
   el.savingsGoalList.querySelectorAll("[data-goal-current]").forEach((input) => {
+    wireThousandsInput(input);
     const update = (finish = false) => {
       const goal = state.savingsGoals.items.find((item) => item.id === input.dataset.goalCurrent);
       if (!goal) return;
@@ -4512,6 +4535,7 @@ function wireHomeDashboard() {
     setHomeDashboardEditing(!homeDashboardEditing);
   });
   el.savingsGoalForm.addEventListener("submit", addSavingsGoal);
+  document.querySelectorAll("[data-format-thousands]").forEach(wireThousandsInput);
   el.homeNoteForm.addEventListener("submit", addHomeNote);
   el.countdownForm.addEventListener("submit", addCountdown);
 }

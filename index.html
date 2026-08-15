@@ -20,7 +20,7 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="icon" href="/icons/numbr-logo.png" type="image/png" />
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=84" />
+  <link rel="stylesheet" href="styles.css?v=85" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -311,8 +311,8 @@
             </div>
             <form class="goal-form" id="savingsGoalForm">
               <label><span data-i18n="goal_name">Goal</span><input id="savingsGoalName" type="text" maxlength="60" autocomplete="off" data-i18n-placeholder="goal_name_ph" placeholder="Emergency fund, car…" /></label>
-              <label><span data-i18n="goal_target">Target</span><input id="savingsGoalTarget" type="text" inputmode="numeric" autocomplete="off" placeholder="0" /></label>
-              <label><span data-i18n="goal_current">Saved</span><input id="savingsGoalCurrent" type="text" inputmode="numeric" autocomplete="off" placeholder="0" /></label>
+              <label><span data-i18n="goal_target">Target</span><input id="savingsGoalTarget" type="text" inputmode="numeric" data-format-thousands autocomplete="off" placeholder="0" /></label>
+              <label><span data-i18n="goal_current">Saved</span><input id="savingsGoalCurrent" type="text" inputmode="numeric" data-format-thousands autocomplete="off" placeholder="0" /></label>
               <label><span data-i18n="goal_currency">Currency</span><select id="savingsGoalCurrency"><option value="TL">₺ TL</option><option value="USD">$ USD</option></select></label>
               <button class="settings-action settings-action--primary" type="submit" data-i18n="goal_add">Add goal</button>
             </form>
@@ -919,7 +919,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=70"></script>
+  <script src="app.js?v=71"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

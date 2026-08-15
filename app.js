@@ -4458,6 +4458,10 @@ function countdownParts(item, now = Date.now()) {
 
 function renderCountdowns() {
   if (!el.countdownList) return;
+  // Countdown tiles are moved from the list into the dashboard grid by
+  // applyHomeLayout(). Clear both locations before rendering again so a
+  // removed tile cannot remain as an orphan or be duplicated on refresh.
+  document.querySelectorAll("[data-countdown-id]").forEach((tile) => tile.remove());
   state.countdowns.order = normalizeCountdownOrder(state.countdowns.order, state.countdowns.items);
   const itemsById = new Map(state.countdowns.items.map((item) => [item.id, item]));
   const items = state.countdowns.order.map((id) => itemsById.get(id)).filter(Boolean);
@@ -4514,7 +4518,7 @@ function addCountdown(event) {
   el.countdownCategory.value = "";
   el.countdownDate.value = "";
   saveState(); renderCountdowns();
-  const tile = el.countdownList.querySelector(`[data-countdown-id="${id}"]`);
+  const tile = document.querySelector(`[data-countdown-id="${id}"]`);
   if (tile && state.motion && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     tile.classList.add("is-new");
     tile.addEventListener("animationend", () => tile.classList.remove("is-new"), { once: true });

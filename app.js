@@ -1648,12 +1648,7 @@ function makeVehicleCard(v) {
         <button class="cat-remove veh-del" type="button" data-veh-del aria-label="${t("veh_remove")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"></path></svg></button>
       </div>
     </div>
-    <div class="veh-showcase">
-      <div class="veh-showcase-art" aria-hidden="true">
-        <span class="veh-showcase-orbit"></span>
-        <svg viewBox="0 0 160 72"><path d="M17 48h8l10-18c3-6 8-9 15-9h48c8 0 13 3 18 9l14 18h11c5 0 9 4 9 9v3h-11"></path><path d="M21 60H10v-6c0-3 3-6 7-6h15m96 0h15M46 60h65"></path><circle cx="35" cy="59" r="11"></circle><circle cx="123" cy="59" r="11"></circle><path d="M48 30h53l12 18H38zM75 30v18"></path></svg>
-        <span class="veh-showcase-floor"></span>
-      </div>
+    <div class="veh-showcase veh-showcase--summary">
       <div class="veh-monthly">
         <span>${t("veh_monthly")}</span>
         <strong data-veh-total>—</strong>

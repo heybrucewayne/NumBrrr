@@ -36,6 +36,7 @@ html, body {
   margin: 0;
   padding: 0;
   min-height: 100%;
+  background: var(--bg-base);
 }
 
 body {
@@ -47,7 +48,7 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   position: relative;
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
 .offline-banner {
@@ -130,7 +131,8 @@ body {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 32px clamp(14px, 1.5vw, 28px) calc(124px + env(safe-area-inset-bottom));
+  min-height: 100svh;
+  padding: max(32px, env(safe-area-inset-top)) clamp(14px, 1.5vw, 28px) calc(124px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -2568,7 +2570,7 @@ body.modal-open { overflow: hidden; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 620px) {
-  .shell { padding: 22px 14px calc(108px + env(safe-area-inset-bottom)); gap: 16px; }
+  .shell { padding: max(22px, env(safe-area-inset-top)) 14px calc(108px + env(safe-area-inset-bottom)); gap: 16px; }
   .controls { padding: 16px; gap: 14px; }
   .headline { padding: 18px 18px; }
   .rule { padding: 18px 18px; }
@@ -2614,6 +2616,14 @@ body.modal-open { overflow: hidden; }
   .money-input input { font-size: 22px; }
   .money-suffix { font-size: 12.5px; }
   .toggle-btn { padding: 10px 16px; }
+}
+
+/* Capacitor's WKWebView can draw behind the iPhone status area. Keep the
+   document background continuous while ensuring the first content starts
+   below the notch/Dynamic Island when the browser reports a safe inset. */
+@supports (-webkit-touch-callout: none) {
+  body { min-height: -webkit-fill-available; }
+  .shell { min-height: -webkit-fill-available; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4020,7 +4030,7 @@ body.modal-open { overflow: hidden; }
 }
 [data-theme="glass"] .blob { filter: blur(110px); opacity: 0.16; }
 [data-theme="glass"] .money-rain { display: none; }
-[data-theme="glass"] .shell { max-width: 1160px; gap: 18px; padding-top: 26px; }
+[data-theme="glass"] .shell { max-width: 1160px; gap: 18px; padding-top: max(26px, env(safe-area-inset-top)); }
 [data-theme="glass"] .view { gap: 18px; }
 [data-theme="glass"] .glass,
 [data-theme="glass"] .card {
@@ -4153,7 +4163,7 @@ body.modal-open { overflow: hidden; }
 [data-theme="glass"] .toast { background: rgba(14, 28, 54, .9); border-color: rgba(179, 218, 255, .25); box-shadow: 0 14px 45px rgba(0,5,18,.5); }
 
 @media (max-width: 620px) {
-  [data-theme="glass"] .shell { padding: 18px 12px calc(112px + env(safe-area-inset-bottom)); }
+  [data-theme="glass"] .shell { padding: max(18px, env(safe-area-inset-top)) 12px calc(112px + env(safe-area-inset-bottom)); }
   [data-theme="glass"] .view { gap: 14px; }
   [data-theme="glass"] .glass { border-radius: 22px; }
   [data-theme="glass"] .tabbar { gap: 0; }

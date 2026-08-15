@@ -1,5 +1,8 @@
 {
   "appId": "com.numbrrr.app",
   "appName": "NumBrrr",
-  "webDir": "www"
+  "webDir": "www",
+  "ios": {
+    "contentInset": "automatic"
+  }
 }

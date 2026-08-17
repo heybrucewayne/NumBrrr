@@ -4499,3 +4499,288 @@ body.modal-open { overflow: hidden; }
 }
 [data-home-widget="countdown"] .dashboard-widget-icon svg,
 [data-countdown-id] .dashboard-widget-icon svg { display: none; }
+
+/* ============================================================
+   NUMBRR TERMINAL — phosphor console skin
+   A focused, original finance-terminal language: no glass blur, no
+   decorative gradients, no floating money. Information gets the light.
+   ============================================================ */
+[data-theme="black"] {
+  --bg-base: #061009;
+  --glass-bg: rgba(8, 24, 12, .88);
+  --glass-bg-strong: #0c2412;
+  --glass-border: #2e6538;
+  --glass-border-soft: #1d4727;
+  --text: #d8f5c4;
+  --text-dim: #91b986;
+  --text-faint: #5d825d;
+  --accent: #72d84d;
+  --accent-2: #b9f27a;
+  --good: #a9e86b;
+  --warn: #f1c765;
+  --shadow: 0 12px 0 rgba(0, 0, 0, .24);
+  --radius-lg: 5px;
+  --radius-md: 4px;
+  --radius-sm: 3px;
+}
+
+[data-theme="black"] body {
+  background: #061009;
+  color: var(--text);
+  font-family: "SFMono-Regular", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  letter-spacing: .01em;
+}
+[data-theme="black"] .bg {
+  background:
+    linear-gradient(rgba(104, 203, 72, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(104, 203, 72, .025) 1px, transparent 1px),
+    #061009;
+  background-size: 100% 4px, 44px 100%, auto;
+}
+[data-theme="black"] .bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, .42) 100%);
+}
+[data-theme="black"] .blob,
+[data-theme="black"] .money-rain { display: none; }
+[data-theme="black"] .shell { max-width: 1480px; gap: 18px; }
+
+[data-theme="black"] .glass,
+[data-theme="black"] .card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(185, 242, 122, .07);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+[data-theme="black"] .glass::selection,
+[data-theme="black"] .card::selection { background: var(--accent); color: #071008; }
+[data-theme="black"] .home-dashboard-head {
+  padding: 8px 0 12px;
+  border-bottom: 1px solid var(--glass-border-soft);
+}
+[data-theme="black"] .home-dashboard-head > div::before {
+  content: "NUMBRR // FINANCE TERMINAL";
+  display: block;
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+[data-theme="black"] .view-title {
+  color: var(--text);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  font-family: inherit;
+  font-size: clamp(23px, 4vw, 31px);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+[data-theme="black"] .dashboard-edit,
+[data-theme="black"] .settings-action,
+[data-theme="black"] .add-cat,
+[data-theme="black"] .rule-link {
+  border: 1px solid var(--glass-border);
+  border-radius: 3px;
+  background: #0c2412;
+  color: var(--accent-2);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, .22);
+}
+[data-theme="black"] .dashboard-edit:hover,
+[data-theme="black"] .settings-action:hover,
+[data-theme="black"] .add-cat:hover,
+[data-theme="black"] .rule-link:hover {
+  border-color: var(--accent);
+  background: #14351b;
+  color: #eaffd9;
+  transform: translate(-1px, -1px);
+}
+
+[data-theme="black"] .smart-command {
+  padding: 18px;
+  border-color: #3d813f;
+  background: #08180c;
+  box-shadow: 0 12px 0 rgba(0, 0, 0, .2), inset 0 0 28px rgba(86, 185, 67, .035);
+}
+[data-theme="black"] .smart-command::after { display: none; }
+[data-theme="black"] .smart-command-head { margin-bottom: 14px; }
+[data-theme="black"] .smart-command-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 3px;
+  border-color: var(--accent);
+  background: #071109;
+  box-shadow: inset 0 0 0 2px rgba(114, 216, 77, .12), 0 0 16px rgba(114, 216, 77, .12);
+  filter: none;
+}
+[data-theme="black"] .smart-command-mark::before,
+[data-theme="black"] .smart-command-mark::after { display: none; }
+[data-theme="black"] .smart-command-mark canvas { width: 42px; height: 42px; opacity: .82; }
+[data-theme="black"] .smart-command h2 {
+  color: var(--accent-2);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  animation: none;
+}
+[data-theme="black"] .smart-command-workspace { align-items: stretch; }
+[data-theme="black"] .smart-command-examples {
+  top: 0;
+  margin-bottom: 0;
+  border-color: var(--glass-border-soft);
+  border-radius: 3px;
+  background: #061109;
+}
+[data-theme="black"] .smart-command-examples-title,
+[data-theme="black"] .smart-command-preview-kicker,
+[data-theme="black"] .smart-command-help-group h3 {
+  color: var(--accent);
+  letter-spacing: .14em;
+}
+[data-theme="black"] .smart-command-form,
+[data-theme="black"] .smart-command-preview,
+[data-theme="black"] .smart-command-detail,
+[data-theme="black"] .smart-command-chip,
+[data-theme="black"] .smart-command-actions button,
+[data-theme="black"] .smart-command-help-list button {
+  border-color: var(--glass-border-soft);
+  border-radius: 3px;
+  background: #07150a;
+  box-shadow: none;
+}
+[data-theme="black"] .smart-command-form:focus-within,
+[data-theme="black"] .smart-command-chip:hover,
+[data-theme="black"] .smart-command-help-list button:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(114, 216, 77, .15);
+}
+[data-theme="black"] .smart-command-send,
+[data-theme="black"] .smart-command-actions .is-primary {
+  border-radius: 3px;
+  color: #071008;
+  background: var(--accent);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, .26);
+}
+
+[data-theme="black"] .dashboard-widget {
+  border-radius: 4px;
+  border-color: var(--glass-border-soft);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(185, 242, 122, .045);
+  animation: terminalCardIn .22s ease both;
+}
+[data-theme="black"] .dashboard-widget::before {
+  content: "";
+  position: absolute;
+  inset: 0 12px auto;
+  height: 1px;
+  background: var(--accent);
+  opacity: .4;
+  pointer-events: none;
+}
+[data-theme="black"] .dashboard-widget--compact:hover,
+[data-theme="black"] .dashboard-widget:hover { transform: translateY(-2px); border-color: #3d813f; }
+[data-theme="black"] .dashboard-widget-top,
+[data-theme="black"] .home-card-head,
+[data-theme="black"] .dashboard-feature-head,
+[data-theme="black"] .countdown-head { text-transform: uppercase; letter-spacing: .04em; }
+[data-theme="black"] .dashboard-widget-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 3px;
+  border-color: #3d813f;
+  background: #0a1f10 !important;
+  box-shadow: inset 0 0 0 1px rgba(185, 242, 122, .08);
+  color: var(--accent);
+}
+[data-theme="black"] [data-home-widget] .dashboard-widget-icon svg,
+[data-theme="black"] [data-countdown-id] .dashboard-widget-icon svg,
+[data-theme="black"] .countdown-tile .dashboard-widget-icon svg {
+  display: block !important;
+}
+[data-theme="black"] .dashboard-widget-icon::after { display: none; }
+[data-theme="black"] .dashboard-widget-value,
+[data-theme="black"] .countdown-tile-value b,
+[data-theme="black"] .headline-amount,
+[data-theme="black"] .card-amount-value { color: var(--accent-2); text-shadow: 0 0 10px rgba(185, 242, 122, .16); }
+[data-theme="black"] .dashboard-widget-note,
+[data-theme="black"] .home-card-note,
+[data-theme="black"] .card-sub { color: var(--text-faint); }
+
+[data-theme="black"] input,
+[data-theme="black"] select,
+[data-theme="black"] textarea,
+[data-theme="black"] .money-input,
+[data-theme="black"] .rate-input,
+[data-theme="black"] .opt,
+[data-theme="black"] .toggle {
+  border-color: var(--glass-border-soft);
+  border-radius: 3px;
+  background: #061109;
+  color: var(--text);
+}
+[data-theme="black"] input:focus,
+[data-theme="black"] select:focus,
+[data-theme="black"] textarea:focus,
+[data-theme="black"] .money-input:focus-within,
+[data-theme="black"] .rate-input:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(114, 216, 77, .18);
+}
+[data-theme="black"] .money-symbol,
+[data-theme="black"] .rate-sign { color: var(--accent); }
+[data-theme="black"] .toggle-pill,
+[data-theme="black"] .car-trip-type::before { background: var(--accent); box-shadow: none; }
+
+[data-theme="black"] .tabbar {
+  border: 1px solid #315f38;
+  border-radius: 4px;
+  background: rgba(5, 17, 8, .97);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(185, 242, 122, .08);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+[data-theme="black"] .tab { border-radius: 2px; color: var(--text-faint); }
+[data-theme="black"] .tab:hover { color: var(--text); background: #0b2411; }
+[data-theme="black"] .tab.is-active {
+  color: #061009;
+  background: var(--accent);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, .25);
+}
+[data-theme="black"] .tab--command .command-orb { border-radius: 3px; background: #0b2411; border-color: var(--accent); }
+[data-theme="black"] .tab--command.is-active .command-orb { background: var(--accent); }
+[data-theme="black"] .toast { border-color: var(--accent); border-radius: 3px; background: #0b2411; color: var(--accent-2); }
+
+[data-theme="black"] .onboard,
+[data-theme="black"] .guide { background: rgba(3, 12, 5, .9); }
+[data-theme="black"] .onboard-card,
+[data-theme="black"] .guide-card { border-radius: 4px; border-color: #3d813f; }
+[data-theme="black"] .onboard-title,
+[data-theme="black"] .guide-title { color: var(--accent-2); font-family: inherit; text-transform: uppercase; }
+[data-theme="black"] .onboard-start { color: #071008; background: var(--accent); box-shadow: 3px 3px 0 rgba(0, 0, 0, .3); }
+
+@keyframes terminalCardIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="black"] .dashboard-widget { animation: none; }
+}
+@media (max-width: 620px) {
+  [data-theme="black"] .smart-command { padding: 14px; }
+  [data-theme="black"] .smart-command-examples { margin-top: 10px; }
+  [data-theme="black"] .home-dashboard-head > div::before { font-size: 8px; letter-spacing: .1em; }
+  [data-theme="black"] .tabbar { width: calc(100% - 16px); max-width: calc(100% - 16px); padding: 5px 3px; }
+  [data-theme="black"] .tab { min-width: 0; padding: 7px 0 5px; font-size: 8px; letter-spacing: -.06em; }
+  [data-theme="black"] .tabbar .tab[data-view="home"] { flex: 1; min-width: 0; font-size: 8px; letter-spacing: -.06em; }
+  [data-theme="black"] .tab-icon { width: 25px; height: 25px; border-radius: 3px; }
+  [data-theme="black"] .tab-icon svg { width: 17px; height: 17px; }
+  [data-theme="black"] .tab-label { display: block; max-width: 100%; font-size: 8px; line-height: 1.1; white-space: nowrap; }
+}

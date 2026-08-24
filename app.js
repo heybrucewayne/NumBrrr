@@ -4480,7 +4480,7 @@ function renderSavingsGoals() {
   if (!el.savingsGoalList) return;
   const items = state.savingsGoals.items;
   if (!items.length) {
-    el.savingsGoalList.innerHTML = `<p class="countdown-empty">${escapeHtml(t("goal_empty"))}</p>`;
+    el.savingsGoalList.innerHTML = "";
     return;
   }
   el.savingsGoalList.innerHTML = items.map((goal) => {

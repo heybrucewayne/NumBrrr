@@ -3882,6 +3882,9 @@ function syncFffTerminalPage(view = "home") {
   if (!el.fffTerminalPageTitle) return;
   const label = document.querySelector(`.tab[data-view="${view}"] .tab-label`);
   el.fffTerminalPageTitle.textContent = label?.textContent?.trim() || t("dashboard_title");
+  document.querySelectorAll("#fffInlineNav .fff-inline-nav-item").forEach((item) => {
+    item.hidden = view === "home" && item.dataset.view === "home";
+  });
 }
 
 function openFffMission() {

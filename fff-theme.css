@@ -1888,7 +1888,7 @@
 
   [data-theme="fff"] .fff-inline-nav {
     position: absolute;
-    inset: 0 220px 8px 138px;
+    inset: 4px 220px 4px 138px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -1898,6 +1898,8 @@
   }
 
   [data-theme="fff"] .fff-inline-nav[hidden] { display: none !important; }
+
+  [data-theme="fff"] .fff-inline-nav-item[hidden] { display: none !important; }
 
   [data-theme="fff"] .fff-inline-nav-item {
     display: inline-flex !important;

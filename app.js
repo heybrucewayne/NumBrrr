@@ -302,7 +302,7 @@ const I18N = {
     dashboard_title: "Home", dashboard_sub: "Everything important, at a glance.", dashboard_edit: "Edit cards", dashboard_done: "Done",
     fff_hud_aria: "NUMBRR operator status", fff_hud_stats_aria: "Operator statistics", fff_hud_vitals_aria: "Operator indicators", fff_hud_operator: "NUMBRR OPERATOR", fff_hud_role: "Financial field operator", fff_hud_xp: "Experience", fff_hud_energy: "Energy", fff_hud_morale: "Morale", fff_hud_focus: "Focus", fff_hud_active_mission: "ACTIVE MISSION", fff_hud_go: "Open mission", fff_hud_modules: "modules", fff_hud_badges: "badges", fff_hud_level: "Level {level}", fff_hud_status: "{done}/{total} finance modules online", fff_hud_hidden: "This module is hidden. You can enable it from Home settings.", fff_streak_title: "DAILY STREAK", fff_streak_days: "days", fff_streak_checkin: "Complete today", fff_streak_completed: "Completed", fff_streak_ready: "Today's check-in ready · +8 XP", fff_streak_wait: "Come back tomorrow · +8 XP", fff_streak_protect: "{count} freeze available to protect streak", fff_streak_risk: "Streak at risk · today's check-in restarts it", fff_streak_freezes: "Freeze {count}/2", fff_streak_already: "Today's check-in is already complete.", fff_streak_started: "Streak started · +{xp} XP", fff_streak_continued: "Streak extended · +{xp} XP", fff_streak_frozen: "Streak protected · {count} freeze used · +{xp} XP", fff_streak_reset: "Streak restarted · +{xp} XP", fff_main_menu: "MAIN MENU", fff_system: "SYSTEM:", fff_online: "ONLINE", fff_sync: "DATA SYNC:", fff_version: "VERSION:", fff_connection: "CONNECTION:", fff_strong: "STRONG",
     fff_rank_1: "Ledger recruit", fff_rank_2: "Yield scout", fff_rank_3: "Capital ranger", fff_rank_4: "Vault warden", fff_rank_5: "Finance commander",
-    fff_mission_portfolio: "Log your first portfolio asset", fff_mission_income: "Define a monthly income source", fff_mission_expenses: "Create your first expense record", fff_mission_goals: "Set a savings goal", fff_mission_watch: "Add an asset to your watchlist", fff_mission_countdown: "Start a countdown", fff_mission_alert: "Set a price alert", fff_mission_notes: "Leave a field note", fff_mission_savings: "Raise your monthly savings rate", fff_mission_diversity: "Expand portfolio diversity", fff_mission_ready: "Review your smart finance signals",
+    fff_mission_freedom: "Open the freedom calculator", fff_mission_notes: "Leave a field note", fff_mission_watch: "Add an asset to your watchlist", fff_mission_countdown: "Start a countdown", fff_mission_portfolio: "Log your first portfolio asset", fff_mission_income: "Define a monthly income source", fff_mission_expenses: "Create your first expense record", fff_mission_budget: "Set a monthly budget", fff_mission_alert: "Set a price alert", fff_mission_goals: "Set a savings goal", fff_mission_vehicle: "Add your vehicle", fff_mission_route: "Save your first route", fff_mission_streak: "Build a 3-day streak", fff_mission_passive: "Add passive income", fff_mission_diversity: "Expand portfolio diversity", fff_mission_savings: "Reach a 20% savings rate", fff_mission_goal_complete: "Complete a savings goal", fff_mission_all_clear: "All missions complete",
     currency: "Currency", monthly_expenses: "Monthly expenses", per_month: "/ month",
     real_mode: "Real return mode", real_mode_sub: "Subtract inflation from each rate",
     inflation_label: "Inflation (annual %)",
@@ -493,7 +493,7 @@ const I18N = {
     dashboard_title: "Ana Sayfa", dashboard_sub: "Önemli olan her şey tek bakışta.", dashboard_edit: "Kartları düzenle", dashboard_done: "Bitti",
     fff_hud_aria: "NUMBRR operatör durumu", fff_hud_stats_aria: "Operatör istatistikleri", fff_hud_vitals_aria: "Operatör göstergeleri", fff_hud_operator: "NUMBRR OPERATÖRÜ", fff_hud_role: "Finans saha operatörü", fff_hud_xp: "Deneyim", fff_hud_energy: "Enerji", fff_hud_morale: "Moral", fff_hud_focus: "Odak", fff_hud_active_mission: "AKTİF GÖREV", fff_hud_go: "Göreve git", fff_hud_modules: "modül", fff_hud_badges: "rozet", fff_hud_level: "Seviye {level}", fff_hud_status: "{done}/{total} finans modülü çevrimiçi", fff_hud_hidden: "Bu modül gizli. Ana sayfa ayarlarından görünür yapabilirsin.", fff_streak_title: "GÜNLÜK SERİ", fff_streak_days: "gün", fff_streak_checkin: "Günü tamamla", fff_streak_completed: "Tamamlandı", fff_streak_ready: "Bugünkü kayıt hazır · +8 XP", fff_streak_wait: "Yarın tekrar gel · +8 XP", fff_streak_protect: "Seriyi korumak için {count} dondurma kullanılabilir", fff_streak_risk: "Seri riskte · bugünkü girişle yeniden başlar", fff_streak_freezes: "Dondurma {count}/2", fff_streak_already: "Bugünkü kayıt zaten tamamlandı.", fff_streak_started: "Seri başladı · +{xp} XP", fff_streak_continued: "Seri uzadı · +{xp} XP", fff_streak_frozen: "Seri korundu · {count} dondurma kullanıldı · +{xp} XP", fff_streak_reset: "Seri yeniden başladı · +{xp} XP", fff_main_menu: "ANA MENÜ", fff_system: "SİSTEM:", fff_online: "ÇEVRİMİÇİ", fff_sync: "VERİ SENKRON:", fff_version: "SÜRÜM:", fff_connection: "BAĞLANTI:", fff_strong: "GÜÇLÜ",
     fff_rank_1: "Kayıt çırağı", fff_rank_2: "Getiri izcisi", fff_rank_3: "Sermaye korucusu", fff_rank_4: "Kasa muhafızı", fff_rank_5: "Finans komutanı",
-    fff_mission_portfolio: "İlk varlığını portföye kaydet", fff_mission_income: "Aylık gelir kaynağını tanımla", fff_mission_expenses: "İlk gider kaydını oluştur", fff_mission_goals: "Bir birikim hedefi belirle", fff_mission_watch: "Takip listene bir varlık ekle", fff_mission_countdown: "Bir geri sayım başlat", fff_mission_alert: "Bir fiyat alarmı kur", fff_mission_notes: "Bir saha notu bırak", fff_mission_savings: "Aylık birikim oranını yükselt", fff_mission_diversity: "Portföy çeşitliliğini artır", fff_mission_ready: "Akıllı finans sinyallerini incele",
+    fff_mission_freedom: "Özgürlük hesaplayıcısını aç", fff_mission_notes: "Bir saha notu bırak", fff_mission_watch: "Takip listene bir varlık ekle", fff_mission_countdown: "Bir geri sayım başlat", fff_mission_portfolio: "İlk varlığını portföye kaydet", fff_mission_income: "Aylık gelir kaynağını tanımla", fff_mission_expenses: "İlk gider kaydını oluştur", fff_mission_budget: "Aylık bütçe limiti belirle", fff_mission_alert: "Bir fiyat alarmı kur", fff_mission_goals: "Bir birikim hedefi belirle", fff_mission_vehicle: "Aracını ekle", fff_mission_route: "İlk rotanı kaydet", fff_mission_streak: "3 günlük seri oluştur", fff_mission_passive: "Pasif gelir ekle", fff_mission_diversity: "Portföy çeşitliliğini artır", fff_mission_savings: "%20 birikim oranına ulaş", fff_mission_goal_complete: "Bir birikim hedefini tamamla", fff_mission_all_clear: "Tüm görevler tamamlandı",
     currency: "Para Birimi", monthly_expenses: "Aylık giderler", per_month: "/ ay",
     real_mode: "Reel getiri modu", real_mode_sub: "Her orandan enflasyonu düş",
     inflation_label: "Enflasyon (yıllık %)",
@@ -3768,17 +3768,32 @@ function fffOperatorProgress() {
   const alertCount = state.notifications.priceAlerts.length;
   const noteCount = state.homeNotes.items.length;
   const budgetCount = (state.monthlyBudget.items || []).filter((item) => (item.amount || item.limit || 0) > 0).length;
+  const freedomUsed = !!state.homeLayout.freedomExpanded;
   const snapshot = financialSnapshot();
+  const vehicleCount = (state.vehicles || []).length;
+  const routeCount = (state.vehicleHub?.trips || []).length;
+  const streak = dailyStreakSnapshot();
 
+  // Missions are ordered from first-use actions to long-term financial habits.
+  // The order is intentional: the first incomplete item is the active task.
   const modules = [
+    { id: "freedom", complete: freedomUsed, mission: "fff_mission_freedom", view: "home", widget: "freedom" },
+    { id: "notes", complete: noteCount > 0, mission: "fff_mission_notes", view: "home", widget: "notes" },
+    { id: "watch", complete: watchCount > 0, mission: "fff_mission_watch", view: "watch" },
+    { id: "countdown", complete: countdownCount > 0, mission: "fff_mission_countdown", view: "home", widget: "countdown" },
     { id: "portfolio", complete: holdingCount > 0, mission: "fff_mission_portfolio", view: "portfolio" },
     { id: "income", complete: incomeCount > 0, mission: "fff_mission_income", view: "income" },
     { id: "expenses", complete: expenseCount > 0, mission: "fff_mission_expenses", view: "savings" },
-    { id: "goals", complete: goalCount > 0, mission: "fff_mission_goals", view: "home", widget: "goals" },
-    { id: "watch", complete: watchCount > 0, mission: "fff_mission_watch", view: "watch" },
-    { id: "countdown", complete: countdownCount > 0, mission: "fff_mission_countdown", view: "home", widget: "countdown" },
+    { id: "budget", complete: budgetCount > 0, mission: "fff_mission_budget", view: "savings" },
     { id: "alert", complete: alertCount > 0, mission: "fff_mission_alert", view: "home", widget: "alerts" },
-    { id: "notes", complete: noteCount > 0, mission: "fff_mission_notes", view: "home", widget: "notes" },
+    { id: "goals", complete: goalCount > 0, mission: "fff_mission_goals", view: "home", widget: "goals" },
+    { id: "vehicle", complete: vehicleCount > 0, mission: "fff_mission_vehicle", view: "car" },
+    { id: "route", complete: routeCount > 0, mission: "fff_mission_route", view: "car" },
+    { id: "streak", complete: streak.current >= 3, mission: "fff_mission_streak", view: "home" },
+    { id: "passive", complete: snapshot.passive > 0, mission: "fff_mission_passive", view: "income" },
+    { id: "diversity", complete: snapshot.diversity >= 3, mission: "fff_mission_diversity", view: "portfolio" },
+    { id: "savings", complete: snapshot.income > 0 && snapshot.savingsRate >= 20, mission: "fff_mission_savings", view: "income" },
+    { id: "goal-complete", complete: completedGoalCount > 0, mission: "fff_mission_goal_complete", view: "home", widget: "goals" },
   ];
 
   const online = modules.filter((module) => module.complete).length;
@@ -3792,6 +3807,12 @@ function fffOperatorProgress() {
     alertCount > 0,
     snapshot.net > 0 && snapshot.income > 0,
     snapshot.diversity >= 3,
+    budgetCount > 0,
+    vehicleCount > 0,
+    routeCount > 0,
+    streak.current >= 3,
+    snapshot.passive > 0,
+    snapshot.savingsRate >= 20,
   ].filter(Boolean).length;
   const totalXp = (holdingCount ? 20 + Math.min(holdingCount, 8) * 6 : 0)
     + (incomeCount ? 15 + Math.min(incomeCount, 6) * 8 : 0)
@@ -3803,16 +3824,14 @@ function fffOperatorProgress() {
     + Math.min(alertCount, 4) * 6
     + Math.min(noteCount, 6) * 3
     + Math.min(budgetCount, 5) * 6
+    + Math.min(vehicleCount, 3) * 8
+    + Math.min(routeCount, 4) * 10
     + Math.max(0, Math.round(state.dailyStreak.xp || 0));
   const level = Math.floor(totalXp / 100) + 1;
   const levelXp = totalXp % 100;
 
   let mission = modules.find((module) => !module.complete);
-  if (!mission) {
-    if (snapshot.income <= 0 || snapshot.savingsRate < 20) mission = { mission: "fff_mission_savings", view: "income" };
-    else if (snapshot.diversity < 3) mission = { mission: "fff_mission_diversity", view: "portfolio" };
-    else mission = { mission: "fff_mission_ready", view: "home", widget: "insights" };
-  }
+  if (!mission) mission = { id: "all-clear", complete: true, mission: "fff_mission_all_clear", view: "home" };
   return { totalXp, level, levelXp, online, total: modules.length, badges, mission };
 }
 
@@ -3835,6 +3854,7 @@ function renderFffOperatorHud() {
   el.fffHudMission.textContent = t(progress.mission.mission);
   el.fffHudMissionAction.dataset.missionView = progress.mission.view || "home";
   el.fffHudMissionAction.dataset.missionWidget = progress.mission.widget || "";
+  el.fffHudMissionAction.hidden = progress.mission.id === "all-clear";
   el.fffHudModules.textContent = String(progress.online);
   el.fffHudBadges.textContent = String(progress.badges);
   if (el.fffHudStreakCount) el.fffHudStreakCount.textContent = String(streak.current);

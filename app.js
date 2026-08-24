@@ -323,6 +323,7 @@ const I18N = {
     theme_solana: "Solana", theme_solana_desc: "Purple & green · degen mode",
     theme_black: "Black Theme", theme_black_desc: "Flat black · blue accents",
     theme_terminal: "NUMBRR Terminal", theme_terminal_desc: "Phosphor green · focused finance console",
+    theme_fff: "FFF", theme_fff_desc: "RobCo CRT · phosphor green terminal",
     more_soon: "More features coming soon ✨",
     nav_car: "My car",
     car_title: "My car",
@@ -511,6 +512,7 @@ const I18N = {
     theme_solana: "Solana", theme_solana_desc: "Mor & yeşil · degen modu",
     theme_black: "Siyah Tema", theme_black_desc: "Düz siyah · mavi vurgular",
     theme_terminal: "NUMBRR Terminal", theme_terminal_desc: "Fosfor yeşili · odaklı finans konsolu",
+    theme_fff: "FFF", theme_fff_desc: "RobCo CRT · fosfor yeşili terminal",
     more_soon: "Yeni özellikler yakında ✨",
     nav_car: "Aracım",
     car_title: "Aracım",
@@ -604,6 +606,10 @@ I18N.tr.command_examples_title = "Önerilen komutlar";
 
 // ---- State ----
 const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "marketSnapshot", "topPerformers", "ipos", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
+const THEME_IDS = ["black", "terminal", "fff"];
+function normalizeTheme(value) {
+  return THEME_IDS.includes(value) ? value : "black";
+}
 const state = {
   lang: "tr",
   theme: "black",
@@ -6836,8 +6842,10 @@ function applyLanguage(lang) {
   try { localStorage.setItem("numbr_lang", lang); } catch (e) {}
 }
 function applyTheme(theme = "black") {
-  state.theme = theme === "terminal" ? "terminal" : "black";
+  state.theme = normalizeTheme(theme || state.theme);
   document.documentElement.dataset.theme = state.theme;
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.setAttribute("content", state.theme === "fff" ? "#050805" : state.theme === "terminal" ? "#061009" : "#000000");
   updateSettingsActive();
   saveState();
   try { localStorage.setItem("numbr_theme", state.theme); } catch (e) {}
@@ -7226,7 +7234,7 @@ async function importBackup(event) {
     const restored = parsed && parsed.format === "numbrrr-backup" ? parsed.data : parsed;
     if (!validBackupState(restored)) throw new Error("invalid backup");
     if (!window.confirm(t("backup_confirm"))) return;
-    restored.theme = restored.theme === "terminal" ? "terminal" : "black";
+    restored.theme = normalizeTheme(restored.theme);
     localStorage.setItem("numbr_state", JSON.stringify(restored));
     localStorage.setItem("numbr_lang", restored.lang);
     localStorage.setItem("numbr_theme", restored.theme);
@@ -7243,7 +7251,7 @@ function loadState() {
   try { s = JSON.parse(localStorage.getItem("numbr_state") || "null"); } catch (e) { return; }
   if (!s) return;
   if (s.lang && I18N[s.lang]) state.lang = s.lang;
-  state.theme = s.theme === "terminal" ? "terminal" : "black";
+  state.theme = normalizeTheme(s.theme);
   if (s.currency && CURRENCY_META[s.currency]) state.currency = s.currency;
   if (typeof s.monthlyExpenses === "number") state.monthlyExpenses = s.monthlyExpenses;
   if (typeof s.realMode === "boolean") state.realMode = s.realMode;
@@ -7515,7 +7523,7 @@ try {
   const savedCur = localStorage.getItem("numbr_currency");
   if (savedLang && I18N[savedLang]) state.lang = savedLang;
   const savedTheme = localStorage.getItem("numbr_theme");
-  state.theme = savedTheme === "terminal" ? "terminal" : "black";
+  state.theme = normalizeTheme(savedTheme || state.theme);
   localStorage.setItem("numbr_theme", state.theme);
   if (savedCur && CURRENCY_META[savedCur]) state.currency = savedCur;
 } catch (e) {}

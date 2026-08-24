@@ -12,8 +12,9 @@
   <script>
     try {
       const savedTheme = localStorage.getItem("numbr_theme");
-      document.documentElement.dataset.theme = savedTheme === "terminal" ? "terminal" : "black";
-      if (savedTheme !== "terminal") localStorage.setItem("numbr_theme", "black");
+      const theme = ["black", "terminal", "fff"].includes(savedTheme) ? savedTheme : "black";
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem("numbr_theme", theme);
       const savedState = JSON.parse(localStorage.getItem("numbr_state") || "null");
       if (savedState && savedState.motion === false) document.documentElement.dataset.motion = "off";
     } catch (error) {}
@@ -21,7 +22,10 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="icon" href="/icons/numbr-logo.png" type="image/png" />
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=99" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=100" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -31,6 +35,14 @@
     <span class="blob blob-2"></span>
     <span class="blob blob-3"></span>
     <span class="blob blob-4"></span>
+  </div>
+  <div class="crt-frame" aria-hidden="true">
+    <span class="crt-bezel"></span>
+    <span class="crt-scan"></span>
+    <span class="crt-roll"></span>
+    <span class="crt-vignette"></span>
+    <span class="crt-glass"></span>
+    <span class="crt-led"></span>
   </div>
 
   <!-- Floating winged-money (Liquid Glass theme only; sits behind the frosted glass) -->
@@ -645,6 +657,10 @@
             <span class="opt-name" data-i18n="theme_terminal">NUMBRR Terminal</span>
             <span class="opt-check" aria-hidden="true">✓</span>
           </button>
+          <button class="opt opt-theme" type="button" data-theme-pick="fff">
+            <span class="opt-name" data-i18n="theme_fff">FFF</span>
+            <span class="opt-check" aria-hidden="true">✓</span>
+          </button>
           <button class="opt opt-theme" type="button" data-theme-pick="glass" hidden>
             <span class="opt-name" data-i18n="theme_glass">Liquid Glass</span>
             <span class="opt-check" aria-hidden="true">✓</span>
@@ -918,7 +934,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=77"></script>
+  <script src="app.js?v=78"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

@@ -882,14 +882,6 @@
     grid-auto-flow: row dense;
   }
 
-  [data-theme="fff"] #view-home > .dashboard-grid::before {
-    content: "";
-    grid-column: span 2;
-    grid-row: span 2;
-    min-width: 0;
-    pointer-events: none;
-  }
-
   [data-theme="fff"] [data-home-widget="freedom"] {
     grid-column: span 8;
   }
@@ -1398,6 +1390,7 @@
 
 @media (min-width: 861px) {
   [data-theme="fff"] [data-home-widget="watch"] {
+    grid-column: span 4;
     grid-row: span 2;
     min-height: calc(var(--dashboard-unit-height) * 2 + 10px);
     height: calc(var(--dashboard-unit-height) * 2 + 10px);
@@ -1405,9 +1398,9 @@
 }
 
 @media (min-width: 1181px) {
-  [data-theme="fff"] [data-home-widget="watch"] { grid-column: span 2; }
+  [data-theme="fff"] [data-home-widget="watch"] { grid-column: span 4; }
 }
 
 @media (min-width: 1700px) {
-  [data-theme="fff"] [data-home-widget="watch"] { grid-column: span 2; }
+  [data-theme="fff"] [data-home-widget="watch"] { grid-column: span 4; }
 }

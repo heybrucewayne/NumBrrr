@@ -976,6 +976,11 @@
 
 /* Desktop terminal navigation and content rail. */
 @media (min-width: 1181px) {
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) .view:not(#view-home) {
+    padding-top: 300px;
+  }
+
   [data-theme="fff"] .view:not(#view-home) {
     margin-left: calc(var(--fff-desktop-menu-width) + 10px);
   }
@@ -986,7 +991,7 @@
 
   [data-theme="fff"] .tabbar {
     position: absolute;
-    top: 228px;
+    top: 52px;
     bottom: auto;
     left: 15px;
     transform: none;

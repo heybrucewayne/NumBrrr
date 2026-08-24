@@ -177,10 +177,11 @@
 /* Operator HUD */
 [data-theme="fff"] .fff-operator-hud {
   position: relative;
+  z-index: 120;
   display: grid;
   grid-template-columns: minmax(330px, 1fr) minmax(390px, 1.25fr) minmax(360px, 1.08fr);
   min-height: 150px;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--fff-line-strong);
   border-radius: 0;
   background:
@@ -579,6 +580,7 @@
 
 /* Compact command console embedded into the operator HUD. */
 [data-theme="fff"] .fff-hud-command .smart-command {
+  position: relative;
   display: grid;
   grid-template-columns: 106px minmax(0, 1fr);
   align-items: center;
@@ -646,8 +648,18 @@
 }
 [data-theme="fff"] .fff-hud-command .smart-command-status:empty { display: none; }
 [data-theme="fff"] .fff-hud-command .smart-command-preview {
-  margin-top: 6px;
+  position: absolute;
+  z-index: 130;
+  top: calc(100% + 10px);
+  left: 0;
+  width: min(430px, calc(100vw - 32px));
+  max-height: min(68vh, 430px);
+  overflow-y: auto;
+  margin-top: 0;
   padding: 9px;
+  border-color: var(--fff-line-strong);
+  background: #061009;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .56), 0 0 18px rgba(101, 232, 62, .1);
 }
 
 /* Dense terminal modules */

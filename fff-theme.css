@@ -902,6 +902,7 @@
   [data-theme="fff"] :is(
     [data-home-widget="goals"] > .dashboard-widget--feature,
     [data-home-widget="goals"] .savings-goal-row,
+    [data-goal-id],
     [data-home-widget="alerts"],
     [data-home-widget="countdown"] > .dashboard-widget--countdown,
     [data-home-widget="countdown"] .countdown-tile
@@ -945,6 +946,7 @@
   [data-theme="fff"] :is(
     [data-home-widget="goals"] > .dashboard-widget--feature,
     [data-home-widget="goals"] .savings-goal-row,
+    [data-goal-id],
     [data-home-widget="alerts"],
     [data-home-widget="countdown"] > .dashboard-widget--countdown,
     [data-home-widget="countdown"] .countdown-tile

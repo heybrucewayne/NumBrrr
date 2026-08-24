@@ -3178,13 +3178,18 @@ function normalizeHomeLayout(value) {
   if (hidden.length >= HOME_WIDGET_IDS.length) hidden.pop();
   const countdownEntries = Array.isArray(state.countdowns?.items) ? state.countdowns.items : [];
   const countdownIds = new Set(countdownEntries.map((item) => item && typeof item.id === "string" ? item.id : "").filter(Boolean));
+  const goalEntries = Array.isArray(state.savingsGoals?.items) ? state.savingsGoals.items : [];
+  const goalIds = new Set(goalEntries.map((item) => item && typeof item.id === "string" ? item.id : "").filter(Boolean));
   const isCountdownToken = (id) => typeof id === "string" && id.startsWith("countdown:");
-  const validToken = (id) => HOME_WIDGET_IDS.includes(id) || (isCountdownToken(id) && countdownIds.has(id.slice("countdown:".length)));
+  const isGoalToken = (id) => typeof id === "string" && id.startsWith("goal:");
+  const validToken = (id) => HOME_WIDGET_IDS.includes(id)
+    || (isCountdownToken(id) && countdownIds.has(id.slice("countdown:".length)))
+    || (isGoalToken(id) && goalIds.has(id.slice("goal:".length)));
   const suppliedItems = Array.isArray(source.itemOrder) ? source.itemOrder.filter(validToken) : [];
   const itemOrder = [];
   let baseIndex = 0;
   suppliedItems.forEach((id) => {
-    if (isCountdownToken(id)) itemOrder.push(id);
+    if (isCountdownToken(id) || isGoalToken(id)) itemOrder.push(id);
     else if (baseIndex < order.length) itemOrder.push(order[baseIndex++]);
   });
   while (baseIndex < order.length) itemOrder.push(order[baseIndex++]);
@@ -3197,6 +3202,14 @@ function normalizeHomeLayout(value) {
     if (insertAt < 0) insertAt = itemOrder.lastIndexOf("countdown");
     if (insertAt < 0) insertAt = itemOrder.length - 1;
     itemOrder.splice(insertAt + 1, 0, ...missingCountdownTokens);
+  }
+  const missingGoalTokens = [...goalIds]
+    .map((id) => `goal:${id}`)
+    .filter((token) => !itemOrder.includes(token));
+  if (missingGoalTokens.length) {
+    const goalsIndex = itemOrder.indexOf("goals");
+    const insertAt = goalsIndex >= 0 ? goalsIndex : itemOrder.length - 1;
+    itemOrder.splice(insertAt + 1, 0, ...missingGoalTokens);
   }
   return { order, itemOrder: [...new Set(itemOrder)], hidden, freedomExpanded: !!source.freedomExpanded };
 }
@@ -3225,6 +3238,14 @@ function applyHomeLayout() {
       el.dashboardGrid.appendChild(tile);
       return;
     }
+    if (id.startsWith("goal:")) {
+      const goalId = id.slice("goal:".length);
+      const goal = [...el.dashboardGrid.querySelectorAll("[data-goal-id]")].find((node) => node.dataset.goalId === goalId);
+      if (!goal) return;
+      goal.hidden = state.homeLayout.hidden.includes("goals");
+      el.dashboardGrid.appendChild(goal);
+      return;
+    }
     const widget = [...el.dashboardGrid.querySelectorAll("[data-home-widget]")].find((node) => node.dataset.homeWidget === id);
     if (!widget) return;
     widget.hidden = state.homeLayout.hidden.includes(id);
@@ -3247,20 +3268,22 @@ function homeWidgetSurface(wrapper) {
 
 function ensureHomeCardControls() {
   if (!el.dashboardGrid) return;
-  [...el.dashboardGrid.children].filter((node) => node.matches("[data-home-widget]")).forEach((wrapper) => {
+  const wrappers = [...el.dashboardGrid.children]
+    .filter((node) => node.matches("[data-home-widget], [data-goal-id]"));
+  wrappers.forEach((wrapper) => {
     const surface = homeWidgetSurface(wrapper);
     if (!surface || surface.querySelector(".dashboard-card-controls")) return;
-    const id = wrapper.dataset.homeWidget;
+    const id = wrapper.dataset.homeWidget || `goal-${wrapper.dataset.goalId}`;
     const controls = document.createElement("div");
     controls.className = "dashboard-card-controls";
-    controls.innerHTML = `<button class="dashboard-card-grip" type="button" data-home-drag="${escapeHtml(id)}" aria-label="${escapeHtml(t("home_card_drag"))}" title="${escapeHtml(t("home_card_drag"))}"><span aria-hidden="true">⠿</span></button><button class="dashboard-card-hide" type="button" data-home-hide="${escapeHtml(id)}" aria-label="${escapeHtml(t("home_card_hide"))}" title="${escapeHtml(t("home_card_hide"))}">×</button>`;
+    controls.innerHTML = `<button class="dashboard-card-grip" type="button" data-home-drag="${escapeHtml(id)}" aria-label="${escapeHtml(t("home_card_drag"))}" title="${escapeHtml(t("home_card_drag"))}"><span aria-hidden="true">⠿</span></button>${wrapper.matches("[data-home-widget]") ? `<button class="dashboard-card-hide" type="button" data-home-hide="${escapeHtml(id)}" aria-label="${escapeHtml(t("home_card_hide"))}" title="${escapeHtml(t("home_card_hide"))}">×</button>` : ""}`;
     surface.prepend(controls);
     controls.querySelector("[data-home-drag]").addEventListener("pointerdown", startHomeDashboardReorder);
-    controls.querySelector("[data-home-hide]").addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      hideHomeCard(id);
-    });
+    controls.querySelector("[data-home-hide]")?.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        hideHomeCard(id);
+      });
   });
 }
 
@@ -3297,7 +3320,7 @@ function dashboardLayoutItems(exclude) {
   if (!el.dashboardGrid) return [];
   return [...el.dashboardGrid.children].filter((node) => {
     if (node === exclude || node.matches(".dashboard-drag-placeholder")) return false;
-    if (!node.matches("[data-home-widget], [data-countdown-id]") || node.hidden) return false;
+    if (!node.matches("[data-home-widget], [data-countdown-id], [data-goal-id]") || node.hidden) return false;
     const rect = dashboardLayoutRect(node);
     return rect && rect.width > 0 && rect.height > 0;
   });
@@ -3306,8 +3329,10 @@ function dashboardLayoutItems(exclude) {
 function syncHomeOrderFromDashboard() {
   if (!el.dashboardGrid) return;
   const itemOrder = [...el.dashboardGrid.children]
-    .filter((node) => node.matches("[data-home-widget], [data-countdown-id]"))
-    .map((node) => node.matches("[data-countdown-id]") ? `countdown:${node.dataset.countdownId}` : node.dataset.homeWidget);
+    .filter((node) => node.matches("[data-home-widget], [data-countdown-id], [data-goal-id]"))
+    .map((node) => node.matches("[data-countdown-id]")
+      ? `countdown:${node.dataset.countdownId}`
+      : node.matches("[data-goal-id]") ? `goal:${node.dataset.goalId}` : node.dataset.homeWidget);
   const order = itemOrder.filter((id) => HOME_WIDGET_IDS.includes(id));
   state.homeLayout = normalizeHomeLayout({ ...state.homeLayout, order, itemOrder });
   state.countdowns.order = itemOrder
@@ -3323,7 +3348,7 @@ function startHomeDashboardReorder(event) {
   event.preventDefault();
   event.stopPropagation();
   const handle = event.currentTarget;
-  const wrapper = handle.closest("[data-home-widget]");
+  const wrapper = handle.closest("[data-home-widget], [data-goal-id]");
   const grid = el.dashboardGrid;
   if (!wrapper || !grid) return;
   const surface = homeWidgetSurface(wrapper);
@@ -3365,6 +3390,13 @@ function startHomeDashboardReorder(event) {
     transform: "rotate(.65deg) scale(1.025)",
   });
   if (handle.setPointerCapture) try { handle.setPointerCapture(event.pointerId); } catch (e) {}
+  const dropCandidates = dashboardLayoutItems(wrapper);
+  grid.classList.add("is-dragging-layout");
+  dropCandidates.forEach((item) => item.classList.add("is-drop-candidate"));
+  const clearDropCandidates = () => {
+    grid.classList.remove("is-dragging-layout");
+    dropCandidates.forEach((item) => item.classList.remove("is-drop-candidate"));
+  };
   let dropTarget = null;
   const clearDropTarget = () => {
     if (dropTarget) dropTarget.classList.remove("is-drop-target");
@@ -3395,6 +3427,7 @@ function startHomeDashboardReorder(event) {
     document.removeEventListener("pointerup", finish);
     document.removeEventListener("pointercancel", finish);
     clearDropTarget();
+    clearDropCandidates();
     if (placeholder.parentNode) placeholder.parentNode.insertBefore(wrapper, placeholder);
     placeholder.remove();
     wrapper.classList.remove("is-dragging", "dashboard-drag-clone");
@@ -3452,6 +3485,13 @@ function startCountdownReorder(event) {
     transform: "rotate(.65deg) scale(1.025)",
   });
   if (handle.setPointerCapture) try { handle.setPointerCapture(event.pointerId); } catch (e) {}
+  const dropCandidates = dashboardLayoutItems(tile);
+  grid.classList.add("is-dragging-layout");
+  dropCandidates.forEach((item) => item.classList.add("is-drop-candidate"));
+  const clearDropCandidates = () => {
+    grid.classList.remove("is-dragging-layout");
+    dropCandidates.forEach((item) => item.classList.remove("is-drop-candidate"));
+  };
   let dropTarget = null;
   const clearDropTarget = () => {
     if (dropTarget) dropTarget.classList.remove("is-drop-target");
@@ -3482,6 +3522,7 @@ function startCountdownReorder(event) {
     document.removeEventListener("pointerup", finish);
     document.removeEventListener("pointercancel", finish);
     clearDropTarget();
+    clearDropCandidates();
     if (placeholder.parentNode) placeholder.parentNode.insertBefore(tile, placeholder);
     placeholder.remove();
     tile.classList.remove("is-dragging", "dashboard-drag-clone");
@@ -4478,9 +4519,11 @@ function wireWeatherWidget() {
 
 function renderSavingsGoals() {
   if (!el.savingsGoalList) return;
+  el.dashboardGrid?.querySelectorAll("[data-goal-id]").forEach((row) => row.remove());
   const items = state.savingsGoals.items;
   if (!items.length) {
     el.savingsGoalList.innerHTML = "";
+    applyHomeLayout();
     return;
   }
   el.savingsGoalList.innerHTML = items.map((goal) => {
@@ -4520,6 +4563,8 @@ function renderSavingsGoals() {
     state.savingsGoals.items = state.savingsGoals.items.filter((item) => item.id !== button.dataset.goalDel);
     saveState(); sfx("remove"); renderSavingsGoals(); renderSmartInsights();
   }));
+  applyHomeLayout();
+  ensureHomeCardControls();
 }
 
 function addSavingsGoal(event) {

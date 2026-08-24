@@ -3243,6 +3243,7 @@ function applyHomeLayout() {
 }
 
 let homeDashboardEditing = false;
+let navigateToAppView = () => false;
 
 function homeWidgetSurface(wrapper) {
   if (!wrapper) return null;
@@ -4895,10 +4896,12 @@ function wireHomeDashboard() {
     document.querySelector('.tab[data-view="settings"]')?.click();
   }));
   el.freedomWidgetToggle.addEventListener("click", () => setFreedomWidgetExpanded(!state.homeLayout.freedomExpanded));
-  el.dashboardGrid.querySelectorAll("[data-open-view]").forEach((button) => button.addEventListener("click", () => {
-    const tab = document.querySelector(`.tab[data-view="${button.dataset.openView}"]`);
-    if (tab) tab.click();
-  }));
+  el.dashboardGrid.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-open-view]");
+    if (!button || !el.dashboardGrid.contains(button)) return;
+    event.preventDefault();
+    navigateToAppView(button.dataset.openView);
+  });
   [el.editHome, el.fffEditHome].filter(Boolean).forEach((button) => button.addEventListener("click", () => {
     setHomeDashboardEditing(!homeDashboardEditing);
   }));
@@ -7402,15 +7405,23 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
     window.scrollTo({ top: 0, behavior: "auto" });
     window.requestAnimationFrame(() => replayFffViewMotion(document.getElementById(`view-${name}`)));
   }
+  navigateToAppView = (name) => {
+    const tab = tabs.find((candidate) => candidate.dataset.view === name);
+    if (!tab || tab.hasAttribute("data-soon")) return false;
+    tab.classList.remove("is-bouncing");
+    void tab.offsetWidth;
+    tab.classList.add("is-bouncing");
+    setActive(tab);
+    showView(name);
+    return true;
+  };
   tabs.forEach((tab) => {
     tab.addEventListener("animationend", () => tab.classList.remove("is-bouncing"));
     tab.addEventListener("click", () => {
-      // restart the icon bounce even on rapid re-taps
-      tab.classList.remove("is-bouncing"); void tab.offsetWidth; tab.classList.add("is-bouncing");
       if (tab.hasAttribute("data-soon")) { showToast(t("more_soon")); return; }
       const view = tab.dataset.view;
       if (!view) return;
-      setActive(tab); showView(view);
+      navigateToAppView(view);
     });
   });
 })();

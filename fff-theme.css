@@ -76,7 +76,8 @@
 }
 
 [data-theme="fff"] .shell {
-  max-width: 1600px;
+  width: 100%;
+  max-width: none;
   gap: 13px;
   padding: 12px 15px 62px;
 }
@@ -707,6 +708,11 @@
   text-shadow: 0 0 10px rgba(101, 232, 62, .2);
 }
 
+[data-theme="fff"] .dashboard-widget-open {
+  position: relative;
+  z-index: 7;
+}
+
 [data-theme="fff"] .dashboard-widget-note,
 [data-theme="fff"] .home-card-note {
   position: relative;
@@ -804,9 +810,25 @@
 }
 
 @media (min-width: 1181px) {
+  [data-theme="fff"] {
+    --fff-desktop-menu-width: calc((100vw - 120px) / 5 + 10px);
+  }
+
   [data-theme="fff"] .dashboard-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(10, minmax(0, 1fr));
     grid-auto-flow: row dense;
+  }
+
+  [data-theme="fff"] #view-home > .dashboard-grid::before {
+    content: "";
+    grid-column: span 2;
+    grid-row: span 2;
+    min-width: 0;
+    pointer-events: none;
+  }
+
+  [data-theme="fff"] [data-home-widget="freedom"] {
+    grid-column: span 8;
   }
 
   [data-theme="fff"] .dashboard-widget--pair {
@@ -815,25 +837,46 @@
 
   [data-theme="fff"] :is(
     [data-home-widget="marketSnapshot"],
-    [data-home-widget="topPerformers"],
-    [data-home-widget="car"],
-    [data-home-widget="watch"]
+    [data-home-widget="topPerformers"]
   ) {
     grid-column: span 3;
   }
+
+  [data-theme="fff"] .dashboard-widget--half {
+    grid-column: span 5;
+  }
+
+  [data-theme="fff"] [data-home-widget="goals"] > .dashboard-widget--feature {
+    grid-column: span 6;
+  }
 }
 
-@media (min-width: 1440px) {
-  [data-theme="fff"] .dashboard-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
-  [data-theme="fff"] .dashboard-widget--pair { grid-column: span 2; }
-  [data-theme="fff"] .dashboard-widget--half { grid-column: span 4; }
+@media (min-width: 1700px) {
+  [data-theme="fff"] {
+    --fff-desktop-menu-width: calc((100vw - 140px) / 6 + 10px);
+  }
+
+  [data-theme="fff"] .dashboard-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  [data-theme="fff"] [data-home-widget="freedom"] {
+    grid-column: span 10;
+  }
+
+  [data-theme="fff"] .dashboard-widget--half {
+    grid-column: span 6;
+  }
+
   [data-theme="fff"] :is(
     [data-home-widget="marketSnapshot"],
-    [data-home-widget="topPerformers"],
-    [data-home-widget="car"],
-    [data-home-widget="watch"]
+    [data-home-widget="topPerformers"]
   ) {
-    grid-column: span 2;
+    grid-column: span 4;
+  }
+
+  [data-theme="fff"] [data-home-widget="goals"] > .dashboard-widget--feature {
+    grid-column: span 10;
   }
 }
 
@@ -848,21 +891,25 @@
 
 /* Desktop terminal navigation and content rail. */
 @media (min-width: 1181px) {
-  [data-theme="fff"] #view-home > :is(.smart-command, .dashboard-grid),
+  [data-theme="fff"] #view-home > .smart-command,
   [data-theme="fff"] .view:not(#view-home) {
-    margin-left: 266px;
+    margin-left: calc(var(--fff-desktop-menu-width) + 10px);
+  }
+
+  [data-theme="fff"] #view-home > .dashboard-grid {
+    margin-left: 0;
   }
 
   [data-theme="fff"] .tabbar {
     position: absolute;
     top: 202px;
     bottom: auto;
-    left: max(15px, calc(50vw - 785px));
+    left: 15px;
     transform: none;
     z-index: 65;
     display: flex;
-    width: 246px;
-    max-width: 246px;
+    width: var(--fff-desktop-menu-width);
+    max-width: var(--fff-desktop-menu-width);
     max-height: none;
     flex-direction: column;
     gap: 0;

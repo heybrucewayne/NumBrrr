@@ -6,6 +6,7 @@
 }
 
 [data-theme="fff"] {
+  --font-term: "Share Tech Mono", "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --fff-bg: #010803;
   --fff-panel: #031007;
   --fff-panel-raised: #06180a;
@@ -38,8 +39,15 @@
     radial-gradient(circle at 48% -24%, rgba(63, 190, 55, .12), transparent 42%),
     repeating-linear-gradient(0deg, rgba(126, 255, 82, .016) 0 1px, transparent 1px 4px),
     var(--fff-bg);
-  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-family: var(--font-term);
   letter-spacing: .012em;
+}
+
+/* Keep every FFF screen on one Pip-Boy-style type system. A few base
+   components declare display fonts for the other themes, so the terminal
+   theme intentionally overrides those declarations here. */
+[data-theme="fff"] :where(*) {
+  font-family: var(--font-term) !important;
 }
 
 [data-theme="fff"] body::before {

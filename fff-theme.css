@@ -2084,3 +2084,142 @@
     clip-path: none;
   }
 }
+
+/* Secondary screens use the same dense terminal scale as the dashboard.
+   Keep labels compact and reserve the larger phosphor type for key totals. */
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) {
+  font-size: 11px;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) :is(
+  .modern-section-title h2,
+  .modern-section-title .settings-label,
+  .car-section-title .settings-label,
+  .feature-section-head .settings-label,
+  .portfolio-holdings-head .settings-label,
+  .flow-card > .settings-label
+) {
+  margin-bottom: 3px;
+  color: var(--fff-green-hot);
+  font-size: 11px !important;
+  line-height: 1.25;
+  letter-spacing: .1em;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) :is(
+  .modern-section-title p,
+  .car-section-note,
+  .portfolio-holdings-head p,
+  .flow-note,
+  .flow-subnote,
+  .savings-note,
+  .feature-empty
+) {
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) :is(
+  .modern-section-icon,
+  .income-summary-icon,
+  .car-section-icon
+) {
+  width: 34px;
+  height: 34px;
+  border-radius: 1px;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) :is(
+  .modern-section-icon svg,
+  .income-summary-icon svg,
+  .car-section-icon svg
+) {
+  width: 17px;
+  height: 17px;
+}
+
+/* Portfolio */
+[data-theme="fff"] #view-portfolio :is(.port-total-card, .flow-card, .portfolio-holdings-panel) {
+  padding: 14px;
+}
+[data-theme="fff"] #view-portfolio .savings-total-label { font-size: 9px; }
+[data-theme="fff"] #view-portfolio .savings-total-value {
+  font-size: clamp(23px, 3.2vw, 30px);
+  line-height: 1.1;
+}
+[data-theme="fff"] #view-portfolio .port-ccy-toggle,
+[data-theme="fff"] #view-portfolio .portfolio-count { padding: 4px 8px; font-size: 9px; }
+[data-theme="fff"] #view-portfolio .portfolio-holdings-head { margin-bottom: 10px; }
+[data-theme="fff"] #view-portfolio .port-row {
+  grid-template-columns: 34px minmax(0, 1fr) 106px 30px;
+  min-height: 78px;
+  gap: 8px;
+  padding: 9px;
+}
+[data-theme="fff"] #view-portfolio .port-asset-icon { width: 34px; height: 34px; font-size: 11px; }
+[data-theme="fff"] #view-portfolio .port-namecell { gap: 4px; }
+[data-theme="fff"] #view-portfolio .port-row .cat-name,
+[data-theme="fff"] #view-portfolio .port-row .cat-amount input,
+[data-theme="fff"] #view-portfolio .port-row .usd-input input,
+[data-theme="fff"] #view-portfolio .port-row .qty-field { font-size: 11px; }
+[data-theme="fff"] #view-portfolio .port-row .hold-type,
+[data-theme="fff"] #view-portfolio .port-field-label { font-size: 8px; }
+[data-theme="fff"] #view-portfolio .port-row .qty-field,
+[data-theme="fff"] #view-portfolio .port-row .money-input { min-height: 32px; }
+[data-theme="fff"] #view-portfolio .port-row .crypto-value { font-size: 10px; }
+[data-theme="fff"] #view-portfolio .port-row .cat-remove { width: 30px; height: 30px; }
+
+/* Income */
+[data-theme="fff"] #view-income :is(.income-sources-panel, .income-summary-card) { padding: 14px; }
+[data-theme="fff"] #view-income .modern-section-head { margin-bottom: 10px; }
+[data-theme="fff"] #view-income .modern-section-count { padding: 4px 8px; font-size: 9px; }
+[data-theme="fff"] #view-income .inc-row {
+  grid-template-columns: 34px minmax(0, 1fr) minmax(96px, 112px) auto;
+  min-height: 76px;
+  gap: 8px;
+  padding: 9px;
+}
+[data-theme="fff"] #view-income .inc-source-icon { width: 34px; height: 34px; font-size: 12px; }
+[data-theme="fff"] #view-income .inc-row .cat-label { gap: 4px; font-size: 10px; }
+[data-theme="fff"] #view-income .inc-row .cat-name,
+[data-theme="fff"] #view-income .inc-row .cat-amount input { font-size: 11px; }
+[data-theme="fff"] #view-income .inc-row .inc-type,
+[data-theme="fff"] #view-income .inc-row .inc-from-port { font-size: 8px; }
+[data-theme="fff"] #view-income .savings-total-label { font-size: 9px; }
+[data-theme="fff"] #view-income .savings-total-value { font-size: clamp(23px, 3.2vw, 30px); line-height: 1.1; }
+[data-theme="fff"] #view-income .savings-total-sub,
+[data-theme="fff"] #view-income .port-pct,
+[data-theme="fff"] #view-income .inc-surplus { font-size: 9px; }
+
+/* Expenses */
+[data-theme="fff"] #view-savings :is(.expense-hero, .exp-stat, .budget-panel, .expense-list-panel, .exp-history) { padding: 14px; }
+[data-theme="fff"] #view-savings .feature-month-chip { padding: 4px 7px; font-size: 8px; }
+[data-theme="fff"] #view-savings .exp-stat { min-height: 78px; }
+[data-theme="fff"] #view-savings .exp-stat-label { font-size: 9px; }
+[data-theme="fff"] #view-savings .exp-stat-value { font-size: clamp(17px, 3vw, 22px); }
+[data-theme="fff"] #view-savings :is(.budget-overview span, .net-worth-stats span) { font-size: 8px; }
+[data-theme="fff"] #view-savings :is(.budget-overview strong, .net-worth-stats strong) { font-size: 14px; }
+[data-theme="fff"] #view-savings .budget-form > label { gap: 4px; font-size: 9px; }
+[data-theme="fff"] #view-savings .budget-form > label > input,
+[data-theme="fff"] #view-savings .budget-form .money-input { min-height: 34px; font-size: 11px; }
+[data-theme="fff"] #view-savings .exp-row,
+[data-theme="fff"] #view-savings .budget-row,
+[data-theme="fff"] #view-savings .exp-reminder { font-size: 10px; }
+
+/* Watchlist */
+[data-theme="fff"] #view-watch :is(.watch-panel, .watch-data-panel) { padding: 14px; }
+[data-theme="fff"] #view-watch .watch-section-head,
+[data-theme="fff"] #view-watch .watch-data-panel .modern-section-head { margin-bottom: 10px; }
+[data-theme="fff"] #view-watch .watch-search { min-height: 38px; padding: 8px 10px 8px 34px; font-size: 10px; }
+[data-theme="fff"] #view-watch .watch-search-icon { left: 10px; }
+[data-theme="fff"] #view-watch .watch-search-icon svg { width: 15px; height: 15px; }
+[data-theme="fff"] #view-watch .watch-row { min-height: 43px; padding: 9px 6px; font-size: 10px; }
+[data-theme="fff"] #view-watch :is(.tr-row, .top-perf-row) { font-size: 9px; }
+[data-theme="fff"] #view-watch :is(.tr-name, .tr-price) { font-size: 10px; }
+
+/* Car */
+[data-theme="fff"] #view-car .car-panel { padding: 14px; }
+[data-theme="fff"] #view-car .car-section-head { margin-bottom: 11px; }
+[data-theme="fff"] #view-car .car-section-note { max-width: 440px; }
+[data-theme="fff"] #view-car .car-section-count { padding: 4px 7px; font-size: 9px; }
+[data-theme="fff"] #view-car :is(input, select, textarea, button) { font-size: 10px; }

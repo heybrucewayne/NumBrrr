@@ -6,7 +6,7 @@
 }
 
 [data-theme="fff"] {
-  --font-term: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-term: "Share Tech Mono", "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
   --fff-bg: #010803;
   --fff-panel: #031007;
   --fff-panel-raised: #06180a;
@@ -40,7 +40,7 @@
     repeating-linear-gradient(0deg, rgba(126, 255, 82, .016) 0 1px, transparent 1px 4px),
     var(--fff-bg);
   font-family: var(--font-term);
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: .006em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -123,7 +123,7 @@
   padding: 0 2px 8px;
   border-bottom: 1px solid var(--fff-line);
   color: var(--fff-green);
-  font-size: 13px;
+  font-size: 14px;
   text-transform: uppercase;
 }
 
@@ -311,7 +311,7 @@
 [data-theme="fff"] .fff-hud-profile > strong {
   overflow: hidden;
   color: var(--fff-green-hot);
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 650;
   letter-spacing: .03em;
   text-overflow: ellipsis;
@@ -321,7 +321,7 @@
 
 [data-theme="fff"] .fff-hud-profile > small {
   color: var(--fff-green-soft);
-  font-size: 11px;
+  font-size: 12px;
   text-transform: none;
 }
 
@@ -385,7 +385,7 @@
 
 [data-theme="fff"] .fff-hud-mission > strong {
   color: var(--fff-green-hot);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 550;
   line-height: 1.35;
 }
@@ -674,7 +674,7 @@
 [data-theme="fff"] .smart-command h2 {
   color: var(--fff-green-hot);
   font-family: inherit;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: .035em;
   text-transform: none;
@@ -708,7 +708,7 @@
   color: var(--fff-green-hot);
   caret-color: var(--fff-green-hot);
   background: transparent;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 [data-theme="fff"] .smart-command-form input::placeholder { color: var(--fff-green-dim); }
@@ -755,7 +755,7 @@
   border-radius: 0;
   color: var(--fff-green-dim);
   background: rgba(1, 8, 3, .72);
-  font-size: 10px;
+  font-size: 11px;
   text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -905,7 +905,7 @@
   gap: 9px;
   margin-bottom: 11px;
   color: var(--fff-green-soft);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: .018em;
   text-transform: none;
 }
@@ -914,7 +914,7 @@
 [data-theme="fff"] .dashboard-widget-top > span:nth-child(2) {
   color: var(--text);
   font-family: inherit;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: .018em;
   text-transform: none;
@@ -984,7 +984,7 @@
   position: relative;
   z-index: 2;
   color: var(--fff-green-dim);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: .018em;
 }
 
@@ -2158,7 +2158,7 @@
 /* Secondary screens use the same dense terminal scale as the dashboard.
    Keep labels compact and reserve the larger phosphor type for key totals. */
 [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: .012em;
 }
 
@@ -2186,7 +2186,7 @@
 ) {
   margin-bottom: 3px;
   color: var(--fff-green-hot);
-  font-size: 12px !important;
+  font-size: 13px !important;
   line-height: 1.25;
   letter-spacing: .1em;
 }
@@ -2200,7 +2200,7 @@
   .savings-note,
   .feature-empty
 ) {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.4;
 }
 

@@ -1672,8 +1672,8 @@
 
   [data-theme="fff"] .dashboard-grid > [data-home-widget="insights"] {
     grid-column: span 4;
-    grid-row: span 1;
-    min-height: var(--dashboard-unit-height);
-    height: var(--dashboard-unit-height);
+    grid-row: span 2;
+    min-height: calc(var(--dashboard-unit-height) * 2 + 10px);
+    height: calc(var(--dashboard-unit-height) * 2 + 10px);
   }
 }

@@ -6477,7 +6477,7 @@ function syncCommandOrbMotion() {
 function initCommandOrb() {
   const canvases = [
     { canvas: el.commandOrbCanvas, size: 28, style: "color" },
-    { canvas: el.smartCommandOrbCanvas, size: 34, style: "thinking" },
+    { canvas: el.smartCommandOrbCanvas, size: 52, style: "thinking" },
   ].filter(({ canvas }) => canvas && canvas.getContext);
   if (!canvases.length) return;
   commandOrbRuntime.entries = canvases.map(({ canvas, size, style }) => ({

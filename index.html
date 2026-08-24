@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=63" />
+  <link rel="stylesheet" href="fff-theme.css?v=65" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -95,12 +95,12 @@
           </div>
         </div>
         <div class="fff-hud-command">
-          <section class="smart-command" aria-labelledby="smartCommandTitle">
+          <section class="smart-command" aria-label="Komut merkezi">
             <div class="smart-command-head">
               <div class="smart-command-mark" aria-hidden="true">
-                <canvas id="smartCommandOrbCanvas" width="34" height="34"></canvas>
+                <canvas id="smartCommandOrbCanvas" width="52" height="52"></canvas>
               </div>
-              <h2 id="smartCommandTitle" data-i18n="command_title">Komut yaz</h2>
+              <h2 id="smartCommandTitle" class="sr-only" data-i18n="command_title">Komut yaz</h2>
             </div>
             <div class="smart-command-primary">
               <form id="smartCommandForm" class="smart-command-form" autocomplete="off">
@@ -969,7 +969,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=102"></script>
+  <script src="app.js?v=103"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

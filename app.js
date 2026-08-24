@@ -771,6 +771,13 @@ function instNote(inst) {
 }
 function incLabel(id) { return (langPack().inc && langPack().inc[id]) || I18N.en.inc[id] || id; }
 
+const FFF_HUD_CAT_IMAGES = Object.freeze([
+  "/assets/monthly-share/cat-shout.png",
+  "/assets/monthly-share/cat-blurry.png",
+  "/assets/monthly-share/cat-close.png",
+  "/assets/monthly-share/cat-wide.png",
+]);
+
 // ---- Elements ----
 const el = {
   // Smart command bar
@@ -801,6 +808,9 @@ const el = {
   fffHudFocus: document.getElementById("fffHudFocus"),
   fffHudFocusBar: document.getElementById("fffHudFocusBar"),
   fffHudFocusFill: document.getElementById("fffHudFocusFill"),
+  fffHudCat: document.getElementById("fffHudCat"),
+  fffEditHome: document.getElementById("fffEditHome"),
+  fffTerminalPageTitle: document.getElementById("fffTerminalPageTitle"),
   fffTerminalClock: document.getElementById("fffTerminalClock"),
   currencySymbol: document.getElementById("currencySymbol"),
   expenses: document.getElementById("expenses"),
@@ -3272,11 +3282,11 @@ function refreshHomeCardControlLabels() {
 function setHomeDashboardEditing(enabled) {
   homeDashboardEditing = !!enabled;
   if (el.dashboardGrid) el.dashboardGrid.classList.toggle("is-editing", homeDashboardEditing);
-  if (el.editHome) {
-    el.editHome.dataset.i18n = homeDashboardEditing ? "dashboard_done" : "dashboard_edit";
-    el.editHome.textContent = t(el.editHome.dataset.i18n);
-    el.editHome.setAttribute("aria-pressed", String(homeDashboardEditing));
-  }
+  [el.editHome, el.fffEditHome].filter(Boolean).forEach((button) => {
+    button.dataset.i18n = homeDashboardEditing ? "dashboard_done" : "dashboard_edit";
+    button.textContent = t(button.dataset.i18n);
+    button.setAttribute("aria-pressed", String(homeDashboardEditing));
+  });
 }
 
 function dashboardLayoutRect(node) {
@@ -3736,6 +3746,19 @@ function renderFffTerminalClock() {
   const time = new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit", hour12: false }).format(now);
   el.fffTerminalClock.dateTime = now.toISOString();
   el.fffTerminalClock.textContent = `${date} / ${time}`;
+}
+
+function selectFffHudCat() {
+  if (!el.fffHudCat) return;
+  const index = Math.floor(Math.random() * FFF_HUD_CAT_IMAGES.length);
+  el.fffHudCat.src = FFF_HUD_CAT_IMAGES[index];
+}
+
+function syncFffTerminalPage(view = "home") {
+  document.documentElement.dataset.fffView = view;
+  if (!el.fffTerminalPageTitle) return;
+  const label = document.querySelector(`.tab[data-view="${view}"] .tab-label`);
+  el.fffTerminalPageTitle.textContent = label?.textContent?.trim() || t("dashboard_title");
 }
 
 function openFffMission() {
@@ -4876,9 +4899,9 @@ function wireHomeDashboard() {
     const tab = document.querySelector(`.tab[data-view="${button.dataset.openView}"]`);
     if (tab) tab.click();
   }));
-  el.editHome.addEventListener("click", () => {
+  [el.editHome, el.fffEditHome].filter(Boolean).forEach((button) => button.addEventListener("click", () => {
     setHomeDashboardEditing(!homeDashboardEditing);
-  });
+  }));
   el.savingsGoalForm.addEventListener("submit", addSavingsGoal);
   document.querySelectorAll("[data-format-thousands]").forEach(wireThousandsInput);
   el.homeNoteForm.addEventListener("submit", addHomeNote);
@@ -7360,6 +7383,7 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
   }
   function showView(name) {
     if (name !== "home") setHomeDashboardEditing(false);
+    syncFffTerminalPage(name);
     document.getElementById("view-home").hidden = name !== "home";
     document.getElementById("view-savings").hidden = name !== "savings";
     document.getElementById("view-car").hidden = name !== "car";
@@ -7748,6 +7772,8 @@ applyTheme(state.theme);
 soundToggle.checked = state.sound;
 applyMotion(state.motion);
 applyLanguage(state.lang); // builds layout + savings, applies all translations
+selectFffHudCat();
+syncFffTerminalPage("home");
 renderFffTerminalClock();
 
 if (isFirstRun) showOnboarding();

@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=2" />
+  <link rel="stylesheet" href="fff-theme.css?v=6" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -63,12 +63,12 @@
 
   <main class="shell">
     <header class="fff-terminal-topbar" aria-label="NUMBRR terminal durumu">
-      <div class="fff-terminal-brand">
-        <span class="fff-terminal-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-        <strong>NUMBRR TERMINAL</strong>
-        <span>v2.1</span>
+      <div class="fff-terminal-page-title">
+        <span aria-hidden="true">›</span>
+        <h1 id="fffTerminalPageTitle" data-i18n="dashboard_title">Ana Sayfa</h1>
       </div>
       <div class="fff-terminal-meta">
+        <button class="dashboard-edit fff-terminal-edit" id="fffEditHome" type="button" data-i18n="dashboard_edit" aria-pressed="false">Kartları düzenle</button>
         <time id="fffTerminalClock" datetime="">—</time>
         <button class="fff-terminal-settings" type="button" data-fff-open-settings data-i18n-title="nav_settings" aria-label="Ayarlar">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path></svg>
@@ -87,12 +87,8 @@
       <section class="fff-operator-hud" id="fffOperatorHud" data-i18n-title="fff_hud_aria" aria-labelledby="fffOperatorTitle">
         <div class="fff-hud-identity">
           <div class="fff-hud-avatar" aria-hidden="true">
-            <svg viewBox="0 0 96 96">
-              <path class="fff-avatar-grid" d="M8 24h80M8 48h80M8 72h80M24 8v80M48 8v80M72 8v80"></path>
-              <path class="fff-avatar-ring" d="M48 13a35 35 0 1 1 0 70 35 35 0 0 1 0-70Z"></path>
-              <path class="fff-avatar-n" d="M31 66V30l34 36V30"></path>
-              <path class="fff-avatar-pulse" d="M23 74h14l5-10 8 16 6-10h17"></path>
-            </svg>
+            <img id="fffHudCat" src="/assets/monthly-share/cat-close.png" alt="" />
+            <span class="fff-avatar-scan" aria-hidden="true"></span>
           </div>
           <div class="fff-hud-profile">
             <span class="fff-hud-kicker" data-i18n="fff_hud_operator">NUMBRR OPERATÖRÜ</span>
@@ -996,7 +992,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=85"></script>
+  <script src="app.js?v=86"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

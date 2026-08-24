@@ -6,7 +6,10 @@
 }
 
 [data-theme="fff"] {
-  --font-term: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  /* The Grok/Pip-Boy direction uses a terminal face, but the loaded
+     Share Tech Mono cut stays much clearer at dashboard sizes than the
+     previous unbundled IBM Plex fallback. */
+  --font-term: "Share Tech Mono", "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
   --fff-bg: #010803;
   --fff-panel: #031007;
   --fff-panel-raised: #06180a;
@@ -40,7 +43,10 @@
     repeating-linear-gradient(0deg, rgba(126, 255, 82, .016) 0 1px, transparent 1px 4px),
     var(--fff-bg);
   font-family: var(--font-term);
-  letter-spacing: .012em;
+  font-size: 13px;
+  letter-spacing: .006em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 /* Keep every FFF screen on one Pip-Boy-style type system. A few base
@@ -312,14 +318,14 @@
   font-weight: 650;
   letter-spacing: .03em;
   text-overflow: ellipsis;
-  text-transform: uppercase;
+  text-transform: none;
   white-space: nowrap;
 }
 
 [data-theme="fff"] .fff-hud-profile > small {
   color: var(--fff-green-soft);
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 [data-theme="fff"] .fff-hud-line {
@@ -673,8 +679,8 @@
   font-family: inherit;
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: .07em;
-  text-transform: uppercase;
+  letter-spacing: .035em;
+  text-transform: none;
 }
 
 [data-theme="fff"] .smart-command-workspace {
@@ -734,8 +740,8 @@
 [data-theme="fff"] .smart-command-examples-title {
   color: var(--fff-green-soft);
   font-size: 8px;
-  letter-spacing: .11em;
-  text-transform: uppercase;
+  letter-spacing: .06em;
+  text-transform: none;
 }
 
 [data-theme="fff"] .smart-command-chips {
@@ -866,6 +872,14 @@
     repeating-linear-gradient(0deg, rgba(101, 232, 62, .012) 0 1px, transparent 1px 5px),
     var(--fff-panel);
   box-shadow: inset 0 0 22px rgba(0, 0, 0, .24);
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+[data-theme="fff"] .dashboard-widget:hover,
+[data-theme="fff"] .dashboard-widget:focus-within {
+  transform: translateY(-1px);
+  border-color: var(--fff-line-strong);
+  box-shadow: inset 0 0 22px rgba(0, 0, 0, .24), 0 0 16px rgba(101, 232, 62, .08);
 }
 
 [data-theme="fff"] .dashboard-widget::before {
@@ -895,8 +909,8 @@
   margin-bottom: 11px;
   color: var(--fff-green-soft);
   font-size: 11px;
-  letter-spacing: .04em;
-  text-transform: uppercase;
+  letter-spacing: .018em;
+  text-transform: none;
 }
 
 [data-theme="fff"] :is(.home-card-head, .dashboard-feature-head, .countdown-head) h2,
@@ -905,8 +919,25 @@
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: .045em;
-  text-transform: uppercase;
+  letter-spacing: .018em;
+  text-transform: none;
+}
+
+/* Keep the terminal personality in labels while leaving Turkish copy in its
+   authored casing so dotted and dotless i characters remain readable. */
+[data-theme="fff"] :is(
+  .modern-section-title h2,
+  .modern-section-title .settings-label,
+  .feature-section-head .settings-label,
+  .portfolio-holdings-head .settings-label,
+  .flow-card > .settings-label,
+  .savings-total-label,
+  .exp-stat-label,
+  .watch-section-head h2,
+  .car-section-title .settings-label
+) {
+  text-transform: none;
+  letter-spacing: .018em;
 }
 
 [data-theme="fff"] [data-home-widget] .dashboard-widget-icon,
@@ -957,6 +988,13 @@
   z-index: 2;
   color: var(--fff-green-dim);
   font-size: 8.5px;
+  letter-spacing: .018em;
+}
+
+[data-theme="fff"] .tabbar .tab-label {
+  font-family: inherit;
+  letter-spacing: .018em;
+  text-transform: none;
 }
 
 [data-theme="fff"] [data-home-widget="portfolio"] .dashboard-widget-open,
@@ -2101,6 +2139,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  [data-theme="fff"] .dashboard-widget {
+    transition: none;
+  }
+
+  [data-theme="fff"] .dashboard-widget:hover,
+  [data-theme="fff"] .dashboard-widget:focus-within {
+    transform: none;
+  }
+
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab,
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab-label {
     animation: none;

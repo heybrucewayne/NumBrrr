@@ -5519,9 +5519,7 @@ html[data-theme="fff"] body {
 }
 
 [data-theme="fff"] .crt-frame {
-  inset: 0 0 86px;
-  z-index: 6;
-  opacity: .72;
+  display: none !important;
 }
 [data-theme="fff"] .crt-bezel {
   border-width: 5px;
@@ -5659,29 +5657,30 @@ html[data-theme="fff"] body {
   border-radius: 2px;
   border-color: var(--fff-line-strong);
   background-color: #0a170d !important;
-  background-size: cover;
-  background-position: center;
-  filter: grayscale(1) sepia(1) hue-rotate(48deg) saturate(2.1) brightness(.86);
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: none;
   box-shadow: inset 0 0 0 1px rgba(155, 255, 106, .06), 0 0 12px rgba(155, 255, 106, .06);
 }
 [data-theme="fff"] [data-home-widget="freedom"] .dashboard-widget-icon,
-[data-theme="fff"] [data-home-widget="goals"] .dashboard-widget-icon { background-image: url("assets/ui-icons/goals.png") !important; }
-[data-theme="fff"] [data-home-widget="portfolio"] .dashboard-widget-icon { background-image: url("assets/ui-icons/portfolio.png") !important; }
-[data-theme="fff"] [data-home-widget="income"] .dashboard-widget-icon { background-image: url("assets/ui-icons/income.png") !important; }
-[data-theme="fff"] [data-home-widget="expenses"] .dashboard-widget-icon { background-image: url("assets/ui-icons/expenses.png") !important; }
-[data-theme="fff"] [data-home-widget="health"] .dashboard-widget-icon { background-image: url("assets/ui-icons/health.png") !important; }
-[data-theme="fff"] [data-home-widget="markets"] .dashboard-widget-icon { background-image: url("assets/ui-icons/markets.png") !important; }
+[data-theme="fff"] [data-home-widget="goals"] .dashboard-widget-icon { background-image: url("assets/ui-icons/goals.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="portfolio"] .dashboard-widget-icon { background-image: url("assets/ui-icons/portfolio.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="income"] .dashboard-widget-icon { background-image: url("assets/ui-icons/income.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="expenses"] .dashboard-widget-icon { background-image: url("assets/ui-icons/expenses.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="health"] .dashboard-widget-icon { background-image: url("assets/ui-icons/health.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="markets"] .dashboard-widget-icon { background-image: url("assets/ui-icons/markets.png?v=2") !important; }
 [data-theme="fff"] [data-home-widget="monthly"] .dashboard-widget-icon,
-[data-theme="fff"] [data-home-widget="marketSnapshot"] .dashboard-widget-icon { background-image: url("assets/ui-icons/market-data.png") !important; }
-[data-theme="fff"] [data-home-widget="topPerformers"] .dashboard-widget-icon { background-image: url("assets/ui-icons/top-performers.png") !important; }
-[data-theme="fff"] [data-home-widget="ipos"] .dashboard-widget-icon { background-image: url("assets/ui-icons/ipos.png") !important; }
+[data-theme="fff"] [data-home-widget="marketSnapshot"] .dashboard-widget-icon { background-image: url("assets/ui-icons/market-data.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="topPerformers"] .dashboard-widget-icon { background-image: url("assets/ui-icons/top-performers.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="ipos"] .dashboard-widget-icon { background-image: url("assets/ui-icons/ipos.png?v=2") !important; }
 [data-theme="fff"] [data-home-widget="countdown"] .dashboard-widget-icon,
-[data-theme="fff"] .countdown-tile .dashboard-widget-icon { background-image: url("assets/ui-icons/countdown.png") !important; }
-[data-theme="fff"] [data-home-widget="car"] .dashboard-widget-icon { background-image: url("assets/ui-icons/car.png") !important; }
-[data-theme="fff"] [data-home-widget="watch"] .dashboard-widget-icon { background-image: url("assets/ui-icons/watch.png") !important; }
-[data-theme="fff"] [data-home-widget="notes"] .dashboard-widget-icon { background-image: url("assets/ui-icons/notes.png") !important; }
-[data-theme="fff"] [data-home-widget="insights"] .dashboard-widget-icon { background-image: url("assets/ui-icons/insights.png") !important; }
-[data-theme="fff"] [data-home-widget="alerts"] .dashboard-widget-icon { background-image: url("assets/ui-icons/alerts.png") !important; }
+[data-theme="fff"] .countdown-tile .dashboard-widget-icon { background-image: url("assets/ui-icons/countdown.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="car"] .dashboard-widget-icon { background-image: url("assets/ui-icons/car.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="watch"] .dashboard-widget-icon { background-image: url("assets/ui-icons/watch.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="notes"] .dashboard-widget-icon { background-image: url("assets/ui-icons/notes.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="insights"] .dashboard-widget-icon { background-image: url("assets/ui-icons/insights.png?v=2") !important; }
+[data-theme="fff"] [data-home-widget="alerts"] .dashboard-widget-icon { background-image: url("assets/ui-icons/alerts.png?v=2") !important; }
 [data-theme="fff"] [data-home-widget] .dashboard-widget-icon svg,
 [data-theme="fff"] .countdown-tile .dashboard-widget-icon svg { display: none !important; }
 
@@ -5699,10 +5698,11 @@ html[data-theme="fff"] body {
   height: 40px;
   border-radius: 2px;
   border-color: var(--fff-line-strong);
-  background: #07110a;
+  background: #07110a url("assets/ui-icons/insights.png?v=2") center / cover no-repeat;
   box-shadow: 0 0 14px rgba(155, 255, 106, .08);
 }
 [data-theme="fff"] .smart-command-mark canvas {
+  opacity: .28;
   filter: grayscale(1) sepia(1) hue-rotate(48deg) saturate(2) brightness(.8);
 }
 [data-theme="fff"] .smart-command h2 {

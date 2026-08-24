@@ -1881,6 +1881,87 @@
   [data-theme="fff"] .fff-terminal-topbar {
     position: relative;
     z-index: 70;
+    overflow: visible;
+  }
+
+  [data-theme="fff"] #primaryNav { display: none !important; }
+
+  [data-theme="fff"] .fff-inline-nav {
+    position: absolute;
+    inset: 0 220px 8px 138px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(10px, 1.35vw, 24px);
+    overflow: visible;
+    pointer-events: auto;
+  }
+
+  [data-theme="fff"] .fff-inline-nav[hidden] { display: none !important; }
+
+  [data-theme="fff"] .fff-inline-nav-item {
+    display: inline-flex !important;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    min-height: 26px;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    padding: 3px 0;
+    border: 0;
+    color: var(--fff-green-soft);
+    background: transparent !important;
+    font: inherit;
+    text-align: left;
+    opacity: 0;
+    animation: fffInlineNavEntry .42s var(--fff-ease) forwards;
+  }
+
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(2) { animation-delay: 70ms; }
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(3) { animation-delay: 140ms; }
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(4) { animation-delay: 210ms; }
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(5) { animation-delay: 280ms; }
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(6) { animation-delay: 350ms; }
+
+  [data-theme="fff"] .fff-inline-nav-item::before {
+    position: static;
+    display: block;
+    content: ">";
+    color: var(--fff-green-dim);
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  [data-theme="fff"] .fff-inline-nav-item .tab-label {
+    display: inline-block;
+    width: auto !important;
+    max-width: 0;
+    overflow: hidden;
+    color: currentColor;
+    font-size: 10px;
+    line-height: 1.2;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-6px);
+    clip-path: inset(0 100% 0 0);
+    animation: fffInlineNavType .56s steps(18, end) forwards;
+  }
+
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(2) .tab-label { animation-delay: 70ms; }
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(3) .tab-label { animation-delay: 140ms; }
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(4) .tab-label { animation-delay: 210ms; }
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(5) .tab-label { animation-delay: 280ms; }
+  [data-theme="fff"] .fff-inline-nav-item:nth-child(6) .tab-label { animation-delay: 350ms; }
+
+  [data-theme="fff"] .fff-inline-nav-item:hover,
+  [data-theme="fff"] .fff-inline-nav-item.is-active {
+    color: var(--fff-green-hot);
+    padding-left: 0;
+    text-shadow: 0 0 10px rgba(156, 255, 104, .38);
+    box-shadow: none;
   }
 
   [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,

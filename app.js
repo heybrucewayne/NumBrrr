@@ -7620,6 +7620,7 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
   const originalTabbarNextSibling = tabbar?.nextElementSibling;
   const toast = document.getElementById("toast");
   let toastTimer;
+  let fffInlineNav;
   function isFffDesktopNav() {
     return document.documentElement.dataset.theme === "fff" && window.matchMedia("(min-width: 1181px)").matches;
   }
@@ -7633,20 +7634,55 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
       originalTabbarParent.insertBefore(tabbar, originalTabbarNextSibling);
     }
   }
+  function buildFffInlineNav() {
+    if (!fffTerminalTopbar || fffInlineNav) return;
+    fffInlineNav = document.createElement("nav");
+    fffInlineNav.className = "fff-inline-nav";
+    fffInlineNav.id = "fffInlineNav";
+    fffInlineNav.setAttribute("aria-label", "Terminal gezinme");
+    tabs
+      .filter((tab) => tab.dataset.view && !tab.hasAttribute("hidden"))
+      .forEach((tab) => {
+        const item = tab.cloneNode(true);
+        item.className = "tab fff-inline-nav-item";
+        item.removeAttribute("aria-current");
+        item.removeAttribute("aria-expanded");
+        item.querySelector(".tab-icon")?.remove();
+        item.addEventListener("click", () => {
+          const view = item.dataset.view;
+          if (!view) return;
+          setActive(tab);
+          showView(view);
+          setFffNavCollapsed(true);
+        });
+        fffInlineNav.appendChild(item);
+      });
+    fffInlineNav.hidden = true;
+    fffTerminalTopbar.appendChild(fffInlineNav);
+  }
+  function setFffInlineNavOpen(open) {
+    if (!fffInlineNav || !fffTerminalTopbar) return;
+    fffInlineNav.hidden = !open;
+    fffTerminalTopbar.classList.toggle("is-inline-nav-open", open);
+  }
   function setFffNavCollapsed(collapsed) {
     if (!tabbar || !homeTab || !isFffDesktopNav()) return;
     syncFffNavHost();
+    buildFffInlineNav();
     tabbar.classList.toggle("is-collapsed", collapsed);
     homeTab.setAttribute("aria-expanded", String(!collapsed));
     if (fffNavToggle) fffNavToggle.setAttribute("aria-expanded", String(!collapsed));
+    setFffInlineNavOpen(!collapsed);
   }
   function toggleFffNav() {
     if (!tabbar) return;
-    setFffNavCollapsed(!tabbar.classList.contains("is-collapsed"));
+    const open = fffTerminalTopbar?.classList.contains("is-inline-nav-open") || !tabbar.classList.contains("is-collapsed");
+    setFffNavCollapsed(open);
   }
   fffNavToggle?.addEventListener("click", () => {
     if (isFffDesktopNav()) toggleFffNav();
   });
+  buildFffInlineNav();
   syncFffNavHost();
   window.addEventListener("resize", syncFffNavHost, { passive: true });
   function showToast(msg) { showAppToast(msg); }

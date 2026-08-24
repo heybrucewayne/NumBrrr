@@ -63,10 +63,10 @@
 
   <main class="shell">
     <header class="fff-terminal-topbar" aria-label="NUMBRR terminal durumu">
-      <div class="fff-terminal-page-title">
+      <button class="fff-terminal-page-title" type="button" data-fff-nav-toggle aria-controls="primaryNav" aria-expanded="false" aria-label="Ana menüyü aç veya kapat">
         <span aria-hidden="true">›</span>
         <h1 id="fffTerminalPageTitle" data-i18n="dashboard_title">Ana Sayfa</h1>
-      </div>
+      </button>
       <div class="fff-terminal-meta">
         <button class="dashboard-edit fff-terminal-edit" id="fffEditHome" type="button" data-i18n="dashboard_edit" aria-pressed="false">Kartları düzenle</button>
         <time id="fffTerminalClock" datetime="">—</time>
@@ -821,7 +821,7 @@
   </main>
 
   <!-- Bottom navigation (app-style) -->
-  <nav class="tabbar is-collapsed" aria-label="Primary">
+  <nav class="tabbar is-collapsed" id="primaryNav" aria-label="Primary">
     <button class="tab is-active" type="button" data-view="home" aria-current="page" aria-expanded="false">
       <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path></svg></span>
       <span class="tab-label" data-i18n="nav_home">Home</span>
@@ -959,7 +959,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=92"></script>
+  <script src="app.js?v=94"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

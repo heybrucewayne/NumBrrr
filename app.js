@@ -7466,6 +7466,7 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
   const tabs = Array.from(document.querySelectorAll(".tab"));
   const tabbar = document.querySelector(".tabbar");
   const homeTab = document.querySelector('.tab[data-view="home"]');
+  const fffNavToggle = document.querySelector("[data-fff-nav-toggle]");
   const toast = document.getElementById("toast");
   let toastTimer;
   function isFffDesktopNav() {
@@ -7475,11 +7476,15 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
     if (!tabbar || !homeTab || !isFffDesktopNav()) return;
     tabbar.classList.toggle("is-collapsed", collapsed);
     homeTab.setAttribute("aria-expanded", String(!collapsed));
+    if (fffNavToggle) fffNavToggle.setAttribute("aria-expanded", String(!collapsed));
   }
   function toggleFffNav() {
     if (!tabbar) return;
     setFffNavCollapsed(!tabbar.classList.contains("is-collapsed"));
   }
+  fffNavToggle?.addEventListener("click", () => {
+    if (isFffDesktopNav()) toggleFffNav();
+  });
   function showToast(msg) { showAppToast(msg); }
   function setActive(tab) {
     tabs.forEach((tt) => { const on = tt === tab; tt.classList.toggle("is-active", on); if (on) tt.setAttribute("aria-current", "page"); else tt.removeAttribute("aria-current"); });

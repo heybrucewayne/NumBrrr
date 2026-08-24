@@ -116,6 +116,20 @@
   gap: 10px;
 }
 
+[data-theme="fff"] .fff-terminal-page-title {
+  border: 0;
+  padding: 0 2px 8px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+[data-theme="fff"] .fff-terminal-page-title:hover h1,
+[data-theme="fff"] .fff-terminal-page-title:focus-visible h1 {
+  color: #e9ffd9;
+  text-shadow: 0 0 16px rgba(156, 255, 104, .55);
+}
+
 [data-theme="fff"] .fff-terminal-page-title > span {
   color: var(--fff-green);
   font-size: 20px;

@@ -4749,8 +4749,31 @@ body.modal-open { overflow: hidden; }
   background: var(--accent);
   box-shadow: 3px 3px 0 rgba(0, 0, 0, .25);
 }
-[data-theme="terminal"] .tab--command .command-orb { border-radius: 3px; background: #0b2411; border-color: var(--accent); }
-[data-theme="terminal"] .tab--command.is-active .command-orb { background: var(--accent); }
+[data-theme="terminal"] .tab--command,
+[data-theme="terminal"] .tab--command.is-active {
+  background: #0b2411;
+  background-image: none;
+  border-color: var(--accent);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, .25);
+  animation: none;
+}
+[data-theme="terminal"] .tab--command::before,
+[data-theme="terminal"] .tab--command::after,
+[data-theme="terminal"] .tab--command.is-active::before,
+[data-theme="terminal"] .tab--command.is-active::after,
+[data-theme="terminal"] .command-orb::before,
+[data-theme="terminal"] .command-orb::after { display: none; }
+[data-theme="terminal"] .tab--command:hover { filter: none; }
+[data-theme="terminal"] .tab--command .command-orb,
+[data-theme="terminal"] .tab--command.is-active .command-orb,
+[data-theme="terminal"] .tab.is-active .command-orb {
+  border-radius: 3px;
+  background: #0b2411;
+  border: 1px solid var(--accent);
+  filter: none;
+  animation: none;
+}
+[data-theme="terminal"] .tab--command .tab-label { text-shadow: none; }
 [data-theme="terminal"] .toast { border-color: var(--accent); border-radius: 3px; background: #0b2411; color: var(--accent-2); }
 
 [data-theme="terminal"] .onboard,

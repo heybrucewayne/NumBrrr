@@ -1357,3 +1357,23 @@
     transition-duration: .001ms !important;
   }
 }
+[data-theme="fff"] [data-home-widget="watch"] > .dashboard-widget-open {
+  min-height: 0;
+  height: 100%;
+  gap: 7px;
+  padding: 12px;
+}
+[data-theme="fff"] [data-home-widget="watch"] .home-watch-preview.watch-bubbles {
+  min-height: 0;
+  margin: 0;
+  padding: 2px;
+  border: 1px solid var(--fff-line);
+  border-radius: 2px;
+  background:
+    linear-gradient(rgba(156, 255, 104, .04) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(90deg, rgba(156, 255, 104, .035) 1px, transparent 1px) 0 0 / 24px 100%,
+    #020704;
+}
+[data-theme="fff"] [data-home-widget="watch"] .home-watch-preview.watch-bubbles .bubble {
+  animation-duration: 3.8s;
+}

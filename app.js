@@ -4704,14 +4704,7 @@ function renderHomeSummaries() {
   const lastTrip = state.vehicleHub.trips[0];
   if (el.homeCarNote) el.homeCarNote.textContent = lastTrip ? t("home_last_trip", { route: `${lastTrip.from} → ${lastTrip.to}` }) : t("home_no_route");
   const watched = state.watchlist.slice(0, 3);
-  if (el.homeWatchPreview) {
-    el.homeWatchPreview.innerHTML = watched.length
-      ? watched.map((item) => {
-        const label = item.sym || item.name || "—";
-        return `<div class="home-watch-row"><span class="home-watch-name">${escapeHtml(label)}</span><span class="home-watch-price">${escapeHtml(watchPriceLabel(item))}</span></div>`;
-      }).join("")
-      : `<span class="home-watch-empty">${escapeHtml(t("home_watch_empty"))}</span>`;
-  }
+  if (el.homeWatchPreview) el.homeWatchPreview.hidden = !watched.length;
   if (el.homeWatchNote) el.homeWatchNote.textContent = state.watchlist.length ? t("home_watch_count", { count: state.watchlist.length }) : t("watch_search_ph");
   const snapshot = financialSnapshot();
   renderMonthlySummary(snapshot);
@@ -6392,10 +6385,29 @@ function paintBubble(b) {
   b.node.innerHTML = `<span class="bubble-sym">${escapeHtml(b.sym)}</span><span class="bubble-chg">${chTxt}</span>`;
   b.node.title = b.name;
 }
+function bubbleHosts() {
+  return [el.watchBubbles, el.homeWatchPreview].filter(Boolean);
+}
+function activeBubbleHost() {
+  const homeView = document.getElementById("view-home");
+  const watchView = document.getElementById("view-watch");
+  if (homeView && !homeView.hidden && el.homeWatchPreview) return el.homeWatchPreview;
+  if (watchView && !watchView.hidden && el.watchBubbles) return el.watchBubbles;
+  return bubbleHosts().find((host) => host.offsetParent !== null) || null;
+}
 function syncBubbles() {
-  if (!el.watchBubbles) return;
+  const hosts = bubbleHosts();
+  if (!hosts.length) return;
+  const host = activeBubbleHost();
   el.watchBubblesSec.hidden = !state.watchlist.length;
-  if (!state.watchlist.length) { stopBubbles(); el.watchBubbles.innerHTML = ""; bubbleSim.bubbles = []; return; }
+  if (el.homeWatchPreview) el.homeWatchPreview.hidden = !state.watchlist.length;
+  if (!state.watchlist.length) {
+    stopBubbles();
+    hosts.forEach((bubbleHost) => { bubbleHost.innerHTML = ""; });
+    bubbleSim.bubbles = [];
+    return;
+  }
+  if (!host) return;
   // Biggest absolute 24h move in the current set → drives proportional sizing.
   const maxMag = state.watchlist.reduce((m, w) => {
     const c = (watchData[w.key] || {}).chg24;
@@ -6418,7 +6430,7 @@ function syncBubbles() {
         place: true,
       };
       b.node.addEventListener("pointerdown", (e) => startBubbleDrag(b, e));
-      el.watchBubbles.appendChild(b.node);
+      host.appendChild(b.node);
     }
     existing.delete(w.key);
     b.name = w.name; b.sym = (w.sym || w.name || "").toUpperCase().slice(0, 5); b.ch = ch; b.r = bubbleRadius(ch, maxMag);
@@ -6426,6 +6438,9 @@ function syncBubbles() {
     keep.push(b);
   });
   existing.forEach((b) => b.node.remove());
+  keep.forEach((b) => {
+    if (b.node.parentElement !== host) host.appendChild(b.node);
+  });
   bubbleSim.bubbles = keep;
   kickBubbles();
 }
@@ -6433,7 +6448,7 @@ function syncBubbles() {
 // them touching around the centre. This matches the dense Crypto Bubbles feel
 // without needing a heavyweight canvas/physics dependency.
 function kickBubbles() {
-  const host = el.watchBubbles;
+  const host = activeBubbleHost();
   if (!host || host.offsetParent === null) return;
   const W = host.clientWidth, H = host.clientHeight;
   if (!W || !H) return;
@@ -6566,7 +6581,7 @@ function stepBubbles(now) {
   }
 }
 function bubblesAreOnScreen() {
-  const host = el.watchBubbles;
+  const host = activeBubbleHost();
   if (!host || host.offsetParent === null) return false;
   const rect = host.getBoundingClientRect();
   const viewportHeight = document.documentElement.clientHeight || window.innerHeight || 0;
@@ -6592,25 +6607,24 @@ function stopBubbles() {
 
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) stopBubbles();
-  else if (el.watchBubbles && el.watchBubbles.offsetParent !== null) startBubbles();
+  else if (activeBubbleHost()) startBubbles();
 });
 
-if (typeof IntersectionObserver === "function" && el.watchBubbles) {
+if (typeof IntersectionObserver === "function" && bubbleHosts().length) {
   const bubbleVisibilityObserver = new IntersectionObserver((entries) => {
-    const entry = entries[0];
-    const inViewport = !!(entry && entry.isIntersecting);
+    const inViewport = entries.some((entry) => entry.isIntersecting) && !!activeBubbleHost();
     if (bubbleSim.inViewport === inViewport) return;
     bubbleSim.inViewport = inViewport;
-    if (inViewport && el.watchBubbles.offsetParent !== null) kickBubbles();
+    if (inViewport && activeBubbleHost()) kickBubbles();
     else stopBubbles();
   }, { rootMargin: "80px 0px" });
-  bubbleVisibilityObserver.observe(el.watchBubbles);
+  bubbleHosts().forEach((host) => bubbleVisibilityObserver.observe(host));
 }
 
-if (typeof ResizeObserver === "function" && el.watchBubbles) {
-  new ResizeObserver(() => {
-    if (el.watchBubbles.offsetParent !== null) kickBubbles();
-  }).observe(el.watchBubbles);
+if (typeof ResizeObserver === "function" && bubbleHosts().length) {
+  bubbleHosts().forEach((host) => new ResizeObserver(() => {
+    if (activeBubbleHost() === host) kickBubbles();
+  }).observe(host));
 } else {
   let bubbleResizeTimer = 0;
   window.addEventListener("resize", () => {
@@ -6620,7 +6634,7 @@ if (typeof ResizeObserver === "function" && el.watchBubbles) {
 }
 function startBubbleDrag(b, e) {
   if ((e.pointerType === "mouse" && e.button !== 0) || bubbleSim.drag || bubbleSim.pending) return;
-  const host = el.watchBubbles;
+  const host = activeBubbleHost();
   if (!host) return;
   const pointerId = e.pointerId;
   const isTouch = e.pointerType === "touch";
@@ -7162,7 +7176,7 @@ function applyMotion(enabled) {
   const toggle = document.getElementById("motionToggle");
   if (toggle) toggle.checked = state.motion;
   if (!state.motion) stopBubbles();
-  else if (el.watchBubbles && el.watchBubbles.offsetParent !== null) kickBubbles();
+  else if (activeBubbleHost()) kickBubbles();
   syncCommandOrbMotion();
   saveState();
 }
@@ -7484,8 +7498,9 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
     if (name === "car") { rollExpenseMonth(); buildCarHub(true); }
     if (name === "portfolio") refreshPortfolio();
     if (name === "income") refreshIncome();
-    if (name === "watch") { refreshWatchData(); buildTopPerformers(); buildTrPanel(); kickBubbles(); }
-    else stopBubbles(); // pause the bubble animation loop off the Watch view
+    if (name === "watch") { refreshWatchData(); buildTopPerformers(); buildTrPanel(); }
+    if (name === "home" || name === "watch") { syncBubbles(); kickBubbles(); }
+    else stopBubbles(); // pause the bubble animation loop off the dashboard views
     if (name === "settings") { preloadThemeWallpapers(); renderHomeCardSettings(); renderPwaSettings(); renderNotificationSettings(); }
     if (name === "home") renderHomeDashboard();
     window.scrollTo({ top: 0, behavior: "auto" });

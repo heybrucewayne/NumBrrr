@@ -131,6 +131,13 @@
   gap: 10px;
 }
 
+[data-theme="fff"] .fff-terminal-meta {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
 [data-theme="fff"] .fff-terminal-page-title {
   border: 0;
   padding: 0 2px 8px;

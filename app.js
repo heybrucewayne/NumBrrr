@@ -321,7 +321,8 @@ const I18N = {
     theme_doge: "Doge", theme_doge_desc: "such wow · much finance · very meme",
     theme_neon: "Neon", theme_neon_desc: "80s neon dream · A E S T H E T I C",
     theme_solana: "Solana", theme_solana_desc: "Purple & green · degen mode",
-    theme_black: "NUMBRR Terminal", theme_black_desc: "Phosphor green · focused finance console",
+    theme_black: "Black Theme", theme_black_desc: "Flat black · blue accents",
+    theme_terminal: "NUMBRR Terminal", theme_terminal_desc: "Phosphor green · focused finance console",
     more_soon: "More features coming soon ✨",
     nav_car: "My car",
     car_title: "My car",
@@ -508,7 +509,8 @@ const I18N = {
     theme_doge: "Doge", theme_doge_desc: "çok vov · büyük para · efsane meme",
     theme_neon: "Neon", theme_neon_desc: "80'ler neon rüyası · A E S T H E T I C",
     theme_solana: "Solana", theme_solana_desc: "Mor & yeşil · degen modu",
-    theme_black: "NUMBRR Terminal", theme_black_desc: "Fosfor yeşili · odaklı finans konsolu",
+    theme_black: "Siyah Tema", theme_black_desc: "Düz siyah · mavi vurgular",
+    theme_terminal: "NUMBRR Terminal", theme_terminal_desc: "Fosfor yeşili · odaklı finans konsolu",
     more_soon: "Yeni özellikler yakında ✨",
     nav_car: "Aracım",
     car_title: "Aracım",
@@ -6833,12 +6835,12 @@ function applyLanguage(lang) {
   updateSettingsActive();
   try { localStorage.setItem("numbr_lang", lang); } catch (e) {}
 }
-function applyTheme() {
-  state.theme = "black";
-  document.documentElement.dataset.theme = "black";
+function applyTheme(theme = "black") {
+  state.theme = theme === "terminal" ? "terminal" : "black";
+  document.documentElement.dataset.theme = state.theme;
   updateSettingsActive();
   saveState();
-  try { localStorage.setItem("numbr_theme", "black"); } catch (e) {}
+  try { localStorage.setItem("numbr_theme", state.theme); } catch (e) {}
 }
 function applyMotion(enabled) {
   state.motion = !!enabled;
@@ -7129,7 +7131,7 @@ el.exportData.addEventListener("click", exportBackup);
 el.importData.addEventListener("change", importBackup);
 
 document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => applyLanguage(b.dataset.lang)));
-document.querySelectorAll('[data-theme-pick="black"]').forEach((b) => b.addEventListener("click", applyTheme));
+document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener("click", () => applyTheme(b.dataset.themePick)));
 
 // ---- Bottom navigation ----
 (function () {
@@ -7224,10 +7226,10 @@ async function importBackup(event) {
     const restored = parsed && parsed.format === "numbrrr-backup" ? parsed.data : parsed;
     if (!validBackupState(restored)) throw new Error("invalid backup");
     if (!window.confirm(t("backup_confirm"))) return;
-    restored.theme = "black";
+    restored.theme = restored.theme === "terminal" ? "terminal" : "black";
     localStorage.setItem("numbr_state", JSON.stringify(restored));
     localStorage.setItem("numbr_lang", restored.lang);
-    localStorage.setItem("numbr_theme", "black");
+    localStorage.setItem("numbr_theme", restored.theme);
     localStorage.setItem("numbr_currency", restored.currency);
     if (el.backupStatus) el.backupStatus.textContent = t("backup_imported");
     setTimeout(() => window.location.reload(), 350);
@@ -7241,7 +7243,7 @@ function loadState() {
   try { s = JSON.parse(localStorage.getItem("numbr_state") || "null"); } catch (e) { return; }
   if (!s) return;
   if (s.lang && I18N[s.lang]) state.lang = s.lang;
-  state.theme = "black";
+  state.theme = s.theme === "terminal" ? "terminal" : "black";
   if (s.currency && CURRENCY_META[s.currency]) state.currency = s.currency;
   if (typeof s.monthlyExpenses === "number") state.monthlyExpenses = s.monthlyExpenses;
   if (typeof s.realMode === "boolean") state.realMode = s.realMode;
@@ -7512,8 +7514,9 @@ try {
   const savedLang = localStorage.getItem("numbr_lang");
   const savedCur = localStorage.getItem("numbr_currency");
   if (savedLang && I18N[savedLang]) state.lang = savedLang;
-  state.theme = "black";
-  localStorage.setItem("numbr_theme", "black");
+  const savedTheme = localStorage.getItem("numbr_theme");
+  state.theme = savedTheme === "terminal" ? "terminal" : "black";
+  localStorage.setItem("numbr_theme", state.theme);
   if (savedCur && CURRENCY_META[savedCur]) state.currency = savedCur;
 } catch (e) {}
 loadState(); // full saved snapshot restores user data while keeping the only available theme
@@ -7523,7 +7526,7 @@ rollExpenseMonth(); // archive past months + start the current month before rend
 el.expenses.value = formatThousands(state.monthlyExpenses);
 el.inflation.value = formatRate(state.inflation[state.currency], false);
 if (el.savingsGoalCurrency) el.savingsGoalCurrency.value = state.currency;
-applyTheme();
+applyTheme(state.theme);
 soundToggle.checked = state.sound;
 applyMotion(state.motion);
 applyLanguage(state.lang); // builds layout + savings, applies all translations

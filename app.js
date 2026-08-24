@@ -5,6 +5,85 @@
 
 const NET_COST = 2; // real-estate net-yield deduction (% points)
 
+// Tabler icons are embedded as SVG paths instead of loaded through CSS masks.
+// This keeps the icon layer visible in Safari, installed PWAs, and browsers
+// that block external SVG masks while preserving currentColor theming.
+const UI_ICON_PATHS = Object.freeze({
+  "arrows-exchange": '<path d="M7 10h14l-4 -4"/><path d="M17 14h-14l4 4"/>',
+  "bell-ringing": '<path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727"/><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727"/>',
+  "briefcase-2": '<path d="M3 9a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9"/><path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"/>',
+  "building-bank": '<path d="M3 21l18 0"/><path d="M3 10l18 0"/><path d="M5 6l7 -3l7 3"/><path d="M4 10l0 11"/><path d="M20 10l0 11"/><path d="M8 14l0 3"/><path d="M12 14l0 3"/><path d="M16 14l0 3"/>',
+  car: '<path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"/>',
+  "cash-banknote": '<path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M3 8a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2l0 -8"/><path d="M18 12h.01"/><path d="M6 12h.01"/>',
+  "chart-bar": '<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6"/><path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10"/><path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14"/><path d="M4 20h14"/>',
+  "chart-candle": '<path d="M4 7a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1l0 -3"/><path d="M6 4l0 2"/><path d="M6 11l0 9"/><path d="M10 15a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1l0 -3"/><path d="M12 4l0 10"/><path d="M12 19l0 1"/><path d="M16 6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1l0 -4"/><path d="M18 4l0 1"/><path d="M18 11l0 9"/>',
+  "chart-line": '<path d="M4 19l16 0"/><path d="M4 15l4 -6l4 2l4 -5l4 4"/>',
+  coins: '<path d="M9 14c0 1.657 2.686 3 6 3s6 -1.343 6 -3s-2.686 -3-6 -3s-6 1.343 -6 3"/><path d="M9 14v4c0 1.656 2.686 3 6 3s6 -1.344 6 -3v-4"/><path d="M3 6c0 1.072 1.144 2.062 3 2.598s4.144 .536 6 0c1.856 -.536 3 -1.526 3 -2.598c0 -1.072 -1.144 -2.062 -3 -2.598s-4.144 -.536 -6 0c-1.856 .536 -3 1.526 -3 2.598"/><path d="M3 6v10c0 .888 .772 1.45 2 2"/><path d="M3 11c0 .888 .772 1.45 2 2"/>',
+  heartbeat: '<path d="M19.5 13.572l-7.5 7.428l-2.896 -2.868m-6.117 -8.104a5 5 0 0 1 9.013 -3.022a5 5 0 1 1 7.5 6.572"/><path d="M3 13h2l2 3l2 -6l1 3h3"/>',
+  history: '<path d="M12 8l0 4l2 2"/><path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5"/>',
+  home: '<path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/>',
+  hourglass: '<path d="M6.5 7h11"/><path d="M6.5 17h11"/><path d="M6 20v-2a6 6 0 1 1 12 0v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1"/><path d="M6 4v2a6 6 0 1 0 12 0v-2a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1"/>',
+  notes: '<path d="M5 5a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2l0 -14"/><path d="M9 7l6 0"/><path d="M9 11l6 0"/><path d="M9 15l4 0"/>',
+  "receipt-2": '<path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2"/><path d="M14 8h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5m2 0v1.5m0 -9v1.5"/>',
+  repeat: '<path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3"/><path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3"/>',
+  route: '<path d="M3 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M19 7a2 2 0 1 0 0 -4a2 2 0 0 0 0 4"/><path d="M11 19h5.5a3.5 3.5 0 0 0 0 -7h-8a3.5 3.5 0 0 1 0 -7h4.5"/>',
+  search: '<path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="M21 21l-6 -6"/>',
+  settings: '<path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>',
+  sparkles: '<path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2m0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2m-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6"/>',
+  star: '<path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245"/>',
+  "target-arrow": '<path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M12 7a5 5 0 1 0 5 5"/><path d="M13 3.055a9 9 0 1 0 7.941 7.945"/><path d="M15 6v3h3l3 -3h-3v-3l-3 3"/><path d="M15 9l-3 3"/>',
+  trophy: '<path d="M8 21l8 0"/><path d="M12 17l0 4"/><path d="M7 4l10 0"/><path d="M17 4v8a5 5 0 0 1 -10 0v-8"/><path d="M3 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M17 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>',
+  wallet: '<path d="M17 8v-3a1 1 0 0 0 -1 -1h-10a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1 -1 1h-12a2 2 0 0 1 -2 -2v-12"/><path d="M20 12v4h-4a2 2 0 0 1 0 -4h4"/>',
+});
+
+function uiIconSvg(name, className = "ui-inline-icon") {
+  const paths = UI_ICON_PATHS[name] || UI_ICON_PATHS["chart-bar"];
+  return `<svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths}</svg>`;
+}
+
+function setUiIcon(node, name) {
+  if (!node) return;
+  node.innerHTML = uiIconSvg(name);
+  node.dataset.uiIcon = name;
+}
+
+function hydrateUiIcons() {
+  const widgetIcons = {
+    freedom: "target-arrow", goals: "target-arrow", portfolio: "briefcase-2", income: "wallet",
+    expenses: "receipt-2", monthly: "chart-bar", health: "heartbeat", markets: "arrows-exchange",
+    marketSnapshot: "chart-candle", topPerformers: "trophy", ipos: "building-bank", countdown: "hourglass",
+    car: "car", watch: "star", notes: "notes", insights: "sparkles", alerts: "bell-ringing",
+  };
+  Object.entries(widgetIcons).forEach(([widget, icon]) => {
+    document.querySelectorAll(`[data-home-widget="${widget}"] .dashboard-widget-icon`).forEach((node) => setUiIcon(node, icon));
+  });
+  document.querySelectorAll("[data-countdown-id] .dashboard-widget-icon").forEach((node) => setUiIcon(node, "hourglass"));
+
+  const selectorIcons = {
+    ".modern-section-icon--expense": "receipt-2", ".modern-section-icon--recurring": "repeat",
+    ".modern-section-icon--spending": "cash-banknote", ".modern-section-icon--income": "chart-line",
+    ".modern-section-icon--watch": "star", ".modern-section-icon--market": "chart-candle",
+    ".modern-section-icon--leaders": "trophy", ".modern-section-icon--ipo": "building-bank",
+    ".income-summary-icon": "cash-banknote", ".car-section-icon:not(.car-section-icon--route):not(.car-section-icon--history)": "car",
+    ".car-section-icon--route": "route", ".car-section-icon--history": "history", ".veh-empty-icon": "car",
+    ".watch-search-icon": "search", ".monthly-share-heading-icon": "chart-bar",
+  };
+  Object.entries(selectorIcons).forEach(([selector, icon]) => {
+    document.querySelectorAll(selector).forEach((node) => setUiIcon(node, icon));
+  });
+
+  const tabIcons = { home: "home", portfolio: "briefcase-2", income: "wallet", savings: "receipt-2", car: "car", watch: "star", settings: "settings" };
+  Object.entries(tabIcons).forEach(([view, icon]) => {
+    document.querySelectorAll(`.tab[data-view="${view}"] .tab-icon`).forEach((node) => setUiIcon(node, icon));
+  });
+
+  const commandMark = document.querySelector(".smart-command-mark");
+  if (commandMark) {
+    commandMark.querySelectorAll(".smart-command-symbol").forEach((node) => node.remove());
+    commandMark.insertAdjacentHTML("beforeend", uiIconSvg("sparkles", "smart-command-symbol"));
+  }
+}
+
 // ---- Instrument definitions (names/subs are translated via I18N) ----
 const INSTRUMENTS = {
   USD: [
@@ -1628,7 +1707,7 @@ function buildVehicles() {
   el.vehList.innerHTML = "";
   if (!vehicles.length) {
     el.vehList.innerHTML = `<div class="veh-empty-state">
-      <span class="veh-empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 15v-2a2 2 0 0 1 2-2h1.5l1.7-3a2 2 0 0 1 1.7-1h4.2a2 2 0 0 1 1.7 1l1.7 3H19a2 2 0 0 1 2 2v2h-2M5 15H3m4 0h10M8 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path></svg></span>
+      <span class="veh-empty-icon" aria-hidden="true">${uiIconSvg("car")}</span>
       <div><strong>${t("veh_empty_title")}</strong><p>${t("veh_empty_sub")}</p></div>
     </div>`;
     return;
@@ -2455,8 +2534,8 @@ function makeHoldingRow(id) {
     const netBtnEl = row.querySelector("[data-hold-net]");
     if (netBtnEl) netBtnEl.addEventListener("click", () => { const x = holdById(id); x.netTax = !x.netTax; netBtnEl.classList.toggle("is-on", x.netTax); refreshPortfolio(); refreshIncome(); });
   }
-  const assetMarks = { usstock: "US", bist: "Bİ", crypto: "₿", gold: "Au", usd: "$", deposit: "%", bonds: "◆", cash: "¤" };
-  row.insertAdjacentHTML("afterbegin", `<span class="port-asset-icon" aria-hidden="true">${assetMarks[at] || "•"}</span>`);
+  const assetIcons = { usstock: "chart-line", bist: "chart-line", crypto: "coins", gold: "coins", usd: "cash-banknote", deposit: "building-bank", bonds: "building-bank", cash: "cash-banknote" };
+  row.insertAdjacentHTML("afterbegin", `<span class="port-asset-icon" aria-hidden="true">${uiIconSvg(assetIcons[at] || "briefcase-2")}</span>`);
   return row;
 }
 
@@ -2982,11 +3061,11 @@ function makeIncomeRow(id, isCustom) {
     ? `<button type="button" class="inc-type inc-type--btn" data-inc-toggle="${id}">${passive ? t("passive_label") : t("active_label")}</button>`
     : `<span class="inc-type">${passive ? t("passive_label") : t("active_label")}</span>`;
 
-  const sourceMarks = { salary: "↗", rental: "⌂", interest: "%", dividends: "◆", side: "+" };
-  const sourceMark = sourceMarks[id] || "•";
+  const sourceIcons = { salary: "cash-banknote", rental: "home", interest: "building-bank", dividends: "chart-line", side: "briefcase-2" };
+  const sourceIcon = sourceIcons[id] || "wallet";
 
   row.innerHTML = `
-    <span class="inc-source-icon" aria-hidden="true">${sourceMark}</span>
+    <span class="inc-source-icon" aria-hidden="true">${uiIconSvg(sourceIcon)}</span>
     <div class="cat-label">${labelHtml}${badge}<small class="inc-from-port" data-inc-port="${id}"></small></div>
     <div class="money-input money-input--sm cat-amount">
       <span class="money-symbol savings-symbol">${meta.symbol}</span>
@@ -4704,7 +4783,7 @@ function renderCountdowns() {
     const category = item.category ? item.category : t("countdown_title");
     return `<article class="glass dashboard-widget dashboard-widget--compact countdown-tile${remaining.done ? " is-done" : ""}" data-countdown-id="${escapeHtml(item.id)}">
       <div class="countdown-tile-head">
-        <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10M7 21h10M8 3c0 4 1.3 5.4 4 7 2.7-1.6 4-3 4-7M8 21c0-4 1.3-5.4 4-7 2.7 1.6 4 3 4 7"></path></svg></span>
+        <span class="dashboard-widget-icon" aria-hidden="true">${uiIconSvg("hourglass")}</span>
         <div class="countdown-tile-heading"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(category)}</small></div>
         <div class="countdown-tile-actions"><button class="dashboard-card-grip countdown-tile-grip" type="button" data-countdown-drag="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("home_card_drag"))}" title="${escapeHtml(t("home_card_drag"))}"><span aria-hidden="true">⠿</span></button><button class="countdown-tile-remove" type="button" data-countdown-del="${escapeHtml(item.id)}" aria-label="${escapeHtml(t("countdown_remove"))}">×</button></div>
       </div>
@@ -6969,6 +7048,7 @@ function applyLanguage(lang) {
   renderPwaSettings();
   renderNotificationSettings();
   updateSettingsActive();
+  hydrateUiIcons();
   try { localStorage.setItem("numbr_lang", lang); } catch (e) {}
 }
 function applyTheme(theme = "black") {

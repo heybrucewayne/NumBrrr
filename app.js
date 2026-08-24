@@ -226,6 +226,9 @@ const I18N = {
     nav_home: "Home", nav_savings: "Expenses", nav_settings: "Settings", nav_more: "More",
     home_title: "Freedom", home_sub: "See how much to save so passive returns cover your expenses.",
     dashboard_title: "Home", dashboard_sub: "Everything important, at a glance.", dashboard_edit: "Edit cards", dashboard_done: "Done",
+    fff_hud_aria: "NUMBRR operator status", fff_hud_stats_aria: "Operator statistics", fff_hud_operator: "NUMBRR OPERATOR", fff_hud_role: "Financial field operator", fff_hud_xp: "Experience", fff_hud_active_mission: "ACTIVE MISSION", fff_hud_go: "Open mission", fff_hud_modules: "modules", fff_hud_badges: "badges", fff_hud_level: "Level {level}", fff_hud_status: "{done}/{total} finance modules online", fff_hud_hidden: "This module is hidden. You can enable it from Home settings.",
+    fff_rank_1: "Ledger recruit", fff_rank_2: "Yield scout", fff_rank_3: "Capital ranger", fff_rank_4: "Vault warden", fff_rank_5: "Finance commander",
+    fff_mission_portfolio: "Log your first portfolio asset", fff_mission_income: "Define a monthly income source", fff_mission_expenses: "Create your first expense record", fff_mission_goals: "Set a savings goal", fff_mission_watch: "Add an asset to your watchlist", fff_mission_countdown: "Start a countdown", fff_mission_alert: "Set a price alert", fff_mission_notes: "Leave a field note", fff_mission_savings: "Raise your monthly savings rate", fff_mission_diversity: "Expand portfolio diversity", fff_mission_ready: "Review your smart finance signals",
     currency: "Currency", monthly_expenses: "Monthly expenses", per_month: "/ month",
     real_mode: "Real return mode", real_mode_sub: "Subtract inflation from each rate",
     inflation_label: "Inflation (annual %)",
@@ -415,6 +418,9 @@ const I18N = {
     nav_home: "Ana Sayfa", nav_savings: "Giderler", nav_settings: "Ayarlar", nav_more: "Daha",
     home_title: "Özgürlük", home_sub: "Giderlerini pasif gelirle karşılamak için ne kadar biriktirmen gerektiğini gör.",
     dashboard_title: "Ana Sayfa", dashboard_sub: "Önemli olan her şey tek bakışta.", dashboard_edit: "Kartları düzenle", dashboard_done: "Bitti",
+    fff_hud_aria: "NUMBRR operatör durumu", fff_hud_stats_aria: "Operatör istatistikleri", fff_hud_operator: "NUMBRR OPERATÖRÜ", fff_hud_role: "Finans saha operatörü", fff_hud_xp: "Deneyim", fff_hud_active_mission: "AKTİF GÖREV", fff_hud_go: "Göreve git", fff_hud_modules: "modül", fff_hud_badges: "rozet", fff_hud_level: "Seviye {level}", fff_hud_status: "{done}/{total} finans modülü çevrimiçi", fff_hud_hidden: "Bu modül gizli. Ana sayfa ayarlarından görünür yapabilirsin.",
+    fff_rank_1: "Kayıt çırağı", fff_rank_2: "Getiri izcisi", fff_rank_3: "Sermaye korucusu", fff_rank_4: "Kasa muhafızı", fff_rank_5: "Finans komutanı",
+    fff_mission_portfolio: "İlk varlığını portföye kaydet", fff_mission_income: "Aylık gelir kaynağını tanımla", fff_mission_expenses: "İlk gider kaydını oluştur", fff_mission_goals: "Bir birikim hedefi belirle", fff_mission_watch: "Takip listene bir varlık ekle", fff_mission_countdown: "Bir geri sayım başlat", fff_mission_alert: "Bir fiyat alarmı kur", fff_mission_notes: "Bir saha notu bırak", fff_mission_savings: "Aylık birikim oranını yükselt", fff_mission_diversity: "Portföy çeşitliliğini artır", fff_mission_ready: "Akıllı finans sinyallerini incele",
     currency: "Para Birimi", monthly_expenses: "Aylık giderler", per_month: "/ ay",
     real_mode: "Reel getiri modu", real_mode_sub: "Her orandan enflasyonu düş",
     inflation_label: "Enflasyon (yıllık %)",
@@ -703,6 +709,16 @@ const el = {
   smartCommandPreview: document.getElementById("smartCommandPreview"),
   commandOrbCanvas: document.getElementById("commandOrbCanvas"),
   smartCommandOrbCanvas: document.getElementById("smartCommandOrbCanvas"),
+  fffOperatorHud: document.getElementById("fffOperatorHud"),
+  fffHudRank: document.getElementById("fffHudRank"),
+  fffHudXp: document.getElementById("fffHudXp"),
+  fffHudXpLabel: document.getElementById("fffHudXpLabel"),
+  fffHudXpFill: document.getElementById("fffHudXpFill"),
+  fffHudStatus: document.getElementById("fffHudStatus"),
+  fffHudMission: document.getElementById("fffHudMission"),
+  fffHudMissionAction: document.getElementById("fffHudMissionAction"),
+  fffHudModules: document.getElementById("fffHudModules"),
+  fffHudBadges: document.getElementById("fffHudBadges"),
   currencySymbol: document.getElementById("currencySymbol"),
   expenses: document.getElementById("expenses"),
   realMode: document.getElementById("realMode"),
@@ -3522,6 +3538,118 @@ function financialSnapshot() {
   return { income, expenses, net, savingsRate, passive, passiveCoverage, portfolioTotal, bufferMonths, diversity, score };
 }
 
+function fffOperatorProgress() {
+  const holdingCount = meaningfulHoldingCount();
+  const incomeCount = Object.values(state.income.amounts || {}).filter((amount) => Number(amount) > 0).length;
+  const vehicleExpenseCount = (state.vehicles || []).reduce((total, vehicle) => total
+    + (vehicle.oneoff || []).filter((item) => (item.amount || 0) > 0 || item.cat || item.label).length
+    + (vehicle.sched || []).filter((item) => (item.amount || 0) > 0 || item.label).length, 0);
+  const expenseCount = (state.expenses.recurring || []).filter((item) => (item.amount || 0) > 0 || item.cat).length
+    + (state.expenses.oneoff || []).filter((item) => (item.amount || 0) > 0 || item.cat).length
+    + vehicleExpenseCount;
+  const goalCount = state.savingsGoals.items.length;
+  const completedGoalCount = state.savingsGoals.items.filter((goal) => goal.target > 0 && goal.current >= goal.target).length;
+  const watchCount = state.watchlist.length;
+  const countdownCount = state.countdowns.items.length;
+  const alertCount = state.notifications.priceAlerts.length;
+  const noteCount = state.homeNotes.items.length;
+  const budgetCount = (state.monthlyBudget.items || []).filter((item) => (item.amount || item.limit || 0) > 0).length;
+  const snapshot = financialSnapshot();
+
+  const modules = [
+    { id: "portfolio", complete: holdingCount > 0, mission: "fff_mission_portfolio", view: "portfolio" },
+    { id: "income", complete: incomeCount > 0, mission: "fff_mission_income", view: "income" },
+    { id: "expenses", complete: expenseCount > 0, mission: "fff_mission_expenses", view: "savings" },
+    { id: "goals", complete: goalCount > 0, mission: "fff_mission_goals", view: "home", widget: "goals" },
+    { id: "watch", complete: watchCount > 0, mission: "fff_mission_watch", view: "watch" },
+    { id: "countdown", complete: countdownCount > 0, mission: "fff_mission_countdown", view: "home", widget: "countdown" },
+    { id: "alert", complete: alertCount > 0, mission: "fff_mission_alert", view: "home", widget: "alerts" },
+    { id: "notes", complete: noteCount > 0, mission: "fff_mission_notes", view: "home", widget: "notes" },
+  ];
+
+  const online = modules.filter((module) => module.complete).length;
+  const badges = [
+    holdingCount > 0,
+    incomeCount > 0 && expenseCount > 0,
+    goalCount > 0,
+    completedGoalCount > 0,
+    watchCount >= 3,
+    countdownCount > 0,
+    alertCount > 0,
+    snapshot.net > 0 && snapshot.income > 0,
+    snapshot.diversity >= 3,
+  ].filter(Boolean).length;
+  const totalXp = (holdingCount ? 20 + Math.min(holdingCount, 8) * 6 : 0)
+    + (incomeCount ? 15 + Math.min(incomeCount, 6) * 8 : 0)
+    + (expenseCount ? 15 + Math.min(expenseCount, 12) * 4 : 0)
+    + Math.min(goalCount, 5) * 12
+    + completedGoalCount * 12
+    + Math.min(watchCount, 8) * 4
+    + Math.min(countdownCount, 4) * 6
+    + Math.min(alertCount, 4) * 6
+    + Math.min(noteCount, 6) * 3
+    + Math.min(budgetCount, 5) * 6;
+  const level = Math.floor(totalXp / 100) + 1;
+  const levelXp = totalXp % 100;
+
+  let mission = modules.find((module) => !module.complete);
+  if (!mission) {
+    if (snapshot.income <= 0 || snapshot.savingsRate < 20) mission = { mission: "fff_mission_savings", view: "income" };
+    else if (snapshot.diversity < 3) mission = { mission: "fff_mission_diversity", view: "portfolio" };
+    else mission = { mission: "fff_mission_ready", view: "home", widget: "insights" };
+  }
+  return { totalXp, level, levelXp, online, total: modules.length, badges, mission };
+}
+
+function renderFffOperatorHud() {
+  if (!el.fffOperatorHud) return;
+  const progress = fffOperatorProgress();
+  const previousXp = Number(el.fffOperatorHud.dataset.totalXp);
+  const hadPreviousXp = el.fffOperatorHud.dataset.totalXp !== "" && Number.isFinite(previousXp);
+  el.fffOperatorHud.dataset.totalXp = String(progress.totalXp);
+  el.fffHudRank.textContent = `${t("fff_hud_level", { level: progress.level })} · ${t(`fff_rank_${Math.min(5, progress.level)}`)}`;
+  el.fffHudXpLabel.textContent = `${progress.levelXp} / 100 XP`;
+  el.fffHudXpFill.style.width = `${progress.levelXp}%`;
+  el.fffHudXp.setAttribute("aria-valuenow", String(progress.levelXp));
+  el.fffHudXp.setAttribute("aria-label", t("fff_hud_xp"));
+  el.fffHudStatus.textContent = t("fff_hud_status", { done: progress.online, total: progress.total });
+  el.fffHudMission.textContent = t(progress.mission.mission);
+  el.fffHudMissionAction.dataset.missionView = progress.mission.view || "home";
+  el.fffHudMissionAction.dataset.missionWidget = progress.mission.widget || "";
+  el.fffHudModules.textContent = String(progress.online);
+  el.fffHudBadges.textContent = String(progress.badges);
+  if (hadPreviousXp && progress.totalXp > previousXp && state.motion && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    el.fffOperatorHud.classList.remove("is-updated");
+    void el.fffOperatorHud.offsetWidth;
+    el.fffOperatorHud.classList.add("is-updated");
+    window.setTimeout(() => el.fffOperatorHud?.classList.remove("is-updated"), 780);
+  }
+}
+
+function openFffMission() {
+  if (!el.fffHudMissionAction) return;
+  const view = el.fffHudMissionAction.dataset.missionView || "home";
+  const widgetId = el.fffHudMissionAction.dataset.missionWidget || "";
+  const tab = document.querySelector(`.tab[data-view="${view}"]`);
+  if (tab) tab.click();
+  if (view !== "home" || !widgetId) return;
+  window.requestAnimationFrame(() => {
+    const widget = document.querySelector(`[data-home-widget="${widgetId}"]`);
+    if (!widget || widget.hidden || state.homeLayout.hidden.includes(widgetId)) {
+      const settingsTab = document.querySelector('.tab[data-view="settings"]');
+      if (settingsTab) settingsTab.click();
+      showAppToast(t("fff_hud_hidden"));
+      return;
+    }
+    const reduceMotion = !state.motion || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    widget.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+    widget.classList.remove("is-mission-target");
+    void widget.offsetWidth;
+    widget.classList.add("is-mission-target");
+    window.setTimeout(() => widget.classList.remove("is-mission-target"), 1150);
+  });
+}
+
 function renderMonthlySummary(snapshot = financialSnapshot()) {
   if (!el.homeMonthlyIncome) return;
   el.homeMonthlyIncome.textContent = formatMoney(snapshot.income);
@@ -4477,6 +4605,7 @@ function renderHomeSummaries() {
   renderSavingsGoals();
   renderHomeNotes();
   renderSmartInsights(snapshot);
+  renderFffOperatorHud();
   if (el.countdownName) el.countdownName.placeholder = t("countdown_name_ph");
   if (el.countdownCategory) el.countdownCategory.placeholder = t("countdown_category_ph");
   if (el.countdownDate) {
@@ -4627,6 +4756,7 @@ function wireHomeDashboard() {
   if (!el.dashboardGrid) return;
   ensureHomeCardControls();
   setHomeDashboardEditing(false);
+  if (el.fffHudMissionAction) el.fffHudMissionAction.addEventListener("click", openFffMission);
   el.freedomWidgetToggle.addEventListener("click", () => setFreedomWidgetExpanded(!state.homeLayout.freedomExpanded));
   el.dashboardGrid.querySelectorAll("[data-open-view]").forEach((button) => button.addEventListener("click", () => {
     const tab = document.querySelector(`.tab[data-view="${button.dataset.openView}"]`);
@@ -7198,6 +7328,7 @@ function persistedState() {
 
 function saveState() {
   try { localStorage.setItem("numbr_state", JSON.stringify(persistedState())); } catch (e) {}
+  renderFffOperatorHud();
   schedulePushSync();
 }
 

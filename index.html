@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=104" />
+  <link rel="stylesheet" href="styles.css?v=107" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -70,6 +70,31 @@
         <button class="dashboard-edit" id="editHome" type="button" data-i18n="dashboard_edit" aria-pressed="false">Edit cards</button>
       </header>
 
+      <section class="fff-operator-hud" id="fffOperatorHud" data-i18n-title="fff_hud_aria" aria-labelledby="fffOperatorTitle">
+        <div class="fff-hud-identity">
+          <span class="fff-hud-signal" aria-hidden="true"><i></i></span>
+          <div>
+            <span class="fff-hud-kicker" data-i18n="fff_hud_operator">NUMBRR OPERATÖRÜ</span>
+            <strong id="fffOperatorTitle" data-i18n="fff_hud_role">Finans saha operatörü</strong>
+            <small id="fffHudRank">—</small>
+          </div>
+        </div>
+        <div class="fff-hud-level">
+          <div class="fff-hud-line"><span data-i18n="fff_hud_xp">Deneyim</span><b id="fffHudXpLabel">0 / 100 XP</b></div>
+          <div class="fff-hud-xp" id="fffHudXp" role="progressbar" aria-label="Experience" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudXpFill"></span></div>
+          <small id="fffHudStatus">—</small>
+        </div>
+        <div class="fff-hud-mission">
+          <span class="fff-hud-kicker" data-i18n="fff_hud_active_mission">AKTİF GÖREV</span>
+          <strong id="fffHudMission">—</strong>
+          <button id="fffHudMissionAction" type="button"><span data-i18n="fff_hud_go">Göreve git</span><b aria-hidden="true">›</b></button>
+        </div>
+        <div class="fff-hud-stats" data-i18n-title="fff_hud_stats_aria" aria-label="Operator statistics">
+          <div><strong id="fffHudModules">0</strong><span data-i18n="fff_hud_modules">modül</span></div>
+          <div><strong id="fffHudBadges">0</strong><span data-i18n="fff_hud_badges">rozet</span></div>
+        </div>
+      </section>
+
       <section class="smart-command glass" aria-labelledby="smartCommandTitle">
         <div class="smart-command-head">
           <div class="smart-command-mark" aria-hidden="true">
@@ -89,7 +114,7 @@
             <p id="smartCommandStatus" class="smart-command-status" role="status" aria-live="polite"></p>
             <div id="smartCommandPreview" class="smart-command-preview" hidden></div>
           </div>
-          <aside class="smart-command-examples" aria-label="Suggested commands">
+          <aside class="smart-command-examples" data-i18n-title="command_examples_title" aria-label="Suggested commands">
             <span class="smart-command-examples-title" data-i18n="command_examples_title">Önerilen komutlar</span>
             <div class="smart-command-chips">
               <button type="button" class="smart-command-chip" data-command-example="100 SOL aldım">100 SOL aldım</button>
@@ -934,7 +959,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=79"></script>
+  <script src="app.js?v=81"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

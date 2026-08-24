@@ -5921,3 +5921,332 @@ html[data-theme="fff"] body {
   [data-theme="fff"] .tab-icon svg { width: 15px; height: 15px; }
   [data-theme="fff"] .tab-label { font-size: 7px; letter-spacing: -.04em; }
 }
+
+/* FFF mission layer — gamification is derived from the user's real finance
+   records and remains completely isolated from the default themes. */
+.fff-operator-hud { display: none; }
+
+[data-theme="fff"] .fff-operator-hud {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(220px, .9fr) minmax(260px, 1.15fr) minmax(300px, 1.35fr) minmax(150px, .55fr);
+  grid-template-areas: "identity level mission stats";
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--fff-line-strong);
+  border-left: 3px solid var(--accent);
+  background:
+    linear-gradient(90deg, rgba(155, 255, 106, .045), transparent 28%),
+    repeating-linear-gradient(0deg, rgba(155, 255, 106, .018) 0 1px, transparent 1px 5px),
+    #07110a;
+  box-shadow: inset 0 0 0 1px rgba(224, 255, 200, .025), inset 0 0 34px rgba(0, 0, 0, .28);
+  animation: fffHudBoot .32s cubic-bezier(.16, 1, .3, 1) both;
+}
+[data-theme="fff"] .fff-operator-hud::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 0 0 auto;
+  height: 3px;
+  background: repeating-linear-gradient(135deg, var(--accent) 0 11px, #41622f 11px 17px, #111b12 17px 24px);
+  opacity: .7;
+  pointer-events: none;
+}
+[data-theme="fff"] .fff-operator-hud::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 8px;
+  background:
+    linear-gradient(var(--accent), var(--accent)) left top / 12px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) left top / 1px 12px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 12px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 1px 12px no-repeat;
+  opacity: .34;
+  pointer-events: none;
+}
+[data-theme="fff"] .fff-hud-identity,
+[data-theme="fff"] .fff-hud-level,
+[data-theme="fff"] .fff-hud-mission,
+[data-theme="fff"] .fff-hud-stats {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  padding: 20px 18px 17px;
+}
+[data-theme="fff"] .fff-hud-identity { grid-area: identity; display: flex; align-items: center; gap: 13px; }
+[data-theme="fff"] .fff-hud-level { grid-area: level; border-left: 1px solid var(--fff-line); }
+[data-theme="fff"] .fff-hud-mission {
+  grid-area: mission;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  gap: 5px 14px;
+  border-left: 1px solid rgba(227, 186, 101, .36);
+  background: linear-gradient(105deg, rgba(227, 186, 101, .085), transparent 72%);
+}
+[data-theme="fff"] .fff-hud-stats { grid-area: stats; display: grid; grid-template-columns: 1fr 1fr; gap: 7px; border-left: 1px solid var(--fff-line); }
+[data-theme="fff"] .fff-hud-kicker {
+  display: block;
+  color: var(--accent);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+[data-theme="fff"] .fff-hud-identity strong,
+[data-theme="fff"] .fff-hud-mission strong {
+  display: block;
+  overflow: hidden;
+  margin-top: 4px;
+  color: var(--phosphor-hot);
+  font-size: 14px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+}
+[data-theme="fff"] .fff-hud-identity small,
+[data-theme="fff"] .fff-hud-level small {
+  display: block;
+  margin-top: 5px;
+  color: var(--text-dim);
+  font-size: 10px;
+  line-height: 1.35;
+}
+[data-theme="fff"] .fff-hud-signal {
+  position: relative;
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border: 1px solid var(--fff-line-strong);
+  background:
+    linear-gradient(rgba(155, 255, 106, .16), rgba(155, 255, 106, .16)) center / 1px 100% no-repeat,
+    linear-gradient(90deg, rgba(155, 255, 106, .16), rgba(155, 255, 106, .16)) center / 100% 1px no-repeat,
+    repeating-radial-gradient(circle, transparent 0 8px, rgba(155, 255, 106, .14) 9px 10px),
+    #051008;
+  box-shadow: inset 0 0 16px rgba(155, 255, 106, .06), 0 0 14px rgba(155, 255, 106, .06);
+}
+[data-theme="fff"] .fff-hud-signal::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background: conic-gradient(from 14deg, rgba(155, 255, 106, .42), transparent 19%, transparent 100%);
+  transform-origin: center;
+  animation: fffRadarSweep 4.8s linear infinite;
+}
+[data-theme="fff"] .fff-hud-signal::after {
+  content: "";
+  position: absolute;
+  left: 31px;
+  top: 17px;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  box-shadow: 0 0 7px var(--accent);
+  animation: fffSignalPing 2.4s ease-out infinite;
+}
+[data-theme="fff"] .fff-hud-signal i {
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(155, 255, 106, .22);
+}
+[data-theme="fff"] .fff-hud-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--text-dim); font-size: 9px; letter-spacing: .13em; text-transform: uppercase; }
+[data-theme="fff"] .fff-hud-line b { color: var(--phosphor-hot); font-size: 10px; letter-spacing: .04em; }
+[data-theme="fff"] .fff-hud-xp {
+  position: relative;
+  height: 13px;
+  overflow: hidden;
+  margin-top: 9px;
+  border: 1px solid var(--fff-line-strong);
+  background: #030a05;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, .7);
+}
+[data-theme="fff"] .fff-hud-xp span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #5bcf49, var(--accent) 72%, var(--phosphor-hot));
+  box-shadow: 0 0 12px rgba(155, 255, 106, .42);
+  transition: width .65s cubic-bezier(.16, 1, .3, 1);
+}
+[data-theme="fff"] .fff-hud-xp::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), #07110a calc(10% - 2px) 10%);
+  pointer-events: none;
+}
+[data-theme="fff"] .fff-hud-mission .fff-hud-kicker { grid-column: 1; color: var(--fff-amber); }
+[data-theme="fff"] .fff-hud-mission strong { grid-column: 1; align-self: start; margin-top: 0; }
+[data-theme="fff"] .fff-hud-mission button {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 105px;
+  padding: 9px 11px;
+  border: 1px solid rgba(227, 186, 101, .65);
+  border-radius: 0;
+  color: #f2d390;
+  background: rgba(227, 186, 101, .07);
+  font: inherit;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color .16s ease, background-color .16s ease, transform .14s cubic-bezier(.16, 1, .3, 1);
+}
+[data-theme="fff"] .fff-hud-mission button b { font-size: 18px; line-height: .8; }
+[data-theme="fff"] .fff-hud-mission button:hover { color: #0b0d08; background: var(--fff-amber); }
+[data-theme="fff"] .fff-hud-mission button:active { transform: scale(.975); }
+[data-theme="fff"] .fff-hud-stats > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--fff-line);
+  background: #051008;
+}
+[data-theme="fff"] .fff-hud-stats strong { color: var(--phosphor-hot); font-size: 22px; line-height: 1; text-shadow: 0 0 9px rgba(155, 255, 106, .22); }
+[data-theme="fff"] .fff-hud-stats span { margin-top: 5px; color: var(--text-dim); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
+
+/* Local panel detail replaces a full-screen overlay: the terminal texture is
+   confined to controls and cards, so text remains crisp and unobstructed. */
+[data-theme="fff"] .dashboard-widget {
+  background-image: repeating-linear-gradient(0deg, rgba(155, 255, 106, .012) 0 1px, transparent 1px 5px);
+}
+[data-theme="fff"] .dashboard-widget::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  inset: 7px;
+  background:
+    linear-gradient(var(--accent), var(--accent)) left top / 9px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) left top / 1px 9px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 9px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 1px 9px no-repeat;
+  opacity: .22;
+  pointer-events: none;
+}
+[data-theme="fff"] .dashboard-widget-value,
+[data-theme="fff"] .monthly-summary-grid strong,
+[data-theme="fff"] .countdown-tile-value b {
+  color: var(--phosphor-hot);
+  text-shadow: 0 0 10px rgba(155, 255, 106, .16);
+}
+[data-theme="fff"] .dashboard-widget.is-mission-target {
+  animation: fffMissionTarget 1.05s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+/* The AI core exposes its state like a physical terminal subsystem. */
+[data-theme="fff"] .smart-command { position: relative; }
+[data-theme="fff"] .smart-command::before {
+  content: "AI CORE // STANDBY";
+  position: absolute;
+  top: 19px;
+  right: 20px;
+  color: var(--text-dim);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+html[lang="tr"][data-theme="fff"] .smart-command::before { content: "YZ ÇEKİRDEĞİ // HAZIR"; }
+[data-theme="fff"] .smart-command[data-command-state="typing"]::before { content: "AI CORE // RECEIVING"; color: var(--accent); }
+html[lang="tr"][data-theme="fff"] .smart-command[data-command-state="typing"]::before { content: "YZ ÇEKİRDEĞİ // GİRDİ ALINIYOR"; }
+[data-theme="fff"] .smart-command[data-command-state="processing"]::before { content: "AI CORE // PROCESSING"; color: var(--fff-amber); animation: fffCoreBlink .8s steps(2, end) infinite; }
+html[lang="tr"][data-theme="fff"] .smart-command[data-command-state="processing"]::before { content: "YZ ÇEKİRDEĞİ // İŞLENİYOR"; }
+[data-theme="fff"] .smart-command[data-command-state="success"]::before { content: "AI CORE // CONFIRMED"; color: var(--good); }
+html[lang="tr"][data-theme="fff"] .smart-command[data-command-state="success"]::before { content: "YZ ÇEKİRDEĞİ // ONAYLANDI"; }
+
+[data-theme="fff"] * {
+  scrollbar-color: var(--fff-line-strong) #050a06;
+  scrollbar-width: thin;
+}
+[data-theme="fff"] *::-webkit-scrollbar { width: 8px; height: 8px; }
+[data-theme="fff"] *::-webkit-scrollbar-track { background: #050a06; }
+[data-theme="fff"] *::-webkit-scrollbar-thumb { border: 2px solid #050a06; background: var(--fff-line-strong); }
+
+@keyframes fffHudBoot {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fffRadarSweep { to { transform: rotate(1turn); } }
+@keyframes fffSignalPing {
+  0%, 18% { transform: scale(.6); opacity: 0; }
+  32% { transform: scale(1); opacity: 1; }
+  70%, 100% { transform: scale(2.2); opacity: 0; }
+}
+@keyframes fffCoreBlink { 50% { opacity: .4; } }
+@keyframes fffMissionTarget {
+  0%, 100% { border-color: var(--fff-line-strong); box-shadow: inset 0 0 0 1px rgba(155, 255, 106, .04); }
+  35% { border-color: var(--fff-amber); box-shadow: inset 0 0 0 1px rgba(227, 186, 101, .26), 0 0 24px rgba(227, 186, 101, .15); }
+}
+[data-theme="fff"] .fff-operator-hud.is-updated .fff-hud-xp span { filter: brightness(1.35); }
+[data-theme="fff"] .fff-operator-hud.is-updated .fff-hud-signal { border-color: var(--accent); box-shadow: inset 0 0 18px rgba(155, 255, 106, .12), 0 0 20px rgba(155, 255, 106, .15); }
+html[lang="tr"][data-theme="fff"] .shell::before { content: "NUMBRR // FİNANSAL İŞLETİM SİSTEMİ\A GÜVENLİ KAYIT DÜĞÜMÜ · YEREL KONSOL"; }
+html[lang="tr"][data-theme="fff"] .home-dashboard-head > div::before { content: "> NUMBRR FİNANS DÜĞÜMÜ // HAZIR"; }
+
+@media (max-width: 1160px) {
+  [data-theme="fff"] .fff-operator-hud {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-areas: "identity level" "mission stats";
+  }
+  [data-theme="fff"] .fff-hud-mission { border-top: 1px solid rgba(227, 186, 101, .36); border-left: 0; }
+  [data-theme="fff"] .fff-hud-stats { border-top: 1px solid var(--fff-line); }
+}
+@media (max-width: 680px) {
+  [data-theme="fff"] .fff-operator-hud {
+    grid-template-columns: minmax(0, 1fr) 112px;
+    grid-template-areas: "identity stats" "level level" "mission mission";
+  }
+  [data-theme="fff"] .fff-hud-identity,
+  [data-theme="fff"] .fff-hud-level,
+  [data-theme="fff"] .fff-hud-mission,
+  [data-theme="fff"] .fff-hud-stats { padding: 15px 13px 13px; }
+  [data-theme="fff"] .fff-hud-level { border-top: 1px solid var(--fff-line); border-left: 0; }
+  [data-theme="fff"] .fff-hud-stats { border-top: 0; }
+  [data-theme="fff"] .fff-hud-signal { flex-basis: 42px; width: 42px; height: 42px; }
+  [data-theme="fff"] .fff-hud-stats strong { font-size: 18px; }
+  [data-theme="fff"] .fff-hud-mission { grid-template-columns: minmax(0, 1fr) 96px; }
+  [data-theme="fff"] .fff-hud-mission button { min-width: 0; padding-inline: 8px; font-size: 8px; }
+  [data-theme="fff"] .smart-command::before { top: 17px; right: 14px; max-width: 135px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  [data-theme="fff"] .smart-command-head { padding-right: 120px; }
+  [data-theme="fff"] .smart-command-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  [data-theme="fff"] .smart-command-chip { width: 100%; }
+}
+@media (max-width: 420px) {
+  [data-theme="fff"] .fff-operator-hud { grid-template-columns: minmax(0, 1fr) 96px; }
+  [data-theme="fff"] .fff-hud-identity strong { font-size: 12px; }
+  [data-theme="fff"] .fff-hud-identity small { font-size: 9px; }
+  [data-theme="fff"] .fff-hud-stats { gap: 4px; padding-left: 8px; padding-right: 8px; }
+  [data-theme="fff"] .fff-hud-stats span { font-size: 7px; letter-spacing: .04em; }
+  [data-theme="fff"] .smart-command::before { display: none; }
+  [data-theme="fff"] .smart-command-head { padding-right: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="fff"] .fff-operator-hud,
+  [data-theme="fff"] .fff-hud-signal::before,
+  [data-theme="fff"] .fff-hud-signal::after,
+  [data-theme="fff"] .fff-hud-xp span,
+  [data-theme="fff"] .dashboard-widget.is-mission-target,
+  [data-theme="fff"] .smart-command::before { animation: none !important; transition-duration: .01ms !important; }
+}
+[data-theme="fff"][data-motion="off"] .fff-operator-hud,
+[data-theme="fff"][data-motion="off"] .fff-hud-signal::before,
+[data-theme="fff"][data-motion="off"] .fff-hud-signal::after,
+[data-theme="fff"][data-motion="off"] .fff-hud-xp span,
+[data-theme="fff"][data-motion="off"] .dashboard-widget.is-mission-target,
+[data-theme="fff"][data-motion="off"] .smart-command::before {
+  animation: none !important;
+  transition-duration: .01ms !important;
+}

@@ -1865,3 +1865,12 @@
     white-space: nowrap;
   }
 }
+
+/* The navigation is an overlay terminal prompt, not a permanent side rail.
+   Keep every destination aligned to the same shell edges as the dashboard. */
+@media (min-width: 1181px) {
+  [data-theme="fff"] .view:not(#view-home) {
+    width: 100%;
+    margin-inline: 0;
+  }
+}

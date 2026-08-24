@@ -1874,3 +1874,127 @@
     margin-inline: 0;
   }
 }
+
+/* Open the home navigator inside the terminal header. It should read like a
+   single command line, never push the dashboard down or become a lower card. */
+@media (min-width: 1181px) {
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) .view:not(#view-home) {
+    padding-top: 0 !important;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) {
+    top: 0;
+    left: 138px;
+    right: 220px;
+    width: auto;
+    max-width: none;
+    min-height: 34px;
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(10px, 1.35vw, 24px);
+    padding: 0 0 8px;
+    overflow: visible;
+    border: 0;
+    border-bottom: 1px solid var(--fff-line);
+    background: transparent !important;
+    box-shadow: none;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab {
+    display: inline-flex !important;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    min-height: 26px;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    padding: 3px 0;
+    border: 0;
+    color: var(--fff-green-soft);
+    background: transparent !important;
+    text-align: left;
+    opacity: 0;
+    animation: fffInlineNavEntry .42s var(--fff-ease) forwards;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(2) { animation-delay: 70ms; }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(3) { animation-delay: 140ms; }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(4) { animation-delay: 210ms; }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(5) { animation-delay: 280ms; }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(6) { animation-delay: 350ms; }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab-icon {
+    display: none !important;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before {
+    position: static !important;
+    display: block !important;
+    content: ">";
+    color: var(--fff-green-dim);
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab-label {
+    display: inline-block;
+    width: auto !important;
+    max-width: 0;
+    overflow: hidden;
+    color: currentColor;
+    font-size: 10px;
+    line-height: 1.2;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-6px);
+    clip-path: inset(0 100% 0 0);
+    animation: fffInlineNavType .56s steps(18, end) forwards;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(2) .tab-label { animation-delay: 70ms; }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(3) .tab-label { animation-delay: 140ms; }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(4) .tab-label { animation-delay: 210ms; }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(5) .tab-label { animation-delay: 280ms; }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:nth-child(6) .tab-label { animation-delay: 350ms; }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:hover,
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active {
+    color: var(--fff-green-hot);
+    padding-left: 0;
+    text-shadow: 0 0 10px rgba(156, 255, 104, .38);
+    box-shadow: none;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::after,
+  [data-theme="fff"] .tabbar:not(.is-collapsed)::before,
+  [data-theme="fff"] .tabbar:not(.is-collapsed)::after {
+    display: none;
+    content: none;
+  }
+}
+
+@keyframes fffInlineNavEntry {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fffInlineNavType {
+  from { max-width: 0; opacity: 0; transform: translateX(-6px); clip-path: inset(0 100% 0 0); }
+  to { max-width: 180px; opacity: 1; transform: translateX(0); clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab,
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab-label {
+    animation: none;
+    max-width: 180px;
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}

@@ -4859,3 +4859,18 @@ body.modal-open { overflow: hidden; }
 [data-theme="terminal"] .tab--command .command-orb canvas {
   filter: grayscale(1) sepia(1) hue-rotate(42deg) saturate(3) brightness(.9);
 }
+
+/* Terminal must not inherit the blue ambient wash from the glass-era shell. */
+html[data-theme="terminal"],
+html[data-theme="terminal"] body {
+  background: #061009 !important;
+}
+html[data-theme="terminal"] .bg {
+  background: #061009 !important;
+  background-image: none !important;
+}
+html[data-theme="terminal"] .bg::before,
+html[data-theme="terminal"] .bg::after {
+  background: none !important;
+  box-shadow: none !important;
+}

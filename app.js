@@ -7615,13 +7615,27 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
   const tabbar = document.querySelector(".tabbar");
   const homeTab = document.querySelector('.tab[data-view="home"]');
   const fffNavToggle = document.querySelector("[data-fff-nav-toggle]");
+  const fffTerminalTopbar = document.querySelector(".fff-terminal-topbar");
+  const originalTabbarParent = tabbar?.parentElement;
+  const originalTabbarNextSibling = tabbar?.nextElementSibling;
   const toast = document.getElementById("toast");
   let toastTimer;
   function isFffDesktopNav() {
     return document.documentElement.dataset.theme === "fff" && window.matchMedia("(min-width: 1181px)").matches;
   }
+  function syncFffNavHost() {
+    if (!tabbar || !originalTabbarParent) return;
+    if (isFffDesktopNav()) {
+      if (fffTerminalTopbar && !fffTerminalTopbar.contains(tabbar)) fffTerminalTopbar.appendChild(tabbar);
+      return;
+    }
+    if (tabbar.parentElement !== originalTabbarParent) {
+      originalTabbarParent.insertBefore(tabbar, originalTabbarNextSibling);
+    }
+  }
   function setFffNavCollapsed(collapsed) {
     if (!tabbar || !homeTab || !isFffDesktopNav()) return;
+    syncFffNavHost();
     tabbar.classList.toggle("is-collapsed", collapsed);
     homeTab.setAttribute("aria-expanded", String(!collapsed));
     if (fffNavToggle) fffNavToggle.setAttribute("aria-expanded", String(!collapsed));
@@ -7633,6 +7647,8 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
   fffNavToggle?.addEventListener("click", () => {
     if (isFffDesktopNav()) toggleFffNav();
   });
+  syncFffNavHost();
+  window.addEventListener("resize", syncFffNavHost, { passive: true });
   function showToast(msg) { showAppToast(msg); }
   function setActive(tab) {
     tabs.forEach((tt) => { const on = tt === tab; tt.classList.toggle("is-active", on); if (on) tt.setAttribute("aria-current", "page"); else tt.removeAttribute("aria-current"); });

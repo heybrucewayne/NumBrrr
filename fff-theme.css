@@ -1878,12 +1878,18 @@
 /* Open the home navigator inside the terminal header. It should read like a
    single command line, never push the dashboard down or become a lower card. */
 @media (min-width: 1181px) {
+  [data-theme="fff"] .fff-terminal-topbar {
+    position: relative;
+    z-index: 70;
+  }
+
   [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,
   [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) .view:not(#view-home) {
     padding-top: 0 !important;
   }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) {
+    position: absolute;
     top: 0;
     left: 138px;
     right: 220px;

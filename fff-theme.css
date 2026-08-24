@@ -1772,7 +1772,7 @@
     font-weight: 600;
     letter-spacing: .12em;
     line-height: 1.2;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before { display: none !important; content: none; }
@@ -1956,11 +1956,11 @@
     overflow: hidden;
     color: currentColor;
     font-family: "Share Tech Mono", "IBM Plex Mono", monospace !important;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     line-height: 1;
-    letter-spacing: .08em;
-    text-transform: uppercase;
+    letter-spacing: .045em;
+    text-transform: none;
     white-space: nowrap;
     opacity: 0;
     transform: translateX(-6px);
@@ -2049,11 +2049,11 @@
     overflow: hidden;
     color: currentColor;
     font-family: "Share Tech Mono", "IBM Plex Mono", monospace !important;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     line-height: 1.2;
-    letter-spacing: .1em;
-    text-transform: uppercase;
+    letter-spacing: .045em;
+    text-transform: none;
     white-space: nowrap;
     opacity: 0;
     transform: translateX(-6px);

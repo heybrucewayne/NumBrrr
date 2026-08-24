@@ -1660,3 +1660,20 @@
     animation: none;
   }
 }
+
+/* Desktop module proportions: alerts become a two-row rail, while insights
+   use a compact two-module width instead of inheriting the tall half-card. */
+@media (min-width: 1181px) {
+  [data-theme="fff"] .dashboard-grid > [data-home-widget="alerts"] {
+    grid-row: span 2;
+    min-height: calc(var(--dashboard-unit-height) * 2 + 10px);
+    height: calc(var(--dashboard-unit-height) * 2 + 10px);
+  }
+
+  [data-theme="fff"] .dashboard-grid > [data-home-widget="insights"] {
+    grid-column: span 4;
+    grid-row: span 1;
+    min-height: var(--dashboard-unit-height);
+    height: var(--dashboard-unit-height);
+  }
+}

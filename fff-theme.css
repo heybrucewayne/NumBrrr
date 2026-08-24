@@ -883,7 +883,7 @@
   }
 
   [data-theme="fff"] [data-home-widget="freedom"] {
-    grid-column: span 8;
+    grid-column: span 10;
   }
 
   [data-theme="fff"] .dashboard-widget--pair {

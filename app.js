@@ -7652,8 +7652,11 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
     if (!tabbar || !originalTabbarParent) return;
     if (isFffDesktopNav()) {
       if (fffTerminalTopbar && !fffTerminalTopbar.contains(tabbar)) fffTerminalTopbar.appendChild(tabbar);
+      buildFffInlineNav();
+      setFffInlineNavOpen(true);
       return;
     }
+    if (fffInlineNav) setFffInlineNavOpen(false);
     if (tabbar.parentElement !== originalTabbarParent) {
       originalTabbarParent.insertBefore(tabbar, originalTabbarNextSibling);
     }
@@ -7681,13 +7684,14 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
         });
         fffInlineNav.appendChild(item);
       });
-    fffInlineNav.hidden = true;
+    fffInlineNav.hidden = !isFffDesktopNav();
     fffTerminalTopbar.appendChild(fffInlineNav);
   }
   function setFffInlineNavOpen(open) {
     if (!fffInlineNav || !fffTerminalTopbar) return;
-    fffInlineNav.hidden = !open;
-    fffTerminalTopbar.classList.toggle("is-inline-nav-open", open);
+    const visible = isFffDesktopNav();
+    fffInlineNav.hidden = !visible;
+    fffTerminalTopbar.classList.toggle("is-inline-nav-open", visible);
   }
   function setFffNavCollapsed(collapsed) {
     if (!tabbar || !homeTab || !isFffDesktopNav()) return;
@@ -7700,8 +7704,10 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
   }
   function toggleFffNav() {
     if (!tabbar) return;
-    const open = fffTerminalTopbar?.classList.contains("is-inline-nav-open") || !tabbar.classList.contains("is-collapsed");
-    setFffNavCollapsed(open);
+    if (isFffDesktopNav()) {
+      buildFffInlineNav();
+      setFffInlineNavOpen(true);
+    }
   }
   fffNavToggle?.addEventListener("click", () => {
     if (isFffDesktopNav()) toggleFffNav();

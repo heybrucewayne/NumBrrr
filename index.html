@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=20" />
+  <link rel="stylesheet" href="fff-theme.css?v=21" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -342,9 +342,9 @@
           </button>
         </article>
 
-        <article class="glass dashboard-widget dashboard-widget--compact dashboard-widget--pair" data-home-widget="watch">
+        <article class="glass dashboard-widget dashboard-widget--compact dashboard-widget--pair dashboard-widget--price-bubbles" data-home-widget="watch">
           <button class="dashboard-widget-open" type="button" data-open-view="watch">
-            <span class="dashboard-widget-top"><span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"></path></svg></span><span data-i18n="home_widget_watch">Watchlist</span><span aria-hidden="true">→</span></span>
+            <span class="dashboard-widget-top"><span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"></path></svg></span><span data-i18n="home_widget_price_bubbles">Fiyat balonları</span><span aria-hidden="true">→</span></span>
             <div class="home-watch-preview watch-bubbles" id="homeWatchPreview" aria-label="Watchlist bubbles" aria-live="polite" hidden></div>
             <small class="dashboard-widget-note" id="homeWatchNote">—</small>
           </button>
@@ -959,7 +959,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=94"></script>
+  <script src="app.js?v=95"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

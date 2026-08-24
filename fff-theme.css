@@ -1391,3 +1391,19 @@
 [data-theme="fff"] [data-home-widget="watch"] .home-watch-preview.watch-bubbles .bubble {
   animation-duration: 3.8s;
 }
+
+@media (min-width: 861px) {
+  [data-theme="fff"] [data-home-widget="watch"] {
+    grid-row: span 2;
+    min-height: calc(var(--dashboard-unit-height) * 2 + 10px);
+    height: calc(var(--dashboard-unit-height) * 2 + 10px);
+  }
+}
+
+@media (min-width: 1181px) {
+  [data-theme="fff"] [data-home-widget="watch"] { grid-column: span 2; }
+}
+
+@media (min-width: 1700px) {
+  [data-theme="fff"] [data-home-widget="watch"] { grid-column: span 2; }
+}

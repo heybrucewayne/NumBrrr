@@ -1369,6 +1369,154 @@
     transition-duration: .001ms !important;
   }
 }
+
+/* FFF command console: the expanded home control is a terminal panel, not a
+   generic navigation card. It keeps the existing navigation semantics while
+   giving the menu its own readable console surface. */
+@media (min-width: 1181px) {
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) .view:not(#view-home) {
+    padding-top: 414px;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) {
+    position: absolute;
+    isolation: isolate;
+    padding: 0 8px 9px;
+    border: 1px solid var(--fff-line-strong);
+    background:
+      linear-gradient(180deg, rgba(101, 232, 62, .07), transparent 28%),
+      #020704 !important;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, .48), inset 0 0 26px rgba(101, 232, 62, .035);
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    display: block;
+    pointer-events: none;
+    opacity: .42;
+    background: repeating-linear-gradient(0deg, transparent 0 4px, rgba(126, 255, 82, .035) 4px 5px);
+    animation: fffNavScan 8s linear infinite;
+  }
+
+  [data-theme="fff"] .fff-nav-header {
+    display: grid;
+    min-height: 78px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 5px 8px;
+    margin: 0 -8px 6px;
+    padding: 12px 13px 10px;
+    border-bottom: 1px solid var(--fff-line-strong);
+    background: linear-gradient(180deg, rgba(101, 232, 62, .08), rgba(101, 232, 62, .015));
+  }
+
+  [data-theme="fff"] .fff-nav-console-title {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 7px;
+    color: var(--fff-green-hot);
+  }
+
+  [data-theme="fff"] .fff-nav-console-title strong {
+    overflow: hidden;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-theme="fff"] .fff-nav-prompt {
+    color: var(--fff-green);
+    font-size: 16px;
+    line-height: 1;
+    animation: fffNavPrompt 1.2s steps(2, end) infinite;
+  }
+
+  [data-theme="fff"] .fff-nav-header small {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--fff-green-dim);
+    font-size: 7px;
+    letter-spacing: .08em;
+  }
+
+  [data-theme="fff"] .fff-nav-header small i {
+    width: 6px;
+    height: 6px;
+    border-radius: 0;
+    background: var(--fff-green);
+    box-shadow: 0 0 8px rgba(101, 232, 62, .75);
+  }
+
+  [data-theme="fff"] .fff-nav-console-meta {
+    display: flex;
+    grid-column: 1 / -1;
+    justify-content: space-between;
+    color: var(--fff-green-dim);
+    font-size: 7px;
+    letter-spacing: .1em;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab {
+    min-height: 46px;
+    margin: 2px 0;
+    border: 1px solid transparent;
+    border-bottom-color: rgba(101, 232, 62, .1);
+    background: rgba(1, 8, 3, .48);
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before {
+    content: ">";
+    position: absolute;
+    left: 7px;
+    color: transparent;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:hover {
+    border-color: var(--fff-line);
+    background: rgba(101, 232, 62, .08);
+    box-shadow: inset 0 0 18px rgba(101, 232, 62, .04);
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active {
+    border-color: var(--fff-line-strong);
+    background: linear-gradient(90deg, rgba(101, 232, 62, .2), rgba(101, 232, 62, .045));
+    box-shadow: inset 3px 0 0 var(--fff-green), 0 0 14px rgba(101, 232, 62, .07);
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active::before {
+    color: var(--fff-green-hot);
+    animation: fffNavPrompt 1.2s steps(2, end) infinite;
+  }
+}
+
+@keyframes fffNavScan {
+  from { transform: translateY(-8px); }
+  to { transform: translateY(8px); }
+}
+
+@keyframes fffNavPrompt {
+  0%, 42% { opacity: 1; }
+  43%, 100% { opacity: .28; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="fff"] .tabbar:not(.is-collapsed)::before,
+  [data-theme="fff"] .fff-nav-prompt,
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active::before {
+    animation: none;
+  }
+}
 [data-theme="fff"] [data-home-widget="watch"] > .dashboard-widget-open {
   min-height: 0;
   height: 100%;

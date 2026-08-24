@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=26" />
+  <link rel="stylesheet" href="fff-theme.css?v=28" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -822,6 +822,11 @@
 
   <!-- Bottom navigation (app-style) -->
   <nav class="tabbar is-collapsed" id="primaryNav" aria-label="Primary">
+    <div class="fff-nav-header">
+      <div class="fff-nav-console-title"><span class="fff-nav-prompt" aria-hidden="true">▐</span><strong data-i18n="fff_main_menu">ANA MENÜ</strong></div>
+      <small><i aria-hidden="true"></i><span data-i18n="fff_online">ÇEVRİMİÇİ</span></small>
+      <div class="fff-nav-console-meta" aria-hidden="true"><span>İSTASYON 07</span><span>GÜVENLİ</span></div>
+    </div>
     <button class="tab is-active" type="button" data-view="home" aria-current="page" aria-expanded="false">
       <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path></svg></span>
       <span class="tab-label" data-i18n="nav_home">Home</span>

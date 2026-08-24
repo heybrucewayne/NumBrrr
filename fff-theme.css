@@ -88,6 +88,13 @@
   gap: 13px;
 }
 
+/* The FFF home layout has an explicit display rule, so restore the native
+   hidden behavior for view switching instead of leaving the home dashboard
+   visible behind another section. */
+[data-theme="fff"] .view[hidden] {
+  display: none !important;
+}
+
 [data-theme="fff"] #view-home > .fff-operator-hud { order: 1; }
 [data-theme="fff"] #view-home > .home-dashboard-head { order: 2; }
 [data-theme="fff"] #view-home > .dashboard-grid { order: 3; }

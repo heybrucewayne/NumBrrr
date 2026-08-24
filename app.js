@@ -3840,18 +3840,19 @@ function renderFffOperatorHud() {
   if (el.fffHudStreakCount) el.fffHudStreakCount.textContent = String(streak.current);
   if (el.fffHudStreakFreezes) el.fffHudStreakFreezes.textContent = t("fff_streak_freezes", { count: streak.freezesLeft });
   if (el.fffHudStreakStatus) {
-    if (streak.checkedInToday) el.fffHudStreakStatus.textContent = t("fff_streak_completed");
-    else if (streak.gap > 1 && streak.gap - 1 <= streak.freezesLeft) el.fffHudStreakStatus.textContent = t("fff_streak_protect", { count: streak.gap - 1 });
-    else if (streak.gap > 1) el.fffHudStreakStatus.textContent = t("fff_streak_risk");
-    else if (streak.current > 0) el.fffHudStreakStatus.textContent = t("fff_streak_ready");
-    else el.fffHudStreakStatus.textContent = t("fff_streak_ready");
+    el.fffHudStreakStatus.hidden = streak.checkedInToday;
+    if (!streak.checkedInToday && streak.gap > 1 && streak.gap - 1 <= streak.freezesLeft) el.fffHudStreakStatus.textContent = t("fff_streak_protect", { count: streak.gap - 1 });
+    else if (!streak.checkedInToday && streak.gap > 1) el.fffHudStreakStatus.textContent = t("fff_streak_risk");
+    else if (!streak.checkedInToday) el.fffHudStreakStatus.textContent = t("fff_streak_ready");
+    else el.fffHudStreakStatus.textContent = "";
   }
   if (el.fffHudStreakCheckin) {
     el.fffHudStreakCheckin.disabled = streak.checkedInToday;
+    el.fffHudStreakCheckin.hidden = streak.checkedInToday;
     el.fffHudStreakCheckin.classList.toggle("is-complete", streak.checkedInToday);
     el.fffHudStreakCheckin.setAttribute("aria-label", streak.checkedInToday ? t("fff_streak_completed") : t("fff_streak_checkin"));
   }
-  if (el.fffHudStreakCheckinLabel) el.fffHudStreakCheckinLabel.textContent = streak.checkedInToday ? t("fff_streak_completed") : t("fff_streak_checkin");
+  if (el.fffHudStreakCheckinLabel) el.fffHudStreakCheckinLabel.textContent = t("fff_streak_checkin");
   if (el.fffHudStreakXp) el.fffHudStreakXp.textContent = streak.checkedInToday ? "" : `+${dailyStreakReward(streak.current + 1)} XP`;
   if (hadPreviousXp && progress.totalXp > previousXp && state.motion && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     el.fffOperatorHud.classList.remove("is-updated");

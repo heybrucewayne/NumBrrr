@@ -996,38 +996,25 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-/* Glossy icon tiles supplied for the dashboard widget set. */
-[data-home-widget="freedom"] .dashboard-widget-icon,
-[data-home-widget="goals"] .dashboard-widget-icon { background: url("assets/ui-icons/goals.png") center / cover no-repeat; border-color: rgba(255, 215, 107, .22); }
-[data-home-widget="portfolio"] .dashboard-widget-icon { background: url("assets/ui-icons/portfolio.png") center / cover no-repeat; border-color: rgba(141, 180, 255, .24); }
-[data-home-widget="income"] .dashboard-widget-icon { background: url("assets/ui-icons/income.png") center / cover no-repeat; border-color: rgba(70, 223, 173, .24); }
-[data-home-widget="expenses"] .dashboard-widget-icon { background: url("assets/ui-icons/expenses.png") center / cover no-repeat; border-color: rgba(255, 155, 143, .24); }
-[data-home-widget="health"] .dashboard-widget-icon { background: url("assets/ui-icons/health.png") center / cover no-repeat; border-color: rgba(255, 148, 187, .24); }
-[data-home-widget="markets"] .dashboard-widget-icon { background: url("assets/ui-icons/markets.png") center / cover no-repeat; border-color: rgba(90, 220, 212, .24); }
-[data-home-widget="monthly"] .dashboard-widget-icon,
-[data-home-widget="marketSnapshot"] .dashboard-widget-icon,
-[data-home-widget="topPerformers"] .dashboard-widget-icon,
-[data-home-widget="ipos"] .dashboard-widget-icon,
-[data-home-widget="countdown"] .dashboard-widget-icon,
-[data-home-widget="car"] .dashboard-widget-icon,
-[data-home-widget="watch"] .dashboard-widget-icon,
-[data-home-widget="notes"] .dashboard-widget-icon,
-[data-home-widget="insights"] .dashboard-widget-icon,
-[data-home-widget="alerts"] .dashboard-widget-icon { background-size: cover; background-position: center; }
-[data-home-widget="monthly"] .dashboard-widget-icon,
-[data-home-widget="marketSnapshot"] .dashboard-widget-icon { background-image: url("assets/ui-icons/market-data.png"); }
-[data-home-widget="topPerformers"] .dashboard-widget-icon { background-image: url("assets/ui-icons/top-performers.png"); }
-[data-home-widget="ipos"] .dashboard-widget-icon { background-image: url("assets/ui-icons/ipos.png"); }
-[data-home-widget="countdown"] .dashboard-widget-icon,
-.countdown-tile .dashboard-widget-icon { background-image: url("assets/ui-icons/countdown.png"); }
-[data-home-widget="car"] .dashboard-widget-icon { background-image: url("assets/ui-icons/car.png"); }
-[data-home-widget="watch"] .dashboard-widget-icon { background-image: url("assets/ui-icons/watch.png"); }
-[data-home-widget="notes"] .dashboard-widget-icon { background-image: url("assets/ui-icons/notes.png"); }
-[data-home-widget="insights"] .dashboard-widget-icon { background-image: url("assets/ui-icons/insights.png"); }
-[data-home-widget="alerts"] .dashboard-widget-icon { background-image: url("assets/ui-icons/alerts.png"); }
-[data-home-widget] .dashboard-widget-icon svg,
-[data-home-widget] .dashboard-widget-icon:has(svg) svg { display: none; }
-.countdown-tile .dashboard-widget-icon svg { display: none; }
+/* One permissively licensed icon language for every dashboard surface. */
+[data-home-widget="freedom"],
+[data-home-widget="goals"] { --ui-icon: url("assets/ui-icons/tabler/target-arrow.svg"); }
+[data-home-widget="portfolio"] { --ui-icon: url("assets/ui-icons/tabler/briefcase-2.svg"); }
+[data-home-widget="income"] { --ui-icon: url("assets/ui-icons/tabler/wallet.svg"); }
+[data-home-widget="expenses"] { --ui-icon: url("assets/ui-icons/tabler/receipt-2.svg"); }
+[data-home-widget="monthly"] { --ui-icon: url("assets/ui-icons/tabler/chart-bar.svg"); }
+[data-home-widget="health"] { --ui-icon: url("assets/ui-icons/tabler/heartbeat.svg"); }
+[data-home-widget="markets"] { --ui-icon: url("assets/ui-icons/tabler/arrows-exchange.svg"); }
+[data-home-widget="marketSnapshot"] { --ui-icon: url("assets/ui-icons/tabler/chart-candle.svg"); }
+[data-home-widget="topPerformers"] { --ui-icon: url("assets/ui-icons/tabler/trophy.svg"); }
+[data-home-widget="ipos"] { --ui-icon: url("assets/ui-icons/tabler/building-bank.svg"); }
+[data-home-widget="countdown"],
+.countdown-tile { --ui-icon: url("assets/ui-icons/tabler/hourglass.svg"); }
+[data-home-widget="car"] { --ui-icon: url("assets/ui-icons/tabler/car.svg"); }
+[data-home-widget="watch"] { --ui-icon: url("assets/ui-icons/tabler/star.svg"); }
+[data-home-widget="notes"] { --ui-icon: url("assets/ui-icons/tabler/notes.svg"); }
+[data-home-widget="insights"] { --ui-icon: url("assets/ui-icons/tabler/sparkles.svg"); }
+[data-home-widget="alerts"] { --ui-icon: url("assets/ui-icons/tabler/bell-ringing.svg"); }
 [data-home-widget="freedom"] { --widget-color: #47c8ff; }
 [data-home-widget="portfolio"] { --widget-color: #8db4ff; }
 [data-home-widget="income"] { --widget-color: #46dfad; }
@@ -4225,16 +4212,14 @@ body.modal-open { overflow: hidden; }
 .modern-section-icon--market { color: var(--accent-2); }
 .modern-section-icon--leaders { color: #ffd05f; background: rgba(255,208,95,.1); border-color: rgba(255,208,95,.25); }
 .modern-section-icon--ipo { color: #ff94bb; background: rgba(255,148,187,.1); border-color: rgba(255,148,187,.24); }
-.modern-section-icon--expense { background-image: url("assets/ui-icons/expenses.png"); background-size: cover; }
-.modern-section-icon--recurring { background-image: url("assets/ui-icons/countdown.png"); background-size: cover; }
-.modern-section-icon--spending { background-image: url("assets/ui-icons/income.png"); background-size: cover; }
-.modern-section-icon--income { background-image: url("assets/ui-icons/growth.png"); background-size: cover; }
-.modern-section-icon--watch { background-image: url("assets/ui-icons/watch.png"); background-size: cover; }
-.modern-section-icon--expense svg,
-.modern-section-icon--recurring svg,
-.modern-section-icon--spending svg,
-.modern-section-icon--income svg,
-.modern-section-icon--watch svg { display: none; }
+.modern-section-icon--expense { --ui-icon: url("assets/ui-icons/tabler/receipt-2.svg"); }
+.modern-section-icon--recurring { --ui-icon: url("assets/ui-icons/tabler/repeat.svg"); }
+.modern-section-icon--spending { --ui-icon: url("assets/ui-icons/tabler/cash-banknote.svg"); }
+.modern-section-icon--income { --ui-icon: url("assets/ui-icons/tabler/chart-line.svg"); }
+.modern-section-icon--watch { --ui-icon: url("assets/ui-icons/tabler/star.svg"); }
+.modern-section-icon--market { --ui-icon: url("assets/ui-icons/tabler/chart-candle.svg"); }
+.modern-section-icon--leaders { --ui-icon: url("assets/ui-icons/tabler/trophy.svg"); }
+.modern-section-icon--ipo { --ui-icon: url("assets/ui-icons/tabler/building-bank.svg"); }
 .modern-section-count {
   flex: none; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   padding: 7px 11px; border-radius: 999px; color: var(--text-dim); background: color-mix(in srgb, var(--accent) 9%, transparent);
@@ -4490,15 +4475,10 @@ body.modal-open { overflow: hidden; }
   }
 }
 
-/* Keep every countdown surface on the same hourglass artwork, including
-   dynamically created countdown cards moved into the dashboard grid. */
-[data-home-widget="countdown"] .dashboard-widget-icon,
-[data-countdown-id] .dashboard-widget-icon {
-  background: url("assets/ui-icons/countdown.png") center / cover no-repeat;
-  border-color: rgba(116, 205, 255, .28);
-}
-[data-home-widget="countdown"] .dashboard-widget-icon svg,
-[data-countdown-id] .dashboard-widget-icon svg { display: none; }
+/* Dynamically created countdown cards inherit the same licensed hourglass. */
+[data-home-widget="countdown"],
+[data-countdown-id] { --ui-icon: url("assets/ui-icons/tabler/hourglass.svg"); }
+[data-countdown-id] .dashboard-widget-icon { border-color: rgba(116, 205, 255, .28); }
 
 /* ============================================================
    NUMBRR TERMINAL — phosphor console skin
@@ -5648,8 +5628,7 @@ html[data-theme="fff"] body {
 [data-theme="fff"] .dashboard-widget-open { min-height: 220px; padding: 16px; }
 [data-theme="fff"] .dashboard-widget--market-data { min-height: 220px; padding: 15px; }
 
-/* Supplied icon artwork is retained, but the whole set is normalized to the
-   FFF phosphor family so an orange/blue asset cannot break the theme rhythm. */
+/* Tabler masks stay crisp in the phosphor theme without colored bitmap noise. */
 [data-theme="fff"] [data-home-widget] .dashboard-widget-icon,
 [data-theme="fff"] .countdown-tile .dashboard-widget-icon {
   width: 38px;
@@ -5657,32 +5636,9 @@ html[data-theme="fff"] body {
   border-radius: 2px;
   border-color: var(--fff-line-strong);
   background-color: #0a170d !important;
-  background-size: cover !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
   filter: none;
   box-shadow: inset 0 0 0 1px rgba(155, 255, 106, .06), 0 0 12px rgba(155, 255, 106, .06);
 }
-[data-theme="fff"] [data-home-widget="freedom"] .dashboard-widget-icon,
-[data-theme="fff"] [data-home-widget="goals"] .dashboard-widget-icon { background-image: url("assets/ui-icons/goals.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="portfolio"] .dashboard-widget-icon { background-image: url("assets/ui-icons/portfolio.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="income"] .dashboard-widget-icon { background-image: url("assets/ui-icons/income.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="expenses"] .dashboard-widget-icon { background-image: url("assets/ui-icons/expenses.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="health"] .dashboard-widget-icon { background-image: url("assets/ui-icons/health.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="markets"] .dashboard-widget-icon { background-image: url("assets/ui-icons/markets.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="monthly"] .dashboard-widget-icon,
-[data-theme="fff"] [data-home-widget="marketSnapshot"] .dashboard-widget-icon { background-image: url("assets/ui-icons/market-data.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="topPerformers"] .dashboard-widget-icon { background-image: url("assets/ui-icons/top-performers.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="ipos"] .dashboard-widget-icon { background-image: url("assets/ui-icons/ipos.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="countdown"] .dashboard-widget-icon,
-[data-theme="fff"] .countdown-tile .dashboard-widget-icon { background-image: url("assets/ui-icons/countdown.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="car"] .dashboard-widget-icon { background-image: url("assets/ui-icons/car.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="watch"] .dashboard-widget-icon { background-image: url("assets/ui-icons/watch.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="notes"] .dashboard-widget-icon { background-image: url("assets/ui-icons/notes.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="insights"] .dashboard-widget-icon { background-image: url("assets/ui-icons/insights.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget="alerts"] .dashboard-widget-icon { background-image: url("assets/ui-icons/alerts.png?v=2") !important; }
-[data-theme="fff"] [data-home-widget] .dashboard-widget-icon svg,
-[data-theme="fff"] .countdown-tile .dashboard-widget-icon svg { display: none !important; }
 
 /* Command workspace: the input gets the wider column and suggestions form a
    stable 3 × 3 matrix instead of being pulled upward with negative margins. */
@@ -5698,7 +5654,8 @@ html[data-theme="fff"] body {
   height: 40px;
   border-radius: 2px;
   border-color: var(--fff-line-strong);
-  background: #07110a url("assets/ui-icons/insights.png?v=2") center / cover no-repeat;
+  --ui-icon: url("assets/ui-icons/tabler/sparkles.svg");
+  background: #07110a;
   box-shadow: 0 0 14px rgba(155, 255, 106, .08);
 }
 [data-theme="fff"] .smart-command-mark canvas {
@@ -7782,4 +7739,150 @@ html[data-theme="fff"] body {
   animation-duration: .01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: .01ms !important;
+}
+
+/* ============================================================
+   NUMBRR ICON SYSTEM — selected Tabler outline icons (MIT)
+   SVGs are local masks: every theme keeps its own color and active state,
+   while all product surfaces share the same 24px / 2px visual grammar.
+   ============================================================ */
+.dashboard-widget-icon::before,
+.modern-section-icon::before,
+.income-summary-icon::before,
+.car-section-icon::before,
+.veh-empty-icon::before,
+.port-asset-icon::before,
+.inc-source-icon::before,
+.watch-search-icon::before,
+.monthly-share-heading-icon::before,
+.tab-icon:not(.command-orb)::before,
+.smart-command-mark::before {
+  content: "";
+  display: block;
+  flex: none;
+  width: var(--ui-icon-size, 22px);
+  height: var(--ui-icon-size, 22px);
+  background-color: currentColor;
+  -webkit-mask-image: var(--ui-icon, url("assets/ui-icons/tabler/chart-bar.svg"));
+  mask-image: var(--ui-icon, url("assets/ui-icons/tabler/chart-bar.svg"));
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+[data-theme] [data-home-widget] .dashboard-widget-icon > svg,
+[data-theme] [data-countdown-id] .dashboard-widget-icon > svg,
+[data-theme] .countdown-tile .dashboard-widget-icon > svg,
+[data-theme] .modern-section-icon > svg,
+[data-theme] .income-summary-icon > svg,
+[data-theme] .car-section-icon > svg,
+[data-theme] .veh-empty-icon > svg,
+[data-theme] .watch-search-icon > svg,
+[data-theme] .tab-icon:not(.command-orb) > svg {
+  display: none !important;
+}
+
+.dashboard-widget-icon::before {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, currentColor 34%, transparent));
+  transition: transform .2s cubic-bezier(.23, 1, .32, 1), filter .2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dashboard-widget:hover .dashboard-widget-icon::before {
+    transform: translateY(-1px) scale(1.055);
+    filter: drop-shadow(0 0 7px color-mix(in srgb, currentColor 45%, transparent));
+  }
+}
+
+[data-theme="fff"] .dashboard-widget-icon::before,
+[data-theme="terminal"] .dashboard-widget-icon::before {
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+/* Section-level icons */
+.income-summary-icon { --ui-icon: url("assets/ui-icons/tabler/cash-banknote.svg"); --ui-icon-size: 23px; }
+.car-section-icon { --ui-icon: url("assets/ui-icons/tabler/car.svg"); --ui-icon-size: 23px; }
+.car-section-icon--route { --ui-icon: url("assets/ui-icons/tabler/route.svg"); }
+.car-section-icon--history { --ui-icon: url("assets/ui-icons/tabler/history.svg"); }
+.veh-empty-icon { --ui-icon: url("assets/ui-icons/tabler/car.svg"); --ui-icon-size: 25px; }
+.watch-search-icon { --ui-icon: url("assets/ui-icons/tabler/search.svg"); --ui-icon-size: 19px; }
+.monthly-share-heading-icon {
+  --ui-icon: url("assets/ui-icons/tabler/chart-bar.svg");
+  --ui-icon-size: 19px;
+  font-size: 0;
+  color: var(--accent-2);
+}
+
+/* Portfolio asset marks now use neutral, license-safe categories instead of
+   fake brand abbreviations or currency glyphs pretending to be logos. */
+.port-asset-icon {
+  --ui-icon: url("assets/ui-icons/tabler/briefcase-2.svg");
+  --ui-icon-size: 22px;
+  font-size: 0 !important;
+  letter-spacing: 0;
+}
+.port-row[data-asset-type="usstock"] .port-asset-icon,
+.port-row[data-asset-type="bist"] .port-asset-icon { --ui-icon: url("assets/ui-icons/tabler/chart-line.svg"); }
+.port-row[data-asset-type="crypto"] .port-asset-icon,
+.port-row[data-asset-type="gold"] .port-asset-icon { --ui-icon: url("assets/ui-icons/tabler/coins.svg"); }
+.port-row[data-asset-type="usd"] .port-asset-icon,
+.port-row[data-asset-type="cash"] .port-asset-icon { --ui-icon: url("assets/ui-icons/tabler/cash-banknote.svg"); }
+.port-row[data-asset-type="deposit"] .port-asset-icon,
+.port-row[data-asset-type="bonds"] .port-asset-icon { --ui-icon: url("assets/ui-icons/tabler/building-bank.svg"); }
+
+/* Income source marks follow the same family and remain meaningful by type. */
+.inc-source-icon {
+  --ui-icon: url("assets/ui-icons/tabler/wallet.svg");
+  --ui-icon-size: 22px;
+  font-size: 0;
+}
+.inc-row[data-inc="salary"] .inc-source-icon { --ui-icon: url("assets/ui-icons/tabler/cash-banknote.svg"); }
+.inc-row[data-inc="rental"] .inc-source-icon { --ui-icon: url("assets/ui-icons/tabler/home.svg"); }
+.inc-row[data-inc="interest"] .inc-source-icon { --ui-icon: url("assets/ui-icons/tabler/building-bank.svg"); }
+.inc-row[data-inc="dividends"] .inc-source-icon { --ui-icon: url("assets/ui-icons/tabler/chart-line.svg"); }
+.inc-row[data-inc="side"] .inc-source-icon { --ui-icon: url("assets/ui-icons/tabler/briefcase-2.svg"); }
+
+/* Bottom navigation keeps the existing selected background but replaces every
+   mismatched drawing with the same Tabler geometry. The animated AI orb stays. */
+.tab[data-view="home"] { --ui-icon: url("assets/ui-icons/tabler/home.svg"); }
+.tab[data-view="portfolio"] { --ui-icon: url("assets/ui-icons/tabler/briefcase-2.svg"); }
+.tab[data-view="income"] { --ui-icon: url("assets/ui-icons/tabler/wallet.svg"); }
+.tab[data-view="savings"] { --ui-icon: url("assets/ui-icons/tabler/receipt-2.svg"); }
+.tab[data-view="car"] { --ui-icon: url("assets/ui-icons/tabler/car.svg"); }
+.tab[data-view="watch"] { --ui-icon: url("assets/ui-icons/tabler/star.svg"); }
+.tab[data-view="settings"] { --ui-icon: url("assets/ui-icons/tabler/settings.svg"); }
+.tab-icon:not(.command-orb) { --ui-icon-size: 20px; }
+
+/* The command canvas still animates underneath a clear AI/spark symbol. */
+.smart-command-mark {
+  --ui-icon: url("assets/ui-icons/tabler/sparkles.svg");
+  --ui-icon-size: 22px;
+  color: var(--accent-2);
+}
+[data-theme] .smart-command-mark::before {
+  position: absolute;
+  inset: auto;
+  z-index: 2;
+  display: block !important;
+  border-radius: 0;
+  background: currentColor !important;
+  box-shadow: 0 0 8px color-mix(in srgb, currentColor 38%, transparent);
+  opacity: .94;
+  animation: none;
+}
+.smart-command-mark canvas { opacity: .32; }
+[data-theme="fff"] .smart-command-mark { color: var(--accent); }
+[data-theme="fff"] .smart-command-mark canvas { opacity: .18; }
+
+@media (max-width: 620px) {
+  .dashboard-widget-icon::before { --ui-icon-size: 20px; }
+  .modern-section-icon::before,
+  .income-summary-icon::before,
+  .car-section-icon::before { --ui-icon-size: 21px; }
+  .tab-icon:not(.command-orb) { --ui-icon-size: 18px; }
 }

@@ -538,6 +538,44 @@
 
 [data-theme="fff"] .fff-hud-streak button:disabled > b { display: none; }
 
+/* The streak action is intentionally a single, recognizable flame control. */
+[data-theme="fff"] .fff-hud-streak button {
+  min-width: 38px;
+  width: 38px;
+  min-height: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 50%;
+  border-color: rgba(232, 196, 107, .7);
+  color: #ffd978;
+  background: radial-gradient(circle at 50% 72%, rgba(232, 104, 38, .2), rgba(101, 232, 62, .04) 68%);
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  animation: fffStreakFlame 1.55s ease-in-out infinite;
+}
+
+[data-theme="fff"] .fff-hud-streak button > b { display: none; }
+[data-theme="fff"] .fff-hud-streak button:hover {
+  transform: translateY(-1px) scale(1.08);
+  border-color: #ffe39b;
+  background: radial-gradient(circle at 50% 72%, rgba(255, 126, 44, .32), rgba(101, 232, 62, .08) 70%);
+  box-shadow: 0 0 17px rgba(255, 155, 63, .24);
+}
+[data-theme="fff"] .fff-hud-streak button:active { transform: scale(.94); }
+[data-theme="fff"] .fff-hud-streak button:disabled,
+[data-theme="fff"] .fff-hud-streak button.is-complete { animation: none; }
+
+@keyframes fffStreakFlame {
+  0%, 100% { transform: translateY(0) scale(1) rotate(-2deg); filter: drop-shadow(0 0 3px rgba(255, 137, 52, .34)); }
+  50% { transform: translateY(-2px) scale(1.08) rotate(2deg); filter: drop-shadow(0 0 9px rgba(255, 166, 70, .62)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="fff"] .fff-hud-streak button { animation: none; }
+}
+
 /* Content header and command console */
 [data-theme="fff"] .home-dashboard-head {
   min-height: 38px;

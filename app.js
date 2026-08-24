@@ -3852,7 +3852,7 @@ function renderFffOperatorHud() {
     el.fffHudStreakCheckin.classList.toggle("is-complete", streak.checkedInToday);
     el.fffHudStreakCheckin.setAttribute("aria-label", streak.checkedInToday ? t("fff_streak_completed") : t("fff_streak_checkin"));
   }
-  if (el.fffHudStreakCheckinLabel) el.fffHudStreakCheckinLabel.textContent = t("fff_streak_checkin");
+  if (el.fffHudStreakCheckinLabel) el.fffHudStreakCheckinLabel.textContent = "🔥";
   if (el.fffHudStreakXp) el.fffHudStreakXp.textContent = streak.checkedInToday ? "" : `+${dailyStreakReward(streak.current + 1)} XP`;
   if (hadPreviousXp && progress.totalXp > previousXp && state.motion && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     el.fffOperatorHud.classList.remove("is-updated");

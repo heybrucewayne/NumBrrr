@@ -6978,7 +6978,16 @@ function applyTheme(theme = "black") {
   if (themeColor) themeColor.setAttribute("content", state.theme === "fff" ? "#050805" : state.theme === "terminal" ? "#061009" : "#000000");
   updateSettingsActive();
   saveState();
+  window.requestAnimationFrame(() => replayFffViewMotion(document.querySelector(".view:not([hidden])")));
   try { localStorage.setItem("numbr_theme", state.theme); } catch (e) {}
+}
+
+function replayFffViewMotion(view) {
+  if (!view || document.documentElement.dataset.theme !== "fff" || !state.motion) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  view.classList.remove("fff-view-reveal");
+  void view.offsetWidth;
+  view.classList.add("fff-view-reveal");
 }
 function applyMotion(enabled) {
   state.motion = !!enabled;
@@ -7298,6 +7307,7 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
     if (name === "settings") { preloadThemeWallpapers(); renderHomeCardSettings(); renderPwaSettings(); renderNotificationSettings(); }
     if (name === "home") renderHomeDashboard();
     window.scrollTo({ top: 0, behavior: "auto" });
+    window.requestAnimationFrame(() => replayFffViewMotion(document.getElementById(`view-${name}`)));
   }
   tabs.forEach((tab) => {
     tab.addEventListener("animationend", () => tab.classList.remove("is-bouncing"));

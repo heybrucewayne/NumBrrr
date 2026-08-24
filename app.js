@@ -300,7 +300,7 @@ const I18N = {
     nav_home: "Home", nav_savings: "Expenses", nav_settings: "Settings", nav_more: "More",
     home_title: "Freedom", home_sub: "See how much to save so passive returns cover your expenses.",
     dashboard_title: "Home", dashboard_sub: "Everything important, at a glance.", dashboard_edit: "Edit cards", dashboard_done: "Done",
-    fff_hud_aria: "NUMBRR operator status", fff_hud_stats_aria: "Operator statistics", fff_hud_operator: "NUMBRR OPERATOR", fff_hud_role: "Financial field operator", fff_hud_xp: "Experience", fff_hud_active_mission: "ACTIVE MISSION", fff_hud_go: "Open mission", fff_hud_modules: "modules", fff_hud_badges: "badges", fff_hud_level: "Level {level}", fff_hud_status: "{done}/{total} finance modules online", fff_hud_hidden: "This module is hidden. You can enable it from Home settings.",
+    fff_hud_aria: "NUMBRR operator status", fff_hud_stats_aria: "Operator statistics", fff_hud_vitals_aria: "Operator indicators", fff_hud_operator: "NUMBRR OPERATOR", fff_hud_role: "Financial field operator", fff_hud_xp: "Experience", fff_hud_energy: "Energy", fff_hud_morale: "Morale", fff_hud_focus: "Focus", fff_hud_active_mission: "ACTIVE MISSION", fff_hud_go: "Open mission", fff_hud_modules: "modules", fff_hud_badges: "badges", fff_hud_level: "Level {level}", fff_hud_status: "{done}/{total} finance modules online", fff_hud_hidden: "This module is hidden. You can enable it from Home settings.", fff_main_menu: "MAIN MENU", fff_system: "SYSTEM:", fff_online: "ONLINE", fff_sync: "DATA SYNC:", fff_version: "VERSION:", fff_connection: "CONNECTION:", fff_strong: "STRONG",
     fff_rank_1: "Ledger recruit", fff_rank_2: "Yield scout", fff_rank_3: "Capital ranger", fff_rank_4: "Vault warden", fff_rank_5: "Finance commander",
     fff_mission_portfolio: "Log your first portfolio asset", fff_mission_income: "Define a monthly income source", fff_mission_expenses: "Create your first expense record", fff_mission_goals: "Set a savings goal", fff_mission_watch: "Add an asset to your watchlist", fff_mission_countdown: "Start a countdown", fff_mission_alert: "Set a price alert", fff_mission_notes: "Leave a field note", fff_mission_savings: "Raise your monthly savings rate", fff_mission_diversity: "Expand portfolio diversity", fff_mission_ready: "Review your smart finance signals",
     currency: "Currency", monthly_expenses: "Monthly expenses", per_month: "/ month",
@@ -491,7 +491,7 @@ const I18N = {
     nav_home: "Ana Sayfa", nav_savings: "Giderler", nav_settings: "Ayarlar", nav_more: "Daha",
     home_title: "Özgürlük", home_sub: "Giderlerini pasif gelirle karşılamak için ne kadar biriktirmen gerektiğini gör.",
     dashboard_title: "Ana Sayfa", dashboard_sub: "Önemli olan her şey tek bakışta.", dashboard_edit: "Kartları düzenle", dashboard_done: "Bitti",
-    fff_hud_aria: "NUMBRR operatör durumu", fff_hud_stats_aria: "Operatör istatistikleri", fff_hud_operator: "NUMBRR OPERATÖRÜ", fff_hud_role: "Finans saha operatörü", fff_hud_xp: "Deneyim", fff_hud_active_mission: "AKTİF GÖREV", fff_hud_go: "Göreve git", fff_hud_modules: "modül", fff_hud_badges: "rozet", fff_hud_level: "Seviye {level}", fff_hud_status: "{done}/{total} finans modülü çevrimiçi", fff_hud_hidden: "Bu modül gizli. Ana sayfa ayarlarından görünür yapabilirsin.",
+    fff_hud_aria: "NUMBRR operatör durumu", fff_hud_stats_aria: "Operatör istatistikleri", fff_hud_vitals_aria: "Operatör göstergeleri", fff_hud_operator: "NUMBRR OPERATÖRÜ", fff_hud_role: "Finans saha operatörü", fff_hud_xp: "Deneyim", fff_hud_energy: "Enerji", fff_hud_morale: "Moral", fff_hud_focus: "Odak", fff_hud_active_mission: "AKTİF GÖREV", fff_hud_go: "Göreve git", fff_hud_modules: "modül", fff_hud_badges: "rozet", fff_hud_level: "Seviye {level}", fff_hud_status: "{done}/{total} finans modülü çevrimiçi", fff_hud_hidden: "Bu modül gizli. Ana sayfa ayarlarından görünür yapabilirsin.", fff_main_menu: "ANA MENÜ", fff_system: "SİSTEM:", fff_online: "ÇEVRİMİÇİ", fff_sync: "VERİ SENKRON:", fff_version: "SÜRÜM:", fff_connection: "BAĞLANTI:", fff_strong: "GÜÇLÜ",
     fff_rank_1: "Kayıt çırağı", fff_rank_2: "Getiri izcisi", fff_rank_3: "Sermaye korucusu", fff_rank_4: "Kasa muhafızı", fff_rank_5: "Finans komutanı",
     fff_mission_portfolio: "İlk varlığını portföye kaydet", fff_mission_income: "Aylık gelir kaynağını tanımla", fff_mission_expenses: "İlk gider kaydını oluştur", fff_mission_goals: "Bir birikim hedefi belirle", fff_mission_watch: "Takip listene bir varlık ekle", fff_mission_countdown: "Bir geri sayım başlat", fff_mission_alert: "Bir fiyat alarmı kur", fff_mission_notes: "Bir saha notu bırak", fff_mission_savings: "Aylık birikim oranını yükselt", fff_mission_diversity: "Portföy çeşitliliğini artır", fff_mission_ready: "Akıllı finans sinyallerini incele",
     currency: "Para Birimi", monthly_expenses: "Aylık giderler", per_month: "/ ay",
@@ -791,6 +791,17 @@ const el = {
   fffHudMissionAction: document.getElementById("fffHudMissionAction"),
   fffHudModules: document.getElementById("fffHudModules"),
   fffHudBadges: document.getElementById("fffHudBadges"),
+  fffHudMissionFill: document.getElementById("fffHudMissionFill"),
+  fffHudEnergy: document.getElementById("fffHudEnergy"),
+  fffHudEnergyBar: document.getElementById("fffHudEnergyBar"),
+  fffHudEnergyFill: document.getElementById("fffHudEnergyFill"),
+  fffHudMorale: document.getElementById("fffHudMorale"),
+  fffHudMoraleBar: document.getElementById("fffHudMoraleBar"),
+  fffHudMoraleFill: document.getElementById("fffHudMoraleFill"),
+  fffHudFocus: document.getElementById("fffHudFocus"),
+  fffHudFocusBar: document.getElementById("fffHudFocusBar"),
+  fffHudFocusFill: document.getElementById("fffHudFocusFill"),
+  fffTerminalClock: document.getElementById("fffTerminalClock"),
   currencySymbol: document.getElementById("currencySymbol"),
   expenses: document.getElementById("expenses"),
   realMode: document.getElementById("realMode"),
@@ -3676,6 +3687,12 @@ function fffOperatorProgress() {
 function renderFffOperatorHud() {
   if (!el.fffOperatorHud) return;
   const progress = fffOperatorProgress();
+  const snapshot = financialSnapshot();
+  const completion = progress.total ? progress.online / progress.total : 0;
+  const energy = Math.round(Math.max(12, Math.min(100, 28 + completion * 52 + Math.min(20, progress.levelXp / 5))));
+  const morale = Math.round(Math.max(8, Math.min(100, 28 + snapshot.score * .62 + (snapshot.net > 0 ? 10 : 0))));
+  const focus = Math.round(Math.max(15, Math.min(100, 30 + completion * 42 + Math.min(28, progress.badges * 4))));
+  const missionProgress = Math.round(completion * 100);
   const previousXp = Number(el.fffOperatorHud.dataset.totalXp);
   const hadPreviousXp = el.fffOperatorHud.dataset.totalXp !== "" && Number.isFinite(previousXp);
   el.fffOperatorHud.dataset.totalXp = String(progress.totalXp);
@@ -3685,17 +3702,40 @@ function renderFffOperatorHud() {
   el.fffHudXp.setAttribute("aria-valuenow", String(progress.levelXp));
   el.fffHudXp.setAttribute("aria-label", t("fff_hud_xp"));
   el.fffHudStatus.textContent = t("fff_hud_status", { done: progress.online, total: progress.total });
+  if (el.fffHudMissionFill) el.fffHudMissionFill.style.width = `${missionProgress}%`;
   el.fffHudMission.textContent = t(progress.mission.mission);
   el.fffHudMissionAction.dataset.missionView = progress.mission.view || "home";
   el.fffHudMissionAction.dataset.missionWidget = progress.mission.widget || "";
   el.fffHudModules.textContent = String(progress.online);
   el.fffHudBadges.textContent = String(progress.badges);
+  [
+    [el.fffHudEnergy, el.fffHudEnergyBar, el.fffHudEnergyFill, energy, "fff_hud_energy"],
+    [el.fffHudMorale, el.fffHudMoraleBar, el.fffHudMoraleFill, morale, "fff_hud_morale"],
+    [el.fffHudFocus, el.fffHudFocusBar, el.fffHudFocusFill, focus, "fff_hud_focus"],
+  ].forEach(([label, bar, fill, value, key]) => {
+    if (label) label.textContent = `${value} / 100`;
+    if (fill) fill.style.width = `${value}%`;
+    if (bar) {
+      bar.setAttribute("aria-valuenow", String(value));
+      bar.setAttribute("aria-label", t(key));
+    }
+  });
   if (hadPreviousXp && progress.totalXp > previousXp && state.motion && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     el.fffOperatorHud.classList.remove("is-updated");
     void el.fffOperatorHud.offsetWidth;
     el.fffOperatorHud.classList.add("is-updated");
     window.setTimeout(() => el.fffOperatorHud?.classList.remove("is-updated"), 780);
   }
+}
+
+function renderFffTerminalClock() {
+  if (!el.fffTerminalClock) return;
+  const now = new Date();
+  const locale = state.lang === "tr" ? "tr-TR" : "en-GB";
+  const date = new Intl.DateTimeFormat(locale, { day: "2-digit", month: "short", year: "numeric" }).format(now).toLocaleUpperCase(locale);
+  const time = new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit", hour12: false }).format(now);
+  el.fffTerminalClock.dateTime = now.toISOString();
+  el.fffTerminalClock.textContent = `${date} / ${time}`;
 }
 
 function openFffMission() {
@@ -4828,6 +4868,9 @@ function wireHomeDashboard() {
   ensureHomeCardControls();
   setHomeDashboardEditing(false);
   if (el.fffHudMissionAction) el.fffHudMissionAction.addEventListener("click", openFffMission);
+  document.querySelectorAll("[data-fff-open-settings]").forEach((button) => button.addEventListener("click", () => {
+    document.querySelector('.tab[data-view="settings"]')?.click();
+  }));
   el.freedomWidgetToggle.addEventListener("click", () => setFreedomWidgetExpanded(!state.homeLayout.freedomExpanded));
   el.dashboardGrid.querySelectorAll("[data-open-view]").forEach((button) => button.addEventListener("click", () => {
     const tab = document.querySelector(`.tab[data-view="${button.dataset.openView}"]`);
@@ -7705,6 +7748,7 @@ applyTheme(state.theme);
 soundToggle.checked = state.sound;
 applyMotion(state.motion);
 applyLanguage(state.lang); // builds layout + savings, applies all translations
+renderFffTerminalClock();
 
 if (isFirstRun) showOnboarding();
 else { try { if (!localStorage.getItem("numbr_guide_seen")) showGuide(); } catch (e) {} }
@@ -7736,4 +7780,5 @@ scheduleStartupBackgroundWork();
 
 setInterval(() => { checkVehicleNotifications(); refreshWatchData(); }, 60 * 60 * 1000);
 setInterval(renderCountdowns, 60 * 1000);
-document.addEventListener("visibilitychange", () => { if (!document.hidden) { checkVehicleNotifications(); refreshWatchData(); } syncCommandOrbMotion(); });
+setInterval(renderFffTerminalClock, 30 * 1000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { checkVehicleNotifications(); refreshWatchData(); renderFffTerminalClock(); } syncCommandOrbMotion(); });

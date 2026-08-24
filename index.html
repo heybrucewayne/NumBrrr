@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
+  <link rel="stylesheet" href="fff-theme.css?v=2" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -61,6 +62,19 @@
   </div>
 
   <main class="shell">
+    <header class="fff-terminal-topbar" aria-label="NUMBRR terminal durumu">
+      <div class="fff-terminal-brand">
+        <span class="fff-terminal-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <strong>NUMBRR TERMINAL</strong>
+        <span>v2.1</span>
+      </div>
+      <div class="fff-terminal-meta">
+        <time id="fffTerminalClock" datetime="">—</time>
+        <button class="fff-terminal-settings" type="button" data-fff-open-settings data-i18n-title="nav_settings" aria-label="Ayarlar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path></svg>
+        </button>
+      </div>
+    </header>
     <!-- ============ HOME DASHBOARD ============ -->
     <div class="view" id="view-home">
       <header class="home-dashboard-head">
@@ -72,25 +86,48 @@
 
       <section class="fff-operator-hud" id="fffOperatorHud" data-i18n-title="fff_hud_aria" aria-labelledby="fffOperatorTitle">
         <div class="fff-hud-identity">
-          <div>
+          <div class="fff-hud-avatar" aria-hidden="true">
+            <svg viewBox="0 0 96 96">
+              <path class="fff-avatar-grid" d="M8 24h80M8 48h80M8 72h80M24 8v80M48 8v80M72 8v80"></path>
+              <path class="fff-avatar-ring" d="M48 13a35 35 0 1 1 0 70 35 35 0 0 1 0-70Z"></path>
+              <path class="fff-avatar-n" d="M31 66V30l34 36V30"></path>
+              <path class="fff-avatar-pulse" d="M23 74h14l5-10 8 16 6-10h17"></path>
+            </svg>
+          </div>
+          <div class="fff-hud-profile">
             <span class="fff-hud-kicker" data-i18n="fff_hud_operator">NUMBRR OPERATÖRÜ</span>
             <strong id="fffOperatorTitle" data-i18n="fff_hud_role">Finans saha operatörü</strong>
             <small id="fffHudRank">—</small>
+            <div class="fff-hud-line"><span data-i18n="fff_hud_xp">Deneyim</span><b id="fffHudXpLabel">0 / 100 XP</b></div>
+            <div class="fff-hud-xp" id="fffHudXp" role="progressbar" aria-label="Deneyim" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudXpFill"></span></div>
           </div>
         </div>
-        <div class="fff-hud-level">
-          <div class="fff-hud-line"><span data-i18n="fff_hud_xp">Deneyim</span><b id="fffHudXpLabel">0 / 100 XP</b></div>
-          <div class="fff-hud-xp" id="fffHudXp" role="progressbar" aria-label="Experience" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudXpFill"></span></div>
-          <small id="fffHudStatus">—</small>
+        <div class="fff-hud-vitals" data-i18n-title="fff_hud_vitals_aria" aria-label="Operatör göstergeleri">
+          <div class="fff-vital">
+            <div><span aria-hidden="true">↯</span><b data-i18n="fff_hud_energy">Enerji</b><strong id="fffHudEnergy">0 / 100</strong></div>
+            <div id="fffHudEnergyBar" class="fff-vital-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudEnergyFill"></span></div>
+          </div>
+          <div class="fff-vital">
+            <div><span aria-hidden="true">◎</span><b data-i18n="fff_hud_morale">Moral</b><strong id="fffHudMorale">0 / 100</strong></div>
+            <div id="fffHudMoraleBar" class="fff-vital-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudMoraleFill"></span></div>
+          </div>
+          <div class="fff-vital">
+            <div><span aria-hidden="true">✦</span><b data-i18n="fff_hud_focus">Odak</b><strong id="fffHudFocus">0 / 100</strong></div>
+            <div id="fffHudFocusBar" class="fff-vital-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudFocusFill"></span></div>
+          </div>
         </div>
         <div class="fff-hud-mission">
           <span class="fff-hud-kicker" data-i18n="fff_hud_active_mission">AKTİF GÖREV</span>
           <strong id="fffHudMission">—</strong>
+          <div class="fff-hud-mission-progress"><span id="fffHudMissionFill"></span></div>
+          <div class="fff-hud-mission-foot">
+            <small id="fffHudStatus">—</small>
+            <div class="fff-hud-stats" data-i18n-title="fff_hud_stats_aria" aria-label="Operatör istatistikleri">
+              <span><strong id="fffHudModules">0</strong> <i data-i18n="fff_hud_modules">modül</i></span>
+              <span><strong id="fffHudBadges">0</strong> <i data-i18n="fff_hud_badges">rozet</i></span>
+            </div>
+          </div>
           <button id="fffHudMissionAction" type="button"><span data-i18n="fff_hud_go">Göreve git</span><b aria-hidden="true">›</b></button>
-        </div>
-        <div class="fff-hud-stats" data-i18n-title="fff_hud_stats_aria" aria-label="Operator statistics">
-          <div><strong id="fffHudModules">0</strong><span data-i18n="fff_hud_modules">modül</span></div>
-          <div><strong id="fffHudBadges">0</strong><span data-i18n="fff_hud_badges">rozet</span></div>
         </div>
       </section>
 
@@ -803,10 +840,21 @@
       </section>
 
     </div><!-- /view-watch -->
+
+    <footer class="fff-terminal-footer" aria-label="Sistem durumu">
+      <span class="fff-footer-online"><i aria-hidden="true"></i><b data-i18n="fff_system">SİSTEM:</b> <em data-i18n="fff_online">ÇEVRİMİÇİ</em></span>
+      <span class="fff-footer-sync"><b data-i18n="fff_sync">VERİ SENKRON:</b> %100 <i aria-hidden="true"><u></u></i></span>
+      <span><b data-i18n="fff_version">SÜRÜM:</b> 2.1.0</span>
+      <span class="fff-footer-signal"><b data-i18n="fff_connection">BAĞLANTI:</b> <em data-i18n="fff_strong">GÜÇLÜ</em><i aria-hidden="true"><u></u><u></u><u></u><u></u></i></span>
+    </footer>
   </main>
 
   <!-- Bottom navigation (app-style) -->
   <nav class="tabbar" aria-label="Primary">
+    <div class="fff-nav-header" aria-hidden="true">
+      <strong data-i18n="fff_main_menu">ANA MENÜ</strong>
+      <small><i></i><span data-i18n="fff_online">ÇEVRİMİÇİ</span></small>
+    </div>
     <button class="tab is-active" type="button" data-view="home" aria-current="page">
       <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path></svg></span>
       <span class="tab-label" data-i18n="nav_home">Home</span>
@@ -948,7 +996,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=84"></script>
+  <script src="app.js?v=85"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

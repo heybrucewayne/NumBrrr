@@ -300,7 +300,7 @@ const I18N = {
     nav_home: "Home", nav_savings: "Expenses", nav_settings: "Settings", nav_more: "More",
     home_title: "Freedom", home_sub: "See how much to save so passive returns cover your expenses.",
     dashboard_title: "Home", dashboard_sub: "Everything important, at a glance.", dashboard_edit: "Edit cards", dashboard_done: "Done",
-    fff_hud_aria: "NUMBRR operator status", fff_hud_stats_aria: "Operator statistics", fff_hud_vitals_aria: "Operator indicators", fff_hud_operator: "NUMBRR OPERATOR", fff_hud_role: "Financial field operator", fff_hud_xp: "Experience", fff_hud_energy: "Energy", fff_hud_morale: "Morale", fff_hud_focus: "Focus", fff_hud_active_mission: "ACTIVE MISSION", fff_hud_go: "Open mission", fff_hud_modules: "modules", fff_hud_badges: "badges", fff_hud_level: "Level {level}", fff_hud_status: "{done}/{total} finance modules online", fff_hud_hidden: "This module is hidden. You can enable it from Home settings.", fff_main_menu: "MAIN MENU", fff_system: "SYSTEM:", fff_online: "ONLINE", fff_sync: "DATA SYNC:", fff_version: "VERSION:", fff_connection: "CONNECTION:", fff_strong: "STRONG",
+    fff_hud_aria: "NUMBRR operator status", fff_hud_stats_aria: "Operator statistics", fff_hud_vitals_aria: "Operator indicators", fff_hud_operator: "NUMBRR OPERATOR", fff_hud_role: "Financial field operator", fff_hud_xp: "Experience", fff_hud_energy: "Energy", fff_hud_morale: "Morale", fff_hud_focus: "Focus", fff_hud_active_mission: "ACTIVE MISSION", fff_hud_go: "Open mission", fff_hud_modules: "modules", fff_hud_badges: "badges", fff_hud_level: "Level {level}", fff_hud_status: "{done}/{total} finance modules online", fff_hud_hidden: "This module is hidden. You can enable it from Home settings.", fff_streak_title: "DAILY STREAK", fff_streak_days: "days", fff_streak_checkin: "Complete today", fff_streak_completed: "Completed", fff_streak_ready: "Today's check-in ready · +8 XP", fff_streak_wait: "Come back tomorrow · +8 XP", fff_streak_protect: "{count} freeze available to protect streak", fff_streak_risk: "Streak at risk · today's check-in restarts it", fff_streak_freezes: "Freeze {count}/2", fff_streak_already: "Today's check-in is already complete.", fff_streak_started: "Streak started · +{xp} XP", fff_streak_continued: "Streak extended · +{xp} XP", fff_streak_frozen: "Streak protected · {count} freeze used · +{xp} XP", fff_streak_reset: "Streak restarted · +{xp} XP", fff_main_menu: "MAIN MENU", fff_system: "SYSTEM:", fff_online: "ONLINE", fff_sync: "DATA SYNC:", fff_version: "VERSION:", fff_connection: "CONNECTION:", fff_strong: "STRONG",
     fff_rank_1: "Ledger recruit", fff_rank_2: "Yield scout", fff_rank_3: "Capital ranger", fff_rank_4: "Vault warden", fff_rank_5: "Finance commander",
     fff_mission_portfolio: "Log your first portfolio asset", fff_mission_income: "Define a monthly income source", fff_mission_expenses: "Create your first expense record", fff_mission_goals: "Set a savings goal", fff_mission_watch: "Add an asset to your watchlist", fff_mission_countdown: "Start a countdown", fff_mission_alert: "Set a price alert", fff_mission_notes: "Leave a field note", fff_mission_savings: "Raise your monthly savings rate", fff_mission_diversity: "Expand portfolio diversity", fff_mission_ready: "Review your smart finance signals",
     currency: "Currency", monthly_expenses: "Monthly expenses", per_month: "/ month",
@@ -491,7 +491,7 @@ const I18N = {
     nav_home: "Ana Sayfa", nav_savings: "Giderler", nav_settings: "Ayarlar", nav_more: "Daha",
     home_title: "Özgürlük", home_sub: "Giderlerini pasif gelirle karşılamak için ne kadar biriktirmen gerektiğini gör.",
     dashboard_title: "Ana Sayfa", dashboard_sub: "Önemli olan her şey tek bakışta.", dashboard_edit: "Kartları düzenle", dashboard_done: "Bitti",
-    fff_hud_aria: "NUMBRR operatör durumu", fff_hud_stats_aria: "Operatör istatistikleri", fff_hud_vitals_aria: "Operatör göstergeleri", fff_hud_operator: "NUMBRR OPERATÖRÜ", fff_hud_role: "Finans saha operatörü", fff_hud_xp: "Deneyim", fff_hud_energy: "Enerji", fff_hud_morale: "Moral", fff_hud_focus: "Odak", fff_hud_active_mission: "AKTİF GÖREV", fff_hud_go: "Göreve git", fff_hud_modules: "modül", fff_hud_badges: "rozet", fff_hud_level: "Seviye {level}", fff_hud_status: "{done}/{total} finans modülü çevrimiçi", fff_hud_hidden: "Bu modül gizli. Ana sayfa ayarlarından görünür yapabilirsin.", fff_main_menu: "ANA MENÜ", fff_system: "SİSTEM:", fff_online: "ÇEVRİMİÇİ", fff_sync: "VERİ SENKRON:", fff_version: "SÜRÜM:", fff_connection: "BAĞLANTI:", fff_strong: "GÜÇLÜ",
+    fff_hud_aria: "NUMBRR operatör durumu", fff_hud_stats_aria: "Operatör istatistikleri", fff_hud_vitals_aria: "Operatör göstergeleri", fff_hud_operator: "NUMBRR OPERATÖRÜ", fff_hud_role: "Finans saha operatörü", fff_hud_xp: "Deneyim", fff_hud_energy: "Enerji", fff_hud_morale: "Moral", fff_hud_focus: "Odak", fff_hud_active_mission: "AKTİF GÖREV", fff_hud_go: "Göreve git", fff_hud_modules: "modül", fff_hud_badges: "rozet", fff_hud_level: "Seviye {level}", fff_hud_status: "{done}/{total} finans modülü çevrimiçi", fff_hud_hidden: "Bu modül gizli. Ana sayfa ayarlarından görünür yapabilirsin.", fff_streak_title: "GÜNLÜK SERİ", fff_streak_days: "gün", fff_streak_checkin: "Günü tamamla", fff_streak_completed: "Tamamlandı", fff_streak_ready: "Bugünkü kayıt hazır · +8 XP", fff_streak_wait: "Yarın tekrar gel · +8 XP", fff_streak_protect: "Seriyi korumak için {count} dondurma kullanılabilir", fff_streak_risk: "Seri riskte · bugünkü girişle yeniden başlar", fff_streak_freezes: "Dondurma {count}/2", fff_streak_already: "Bugünkü kayıt zaten tamamlandı.", fff_streak_started: "Seri başladı · +{xp} XP", fff_streak_continued: "Seri uzadı · +{xp} XP", fff_streak_frozen: "Seri korundu · {count} dondurma kullanıldı · +{xp} XP", fff_streak_reset: "Seri yeniden başladı · +{xp} XP", fff_main_menu: "ANA MENÜ", fff_system: "SİSTEM:", fff_online: "ÇEVRİMİÇİ", fff_sync: "VERİ SENKRON:", fff_version: "SÜRÜM:", fff_connection: "BAĞLANTI:", fff_strong: "GÜÇLÜ",
     fff_rank_1: "Kayıt çırağı", fff_rank_2: "Getiri izcisi", fff_rank_3: "Sermaye korucusu", fff_rank_4: "Kasa muhafızı", fff_rank_5: "Finans komutanı",
     fff_mission_portfolio: "İlk varlığını portföye kaydet", fff_mission_income: "Aylık gelir kaynağını tanımla", fff_mission_expenses: "İlk gider kaydını oluştur", fff_mission_goals: "Bir birikim hedefi belirle", fff_mission_watch: "Takip listene bir varlık ekle", fff_mission_countdown: "Bir geri sayım başlat", fff_mission_alert: "Bir fiyat alarmı kur", fff_mission_notes: "Bir saha notu bırak", fff_mission_savings: "Aylık birikim oranını yükselt", fff_mission_diversity: "Portföy çeşitliliğini artır", fff_mission_ready: "Akıllı finans sinyallerini incele",
     currency: "Para Birimi", monthly_expenses: "Aylık giderler", per_month: "/ ay",
@@ -735,6 +735,7 @@ const state = {
   portTotalUSD: false, // when currency is TL, show the total portfolio value in USD instead
   watchlist: [], // [{ type, key, name }] — assets to monitor (price + 24h/1mo/1yr performance)
   notifications: { enabled: false, vehicleDays: 7, priceAlerts: [], seq: 0, sent: {} },
+  dailyStreak: { current: 0, best: 0, lastCheckIn: "", freezeWeek: "", freezesUsed: 0, xp: 0 },
   homeLayout: { order: [...HOME_WIDGET_IDS], itemOrder: [...HOME_WIDGET_IDS], hidden: [], freedomExpanded: false },
   weather: {
     location: { name: "İstanbul", latitude: 41.0082, longitude: 28.9784 },
@@ -803,6 +804,12 @@ const el = {
   fffHudModules: document.getElementById("fffHudModules"),
   fffHudBadges: document.getElementById("fffHudBadges"),
   fffHudMissionFill: document.getElementById("fffHudMissionFill"),
+  fffHudStreakCount: document.getElementById("fffHudStreakCount"),
+  fffHudStreakStatus: document.getElementById("fffHudStreakStatus"),
+  fffHudStreakFreezes: document.getElementById("fffHudStreakFreezes"),
+  fffHudStreakCheckin: document.getElementById("fffHudStreakCheckin"),
+  fffHudStreakCheckinLabel: document.getElementById("fffHudStreakCheckinLabel"),
+  fffHudStreakXp: document.getElementById("fffHudStreakXp"),
   fffHudCat: document.getElementById("fffHudCat"),
   fffEditHome: document.getElementById("fffEditHome"),
   fffTerminalPageTitle: document.getElementById("fffTerminalPageTitle"),
@@ -3668,6 +3675,83 @@ function financialSnapshot() {
   return { income, expenses, net, savingsRate, passive, passiveCoverage, portfolioTotal, bufferMonths, diversity, score };
 }
 
+function dailyStreakWeekKey(date = new Date()) {
+  const monday = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const daysSinceMonday = (monday.getDay() + 6) % 7;
+  monday.setDate(monday.getDate() - daysSinceMonday);
+  return dateInputValue(monday);
+}
+
+function ensureDailyStreakWeek() {
+  const week = dailyStreakWeekKey();
+  if (state.dailyStreak.freezeWeek !== week) {
+    state.dailyStreak.freezeWeek = week;
+    state.dailyStreak.freezesUsed = 0;
+  }
+  return state.dailyStreak;
+}
+
+function dailyStreakSnapshot() {
+  const streak = ensureDailyStreakWeek();
+  const today = dateInputValue(new Date());
+  const gap = streak.lastCheckIn ? calendarDayDistance(parseDateInput(streak.lastCheckIn), parseDateInput(today)) : null;
+  return {
+    current: Math.max(0, Math.round(streak.current || 0)),
+    best: Math.max(0, Math.round(streak.best || 0)),
+    lastCheckIn: streak.lastCheckIn,
+    checkedInToday: streak.lastCheckIn === today,
+    gap,
+    freezesLeft: Math.max(0, 2 - Math.min(2, Math.round(streak.freezesUsed || 0))),
+    xp: Math.max(0, Math.round(streak.xp || 0)),
+  };
+}
+
+function dailyStreakReward(nextStreak) {
+  return 8 + (nextStreak > 0 && nextStreak % 7 === 0 ? 4 : 0);
+}
+
+function completeDailyStreak() {
+  const streak = ensureDailyStreakWeek();
+  const today = dateInputValue(new Date());
+  if (streak.lastCheckIn === today) {
+    showAppToast(t("fff_streak_already"));
+    renderFffOperatorHud();
+    return;
+  }
+
+  const lastDate = parseDateInput(streak.lastCheckIn);
+  const todayDate = parseDateInput(today);
+  const gap = lastDate ? calendarDayDistance(lastDate, todayDate) : 0;
+  const missedDays = Math.max(0, gap - 1);
+  const freezesLeft = Math.max(0, 2 - Math.min(2, Math.round(streak.freezesUsed || 0)));
+  let event = "started";
+  let freezeCount = 0;
+
+  if (gap === 1) {
+    streak.current = Math.max(0, Math.round(streak.current || 0)) + 1;
+    event = "continued";
+  } else if (gap > 1 && missedDays <= freezesLeft) {
+    freezeCount = missedDays;
+    streak.freezesUsed += freezeCount;
+    streak.current = Math.max(0, Math.round(streak.current || 0)) + gap;
+    event = "frozen";
+  } else if (gap > 1) {
+    streak.current = 1;
+    event = "reset";
+  } else {
+    streak.current = 1;
+  }
+
+  const reward = dailyStreakReward(streak.current);
+  streak.lastCheckIn = today;
+  streak.best = Math.max(Math.round(streak.best || 0), streak.current);
+  streak.xp = Math.max(0, Math.round(streak.xp || 0)) + reward;
+  saveState();
+  renderFffOperatorHud();
+  sfx("success");
+  showAppToast(t(`fff_streak_${event}`, { count: freezeCount, xp: reward }));
+}
+
 function fffOperatorProgress() {
   const holdingCount = meaningfulHoldingCount();
   const incomeCount = Object.values(state.income.amounts || {}).filter((amount) => Number(amount) > 0).length;
@@ -3718,7 +3802,8 @@ function fffOperatorProgress() {
     + Math.min(countdownCount, 4) * 6
     + Math.min(alertCount, 4) * 6
     + Math.min(noteCount, 6) * 3
-    + Math.min(budgetCount, 5) * 6;
+    + Math.min(budgetCount, 5) * 6
+    + Math.max(0, Math.round(state.dailyStreak.xp || 0));
   const level = Math.floor(totalXp / 100) + 1;
   const levelXp = totalXp % 100;
 
@@ -3734,6 +3819,7 @@ function fffOperatorProgress() {
 function renderFffOperatorHud() {
   if (!el.fffOperatorHud) return;
   const progress = fffOperatorProgress();
+  const streak = dailyStreakSnapshot();
   const completion = progress.total ? progress.online / progress.total : 0;
   const missionProgress = Math.round(completion * 100);
   const previousXp = Number(el.fffOperatorHud.dataset.totalXp);
@@ -3751,6 +3837,22 @@ function renderFffOperatorHud() {
   el.fffHudMissionAction.dataset.missionWidget = progress.mission.widget || "";
   el.fffHudModules.textContent = String(progress.online);
   el.fffHudBadges.textContent = String(progress.badges);
+  if (el.fffHudStreakCount) el.fffHudStreakCount.textContent = String(streak.current);
+  if (el.fffHudStreakFreezes) el.fffHudStreakFreezes.textContent = t("fff_streak_freezes", { count: streak.freezesLeft });
+  if (el.fffHudStreakStatus) {
+    if (streak.checkedInToday) el.fffHudStreakStatus.textContent = t("fff_streak_completed");
+    else if (streak.gap > 1 && streak.gap - 1 <= streak.freezesLeft) el.fffHudStreakStatus.textContent = t("fff_streak_protect", { count: streak.gap - 1 });
+    else if (streak.gap > 1) el.fffHudStreakStatus.textContent = t("fff_streak_risk");
+    else if (streak.current > 0) el.fffHudStreakStatus.textContent = t("fff_streak_ready");
+    else el.fffHudStreakStatus.textContent = t("fff_streak_ready");
+  }
+  if (el.fffHudStreakCheckin) {
+    el.fffHudStreakCheckin.disabled = streak.checkedInToday;
+    el.fffHudStreakCheckin.classList.toggle("is-complete", streak.checkedInToday);
+    el.fffHudStreakCheckin.setAttribute("aria-label", streak.checkedInToday ? t("fff_streak_completed") : t("fff_streak_checkin"));
+  }
+  if (el.fffHudStreakCheckinLabel) el.fffHudStreakCheckinLabel.textContent = streak.checkedInToday ? t("fff_streak_completed") : t("fff_streak_checkin");
+  if (el.fffHudStreakXp) el.fffHudStreakXp.textContent = streak.checkedInToday ? "" : `+${dailyStreakReward(streak.current + 1)} XP`;
   if (hadPreviousXp && progress.totalXp > previousXp && state.motion && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     el.fffOperatorHud.classList.remove("is-updated");
     void el.fffOperatorHud.offsetWidth;
@@ -4909,6 +5011,7 @@ function wireHomeDashboard() {
   ensureHomeCardControls();
   setHomeDashboardEditing(false);
   if (el.fffHudMissionAction) el.fffHudMissionAction.addEventListener("click", openFffMission);
+  if (el.fffHudStreakCheckin) el.fffHudStreakCheckin.addEventListener("click", completeDailyStreak);
   document.querySelectorAll("[data-fff-open-settings]").forEach((button) => button.addEventListener("click", () => {
     document.querySelector('.tab[data-view="settings"]')?.click();
   }));
@@ -7592,7 +7695,7 @@ function persistedState() {
     expenses: state.expenses, monthlyBudget: state.monthlyBudget, vehicles: state.vehicles, vehSeq: state.vehSeq,
     vehicleHub: state.vehicleHub,
     income: state.income, portfolio: state.portfolio, netWorth: state.netWorth, watchlist: state.watchlist,
-    notifications: state.notifications, homeLayout: state.homeLayout, weather: state.weather, savingsGoals: state.savingsGoals, homeNotes: state.homeNotes, countdowns: state.countdowns, portTotalUSD: state.portTotalUSD,
+    notifications: state.notifications, dailyStreak: state.dailyStreak, homeLayout: state.homeLayout, weather: state.weather, savingsGoals: state.savingsGoals, homeNotes: state.homeNotes, countdowns: state.countdowns, portTotalUSD: state.portTotalUSD,
   };
 }
 
@@ -7836,6 +7939,18 @@ function loadState() {
       priceAlerts: alerts,
       seq: Number.isFinite(n.seq) ? n.seq : alerts.length,
       sent,
+    };
+  }
+  if (s.dailyStreak && typeof s.dailyStreak === "object") {
+    const d = s.dailyStreak;
+    const lastCheckIn = typeof d.lastCheckIn === "string" && parseDateInput(d.lastCheckIn) ? d.lastCheckIn : "";
+    state.dailyStreak = {
+      current: Number.isFinite(d.current) ? Math.max(0, Math.min(10000, Math.round(d.current))) : 0,
+      best: Number.isFinite(d.best) ? Math.max(0, Math.min(10000, Math.round(d.best))) : 0,
+      lastCheckIn,
+      freezeWeek: typeof d.freezeWeek === "string" ? d.freezeWeek.slice(0, 10) : "",
+      freezesUsed: Number.isFinite(d.freezesUsed) ? Math.max(0, Math.min(2, Math.round(d.freezesUsed))) : 0,
+      xp: Number.isFinite(d.xp) ? Math.max(0, Math.min(1000000, Math.round(d.xp))) : 0,
     };
   }
   state.homeLayout = s.homeLayout && typeof s.homeLayout === "object" ? s.homeLayout : state.homeLayout;

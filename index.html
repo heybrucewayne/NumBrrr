@@ -125,6 +125,20 @@
           <span class="fff-hud-kicker" data-i18n="fff_hud_active_mission">AKTİF GÖREV</span>
           <strong id="fffHudMission">—</strong>
           <div class="fff-hud-mission-progress"><span id="fffHudMissionFill"></span></div>
+          <div class="fff-hud-streak" aria-labelledby="fffHudStreakTitle">
+            <div class="fff-hud-streak-heading">
+              <span class="fff-hud-kicker" id="fffHudStreakTitle" data-i18n="fff_streak_title">GÜNLÜK SERİ</span>
+              <strong><b id="fffHudStreakCount">0</b> <i data-i18n="fff_streak_days">gün</i></strong>
+            </div>
+            <div class="fff-hud-streak-meta">
+              <small id="fffHudStreakStatus" role="status" aria-live="polite">—</small>
+              <small id="fffHudStreakFreezes">Dondurma 2/2</small>
+            </div>
+            <button id="fffHudStreakCheckin" type="button" aria-label="Günü tamamla">
+              <span id="fffHudStreakCheckinLabel" data-i18n="fff_streak_checkin">Günü tamamla</span>
+              <b id="fffHudStreakXp">+8 XP</b>
+            </button>
+          </div>
           <div class="fff-hud-mission-foot">
             <small id="fffHudStatus">—</small>
             <div class="fff-hud-stats" data-i18n-title="fff_hud_stats_aria" aria-label="Operatör istatistikleri">
@@ -959,7 +973,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=96"></script>
+  <script src="app.js?v=97"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

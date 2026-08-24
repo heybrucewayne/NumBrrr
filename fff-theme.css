@@ -1564,3 +1564,99 @@
 ) .dashboard-widget-open::after {
   display: none;
 }
+
+/* Expanded home navigation is a compact terminal transcript: only the
+   modules remain, each on its own command line, with a live prompt at EOF. */
+@media (min-width: 1181px) {
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) .view:not(#view-home) {
+    padding-top: 332px;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) {
+    display: flex;
+    gap: 0;
+    padding: 8px 9px 30px;
+    border-color: var(--fff-line-strong);
+    background:
+      linear-gradient(180deg, rgba(101, 232, 62, .06), transparent 34%),
+      #020704 !important;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab {
+    display: flex;
+    min-height: 42px;
+    align-items: center;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    margin: 0;
+    padding: 7px 12px 7px 25px;
+    border: 0;
+    border-bottom: 1px solid rgba(101, 232, 62, .1);
+    background: transparent;
+    text-align: left !important;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab-icon {
+    display: none !important;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab-label {
+    display: block;
+    width: auto !important;
+    margin: 0;
+    color: currentColor;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .09em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before {
+    left: 10px;
+    color: transparent;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::after {
+    display: none;
+    content: none;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:hover,
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active {
+    border-color: transparent;
+    border-bottom-color: var(--fff-line);
+    background: rgba(101, 232, 62, .07);
+    box-shadow: inset 3px 0 0 var(--fff-green);
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active::before {
+    color: var(--fff-green-hot);
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed)::after {
+    content: "▌";
+    position: absolute;
+    right: 13px;
+    bottom: 9px;
+    color: var(--fff-green-hot);
+    font-size: 13px;
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(156, 255, 104, .58);
+    animation: fffTerminalCursor 1s steps(2, end) infinite;
+  }
+}
+
+@keyframes fffTerminalCursor {
+  0%, 44% { opacity: 1; }
+  45%, 100% { opacity: .18; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="fff"] .tabbar:not(.is-collapsed)::after {
+    animation: none;
+  }
+}

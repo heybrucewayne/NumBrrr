@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=65" />
+  <link rel="stylesheet" href="fff-theme.css?v=66" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -108,10 +108,6 @@
                 <input id="smartCommandInput" type="text" maxlength="240" spellcheck="true" data-i18n-placeholder="command_placeholder" placeholder="Bir şey yaz…" />
                 <button id="smartCommandSend" class="smart-command-send" type="submit" aria-label="Komutu gönder" data-i18n-title="command_send"><span aria-hidden="true">↗</span></button>
               </form>
-              <aside class="smart-command-examples" data-i18n-title="command_examples_title" aria-label="Önerilen komutlar">
-                <span id="smartCommandExamplesTitle" class="smart-command-examples-title" data-i18n="command_examples_title">Önerilen komutlar</span>
-                <div class="smart-command-chips" id="smartCommandChips"></div>
-              </aside>
               <p id="smartCommandStatus" class="smart-command-status" role="status" aria-live="polite"></p>
               <div id="smartCommandPreview" class="smart-command-preview" hidden></div>
             </div>
@@ -969,7 +965,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=103"></script>
+  <script src="app.js?v=104"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

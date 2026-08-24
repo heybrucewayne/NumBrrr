@@ -789,8 +789,6 @@ const el = {
   smartCommandSend: document.getElementById("smartCommandSend"),
   smartCommandStatus: document.getElementById("smartCommandStatus"),
   smartCommandPreview: document.getElementById("smartCommandPreview"),
-  smartCommandChips: document.getElementById("smartCommandChips"),
-  smartCommandExamplesTitle: document.getElementById("smartCommandExamplesTitle"),
   commandOrbCanvas: document.getElementById("commandOrbCanvas"),
   smartCommandOrbCanvas: document.getElementById("smartCommandOrbCanvas"),
   fffOperatorHud: document.getElementById("fffOperatorHud"),
@@ -6004,15 +6002,27 @@ function smartCommandExampleItems(value = "") {
   return examples.default;
 }
 
+function isSmartCommandHelpRequest(value = "") {
+  const normalized = normalizeCommandSuggestionText(value.trim());
+  return ["komutlar", "butun komutlar", "tum komutlar", "komut listesi", "all commands", "show commands", "commands"]
+    .some((phrase) => normalized.includes(phrase));
+}
+
 function renderSmartCommandExamples(value = "") {
-  if (!el.smartCommandChips) return;
-  const hasContext = !!String(value || "").trim();
-  if (el.smartCommandExamplesTitle) {
-    el.smartCommandExamplesTitle.textContent = t(hasContext ? "command_context_suggestions" : "command_examples_title");
+  if (!el.smartCommandPreview) return;
+  const text = String(value || "").trim();
+  if (!text) {
+    el.smartCommandPreview.hidden = true;
+    el.smartCommandPreview.innerHTML = "";
+    return;
   }
-  el.smartCommandChips.innerHTML = smartCommandExampleItems(value).map((command) =>
-    `<button type="button" class="smart-command-chip" data-command-example="${escapeHtml(command)}">${escapeHtml(command)}</button>`
-  ).join("");
+  if (isSmartCommandHelpRequest(text)) {
+    renderSmartCommandHelp();
+    return;
+  }
+  const examples = smartCommandExampleItems(text).slice(0, 6);
+  el.smartCommandPreview.innerHTML = `<div class="smart-command-preview-head"><div><div class="smart-command-preview-kicker">${escapeHtml(t("command_context_suggestions"))}</div><div class="smart-command-preview-title">${escapeHtml(t("command_help_intro"))}</div></div></div><div class="smart-command-suggestions">${examples.map((command) => `<button type="button" data-command-example="${escapeHtml(command)}">${escapeHtml(command)}</button>`).join("")}</div>`;
+  el.smartCommandPreview.hidden = false;
 }
 
 function renderSmartCommandHelp() {
@@ -6495,11 +6505,10 @@ function initCommandOrb() {
 function wireSmartCommand() {
   initCommandOrb();
   if (!el.smartCommandForm || !el.smartCommandInput) return;
-  renderSmartCommandExamples("");
   el.smartCommandForm.addEventListener("submit", (event) => { event.preventDefault(); parseSmartCommand(); });
-  el.smartCommandChips?.addEventListener("click", (event) => {
+  el.smartCommandPreview?.addEventListener("click", (event) => {
     const button = event.target.closest("[data-command-example]");
-    if (!button || !el.smartCommandChips.contains(button)) return;
+    if (!button || !el.smartCommandPreview.contains(button)) return;
     el.smartCommandInput.value = button.dataset.commandExample || "";
     el.smartCommandInput.focus();
     parseSmartCommand();

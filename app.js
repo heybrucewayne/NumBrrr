@@ -3868,7 +3868,7 @@ function renderFffOperatorHud() {
   }
   if (el.fffHudStreakCheckin) {
     el.fffHudStreakCheckin.disabled = streak.checkedInToday;
-    el.fffHudStreakCheckin.hidden = streak.checkedInToday;
+    el.fffHudStreakCheckin.hidden = false;
     el.fffHudStreakCheckin.classList.toggle("is-complete", streak.checkedInToday);
     el.fffHudStreakCheckin.setAttribute("aria-label", streak.checkedInToday ? t("fff_streak_completed") : t("fff_streak_checkin"));
   }

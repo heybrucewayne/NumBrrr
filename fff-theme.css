@@ -557,6 +557,11 @@
 }
 
 [data-theme="fff"] .fff-hud-streak button > b { display: none; }
+[data-theme="fff"] .fff-hud-streak button > span {
+  display: block;
+  transform-origin: 50% 88%;
+  animation: fffStreakEmoji 1.05s ease-in-out infinite;
+}
 [data-theme="fff"] .fff-hud-streak button:hover {
   transform: translateY(-1px) scale(1.08);
   border-color: #ffe39b;
@@ -565,11 +570,20 @@
 }
 [data-theme="fff"] .fff-hud-streak button:active { transform: scale(.94); }
 [data-theme="fff"] .fff-hud-streak button:disabled,
-[data-theme="fff"] .fff-hud-streak button.is-complete { animation: none; }
+[data-theme="fff"] .fff-hud-streak button.is-complete {
+  animation: fffStreakFlame 1.8s ease-in-out infinite;
+  opacity: .62;
+}
 
 @keyframes fffStreakFlame {
   0%, 100% { transform: translateY(0) scale(1) rotate(-2deg); filter: drop-shadow(0 0 3px rgba(255, 137, 52, .34)); }
   50% { transform: translateY(-2px) scale(1.08) rotate(2deg); filter: drop-shadow(0 0 9px rgba(255, 166, 70, .62)); }
+}
+
+@keyframes fffStreakEmoji {
+  0%, 100% { transform: rotate(-7deg) translateY(0) scale(1); }
+  35% { transform: rotate(6deg) translateY(-1px) scale(1.08); }
+  68% { transform: rotate(-3deg) translateY(-2px) scale(1.03); }
 }
 
 @media (prefers-reduced-motion: reduce) {

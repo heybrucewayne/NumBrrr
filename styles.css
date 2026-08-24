@@ -5338,6 +5338,14 @@ html[data-theme="terminal"] .bg::after {
   z-index: 200;
   isolation: isolate;
 }
+[data-theme="fff"] .tabbar,
+[data-theme="fff"] .tabbar .tab {
+  background-image: none !important;
+}
+[data-theme="fff"] .tabbar {
+  background: #030a05 !important;
+  opacity: 1;
+}
 [data-theme="fff"] .tabbar::before { display: none; }
 [data-theme="fff"] .tab {
   border-radius: 0;

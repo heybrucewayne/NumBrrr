@@ -4564,13 +4564,8 @@ body.modal-open { overflow: hidden; }
   border-bottom: 1px solid var(--glass-border-soft);
 }
 [data-theme="black"] .home-dashboard-head > div::before {
-  content: "NUMBRR // FINANCE TERMINAL";
-  display: block;
-  margin-bottom: 8px;
-  color: var(--accent);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .16em;
+  content: none;
+  display: none;
 }
 [data-theme="black"] .view-title {
   color: var(--text);
@@ -4776,11 +4771,91 @@ body.modal-open { overflow: hidden; }
 @media (max-width: 620px) {
   [data-theme="black"] .smart-command { padding: 14px; }
   [data-theme="black"] .smart-command-examples { margin-top: 10px; }
-  [data-theme="black"] .home-dashboard-head > div::before { font-size: 8px; letter-spacing: .1em; }
   [data-theme="black"] .tabbar { width: calc(100% - 16px); max-width: calc(100% - 16px); padding: 5px 3px; }
   [data-theme="black"] .tab { min-width: 0; padding: 7px 0 5px; font-size: 8px; letter-spacing: -.06em; }
   [data-theme="black"] .tabbar .tab[data-view="home"] { flex: 1; min-width: 0; font-size: 8px; letter-spacing: -.06em; }
   [data-theme="black"] .tab-icon { width: 25px; height: 25px; border-radius: 3px; }
   [data-theme="black"] .tab-icon svg { width: 17px; height: 17px; }
   [data-theme="black"] .tab-label { display: block; max-width: 100%; font-size: 8px; line-height: 1.1; white-space: nowrap; }
+}
+
+/* Terminal palette cleanup: every decorative status color belongs to the
+   same phosphor family; amber is reserved for warnings and attention states. */
+[data-theme="black"] .modern-section-icon,
+[data-theme="black"] .income-summary-icon,
+[data-theme="black"] .car-section-icon,
+[data-theme="black"] .monthly-share-heading-icon,
+[data-theme="black"] .weather-current-icon {
+  color: var(--accent);
+  background: #0a1f10;
+  border-color: var(--glass-border);
+  box-shadow: inset 0 0 0 1px rgba(185, 242, 122, .06);
+}
+[data-theme="black"] .modern-section-icon--expense,
+[data-theme="black"] .modern-section-icon--recurring,
+[data-theme="black"] .modern-section-icon--spending,
+[data-theme="black"] .modern-section-icon--income,
+[data-theme="black"] .modern-section-icon--watch,
+[data-theme="black"] .modern-section-icon--leaders,
+[data-theme="black"] .modern-section-icon--ipo,
+[data-theme="black"] .modern-section-icon--market,
+[data-theme="black"] .car-section-icon--route,
+[data-theme="black"] .car-section-icon--history {
+  color: var(--accent);
+  background: #0a1f10;
+  border-color: var(--glass-border);
+}
+[data-theme="black"] .modern-section-icon,
+[data-theme="black"] .modern-section-icon--expense,
+[data-theme="black"] .modern-section-icon--recurring,
+[data-theme="black"] .modern-section-icon--spending,
+[data-theme="black"] .modern-section-icon--income,
+[data-theme="black"] .modern-section-icon--watch {
+  background-image: none;
+}
+[data-theme="black"] .modern-section-icon svg,
+[data-theme="black"] .income-summary-icon svg,
+[data-theme="black"] .car-section-icon svg { display: block !important; }
+
+[data-theme="black"] .opt.is-active,
+[data-theme="black"] .ob-country.is-active,
+[data-theme="black"] .ob-lang.is-active {
+  color: var(--accent-2);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+  background: rgba(114, 216, 77, .1);
+}
+[data-theme="black"] .headline-tag,
+[data-theme="black"] .rule-badge,
+[data-theme="black"] .feature-month-chip,
+[data-theme="black"] .port-ccy-toggle,
+[data-theme="black"] .ipo-sym {
+  color: var(--accent);
+}
+[data-theme="black"] .rule-badge,
+[data-theme="black"] .feature-month-chip {
+  border-color: var(--glass-border);
+  background: rgba(114, 216, 77, .08);
+}
+[data-theme="black"] .top-perf-row:first-child,
+[data-theme="black"] .car-cost--total,
+[data-theme="black"] .monthly-summary-net {
+  border-color: var(--glass-border);
+  background: rgba(114, 216, 77, .08);
+}
+[data-theme="black"] .car-cost--total span,
+[data-theme="black"] .monthly-summary-net strong.is-positive,
+[data-theme="black"] .top-perf-chg.up { color: var(--accent-2); }
+[data-theme="black"] .monthly-summary-net strong.is-negative,
+[data-theme="black"] .top-perf-chg.down { color: #ffbf69; }
+[data-theme="black"] .modern-section-count,
+[data-theme="black"] .car-section-count,
+[data-theme="black"] .veh-active-label,
+[data-theme="black"] .veh-active[aria-pressed="true"] {
+  color: var(--accent-2);
+  border-color: var(--glass-border);
+  background: rgba(114, 216, 77, .08);
+}
+[data-theme="black"] .tab--command .command-orb canvas {
+  filter: grayscale(1) sepia(1) hue-rotate(42deg) saturate(3) brightness(.9);
 }

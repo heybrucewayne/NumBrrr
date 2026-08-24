@@ -1801,3 +1801,60 @@
     height: calc(var(--dashboard-unit-height) * 2 + 10px);
   }
 }
+
+/* The expanded command list uses the empty rail beside the page title. Keep
+   it flat and horizontal so opening it never creates a tall spacer above the
+   dashboard. */
+@media (min-width: 1181px) {
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,
+  [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) .view:not(#view-home) {
+    padding-top: 20px;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) {
+    top: 52px;
+    left: 15px;
+    width: calc(100vw - 30px);
+    max-width: none;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0 8px;
+    padding: 0;
+    border: 0;
+    background: transparent !important;
+    box-shadow: none;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed)::before,
+  [data-theme="fff"] .tabbar:not(.is-collapsed)::after {
+    display: none;
+    content: none;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab {
+    min-width: 0;
+    min-height: 32px;
+    padding: 2px 8px 2px 22px;
+    border: 0;
+    background: transparent !important;
+    color: var(--fff-green-soft);
+    overflow: visible;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before {
+    left: 7px !important;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:hover,
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active {
+    padding-left: 22px;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab-label {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+}

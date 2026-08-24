@@ -1902,7 +1902,7 @@
 
   [data-theme="fff"] .fff-inline-nav {
     position: absolute;
-    inset: 4px 220px 4px 138px;
+    inset: 4px 220px 4px 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -1986,7 +1986,7 @@
   [data-theme="fff"] .tabbar:not(.is-collapsed) {
     position: absolute;
     top: 0;
-    left: 138px;
+    left: 0;
     right: 220px;
     width: auto;
     max-width: none;

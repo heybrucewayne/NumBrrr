@@ -879,12 +879,24 @@
     grid-column: span 3;
   }
 
+  /* Multi-item modules use the same market-summary width so their form,
+     saved items, and alerts stay aligned with the surrounding terminal cards. */
+  [data-theme="fff"] :is(
+    [data-home-widget="goals"] > .dashboard-widget--feature,
+    [data-home-widget="goals"] .savings-goal-row,
+    [data-home-widget="alerts"],
+    [data-home-widget="countdown"] > .dashboard-widget--countdown,
+    [data-home-widget="countdown"] .countdown-tile
+  ) {
+    grid-column: span 3;
+  }
+
   [data-theme="fff"] .dashboard-widget--half {
     grid-column: span 5;
   }
 
   [data-theme="fff"] [data-home-widget="goals"] > .dashboard-widget--feature {
-    grid-column: span 6;
+    grid-column: span 3;
   }
 }
 
@@ -912,8 +924,18 @@
     grid-column: span 4;
   }
 
+  [data-theme="fff"] :is(
+    [data-home-widget="goals"] > .dashboard-widget--feature,
+    [data-home-widget="goals"] .savings-goal-row,
+    [data-home-widget="alerts"],
+    [data-home-widget="countdown"] > .dashboard-widget--countdown,
+    [data-home-widget="countdown"] .countdown-tile
+  ) {
+    grid-column: span 4;
+  }
+
   [data-theme="fff"] [data-home-widget="goals"] > .dashboard-widget--feature {
-    grid-column: span 10;
+    grid-column: span 4;
   }
 }
 
@@ -1235,6 +1257,20 @@
   animation-duration: .001ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: .001ms !important;
+}
+
+/* Keep the widened goals and countdown cards internally compact. */
+[data-theme="fff"] :is(.goal-form, .countdown-form) {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+[data-theme="fff"] :is(.goal-form, .countdown-form) .settings-action {
+  grid-column: 1 / -1;
+}
+[data-theme="fff"] .alert-form {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+[data-theme="fff"] .alert-form .settings-action {
+  grid-column: 1 / -1;
 }
 
 @media (prefers-reduced-motion: reduce) {

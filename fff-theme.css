@@ -1948,9 +1948,11 @@
     max-width: 0;
     overflow: hidden;
     color: currentColor;
-    font-size: 10px;
-    line-height: 1.2;
-    letter-spacing: .1em;
+    font-family: "Share Tech Mono", "IBM Plex Mono", monospace !important;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: .08em;
     text-transform: uppercase;
     white-space: nowrap;
     opacity: 0;
@@ -1975,7 +1977,7 @@
 
   [data-theme="fff"] .fff-inline-nav-item.is-active .tab-label {
     border-bottom: 1px solid currentColor;
-    padding-bottom: 3px;
+    padding-bottom: 5px;
   }
 
   [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,
@@ -2039,7 +2041,9 @@
     max-width: 0;
     overflow: hidden;
     color: currentColor;
-    font-size: 10px;
+    font-family: "Share Tech Mono", "IBM Plex Mono", monospace !important;
+    font-size: 14px;
+    font-weight: 600;
     line-height: 1.2;
     letter-spacing: .1em;
     text-transform: uppercase;

@@ -1565,36 +1565,39 @@
   display: none;
 }
 
-/* Expanded home navigation is a compact terminal transcript: only the
-   modules remain, each on its own command line, with a live prompt at EOF. */
+/* Expanded home navigation is a flat terminal transcript rather than a
+   button menu: each destination is a command line and the prompt waits at
+   the end of the session. */
 @media (min-width: 1181px) {
   [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,
   [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) .view:not(#view-home) {
-    padding-top: 332px;
+    padding-top: 274px;
   }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) {
-    display: flex;
-    gap: 0;
-    padding: 8px 9px 30px;
+    display: block;
+    padding: 13px 14px 34px;
     border-color: var(--fff-line-strong);
     background:
       linear-gradient(180deg, rgba(101, 232, 62, .06), transparent 34%),
       #020704 !important;
+    box-shadow: inset 0 0 28px rgba(101, 232, 62, .035), 0 18px 34px rgba(0, 0, 0, .42);
   }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab {
     display: flex;
-    min-height: 42px;
+    width: 100%;
+    min-height: 33px;
     align-items: center;
     flex-direction: row !important;
     justify-content: flex-start !important;
     margin: 0;
-    padding: 7px 12px 7px 25px;
+    padding: 5px 10px 5px 25px;
     border: 0;
-    border-bottom: 1px solid rgba(101, 232, 62, .1);
     background: transparent;
     text-align: left !important;
+    color: var(--fff-green-soft);
+    transition: color .18s ease, text-shadow .18s ease, padding-left .18s ease;
   }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab-icon {
@@ -1606,18 +1609,29 @@
     width: auto !important;
     margin: 0;
     color: currentColor;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: .09em;
+    letter-spacing: .12em;
     line-height: 1.2;
     text-transform: uppercase;
   }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before {
-    left: 10px;
-    color: transparent;
-    font-size: 14px;
+    content: ">";
+    position: absolute;
+    inset: auto !important;
+    display: block;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: 10px !important;
+    color: var(--fff-green-dim);
+    font-size: 15px;
+    font-weight: 700;
     line-height: 1;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::after {
@@ -1625,25 +1639,34 @@
     content: none;
   }
 
-  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:hover,
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:hover {
+    color: var(--fff-green-hot);
+    padding-left: 29px;
+    background: transparent;
+    box-shadow: none;
+    text-shadow: 0 0 10px rgba(156, 255, 104, .38);
+  }
+
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active {
-    border-color: transparent;
-    border-bottom-color: var(--fff-line);
-    background: rgba(101, 232, 62, .07);
-    box-shadow: inset 3px 0 0 var(--fff-green);
+    color: var(--fff-green-hot);
+    background: transparent;
+    box-shadow: none;
+    text-shadow: 0 0 12px rgba(156, 255, 104, .52);
   }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active::before {
     color: var(--fff-green-hot);
+    animation: fffNavPrompt 1.2s steps(2, end) infinite;
   }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed)::after {
     content: "▌";
     position: absolute;
-    right: 13px;
-    bottom: 9px;
+    left: 25px;
+    right: auto;
+    bottom: 11px;
     color: var(--fff-green-hot);
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1;
     text-shadow: 0 0 8px rgba(156, 255, 104, .58);
     animation: fffTerminalCursor 1s steps(2, end) infinite;

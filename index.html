@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=8" />
+  <link rel="stylesheet" href="fff-theme.css?v=11" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -98,19 +98,28 @@
             <div class="fff-hud-xp" id="fffHudXp" role="progressbar" aria-label="Deneyim" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudXpFill"></span></div>
           </div>
         </div>
-        <div class="fff-hud-vitals" data-i18n-title="fff_hud_vitals_aria" aria-label="Operatör göstergeleri">
-          <div class="fff-vital">
-            <div><span aria-hidden="true">↯</span><b data-i18n="fff_hud_energy">Enerji</b><strong id="fffHudEnergy">0 / 100</strong></div>
-            <div id="fffHudEnergyBar" class="fff-vital-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudEnergyFill"></span></div>
-          </div>
-          <div class="fff-vital">
-            <div><span aria-hidden="true">◎</span><b data-i18n="fff_hud_morale">Moral</b><strong id="fffHudMorale">0 / 100</strong></div>
-            <div id="fffHudMoraleBar" class="fff-vital-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudMoraleFill"></span></div>
-          </div>
-          <div class="fff-vital">
-            <div><span aria-hidden="true">✦</span><b data-i18n="fff_hud_focus">Odak</b><strong id="fffHudFocus">0 / 100</strong></div>
-            <div id="fffHudFocusBar" class="fff-vital-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fffHudFocusFill"></span></div>
-          </div>
+        <div class="fff-hud-command">
+          <section class="smart-command" aria-labelledby="smartCommandTitle">
+            <div class="smart-command-head">
+              <div class="smart-command-mark" aria-hidden="true">
+                <canvas id="smartCommandOrbCanvas" width="34" height="34"></canvas>
+              </div>
+              <h2 id="smartCommandTitle" data-i18n="command_title">Komut yaz</h2>
+            </div>
+            <div class="smart-command-primary">
+              <form id="smartCommandForm" class="smart-command-form" autocomplete="off">
+                <label class="sr-only" for="smartCommandInput" data-i18n="command_input_label">Komutun</label>
+                <input id="smartCommandInput" type="text" maxlength="240" spellcheck="true" data-i18n-placeholder="command_placeholder" placeholder="Bir şey yaz…" />
+                <button id="smartCommandSend" class="smart-command-send" type="submit" aria-label="Komutu gönder" data-i18n-title="command_send"><span aria-hidden="true">↗</span></button>
+              </form>
+              <aside class="smart-command-examples" data-i18n-title="command_examples_title" aria-label="Önerilen komutlar">
+                <span id="smartCommandExamplesTitle" class="smart-command-examples-title" data-i18n="command_examples_title">Önerilen komutlar</span>
+                <div class="smart-command-chips" id="smartCommandChips"></div>
+              </aside>
+              <p id="smartCommandStatus" class="smart-command-status" role="status" aria-live="polite"></p>
+              <div id="smartCommandPreview" class="smart-command-preview" hidden></div>
+            </div>
+          </section>
         </div>
         <div class="fff-hud-mission">
           <span class="fff-hud-kicker" data-i18n="fff_hud_active_mission">AKTİF GÖREV</span>
@@ -124,40 +133,6 @@
             </div>
           </div>
           <button id="fffHudMissionAction" type="button"><span data-i18n="fff_hud_go">Göreve git</span><b aria-hidden="true">›</b></button>
-        </div>
-      </section>
-
-      <section class="smart-command glass" aria-labelledby="smartCommandTitle">
-        <div class="smart-command-head">
-          <div class="smart-command-mark" aria-hidden="true">
-            <canvas id="smartCommandOrbCanvas" width="46" height="46"></canvas>
-          </div>
-          <h2 id="smartCommandTitle" data-i18n="command_title">Write a command</h2>
-        </div>
-        <div class="smart-command-workspace">
-          <div class="smart-command-primary">
-            <form id="smartCommandForm" class="smart-command-form" autocomplete="off">
-              <label class="sr-only" for="smartCommandInput" data-i18n="command_input_label">Your command</label>
-              <input id="smartCommandInput" type="text" maxlength="240" spellcheck="true" data-i18n-placeholder="command_placeholder" placeholder="Bir şey yaz…" />
-              <button id="smartCommandSend" class="smart-command-send" type="submit" aria-label="Send command" data-i18n-title="command_send"><span aria-hidden="true">↗</span></button>
-            </form>
-            <p id="smartCommandStatus" class="smart-command-status" role="status" aria-live="polite"></p>
-            <div id="smartCommandPreview" class="smart-command-preview" hidden></div>
-          </div>
-          <aside class="smart-command-examples" data-i18n-title="command_examples_title" aria-label="Suggested commands">
-            <span class="smart-command-examples-title" data-i18n="command_examples_title">Önerilen komutlar</span>
-            <div class="smart-command-chips">
-              <button type="button" class="smart-command-chip" data-command-example="100 SOL aldım">100 SOL aldım</button>
-              <button type="button" class="smart-command-chip" data-command-example="SOL 200 olunca haber ver">SOL 200 olunca haber ver</button>
-              <button type="button" class="smart-command-chip" data-command-example="SOL grafiğini aç">SOL grafiğini aç</button>
-              <button type="button" class="smart-command-chip" data-command-example="portföyümü göster">Portföyümü göster</button>
-              <button type="button" class="smart-command-chip" data-command-example="bu ay ne kadar kazandım">Bu ay ne kadar kazandım</button>
-              <button type="button" class="smart-command-chip" data-command-example="giderlerimi göster">Giderlerimi göster</button>
-              <button type="button" class="smart-command-chip" data-command-example="bakiyemi göster">Bakiyemi göster</button>
-              <button type="button" class="smart-command-chip" data-command-example="gelirimi göster">Gelirimi göster</button>
-              <button type="button" class="smart-command-chip" data-command-example="takibi aç">Takibi aç</button>
-            </div>
-          </aside>
         </div>
       </section>
 
@@ -992,7 +967,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=87"></script>
+  <script src="app.js?v=88"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

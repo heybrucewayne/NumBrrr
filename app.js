@@ -681,6 +681,8 @@ const I18N = {
 
 I18N.en.command_note_added = "Note added ✓";
 I18N.tr.command_examples_title = "Önerilen komutlar";
+I18N.en.command_context_suggestions = "Suggestions for your text";
+I18N.tr.command_context_suggestions = "Yazına uygun komutlar";
 
 // ---- State ----
 const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "marketSnapshot", "topPerformers", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
@@ -786,6 +788,8 @@ const el = {
   smartCommandSend: document.getElementById("smartCommandSend"),
   smartCommandStatus: document.getElementById("smartCommandStatus"),
   smartCommandPreview: document.getElementById("smartCommandPreview"),
+  smartCommandChips: document.getElementById("smartCommandChips"),
+  smartCommandExamplesTitle: document.getElementById("smartCommandExamplesTitle"),
   commandOrbCanvas: document.getElementById("commandOrbCanvas"),
   smartCommandOrbCanvas: document.getElementById("smartCommandOrbCanvas"),
   fffOperatorHud: document.getElementById("fffOperatorHud"),
@@ -799,15 +803,6 @@ const el = {
   fffHudModules: document.getElementById("fffHudModules"),
   fffHudBadges: document.getElementById("fffHudBadges"),
   fffHudMissionFill: document.getElementById("fffHudMissionFill"),
-  fffHudEnergy: document.getElementById("fffHudEnergy"),
-  fffHudEnergyBar: document.getElementById("fffHudEnergyBar"),
-  fffHudEnergyFill: document.getElementById("fffHudEnergyFill"),
-  fffHudMorale: document.getElementById("fffHudMorale"),
-  fffHudMoraleBar: document.getElementById("fffHudMoraleBar"),
-  fffHudMoraleFill: document.getElementById("fffHudMoraleFill"),
-  fffHudFocus: document.getElementById("fffHudFocus"),
-  fffHudFocusBar: document.getElementById("fffHudFocusBar"),
-  fffHudFocusFill: document.getElementById("fffHudFocusFill"),
   fffHudCat: document.getElementById("fffHudCat"),
   fffEditHome: document.getElementById("fffEditHome"),
   fffTerminalPageTitle: document.getElementById("fffTerminalPageTitle"),
@@ -3698,11 +3693,7 @@ function fffOperatorProgress() {
 function renderFffOperatorHud() {
   if (!el.fffOperatorHud) return;
   const progress = fffOperatorProgress();
-  const snapshot = financialSnapshot();
   const completion = progress.total ? progress.online / progress.total : 0;
-  const energy = Math.round(Math.max(12, Math.min(100, 28 + completion * 52 + Math.min(20, progress.levelXp / 5))));
-  const morale = Math.round(Math.max(8, Math.min(100, 28 + snapshot.score * .62 + (snapshot.net > 0 ? 10 : 0))));
-  const focus = Math.round(Math.max(15, Math.min(100, 30 + completion * 42 + Math.min(28, progress.badges * 4))));
   const missionProgress = Math.round(completion * 100);
   const previousXp = Number(el.fffOperatorHud.dataset.totalXp);
   const hadPreviousXp = el.fffOperatorHud.dataset.totalXp !== "" && Number.isFinite(previousXp);
@@ -3719,18 +3710,6 @@ function renderFffOperatorHud() {
   el.fffHudMissionAction.dataset.missionWidget = progress.mission.widget || "";
   el.fffHudModules.textContent = String(progress.online);
   el.fffHudBadges.textContent = String(progress.badges);
-  [
-    [el.fffHudEnergy, el.fffHudEnergyBar, el.fffHudEnergyFill, energy, "fff_hud_energy"],
-    [el.fffHudMorale, el.fffHudMoraleBar, el.fffHudMoraleFill, morale, "fff_hud_morale"],
-    [el.fffHudFocus, el.fffHudFocusBar, el.fffHudFocusFill, focus, "fff_hud_focus"],
-  ].forEach(([label, bar, fill, value, key]) => {
-    if (label) label.textContent = `${value} / 100`;
-    if (fill) fill.style.width = `${value}%`;
-    if (bar) {
-      bar.setAttribute("aria-valuenow", String(value));
-      bar.setAttribute("aria-label", t(key));
-    }
-  });
   if (hadPreviousXp && progress.totalXp > previousXp && state.motion && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     el.fffOperatorHud.classList.remove("is-updated");
     void el.fffOperatorHud.offsetWidth;
@@ -5788,6 +5767,89 @@ function commandHelpGroups() {
   ];
 }
 
+function normalizeCommandSuggestionText(value) {
+  return String(value || "")
+    .toLocaleLowerCase("tr-TR")
+    .replace(/[çÇ]/g, "c")
+    .replace(/[ğĞ]/g, "g")
+    .replace(/[ıİ]/g, "i")
+    .replace(/[öÖ]/g, "o")
+    .replace(/[şŞ]/g, "s")
+    .replace(/[üÜ]/g, "u");
+}
+
+function commandSuggestionAsset(value) {
+  const normalized = normalizeCommandSuggestionText(value);
+  if (!normalized) return "";
+  const candidates = commandAssetCatalog().flatMap((asset) => {
+    const aliases = [asset.sym, asset.name, ...(asset.aliases || [])].filter(Boolean);
+    return aliases.map((alias) => ({
+      alias: normalizeCommandSuggestionText(alias),
+      symbol: String(asset.sym || alias).toUpperCase(),
+    }));
+  }).filter((item) => item.alias.length >= 2).sort((a, b) => b.alias.length - a.alias.length);
+  return candidates.find((item) => normalized.includes(item.alias))?.symbol || "";
+}
+
+function commandSuggestionTopicMatches(value, keywords) {
+  const words = value.split(/\s+/).filter((word) => word.length >= 2);
+  return keywords.some((keyword) => value.includes(keyword) || words.some((word) => keyword.startsWith(word)));
+}
+
+function smartCommandExampleItems(value = "") {
+  const normalized = normalizeCommandSuggestionText(value.trim());
+  const asset = commandSuggestionAsset(value) || "SOL";
+  const isEnglish = state.lang === "en";
+  const examples = isEnglish ? {
+    default: ["Show my portfolio", "Show my expenses", "Show my balance"],
+    income: ["Show my income", "Add income salary 5000", "How much did I earn this month"],
+    expense: ["Show my expenses", "Add expense groceries 50", "Set monthly expenses to 5000"],
+    portfolio: ["Show my portfolio", "Show my balance", "Show my top performer"],
+    asset: [`Open ${asset} chart`, `Buy 100 ${asset}`, `Alert me when ${asset} reaches 200`],
+    watch: ["Open watchlist", `Add ${asset} to favorites`, `Alert me when ${asset} reaches 200`],
+    goal: ["Create savings goal car 10000", "Show my portfolio", "Show my balance"],
+    note: ["Add note call the bank", "Show my expenses", "Open watchlist"],
+    countdown: ["Countdown vacation 2026-12-20", "Open settings", "Show my portfolio"],
+    car: ["Open my car", "Add expense fuel 50", "Show my expenses"],
+    settings: ["Open settings", "Set base currency to USD", "Show my balance"],
+  } : {
+    default: ["Portföyümü göster", "Giderlerimi göster", "Bakiyemi göster"],
+    income: ["Gelirimi göster", "Gelir ekle maaş 50000", "Bu ay ne kadar kazandım"],
+    expense: ["Giderlerimi göster", "Gider ekle market 500", "Aylık giderim 50000"],
+    portfolio: ["Portföyümü göster", "Bakiyemi göster", "En çok kazandıran varlığımı göster"],
+    asset: [`${asset} grafiğini aç`, `100 ${asset} aldım`, `${asset} 200 olunca haber ver`],
+    watch: ["Takibi aç", `${asset}'i favorilere ekle`, `${asset} 200 olunca haber ver`],
+    goal: ["Hedef ekle araba 1000000", "Portföyümü göster", "Bakiyemi göster"],
+    note: ["Not ekle bankayı ara", "Giderlerimi göster", "Takibi aç"],
+    countdown: ["Geri sayım tatil 2026-12-20", "Ayarları aç", "Portföyümü göster"],
+    car: ["Aracımı aç", "Gider ekle yakıt 1000", "Giderlerimi göster"],
+    settings: ["Ayarları aç", "Ana para birimini TL yap", "Bakiyemi göster"],
+  };
+  if (!normalized) return examples.default;
+  if (commandSuggestionTopicMatches(normalized, ["gelir", "maas", "kazanc", "earn", "income", "salary"])) return examples.income;
+  if (commandSuggestionTopicMatches(normalized, ["gider", "harca", "odeme", "fatura", "masraf", "expense", "spend", "bill"])) return examples.expense;
+  if (commandSuggestionTopicMatches(normalized, ["hedef", "birikim", "goal", "saving"])) return examples.goal;
+  if (commandSuggestionTopicMatches(normalized, ["not", "note"])) return examples.note;
+  if (commandSuggestionTopicMatches(normalized, ["geri say", "tarih", "countdown", "date"])) return examples.countdown;
+  if (commandSuggestionTopicMatches(normalized, ["arac", "araba", "yakit", "car", "fuel"])) return examples.car;
+  if (commandSuggestionTopicMatches(normalized, ["ayar", "tema", "para birimi", "setting", "theme", "currency"])) return examples.settings;
+  if (commandSuggestionTopicMatches(normalized, ["takip", "favori", "alarm", "bildir", "haber", "watch", "favorite", "alert"])) return examples.watch;
+  if (commandSuggestionTopicMatches(normalized, ["portfoy", "bakiye", "varlik", "perform", "portfolio", "balance", "holding"])) return examples.portfolio;
+  if (commandSuggestionAsset(value) || commandSuggestionTopicMatches(normalized, ["kripto", "hisse", "altin", "dolar", "grafik", "sat", "coin", "stock", "gold", "chart", "buy", "sell"])) return examples.asset;
+  return examples.default;
+}
+
+function renderSmartCommandExamples(value = "") {
+  if (!el.smartCommandChips) return;
+  const hasContext = !!String(value || "").trim();
+  if (el.smartCommandExamplesTitle) {
+    el.smartCommandExamplesTitle.textContent = t(hasContext ? "command_context_suggestions" : "command_examples_title");
+  }
+  el.smartCommandChips.innerHTML = smartCommandExampleItems(value).map((command) =>
+    `<button type="button" class="smart-command-chip" data-command-example="${escapeHtml(command)}">${escapeHtml(command)}</button>`
+  ).join("");
+}
+
 function renderSmartCommandHelp() {
   if (!el.smartCommandPreview) return;
   const groups = commandHelpGroups();
@@ -5805,6 +5867,7 @@ function clearSmartCommand() {
   smartCommandRequest += 1;
   if (el.smartCommandPreview) { el.smartCommandPreview.hidden = true; el.smartCommandPreview.innerHTML = ""; }
   renderSmartCommandMessage("");
+  renderSmartCommandExamples(el.smartCommandInput?.value || "");
   setSmartCommandMode("idle");
 }
 
@@ -5960,6 +6023,7 @@ function finishSmartCommand(message) {
   smartCommandDraft = null;
   if (el.smartCommandPreview) { el.smartCommandPreview.hidden = true; el.smartCommandPreview.innerHTML = ""; }
   if (el.smartCommandInput) el.smartCommandInput.value = "";
+  renderSmartCommandExamples("");
   renderSmartCommandMessage(message || t("command_applied"));
   setSmartCommandMode("success");
   clearTimeout(finishSmartCommand._modeTimer);
@@ -6241,7 +6305,7 @@ function syncCommandOrbMotion() {
 function initCommandOrb() {
   const canvases = [
     { canvas: el.commandOrbCanvas, size: 28, style: "color" },
-    { canvas: el.smartCommandOrbCanvas, size: 46, style: "thinking" },
+    { canvas: el.smartCommandOrbCanvas, size: 34, style: "thinking" },
   ].filter(({ canvas }) => canvas && canvas.getContext);
   if (!canvases.length) return;
   commandOrbRuntime.entries = canvases.map(({ canvas, size, style }) => ({
@@ -6259,13 +6323,20 @@ function initCommandOrb() {
 function wireSmartCommand() {
   initCommandOrb();
   if (!el.smartCommandForm || !el.smartCommandInput) return;
+  renderSmartCommandExamples("");
   el.smartCommandForm.addEventListener("submit", (event) => { event.preventDefault(); parseSmartCommand(); });
-  document.querySelectorAll("[data-command-example]").forEach((button) => button.addEventListener("click", () => {
+  el.smartCommandChips?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-command-example]");
+    if (!button || !el.smartCommandChips.contains(button)) return;
     el.smartCommandInput.value = button.dataset.commandExample || "";
     el.smartCommandInput.focus();
     parseSmartCommand();
-  }));
-  el.smartCommandInput.addEventListener("input", () => setSmartCommandMode(el.smartCommandInput.value.trim() ? "typing" : "idle"));
+  });
+  el.smartCommandInput.addEventListener("input", () => {
+    const value = el.smartCommandInput.value;
+    renderSmartCommandExamples(value);
+    setSmartCommandMode(value.trim() ? "typing" : "idle");
+  });
   el.smartCommandInput.addEventListener("focus", () => { if (el.smartCommandInput.value.trim()) setSmartCommandMode("typing"); });
   el.smartCommandInput.addEventListener("keydown", (event) => { if (event.key === "Escape") clearSmartCommand(); });
   document.querySelector("[data-command-focus]")?.addEventListener("click", focusSmartCommand);
@@ -7062,6 +7133,7 @@ function applyLanguage(lang) {
   refreshHomeCardControlLabels();
   renderPwaSettings();
   renderNotificationSettings();
+  renderSmartCommandExamples(el.smartCommandInput?.value || "");
   updateSettingsActive();
   hydrateUiIcons();
   try { localStorage.setItem("numbr_lang", lang); } catch (e) {}

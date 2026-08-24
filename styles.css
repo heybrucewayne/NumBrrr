@@ -5106,11 +5106,11 @@ html[data-theme="terminal"] .bg::after {
 [data-theme="fff"] .smart-command-mark {
   width: 42px;
   height: 42px;
-  border-radius: 0;
-  border: 1px solid var(--accent);
-  background: #020804;
-  box-shadow: 0 0 16px rgba(65, 255, 106, .18);
-  filter: none;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 0 0 18px rgba(101, 232, 62, .16);
+  filter: drop-shadow(0 0 9px rgba(101, 232, 62, .24));
 }
 [data-theme="fff"] .smart-command-mark::before,
 [data-theme="fff"] .smart-command-mark::after { display: none; }

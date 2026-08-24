@@ -6376,13 +6376,16 @@ function paintCommandOrb() {
 function paintThinkingOrb(entry) {
   const { ctx, size } = entry;
   const mode = entry.mode || "idle";
+  const isFff = document.documentElement.dataset.theme === "fff";
   const isTyping = mode === "typing";
   const isProcessing = mode === "processing";
   const isSuccess = mode === "success";
   const cx = size / 2, cy = size / 2, radius = size * .37;
   const pulse = (isProcessing ? 0.92 : isTyping ? 0.82 : 0.72) + Math.sin(commandOrbRuntime.phase * (isProcessing ? 2.2 : isTyping ? 1.7 : 1.35)) * (isProcessing ? 0.13 : 0.08);
-  const hue = isSuccess ? 155 : isProcessing ? 192 : isTyping ? 205 : 0;
-  const color = isSuccess ? [82, 230, 167] : isProcessing ? [112, 224, 255] : isTyping ? [149, 180, 255] : [180, 188, 198];
+  const hue = isFff ? 116 : isSuccess ? 155 : isProcessing ? 192 : isTyping ? 205 : 0;
+  const color = isFff
+    ? (isSuccess ? [164, 255, 111] : isProcessing ? [111, 246, 169] : isTyping ? [132, 230, 155] : [91, 191, 104])
+    : (isSuccess ? [82, 230, 167] : isProcessing ? [112, 224, 255] : isTyping ? [149, 180, 255] : [180, 188, 198]);
   const glow = ctx.createRadialGradient(cx, cy, radius * .08, cx, cy, radius * 1.18);
   glow.addColorStop(0, `hsla(${hue}, 92%, 84%, ${.1 * pulse})`);
   glow.addColorStop(.54, `rgba(${color.join(", ")}, .05)`);
@@ -6409,7 +6412,9 @@ function paintThinkingOrb(entry) {
       const dotRadius = size * (.006 + depth * .012);
       const light = Math.round((isProcessing ? 145 : isTyping ? 130 : 120) + depth * 120);
       const alpha = (.07 + depth * .5) * pulse;
-      ctx.fillStyle = isSuccess
+      ctx.fillStyle = isFff
+        ? `rgba(${color.join(", ")}, ${alpha})`
+        : isSuccess
         ? `rgba(82, 230, 167, ${alpha})`
         : `rgba(${isProcessing ? 100 : isTyping ? 135 : light}, ${isProcessing ? 220 : isTyping ? 175 : light}, ${isProcessing ? 255 : isTyping ? 255 : light}, ${alpha})`;
       ctx.beginPath();
@@ -6430,7 +6435,9 @@ function paintThinkingOrb(entry) {
     const py = cy + y * radius;
     const dotRadius = size * (.005 + depth * .012);
     const light = Math.round(145 + depth * 105);
-    ctx.fillStyle = isSuccess
+    ctx.fillStyle = isFff
+      ? `rgba(${color.join(", ")}, ${(0.08 + depth * .42) * pulse})`
+      : isSuccess
       ? `rgba(82, 230, 167, ${(0.08 + depth * .42) * pulse})`
       : `rgba(${isProcessing ? 100 : isTyping ? 135 : light}, ${isProcessing ? 220 : isTyping ? 175 : light}, ${isProcessing ? 255 : isTyping ? 255 : light}, ${(0.08 + depth * .42) * pulse})`;
     ctx.beginPath();

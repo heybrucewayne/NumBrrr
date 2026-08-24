@@ -659,8 +659,13 @@
   border: 0;
   border-radius: 50%;
   background: transparent;
-  box-shadow: none;
-  filter: hue-rotate(55deg) saturate(1.4) drop-shadow(0 0 7px rgba(101, 232, 62, .35));
+  box-shadow: 0 0 18px rgba(101, 232, 62, .16);
+  filter: drop-shadow(0 0 9px rgba(101, 232, 62, .24));
+}
+
+[data-theme="fff"] .smart-command-mark canvas {
+  opacity: .96;
+  filter: drop-shadow(0 0 6px rgba(101, 232, 62, .34));
 }
 
 [data-theme="fff"] .smart-command h2 {
@@ -787,6 +792,8 @@
 [data-theme="fff"] .fff-hud-command .smart-command-mark canvas {
   width: 28px;
   height: 28px;
+  opacity: .96;
+  filter: drop-shadow(0 0 5px rgba(101, 232, 62, .3));
 }
 [data-theme="fff"] .fff-hud-command .smart-command h2 {
   font-size: 10px;

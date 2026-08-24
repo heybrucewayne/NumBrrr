@@ -1013,8 +1013,7 @@
   }
 
   [data-theme="fff"] .tabbar.is-collapsed {
-    width: 74px;
-    max-width: 74px;
+    display: none;
   }
 
   [data-theme="fff"] .tabbar.is-collapsed .tab:not([data-view="home"]) {

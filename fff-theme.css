@@ -6,7 +6,7 @@
 }
 
 [data-theme="fff"] {
-  --font-term: "Share Tech Mono", "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-term: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --fff-bg: #010803;
   --fff-panel: #031007;
   --fff-panel-raised: #06180a;
@@ -47,7 +47,7 @@
    components declare display fonts for the other themes, so the terminal
    theme intentionally overrides those declarations here. */
 [data-theme="fff"] :where(*) {
-  font-family: var(--font-term) !important;
+  font-family: inherit !important;
 }
 
 [data-theme="fff"] body::before {
@@ -2097,6 +2097,21 @@
    Keep labels compact and reserve the larger phosphor type for key totals. */
 [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) {
   font-size: 11px;
+  letter-spacing: .012em;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) > * {
+  width: 100%;
+  margin-inline: 0;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) :is(
+  .modern-section-head,
+  .car-section-head,
+  .portfolio-holdings-head,
+  .feature-section-head
+) {
+  align-items: center;
 }
 
 [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-watch, #view-car) :is(

@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=113" />
+  <link rel="stylesheet" href="styles.css?v=114" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -72,7 +72,6 @@
 
       <section class="fff-operator-hud" id="fffOperatorHud" data-i18n-title="fff_hud_aria" aria-labelledby="fffOperatorTitle">
         <div class="fff-hud-identity">
-          <span class="fff-hud-signal" aria-hidden="true"><i></i></span>
           <div>
             <span class="fff-hud-kicker" data-i18n="fff_hud_operator">NUMBRR OPERATÖRÜ</span>
             <strong id="fffOperatorTitle" data-i18n="fff_hud_role">Finans saha operatörü</strong>
@@ -100,9 +99,7 @@
           <div class="smart-command-mark" aria-hidden="true">
             <canvas id="smartCommandOrbCanvas" width="46" height="46"></canvas>
           </div>
-          <div>
-            <h2 id="smartCommandTitle" data-i18n="command_title">Write a command</h2>
-          </div>
+          <h2 id="smartCommandTitle" data-i18n="command_title">Write a command</h2>
         </div>
         <div class="smart-command-workspace">
           <div class="smart-command-primary">
@@ -310,14 +307,6 @@
             <div><h2 id="homeTopPerfTitle" data-i18n="home_widget_topPerformers">Son 1 yılın yıldızları</h2></div>
           </div>
           <div class="top-perf-list home-top-perf-list" id="homeTopPerfList" aria-live="polite"></div>
-        </article>
-
-        <article class="glass dashboard-widget dashboard-widget--market-data" data-home-widget="ipos" aria-labelledby="homeIpoTitle" hidden>
-          <div class="home-card-head">
-            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 16l4-4 3 2 5-7m-4 0h4v4"></path></svg></span>
-            <div><h2 id="homeIpoTitle" data-i18n="home_widget_ipos">En yeni halka arzlar</h2></div>
-          </div>
-          <div class="ipo-list home-ipo-list" id="homeIpoList" aria-live="polite"></div>
         </article>
 
         <div class="countdown-widget-group" data-home-widget="countdown">
@@ -959,7 +948,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=83"></script>
+  <script src="app.js?v=84"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

@@ -7450,8 +7450,22 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
 // ---- Bottom navigation ----
 (function () {
   const tabs = Array.from(document.querySelectorAll(".tab"));
+  const tabbar = document.querySelector(".tabbar");
+  const homeTab = document.querySelector('.tab[data-view="home"]');
   const toast = document.getElementById("toast");
   let toastTimer;
+  function isFffDesktopNav() {
+    return document.documentElement.dataset.theme === "fff" && window.matchMedia("(min-width: 1181px)").matches;
+  }
+  function setFffNavCollapsed(collapsed) {
+    if (!tabbar || !homeTab || !isFffDesktopNav()) return;
+    tabbar.classList.toggle("is-collapsed", collapsed);
+    homeTab.setAttribute("aria-expanded", String(!collapsed));
+  }
+  function toggleFffNav() {
+    if (!tabbar) return;
+    setFffNavCollapsed(!tabbar.classList.contains("is-collapsed"));
+  }
   function showToast(msg) { showAppToast(msg); }
   function setActive(tab) {
     tabs.forEach((tt) => { const on = tt === tab; tt.classList.toggle("is-active", on); if (on) tt.setAttribute("aria-current", "page"); else tt.removeAttribute("aria-current"); });
@@ -7493,6 +7507,11 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
       if (tab.hasAttribute("data-soon")) { showToast(t("more_soon")); return; }
       const view = tab.dataset.view;
       if (!view) return;
+      if (view === "home" && isFffDesktopNav() && tab.classList.contains("is-active")) {
+        toggleFffNav();
+        return;
+      }
+      if (view === "home") setFffNavCollapsed(false);
       navigateToAppView(view);
     });
   });

@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=18" />
+  <link rel="stylesheet" href="fff-theme.css?v=19" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -821,12 +821,8 @@
   </main>
 
   <!-- Bottom navigation (app-style) -->
-  <nav class="tabbar" aria-label="Primary">
-    <div class="fff-nav-header" aria-hidden="true">
-      <strong data-i18n="fff_main_menu">ANA MENÜ</strong>
-      <small><i></i><span data-i18n="fff_online">ÇEVRİMİÇİ</span></small>
-    </div>
-    <button class="tab is-active" type="button" data-view="home" aria-current="page">
+  <nav class="tabbar is-collapsed" aria-label="Primary">
+    <button class="tab is-active" type="button" data-view="home" aria-current="page" aria-expanded="false">
       <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path></svg></span>
       <span class="tab-label" data-i18n="nav_home">Home</span>
     </button>
@@ -850,13 +846,9 @@
       <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"></path></svg></span>
       <span class="tab-label" data-i18n="nav_watchlist">Watch</span>
     </button>
-    <button class="tab" type="button" data-view="settings">
+    <button class="tab" type="button" data-view="settings" hidden>
       <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path></svg></span>
       <span class="tab-label" data-i18n="nav_settings">Settings</span>
-    </button>
-    <button class="tab tab--command" type="button" data-command-focus data-i18n-title="command_nav_title" title="Open command bar">
-      <span class="tab-icon command-orb" aria-hidden="true"><canvas id="commandOrbCanvas" width="28" height="28"></canvas></span>
-      <span class="tab-label" data-i18n="command_nav">Command</span>
     </button>
   </nav>
 
@@ -967,7 +959,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=89"></script>
+  <script src="app.js?v=90"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

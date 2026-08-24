@@ -137,13 +137,6 @@
   text-shadow: 0 0 16px rgba(156, 255, 104, .55);
 }
 
-[data-theme="fff"] .fff-terminal-page-title > span {
-  color: var(--fff-green);
-  font-size: 20px;
-  line-height: 1;
-  text-shadow: 0 0 8px rgba(101, 232, 62, .35);
-}
-
 [data-theme="fff"] .fff-terminal-page-title h1 {
   margin: 0;
   color: var(--fff-green-hot);
@@ -1255,10 +1248,8 @@
   }
 
   [data-theme="fff"] .tab::after {
-    content: "›";
-    grid-column: 3;
-    color: transparent;
-    font-size: 23px;
+    display: none;
+    content: none;
   }
 
   [data-theme="fff"] .tab:hover {
@@ -1633,14 +1624,7 @@
     background: rgba(1, 8, 3, .48);
   }
 
-  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before {
-    content: ">";
-    position: absolute;
-    left: 7px;
-    color: transparent;
-    font-size: 15px;
-    font-weight: 700;
-  }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before { display: none !important; content: none; }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:hover {
     border-color: var(--fff-line);
@@ -1776,23 +1760,7 @@
     text-transform: uppercase;
   }
 
-  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before {
-    content: ">";
-    position: absolute;
-    inset: auto !important;
-    display: block;
-    top: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    left: 10px !important;
-    color: var(--fff-green-dim);
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1;
-    border: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before { display: none !important; content: none; }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::after {
     display: none;
@@ -1801,7 +1769,7 @@
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab:hover {
     color: var(--fff-green-hot);
-    padding-left: 29px;
+    padding-left: 0;
     background: transparent;
     box-shadow: none;
     text-shadow: 0 0 10px rgba(156, 255, 104, .38);
@@ -1814,23 +1782,9 @@
     text-shadow: 0 0 12px rgba(156, 255, 104, .52);
   }
 
-  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active::before {
-    color: var(--fff-green-hot);
-    animation: fffNavPrompt 1.2s steps(2, end) infinite;
-  }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab.is-active::before { display: none !important; content: none; }
 
-  [data-theme="fff"] .tabbar:not(.is-collapsed)::after {
-    content: "▌";
-    position: absolute;
-    left: 25px;
-    right: auto;
-    bottom: 11px;
-    color: var(--fff-green-hot);
-    font-size: 14px;
-    line-height: 1;
-    text-shadow: 0 0 8px rgba(156, 255, 104, .58);
-    animation: fffTerminalCursor 1s steps(2, end) infinite;
-  }
+  [data-theme="fff"] .tabbar:not(.is-collapsed)::after { display: none; content: none; }
 }
 
 @keyframes fffTerminalCursor {
@@ -1960,7 +1914,7 @@
     min-width: 0;
     min-height: 26px;
     align-items: center;
-    gap: 5px;
+    gap: 0;
     margin: 0;
     padding: 3px 0;
     border: 0;
@@ -1978,14 +1932,7 @@
   [data-theme="fff"] .fff-inline-nav-item:nth-child(5) { animation-delay: 280ms; }
   [data-theme="fff"] .fff-inline-nav-item:nth-child(6) { animation-delay: 350ms; }
 
-  [data-theme="fff"] .fff-inline-nav-item::before {
-    position: static;
-    display: block;
-    content: ">";
-    color: var(--fff-green-dim);
-    font-size: 12px;
-    line-height: 1;
-  }
+  [data-theme="fff"] .fff-inline-nav-item::before { display: none; content: none; }
 
   [data-theme="fff"] .fff-inline-nav-item .tab-label {
     display: inline-block;
@@ -2016,6 +1963,11 @@
     padding-left: 0;
     text-shadow: 0 0 10px rgba(156, 255, 104, .38);
     box-shadow: none;
+  }
+
+  [data-theme="fff"] .fff-inline-nav-item.is-active .tab-label {
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 3px;
   }
 
   [data-theme="fff"] body:has(.tabbar:not(.is-collapsed)) #view-home,
@@ -2071,14 +2023,7 @@
     display: none !important;
   }
 
-  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before {
-    position: static !important;
-    display: block !important;
-    content: ">";
-    color: var(--fff-green-dim);
-    font-size: 12px;
-    line-height: 1;
-  }
+  [data-theme="fff"] .tabbar:not(.is-collapsed) .tab::before { display: none !important; content: none; }
 
   [data-theme="fff"] .tabbar:not(.is-collapsed) .tab-label {
     display: inline-block;

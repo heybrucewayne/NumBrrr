@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=66" />
+  <link rel="stylesheet" href="fff-theme.css?v=67" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -412,6 +412,13 @@
 
     <!-- ============ EXPENSES VIEW (Gider) ============ -->
     <div class="view" id="view-savings" hidden>
+      <header class="fff-view-heading">
+        <span class="fff-view-kicker">03 / MODÜL</span>
+        <div>
+          <h1 data-i18n="expenses_page_title">Giderler</h1>
+          <p data-i18n="expenses_page_sub">Ayı planla, harcamaları izle ve ödemelerin önünde kal.</p>
+        </div>
+      </header>
       <div class="glass expense-hero">
         <div class="modern-section-title">
           <span class="modern-section-icon modern-section-icon--expense" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-4 2-4-2-3 2V5a2 2 0 0 1 2-2Zm2 5h6M9 12h6"></path></svg></span>
@@ -495,6 +502,13 @@
 
     <!-- ============ ARACIM VIEW (car hub) ============ -->
     <div class="view" id="view-car" hidden>
+      <header class="fff-view-heading">
+        <span class="fff-view-kicker">04 / MODÜL</span>
+        <div>
+          <h1 data-i18n="car_title">Aracım</h1>
+          <p data-i18n="veh_sub">Araç bilgilerini, hatırlatmaları ve harcamaları tek yerde yönet.</p>
+        </div>
+      </header>
       <!-- My car(s): brand-model + fuel specs (used for route cost) + payment reminders
            + logged costs. Costs still count toward monthly expenses (Gider). -->
       <section class="glass car-panel car-garage-panel exp-vehicles" aria-labelledby="vehicleSectionTitle">
@@ -719,6 +733,13 @@
 
     <!-- ============ PORTFOLIO VIEW ============ -->
     <div class="view" id="view-portfolio" hidden>
+      <header class="fff-view-heading">
+        <span class="fff-view-kicker">01 / MODÜL</span>
+        <div>
+          <h1 data-i18n="portfolio_title">Portföyün</h1>
+          <p data-i18n="portfolio_sub">Sahip olduklarını ekle, dağılımını gör.</p>
+        </div>
+      </header>
       <section class="glass savings-result port-total-card" aria-label="Total portfolio value">
         <div class="savings-total">
           <div class="port-total-head">
@@ -765,6 +786,13 @@
 
     <!-- ============ INCOME VIEW ============ -->
     <div class="view" id="view-income" hidden>
+      <header class="fff-view-heading">
+        <span class="fff-view-kicker">02 / MODÜL</span>
+        <div>
+          <h1 data-i18n="income_title">Gelirlerin</h1>
+          <p data-i18n="income_sub">Gelirini ekle. Pasif olanları işaretle; özgürlüğe yalnızca onlar sayılır.</p>
+        </div>
+      </header>
       <section class="glass savings-panel income-sources-panel" aria-labelledby="incomeSourcesTitle">
         <div class="modern-section-head">
           <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--income" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18V8m0 10h16M8 15l3-4 3 2 5-7m-4 0h4v4"></path></svg></span><div><h3 class="settings-label" id="incomeSourcesTitle" data-i18n="income_sources_title">Income sources</h3></div></div>
@@ -798,6 +826,13 @@
 
     <!-- ============ WATCHLIST VIEW ============ -->
     <div class="view" id="view-watch" hidden>
+      <header class="fff-view-heading">
+        <span class="fff-view-kicker">05 / MODÜL</span>
+        <div>
+          <h1 data-i18n="watch_title">Takip listesi</h1>
+          <p data-i18n="watch_sub">Piyasada ara, önemli varlıkları hep yakında tut.</p>
+        </div>
+      </header>
       <section class="glass watch-panel" aria-labelledby="watchSectionTitle">
         <div class="modern-section-head watch-section-head">
           <div class="modern-section-title"><span class="modern-section-icon modern-section-icon--watch" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path></svg></span><div><h3 class="settings-label" id="watchSectionTitle" data-i18n="watch_title">Watchlist</h3></div></div>

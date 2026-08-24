@@ -2403,3 +2403,364 @@
 [data-theme="fff"] #view-car .car-section-note { max-width: 440px; }
 [data-theme="fff"] #view-car .car-section-count { padding: 4px 7px; font-size: 9px; }
 [data-theme="fff"] #view-car :is(input, select, textarea, button) { font-size: 10px; }
+
+/* FFF module screens — readable Pip-Boy information architecture.
+   The dashboard keeps its compact card grid; these five destination screens
+   use a calmer two-level layout so forms, totals and records never compete. */
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+  font-size: 15px;
+  line-height: 1.45;
+  letter-spacing: .006em;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) > * {
+  min-width: 0;
+  margin: 0;
+}
+
+[data-theme="fff"] .fff-view-heading {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 76px;
+  padding: 13px 18px;
+  border: 1px solid var(--fff-line);
+  border-left: 3px solid var(--fff-green);
+  background:
+    linear-gradient(90deg, rgba(101, 232, 62, .09), transparent 48%),
+    repeating-linear-gradient(0deg, rgba(101, 232, 62, .018) 0 1px, transparent 1px 5px),
+    #020a04;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, .28);
+}
+
+[data-theme="fff"] .fff-view-heading > div { min-width: 0; }
+[data-theme="fff"] .fff-view-kicker {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  min-height: 48px;
+  border: 1px solid var(--fff-line-strong);
+  color: var(--fff-green-hot);
+  background: #06160a;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  line-height: 1.15;
+  text-align: center;
+}
+
+[data-theme="fff"] .fff-view-heading h1 {
+  margin: 0;
+  color: var(--fff-green-hot);
+  font-family: var(--font-term) !important;
+  font-size: clamp(23px, 2.4vw, 31px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: .045em;
+}
+
+[data-theme="fff"] .fff-view-heading p {
+  max-width: 720px;
+  margin: 6px 0 0;
+  color: var(--fff-green-soft);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) > :is(.glass, .exp-summary) {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--fff-line);
+  border-radius: 2px;
+  background:
+    linear-gradient(135deg, rgba(101, 232, 62, .045), transparent 50%),
+    repeating-linear-gradient(0deg, rgba(101, 232, 62, .012) 0 1px, transparent 1px 5px),
+    #020a04;
+  box-shadow: inset 0 0 26px rgba(0, 0, 0, .28);
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) > :is(.glass, .exp-summary)::before {
+  content: "";
+  position: absolute;
+  inset: 0 18% auto 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--fff-green), transparent);
+  opacity: .52;
+  pointer-events: none;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(
+  .modern-section-title .settings-label,
+  .car-section-title .settings-label,
+  .portfolio-holdings-head .settings-label,
+  .feature-section-head .settings-label,
+  .flow-card > .settings-label,
+  .watch-section-head .settings-label,
+  .income-summary-card .savings-total-label,
+  .expense-hero h2
+) {
+  color: var(--fff-green-hot);
+  font-family: var(--font-term) !important;
+  font-size: 18px !important;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .035em;
+  text-transform: none;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(
+  .modern-section-title p,
+  .car-section-note,
+  .portfolio-holdings-head p,
+  .flow-note,
+  .flow-subnote,
+  .savings-note,
+  .feature-empty,
+  .inc-surplus,
+  .car-empty,
+  .top-perf-msg
+) {
+  color: var(--fff-green-soft);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(
+  .modern-section-icon,
+  .income-summary-icon,
+  .car-section-icon
+) {
+  width: 42px;
+  height: 42px;
+  border-radius: 1px;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(
+  .modern-section-icon svg,
+  .income-summary-icon svg,
+  .car-section-icon svg
+) { width: 22px; height: 22px; }
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(input, select, textarea) {
+  min-height: 46px;
+  padding: 10px 12px;
+  font-size: 15px !important;
+  line-height: 1.2;
+}
+
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(button, .settings-action, .add-cat) {
+  min-height: 44px;
+  font-size: 14px !important;
+  line-height: 1.2;
+}
+
+/* Portfolio: value and monthly flow sit side by side; holdings get the full rail. */
+[data-theme="fff"] #view-portfolio { grid-template-columns: minmax(0, 1.35fr) minmax(300px, .85fr); }
+[data-theme="fff"] #view-portfolio > .fff-view-heading,
+[data-theme="fff"] #view-portfolio > .portfolio-holdings-panel { grid-column: 1 / -1; }
+[data-theme="fff"] #view-portfolio > .port-total-card { grid-column: 1; }
+[data-theme="fff"] #view-portfolio > .flow-card { grid-column: 2; }
+[data-theme="fff"] #view-portfolio .port-total-card,
+[data-theme="fff"] #view-portfolio .flow-card,
+[data-theme="fff"] #view-portfolio .portfolio-holdings-panel { padding: 20px; }
+[data-theme="fff"] #view-portfolio .port-total-card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(230px, 1.2fr); gap: 18px; align-items: center; min-height: 250px; }
+[data-theme="fff"] #view-portfolio .port-total-card .port-empty { grid-column: 1 / -1; }
+[data-theme="fff"] #view-portfolio .savings-total-label { color: var(--fff-green-soft); font-size: 14px; letter-spacing: .045em; }
+[data-theme="fff"] #view-portfolio .savings-total-value { color: var(--fff-green-hot); font-size: clamp(32px, 4vw, 48px); line-height: 1.05; }
+[data-theme="fff"] #view-portfolio .port-24h { font-size: 15px; }
+[data-theme="fff"] #view-portfolio .port-chart { min-height: 190px; }
+[data-theme="fff"] #view-portfolio .donut-wrap { width: 176px; height: 176px; }
+[data-theme="fff"] #view-portfolio .donut-legend { max-height: 190px; overflow: auto; }
+[data-theme="fff"] #view-portfolio .portfolio-holdings-head { align-items: center; margin-bottom: 14px; }
+[data-theme="fff"] #view-portfolio .portfolio-count,
+[data-theme="fff"] #view-income .modern-section-count,
+[data-theme="fff"] #view-watch .modern-section-count,
+[data-theme="fff"] #view-car .car-section-count { padding: 7px 11px; font-size: 13px; }
+[data-theme="fff"] #view-portfolio #portList { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+[data-theme="fff"] #view-portfolio .port-row { min-height: 104px; grid-template-columns: 42px minmax(0, 1fr) 142px 38px; gap: 11px; padding: 12px; border-radius: 2px; border-color: var(--fff-line); background: #031007; }
+[data-theme="fff"] #view-portfolio .port-asset-icon { width: 42px; height: 42px; font-size: 14px; }
+[data-theme="fff"] #view-portfolio .port-row .cat-name,
+[data-theme="fff"] #view-portfolio .port-row .cat-amount input,
+[data-theme="fff"] #view-portfolio .port-row .usd-input input,
+[data-theme="fff"] #view-portfolio .port-row .qty-field { font-size: 15px; }
+[data-theme="fff"] #view-portfolio .port-row .hold-type,
+[data-theme="fff"] #view-portfolio .port-field-label { font-size: 12px; }
+[data-theme="fff"] #view-portfolio .port-row .qty-field,
+[data-theme="fff"] #view-portfolio .port-row .money-input { min-height: 42px; }
+[data-theme="fff"] #view-portfolio .port-row .crypto-value { font-size: 13px; }
+
+/* Income: a clear source ledger beside the passive-income coverage readout. */
+[data-theme="fff"] #view-income { grid-template-columns: minmax(0, 1.32fr) minmax(300px, .88fr); }
+[data-theme="fff"] #view-income > .fff-view-heading { grid-column: 1 / -1; }
+[data-theme="fff"] #view-income > .income-sources-panel { grid-column: 1; padding: 20px; }
+[data-theme="fff"] #view-income > .income-summary-card { grid-column: 2; padding: 20px; min-height: 100%; }
+[data-theme="fff"] #view-income .income-sources-panel #incList { grid-template-columns: 1fr; gap: 10px; }
+[data-theme="fff"] #view-income .inc-row { grid-template-columns: 44px minmax(0, 1fr) minmax(130px, 160px) auto; min-height: 78px; gap: 11px; padding: 12px; border-radius: 2px; border-color: var(--fff-line); background: #031007; }
+[data-theme="fff"] #view-income .inc-source-icon { width: 44px; height: 44px; font-size: 15px; }
+[data-theme="fff"] #view-income .inc-row .cat-label { gap: 6px; font-size: 15px; }
+[data-theme="fff"] #view-income .inc-row .cat-name,
+[data-theme="fff"] #view-income .inc-row .cat-amount input { font-size: 15px; }
+[data-theme="fff"] #view-income .inc-row .inc-type,
+[data-theme="fff"] #view-income .inc-row .inc-from-port { font-size: 12px; }
+[data-theme="fff"] #view-income .income-summary-top { align-items: flex-start; gap: 14px; }
+[data-theme="fff"] #view-income .income-summary-icon { width: 46px; height: 46px; }
+[data-theme="fff"] #view-income .savings-total-label { font-size: 14px !important; }
+[data-theme="fff"] #view-income .savings-total-value { color: var(--fff-green-hot); font-size: clamp(32px, 4vw, 46px); line-height: 1.05; }
+[data-theme="fff"] #view-income .savings-total-sub,
+[data-theme="fff"] #view-income .port-pct,
+[data-theme="fff"] #view-income .inc-surplus { font-size: 14px; }
+[data-theme="fff"] #view-income .port-pct strong { font-size: 26px; }
+[data-theme="fff"] #view-income .port-bar { height: 14px; margin-top: 8px; }
+
+/* Expenses: summary rail, budget console and two equal ledgers. */
+[data-theme="fff"] #view-savings { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+[data-theme="fff"] #view-savings > .fff-view-heading,
+[data-theme="fff"] #view-savings > .expense-hero,
+[data-theme="fff"] #view-savings > .exp-summary { grid-column: 1 / -1; }
+[data-theme="fff"] #view-savings > .expense-hero { display: flex; align-items: center; justify-content: space-between; min-height: 78px; padding: 16px 20px; }
+[data-theme="fff"] #view-savings .expense-hero .modern-section-title { gap: 12px; }
+[data-theme="fff"] #view-savings .expense-hero .feature-month-chip { padding: 7px 11px; font-size: 13px; }
+[data-theme="fff"] #view-savings > .exp-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; overflow: visible; border: 0; background: none; box-shadow: none; }
+[data-theme="fff"] #view-savings .exp-stat { min-height: 116px; padding: 20px; border: 1px solid var(--fff-line); border-radius: 2px; background: #031007; }
+[data-theme="fff"] #view-savings .exp-stat-label { color: var(--fff-green-soft); font-size: 14px; letter-spacing: .045em; }
+[data-theme="fff"] #view-savings .exp-stat-value { color: var(--fff-green-hot); font-size: clamp(25px, 3vw, 34px); }
+[data-theme="fff"] #view-savings > .budget-panel { grid-column: span 7; padding: 20px; }
+[data-theme="fff"] #view-savings > .exp-reminders { grid-column: span 5; padding: 20px; }
+[data-theme="fff"] #view-savings > .expense-list-panel { grid-column: span 6; padding: 20px; }
+[data-theme="fff"] #view-savings > .exp-history { grid-column: 1 / -1; padding: 14px 20px; }
+[data-theme="fff"] #view-savings .budget-overview { gap: 10px; }
+[data-theme="fff"] #view-savings .budget-overview > div { min-height: 76px; padding: 12px; }
+[data-theme="fff"] #view-savings .budget-overview span,
+[data-theme="fff"] #view-savings .net-worth-stats span,
+[data-theme="fff"] #view-savings .budget-form > label { color: var(--fff-green-soft); font-size: 12px; }
+[data-theme="fff"] #view-savings .budget-overview strong,
+[data-theme="fff"] #view-savings .net-worth-stats strong { font-size: 20px; }
+[data-theme="fff"] #view-savings .budget-progress-text { font-size: 14px; }
+[data-theme="fff"] #view-savings .budget-form { gap: 10px; }
+[data-theme="fff"] #view-savings .budget-form > label > input,
+[data-theme="fff"] #view-savings .budget-form .money-input { min-height: 46px; font-size: 15px; }
+[data-theme="fff"] #view-savings .exp-row { min-height: 66px; padding: 10px 12px; border-radius: 2px; border-color: var(--fff-line); background: #031007; }
+[data-theme="fff"] #view-savings .exp-row .cat-name,
+[data-theme="fff"] #view-savings .exp-row .cat-amount input,
+[data-theme="fff"] #view-savings .exp-row .exp-dayfield { font-size: 15px; }
+[data-theme="fff"] #view-savings .exp-reminder { min-height: 62px; padding: 11px 12px; border-radius: 2px; }
+[data-theme="fff"] #view-savings .exp-rem-cat,
+[data-theme="fff"] #view-savings .exp-rem-amt { font-size: 15px; }
+[data-theme="fff"] #view-savings .exp-rem-sub { font-size: 13px; }
+
+/* Car: garage is the anchor; route planning and history are equal modules. */
+[data-theme="fff"] #view-car { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+[data-theme="fff"] #view-car > .fff-view-heading,
+[data-theme="fff"] #view-car > .car-garage-panel { grid-column: 1 / -1; }
+[data-theme="fff"] #view-car > .car-route-panel { grid-column: span 7; }
+[data-theme="fff"] #view-car > .car-history-panel { grid-column: span 5; }
+[data-theme="fff"] #view-car .car-panel { padding: 20px; }
+[data-theme="fff"] #view-car .car-section-head { align-items: center; margin-bottom: 16px; }
+[data-theme="fff"] #view-car .car-section-title { gap: 12px; }
+[data-theme="fff"] #view-car .car-section-title .settings-label { font-size: 18px !important; }
+[data-theme="fff"] #view-car .car-section-note { font-size: 14px; }
+[data-theme="fff"] #view-car .veh-list { gap: 12px; }
+[data-theme="fff"] #view-car .veh-card { padding: 16px; border-radius: 2px; border-color: var(--fff-line); background: #031007; box-shadow: inset 0 0 20px rgba(0, 0, 0, .2); }
+[data-theme="fff"] #view-car .veh-card::before,
+[data-theme="fff"] #view-car .veh-card::after { display: none; }
+[data-theme="fff"] #view-car .veh-name,
+[data-theme="fff"] #view-car .car-prof-name { font-size: 17px; }
+[data-theme="fff"] #view-car .veh-active,
+[data-theme="fff"] #view-car .veh-active-label { min-height: 36px; font-size: 13px; }
+[data-theme="fff"] #view-car .veh-specs.car-prof-grid { gap: 10px; }
+[data-theme="fff"] #view-car .veh-specs .car-field { padding: 12px; border-radius: 2px; }
+[data-theme="fff"] #view-car .veh-specs .car-field > span,
+[data-theme="fff"] #view-car .car-field > span { font-size: 12px; }
+[data-theme="fff"] #view-car .veh-specs .car-select,
+[data-theme="fff"] #view-car .veh-specs .car-num,
+[data-theme="fff"] #view-car .veh-specs .money-input { min-height: 44px; font-size: 15px; }
+[data-theme="fff"] #view-car :is(.car-loc-lbl, .car-extra-head, .car-extra-costs label > span, .car-map-head span) { font-size: 13px; }
+[data-theme="fff"] #view-car .car-route-inputs { gap: 14px; }
+[data-theme="fff"] #view-car .car-route-actions { gap: 10px; }
+[data-theme="fff"] #view-car .car-stats { gap: 10px; }
+[data-theme="fff"] #view-car .car-stat { min-height: 80px; padding: 13px 8px; border-radius: 2px; }
+[data-theme="fff"] #view-car .car-stat-v { font-size: 22px; }
+[data-theme="fff"] #view-car .car-stat-l { font-size: 12px; }
+[data-theme="fff"] #view-car .car-trip-route b,
+[data-theme="fff"] #view-car .car-trip-cost { font-size: 16px; }
+[data-theme="fff"] #view-car .car-trip-date,
+[data-theme="fff"] #view-car .car-trip-meta,
+[data-theme="fff"] #view-car .car-trip-right small { font-size: 13px; }
+
+/* Watchlist: large asset rows beside the live bubble board. */
+[data-theme="fff"] #view-watch { grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr); }
+[data-theme="fff"] #view-watch > .fff-view-heading { grid-column: 1 / -1; }
+[data-theme="fff"] #view-watch > .watch-panel { grid-column: 1; padding: 20px; }
+[data-theme="fff"] #view-watch > .watch-bubbles-sec { grid-column: 2; min-height: 100%; padding: 14px; }
+[data-theme="fff"] #view-watch > .watch-panel { overflow: visible; }
+[data-theme="fff"] #view-watch .watch-section-head { margin-bottom: 14px; }
+[data-theme="fff"] #view-watch .watch-search { min-height: 50px; font-size: 15px !important; }
+[data-theme="fff"] #view-watch .watch-list { gap: 10px; }
+[data-theme="fff"] #view-watch .watch-row { min-height: 76px; padding: 12px; border-radius: 2px; border-color: var(--fff-line); background: #031007; }
+[data-theme="fff"] #view-watch .watch-name { font-size: 16px; }
+[data-theme="fff"] #view-watch .watch-name small { font-size: 13px; }
+[data-theme="fff"] #view-watch .watch-price { font-size: 16px; }
+[data-theme="fff"] #view-watch .watch-perf { gap: 8px; }
+[data-theme="fff"] #view-watch .perf-chip { padding: 5px 8px; font-size: 13px; }
+[data-theme="fff"] #view-watch .watch-actions { gap: 8px; }
+[data-theme="fff"] #view-watch .watch-chart,
+[data-theme="fff"] #view-watch .watch-del,
+[data-theme="fff"] #view-watch .watch-ccy { width: 34px; height: 34px; }
+[data-theme="fff"] #view-watch .watch-bubbles-sec::after { content: "CANLI PİYASA / 24 SAAT"; display: block; margin: 10px 4px 0; color: var(--fff-green-dim); font-size: 12px; letter-spacing: .08em; }
+[data-theme="fff"] #view-watch .watch-bubbles { min-height: 330px; border: 1px solid var(--fff-line); border-radius: 1px; background: #010904; }
+[data-theme="fff"] #view-watch:has(.watch-bubbles-sec[hidden]) > .watch-panel { grid-column: 1 / -1; }
+
+@media (max-width: 980px) {
+  [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) > * {
+    grid-column: 1 / -1 !important;
+  }
+
+  [data-theme="fff"] #view-portfolio .port-total-card { grid-template-columns: 1fr; }
+  [data-theme="fff"] #view-portfolio .port-chart { min-height: 170px; }
+  [data-theme="fff"] #view-portfolio #portList { grid-template-columns: 1fr; }
+  [data-theme="fff"] #view-income .income-summary-card { min-height: 240px; }
+  [data-theme="fff"] #view-savings > .exp-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  [data-theme="fff"] #view-car .veh-specs.car-prof-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  [data-theme="fff"] #view-watch .watch-bubbles { min-height: 280px; }
+}
+
+@media (max-width: 620px) {
+  [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) { gap: 10px; }
+  [data-theme="fff"] .fff-view-heading { min-height: 68px; padding: 11px 13px; gap: 11px; }
+  [data-theme="fff"] .fff-view-kicker { width: 40px; min-height: 40px; font-size: 10px; }
+  [data-theme="fff"] .fff-view-heading h1 { font-size: 22px; }
+  [data-theme="fff"] .fff-view-heading p { margin-top: 4px; font-size: 13px; }
+  [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) > :is(.glass, .exp-summary) { padding: 15px; }
+  [data-theme="fff"] #view-savings > .exp-summary { gap: 8px; }
+  [data-theme="fff"] #view-savings .exp-stat { min-height: 94px; padding: 14px; }
+  [data-theme="fff"] #view-savings .exp-stat-label { font-size: 12px; }
+  [data-theme="fff"] #view-savings .exp-stat-value { font-size: 22px; }
+  [data-theme="fff"] #view-income .inc-row { grid-template-columns: 38px minmax(0, 1fr) 38px; gap: 8px; }
+  [data-theme="fff"] #view-income .inc-source-icon { width: 38px; height: 38px; }
+  [data-theme="fff"] #view-income .inc-row .cat-label { grid-column: 2; }
+  [data-theme="fff"] #view-income .inc-row .cat-amount { grid-column: 1 / -1; grid-row: 2; }
+  [data-theme="fff"] #view-income .inc-row .cat-remove { grid-column: 3; grid-row: 1; }
+  [data-theme="fff"] #view-car .veh-specs.car-prof-grid { grid-template-columns: 1fr; }
+  [data-theme="fff"] #view-car .car-extra-costs { grid-template-columns: 1fr; }
+  [data-theme="fff"] #view-watch .watch-row { min-height: 0; }
+  [data-theme="fff"] #view-watch .watch-body { gap: 9px; }
+  [data-theme="fff"] #view-watch .watch-name,
+  [data-theme="fff"] #view-watch .watch-price { font-size: 15px; }
+  [data-theme="fff"] #view-watch .perf-chip { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) > * { animation: none !important; }
+}

@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=68" />
+  <link rel="stylesheet" href="fff-theme.css?v=69" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -441,6 +441,11 @@
 
       <!-- Upcoming payment reminders (recurring bills + vehicle payments) -->
       <section class="glass exp-reminders" id="expReminders" aria-label="Upcoming payments" hidden>
+        <div class="exp-reminders-head">
+          <span class="exp-reminders-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-4 2-4-2-3 2V5a2 2 0 0 1 2-2Zm2 5h6M9 12h6"></path></svg></span>
+          <div class="exp-reminders-title"><span>ÖDEME AKIŞI</span><h3 data-i18n="exp_reminders">Yaklaşan ödemeler</h3></div>
+          <span class="exp-reminders-status">AKTİF</span>
+        </div>
         <div class="exp-reminder-list" id="expReminderList"></div>
       </section>
 

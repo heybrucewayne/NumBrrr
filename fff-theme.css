@@ -2764,3 +2764,58 @@
 @media (prefers-reduced-motion: reduce) {
   [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) > * { animation: none !important; }
 }
+
+/* Clean module masthead: the index is a readable terminal status tag,
+   not a cramped square badge. */
+[data-theme="fff"] .fff-view-heading {
+  min-height: 68px;
+  grid-template-columns: auto minmax(0, 1fr);
+  padding: 11px 18px;
+  border-left-width: 2px;
+  background:
+    linear-gradient(90deg, rgba(101, 232, 62, .08), transparent 42%),
+    repeating-linear-gradient(0deg, rgba(101, 232, 62, .014) 0 1px, transparent 1px 5px),
+    #020a04;
+}
+
+[data-theme="fff"] .fff-view-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: auto;
+  min-height: 28px;
+  padding: 0 16px 0 2px;
+  border: 0;
+  border-right: 1px solid var(--fff-line-strong);
+  color: var(--fff-green);
+  background: transparent;
+  font-size: 12px;
+  letter-spacing: .12em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+[data-theme="fff"] .fff-view-kicker::before {
+  content: ">";
+  margin-right: 8px;
+  color: var(--fff-green-hot);
+  font-size: 15px;
+  text-shadow: 0 0 8px rgba(165, 255, 117, .42);
+}
+
+[data-theme="fff"] .fff-view-heading h1 {
+  font-size: clamp(25px, 2.5vw, 34px);
+  letter-spacing: .055em;
+}
+
+[data-theme="fff"] .fff-view-heading p {
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+@media (max-width: 620px) {
+  [data-theme="fff"] .fff-view-heading { min-height: 62px; padding: 10px 13px; gap: 10px; }
+  [data-theme="fff"] .fff-view-kicker { min-height: 24px; padding-right: 10px; font-size: 10px; letter-spacing: .08em; }
+  [data-theme="fff"] .fff-view-kicker::before { margin-right: 5px; font-size: 13px; }
+  [data-theme="fff"] .fff-view-heading h1 { font-size: 22px; }
+}

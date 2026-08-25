@@ -400,7 +400,7 @@ const I18N = {
     theme_solana: "Solana", theme_solana_desc: "Purple & green · degen mode",
     theme_black: "Black Theme", theme_black_desc: "Flat black · blue accents",
     theme_terminal: "NUMBRR Terminal", theme_terminal_desc: "Phosphor green · focused finance console",
-    theme_fff: "FFF", theme_fff_desc: "Original phosphor terminal · NUMBRR system",
+    theme_fff: "Default Theme", theme_fff_desc: "Original phosphor terminal · NUMBRR system",
     more_soon: "More features coming soon ✨",
     nav_car: "My car",
     car_title: "My car",
@@ -591,7 +591,7 @@ const I18N = {
     theme_solana: "Solana", theme_solana_desc: "Mor & yeşil · degen modu",
     theme_black: "Siyah Tema", theme_black_desc: "Düz siyah · mavi vurgular",
     theme_terminal: "NUMBRR Terminal", theme_terminal_desc: "Fosfor yeşili · odaklı finans konsolu",
-    theme_fff: "FFF", theme_fff_desc: "Özgün fosfor terminali · NUMBRR sistemi",
+    theme_fff: "Default Theme", theme_fff_desc: "Özgün fosfor terminali · NUMBRR sistemi",
     more_soon: "Yeni özellikler yakında ✨",
     nav_car: "Aracım",
     car_title: "Aracım",
@@ -686,13 +686,14 @@ I18N.tr.command_context_suggestions = "Yazına uygun komutlar";
 
 // ---- State ----
 const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "marketSnapshot", "topPerformers", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
+const DEFAULT_THEME = "fff";
 const THEME_IDS = ["black", "terminal", "fff"];
 function normalizeTheme(value) {
-  return THEME_IDS.includes(value) ? value : "black";
+  return value === DEFAULT_THEME && THEME_IDS.includes(value) ? value : DEFAULT_THEME;
 }
 const state = {
   lang: "tr",
-  theme: "black",
+  theme: DEFAULT_THEME,
   currency: "TL",
   monthlyExpenses: 3000,
   realMode: false,
@@ -7342,7 +7343,7 @@ function applyLanguage(lang) {
   hydrateUiIcons();
   try { localStorage.setItem("numbr_lang", lang); } catch (e) {}
 }
-function applyTheme(theme = "black") {
+function applyTheme(theme = DEFAULT_THEME) {
   state.theme = normalizeTheme(theme || state.theme);
   document.documentElement.dataset.theme = state.theme;
   const themeColor = document.querySelector('meta[name="theme-color"]');
@@ -7649,7 +7650,10 @@ el.exportData.addEventListener("click", exportBackup);
 el.importData.addEventListener("change", importBackup);
 
 document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => applyLanguage(b.dataset.lang)));
-document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener("click", () => applyTheme(b.dataset.themePick)));
+document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener("click", () => {
+  if (b.dataset.themePick !== DEFAULT_THEME) return;
+  applyTheme(DEFAULT_THEME);
+}));
 
 // ---- Bottom navigation ----
 (function () {

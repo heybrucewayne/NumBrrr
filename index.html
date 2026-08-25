@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="black">
+<html lang="tr" data-theme="fff">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description" content="NumBrrr ile finansal özgürlük hedefin için gereken birikimi hesapla ve günlük finansını takip et." />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#050805" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="NumBrrr" />
@@ -12,7 +12,8 @@
   <script>
     try {
       const savedTheme = localStorage.getItem("numbr_theme");
-      const theme = ["black", "terminal", "fff"].includes(savedTheme) ? savedTheme : "black";
+      // Legacy themes remain in the source, but FFF is the only exposed theme.
+      const theme = "fff";
       document.documentElement.dataset.theme = theme;
       localStorage.setItem("numbr_theme", theme);
       const savedState = JSON.parse(localStorage.getItem("numbr_state") || "null");
@@ -696,16 +697,16 @@
       <section class="glass settings-group">
         <h3 class="settings-label" data-i18n="theme">Theme</h3>
         <div class="settings-options settings-options--theme">
-          <button class="opt opt-theme" type="button" data-theme-pick="black">
+          <button class="opt opt-theme" type="button" data-theme-pick="black" hidden>
             <span class="opt-name" data-i18n="theme_black">Black Theme</span>
             <span class="opt-check" aria-hidden="true">✓</span>
           </button>
-          <button class="opt opt-theme" type="button" data-theme-pick="terminal">
+          <button class="opt opt-theme" type="button" data-theme-pick="terminal" hidden>
             <span class="opt-name" data-i18n="theme_terminal">NUMBRR Terminal</span>
             <span class="opt-check" aria-hidden="true">✓</span>
           </button>
           <button class="opt opt-theme" type="button" data-theme-pick="fff">
-            <span class="opt-name" data-i18n="theme_fff">FFF</span>
+            <span class="opt-name" data-i18n="theme_fff">Default Theme</span>
             <span class="opt-check" aria-hidden="true">✓</span>
           </button>
           <button class="opt opt-theme" type="button" data-theme-pick="glass" hidden>
@@ -1005,7 +1006,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=105"></script>
+  <script src="app.js?v=106"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

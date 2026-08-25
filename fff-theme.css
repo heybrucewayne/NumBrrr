@@ -2761,6 +2761,93 @@
   [data-theme="fff"] #view-watch .perf-chip { font-size: 12px; }
 }
 
+/* Portfolio chart guardrails: keep the donut inside its frame and give the
+   legend a real column so labels never sit on top of the ring. */
+[data-theme="fff"] #view-portfolio .port-chart {
+  display: grid;
+  grid-template-columns: minmax(198px, 214px) minmax(0, 1fr);
+  align-items: center;
+  justify-content: stretch;
+  gap: 16px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+[data-theme="fff"] #view-portfolio .donut-wrap {
+  box-sizing: border-box;
+  width: 214px;
+  height: 214px;
+  min-width: 0;
+  padding: 10px;
+  overflow: hidden;
+}
+
+[data-theme="fff"] #view-portfolio .donut {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+[data-theme="fff"] #view-portfolio .donut-legend {
+  min-width: 0;
+  max-height: 214px;
+  padding-right: 5px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-color: var(--fff-green-dim) #020704;
+}
+
+[data-theme="fff"] #view-portfolio .leg-group { min-width: 0; gap: 6px; }
+[data-theme="fff"] #view-portfolio .leg-head {
+  min-width: 0;
+  color: var(--fff-green);
+  font-size: 12px;
+  line-height: 1.3;
+}
+[data-theme="fff"] #view-portfolio .leg-head span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fff-green-soft);
+  font-size: 11px;
+}
+[data-theme="fff"] #view-portfolio .leg-item {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr);
+  align-items: center;
+  gap: 4px 8px;
+  min-width: 0;
+  padding: 4px 0;
+  font-size: 14px;
+}
+[data-theme="fff"] #view-portfolio .leg-dot { width: 10px; height: 10px; border-radius: 0; grid-row: 1 / span 2; }
+[data-theme="fff"] #view-portfolio .leg-name,
+[data-theme="fff"] #view-portfolio .leg-val { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-theme="fff"] #view-portfolio .leg-name { color: var(--fff-green-hot); line-height: 1.25; }
+[data-theme="fff"] #view-portfolio .leg-val { color: var(--fff-green-soft); font-size: 12px; line-height: 1.2; }
+
+@media (max-width: 980px) {
+  [data-theme="fff"] #view-portfolio .port-chart {
+    grid-template-columns: minmax(188px, 204px) minmax(0, 1fr);
+  }
+  [data-theme="fff"] #view-portfolio .donut-wrap { width: 204px; height: 204px; }
+  [data-theme="fff"] #view-portfolio .donut-legend { max-height: 204px; }
+}
+
+@media (max-width: 560px) {
+  [data-theme="fff"] #view-portfolio .port-chart {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 12px;
+  }
+  [data-theme="fff"] #view-portfolio .donut-legend {
+    width: 100%;
+    max-height: 190px;
+    justify-self: stretch;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) > * { animation: none !important; }
 }

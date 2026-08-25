@@ -2758,6 +2758,7 @@ function addHolding() {
 }
 
 const PIE_COLORS = ["#7c5cff", "#21d4fd", "#2ee6a6", "#ffb454", "#ff7eb6", "#ffd54a", "#4f8cff", "#ff5ca8"];
+const FFF_PIE_COLORS = ["#a5ff75", "#65e83e", "#58c93a", "#d6c54b", "#3d8e2c", "#c7ffad", "#8ee85c", "#efffbf"];
 function escapeHtml(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
@@ -2964,7 +2965,8 @@ function refreshPortfolio() {
   el.portEmpty.hidden = true;
 
   const colorOf = {};
-  segs.forEach((h, i) => (colorOf[h.id] = PIE_COLORS[i % PIE_COLORS.length]));
+  const pieColors = document.documentElement.dataset.theme === "fff" ? FFF_PIE_COLORS : PIE_COLORS;
+  segs.forEach((h, i) => (colorOf[h.id] = pieColors[i % pieColors.length]));
 
   let cum = 0;
   const ring = segs

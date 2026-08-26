@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=114" />
-  <link rel="stylesheet" href="fff-theme.css?v=70" />
+  <link rel="stylesheet" href="fff-theme.css?v=80" />
 </head>
 <body>
   <div class="offline-banner" id="offlineBanner" role="status" aria-live="polite" hidden data-i18n="offline_banner">Çevrimdışısın · son kaydedilen veriler gösteriliyor</div>
@@ -81,7 +81,7 @@
         <button class="dashboard-edit" id="editHome" type="button" data-i18n="dashboard_edit" aria-pressed="false">Edit cards</button>
       </header>
 
-      <section class="fff-operator-hud" id="fffOperatorHud" data-i18n-title="fff_hud_aria" aria-labelledby="fffOperatorTitle">
+      <section class="fff-operator-hud" id="fffOperatorHud" data-fff-effect="beam" data-i18n-title="fff_hud_aria" aria-labelledby="fffOperatorTitle">
         <div class="fff-hud-identity">
           <div class="fff-hud-avatar" aria-hidden="true">
             <img id="fffHudCat" src="/assets/monthly-share/cat-close.png" alt="" />
@@ -96,7 +96,7 @@
           </div>
         </div>
         <div class="fff-hud-command">
-          <section class="smart-command" aria-label="Komut merkezi">
+          <section class="smart-command" data-fff-effect="gooey" aria-label="Komut merkezi" aria-keyshortcuts="Meta+K Control+K">
             <div class="smart-command-head">
               <div class="smart-command-mark" aria-hidden="true">
                 <canvas id="smartCommandOrbCanvas" width="52" height="52"></canvas>
@@ -107,7 +107,7 @@
               <form id="smartCommandForm" class="smart-command-form" autocomplete="off">
                 <label class="sr-only" for="smartCommandInput" data-i18n="command_input_label">Komutun</label>
                 <input id="smartCommandInput" type="text" maxlength="240" spellcheck="true" data-i18n-placeholder="command_placeholder" placeholder="Bir şey yaz…" />
-                <button id="smartCommandSend" class="smart-command-send" type="submit" aria-label="Komutu gönder" data-i18n-title="command_send"><span aria-hidden="true">↗</span></button>
+                <button id="smartCommandSend" class="smart-command-send" data-fff-effect="metal" type="submit" aria-label="Komutu gönder" data-i18n-title="command_send"><span aria-hidden="true">↗</span></button>
               </form>
               <p id="smartCommandStatus" class="smart-command-status" role="status" aria-live="polite"></p>
               <div id="smartCommandPreview" class="smart-command-preview" hidden></div>
@@ -139,7 +139,7 @@
               <span><strong id="fffHudBadges">0</strong> <i data-i18n="fff_hud_badges">rozet</i></span>
             </div>
           </div>
-          <button id="fffHudMissionAction" type="button"><span data-i18n="fff_hud_go">Göreve git</span><b aria-hidden="true">›</b></button>
+          <button id="fffHudMissionAction" data-fff-effect="metal" type="button"><span data-i18n="fff_hud_go">Göreve git</span><b aria-hidden="true">›</b></button>
         </div>
       </section>
 
@@ -425,7 +425,10 @@
           <span class="modern-section-icon modern-section-icon--expense" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-4 2-4-2-3 2V5a2 2 0 0 1 2-2Zm2 5h6M9 12h6"></path></svg></span>
           <div><h2 data-i18n="expenses_page_title">Expenses</h2></div>
         </div>
-        <span class="feature-month-chip" id="expMonthLabel">—</span>
+        <div class="exp-hero-actions">
+          <span class="feature-month-chip" id="expMonthLabel">—</span>
+          <button class="settings-action exp-print-report" id="exportExpenseReport" data-fff-effect="metal" type="button" data-i18n="exp_print_report">Raporu yazdır</button>
+        </div>
       </div>
 
       <!-- Summary: this month's spend + upcoming payments, side by side -->
@@ -523,14 +526,11 @@
             <span class="car-section-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M3 15v-2a2 2 0 0 1 2-2h1.5l1.7-3a2 2 0 0 1 1.7-1h4.2a2 2 0 0 1 1.7 1l1.7 3H19a2 2 0 0 1 2 2v2h-2M5 15H3m4 0h10M8 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path></svg>
             </span>
-            <div>
-              <h3 class="settings-label exp-sec-label" id="vehicleSectionTitle" data-i18n="veh_title">My vehicles</h3>
-            </div>
+            <div><h3 class="settings-label exp-sec-label" id="vehicleSectionTitle" data-i18n="veh_title">My vehicles</h3><p class="car-section-note" data-i18n="car_garage_hint">Fuel, maintenance and trip costs in one place.</p></div>
           </div>
-          <span class="car-section-count" id="vehCount">0</span>
+          <div class="car-section-tools"><span class="car-section-count" id="vehCount">0</span><button class="add-cat car-add-vehicle" id="addVehicle" data-fff-effect="metal" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg><span data-i18n="veh_add">Add vehicle</span></button></div>
         </div>
         <div class="veh-list" id="vehList"></div>
-        <button class="add-cat car-add-vehicle" id="addVehicle" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg><span data-i18n="veh_add">Add vehicle</span></button>
       </section>
       <datalist id="vehSchedList"></datalist>
       <datalist id="vehCatList"></datalist>
@@ -542,9 +542,7 @@
             <span class="car-section-icon car-section-icon--route" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M7 20s-4-4.2-4-8a4 4 0 1 1 8 0c0 3.8-4 8-4 8Zm0-6.5A1.5 1.5 0 1 0 7 10a1.5 1.5 0 0 0 0 3.5ZM17 4s-4 4.2-4 8a4 4 0 1 0 8 0c0-3.8-4-8-4-8Zm0 6.5A1.5 1.5 0 1 1 17 14a1.5 1.5 0 0 1 0-3.5Z"></path></svg>
             </span>
-            <div>
-              <h3 class="settings-label" id="carRouteTitle" data-i18n="car_route">Route</h3>
-            </div>
+            <div><h3 class="settings-label" id="carRouteTitle" data-i18n="car_route">Route</h3></div>
           </div>
         </div>
         <div class="car-route-inputs">
@@ -570,7 +568,7 @@
         </div>
         <div class="car-favorites" id="carFavorites" hidden></div>
         <div class="car-route-actions">
-          <button class="add-cat car-calc" id="carCalc" type="button" data-i18n="car_calc">Calculate route</button>
+          <button class="add-cat car-calc" id="carCalc" data-fff-effect="metal" type="button" data-i18n="car_calc">Calculate route</button>
           <button class="car-icon-btn" id="carFavorite" type="button" data-i18n-title="car_add_favorite" title="Add favorite"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path></svg></button>
           <button class="car-icon-btn" id="carClear" type="button" data-i18n-title="car_clear" title="Clear"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6M5.6 15a8 8 0 0 0 13-2M18.4 9A8 8 0 0 0 5.5 7"></path></svg></button>
         </div>
@@ -586,7 +584,7 @@
           <div class="car-map-head"><strong data-i18n="car_route_map">Route map</strong><span data-i18n="car_map_hint">Drag and zoom the map</span></div>
           <div class="car-map" id="carMap" role="img" aria-label="Route map"></div>
         </div>
-        <button class="add-cat car-save-trip" id="carSaveTrip" type="button" data-i18n="car_save_trip" hidden>Save trip</button>
+        <button class="add-cat car-save-trip" id="carSaveTrip" data-fff-effect="metal" type="button" data-i18n="car_save_trip" hidden>Save trip</button>
       </section>
 
       <!-- Trip history (with running total; Türkiye-only, tied to the route planner) -->
@@ -596,9 +594,7 @@
             <span class="car-section-icon car-section-icon--history" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.6M4 4v4.6h4.6M12 7v5l3 2"></path></svg>
             </span>
-            <div>
-              <h3 class="settings-label" id="carHistoryTitle" data-i18n="car_history">Trip history</h3>
-            </div>
+            <div><h3 class="settings-label" id="carHistoryTitle" data-i18n="car_history">Trip history</h3></div>
           </div>
         </div>
         <div id="carHistList"></div>
@@ -747,6 +743,10 @@
         </div>
       </header>
       <section class="glass savings-result port-total-card" aria-label="Total portfolio value">
+        <div class="port-console-head" aria-hidden="true">
+          <span class="port-console-index">ENVANTER / 01</span>
+          <span class="port-console-status"><i></i> VARLIK TARAMASI AKTİF</span>
+        </div>
         <div class="savings-total">
           <div class="port-total-head">
             <button class="port-ccy-toggle" id="portCcyToggle" type="button" hidden>$ USD</button>
@@ -770,17 +770,23 @@
       </section>
 
       <section class="glass flow-card" aria-label="Monthly cash flow">
-        <h3 class="settings-label" data-i18n="flow_title">Monthly cash flow</h3>
-        <div class="flow-row"><span data-i18n="flow_income">Income</span><span class="flow-val pos" id="flowIncome">—</span></div>
-        <div class="flow-row"><span data-i18n="flow_expenses">Expenses</span><span class="flow-val neg" id="flowExpenses">—</span></div>
-        <div class="flow-subnote" id="flowLastMonth" hidden></div>
-        <div class="flow-net" id="flowNetRow"><span data-i18n="flow_net">Net / month</span><span class="flow-val" id="flowNet">—</span></div>
-        <p class="flow-note" id="flowSavings"></p>
+        <div class="port-flow-head">
+          <span class="port-console-index" aria-hidden="true">AKIŞ / 02</span>
+          <h3 class="settings-label" data-i18n="flow_title">Monthly cash flow</h3>
+        </div>
+        <div class="port-flow-readout">
+          <div class="flow-row"><span data-i18n="flow_income">Income</span><span class="flow-val pos" id="flowIncome">—</span></div>
+          <div class="flow-row"><span data-i18n="flow_expenses">Expenses</span><span class="flow-val neg" id="flowExpenses">—</span></div>
+          <div class="flow-subnote" id="flowLastMonth" hidden></div>
+          <div class="flow-net" id="flowNetRow"><span data-i18n="flow_net">Net / month</span><span class="flow-val" id="flowNet">—</span></div>
+          <p class="flow-note" id="flowSavings"></p>
+        </div>
       </section>
 
       <section class="glass savings-panel portfolio-holdings-panel" aria-labelledby="portfolioHoldingsTitle">
         <div class="portfolio-holdings-head">
           <div>
+            <span class="port-console-index" aria-hidden="true">KAYIT DEFTERİ / 03</span>
             <h3 class="settings-label" id="portfolioHoldingsTitle" data-i18n="portfolio_holdings_title">My assets</h3>
           </div>
           <span class="portfolio-count" id="portHoldingCount">0</span>
@@ -1006,7 +1012,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=106"></script>
+  <script src="app.js?v=108"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

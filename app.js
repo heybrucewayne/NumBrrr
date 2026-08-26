@@ -338,7 +338,7 @@ const I18N = {
     expenses_page_title: "Expenses", expenses_page_sub: "Plan the month, track spending and stay ahead of payments.",
     exp_reminders: "Upcoming payments", exp_total: "This month's expenses",
     exp_recurring: "Recurring expenses", exp_recurring_sub: "Add bills and fixed payments that repeat every month.", exp_add_recurring: "+ Add recurring",
-    exp_thismonth: "This month's spending", exp_thismonth_sub: "Log everyday spending and see where the month is going.", exp_add: "+ Add expense", exp_history: "Past months",
+    exp_thismonth: "This month's spending", exp_thismonth_sub: "Log everyday spending and see where the month is going.", exp_add: "+ Add expense", exp_history: "Past months", exp_print_report: "Print report",
     exp_cat_ph: "Category", exp_day_ph: "Day", exp_paid: "Paid",
     exp_due_fmt: "Day {day}", exp_empty: "No expenses logged yet.",
     exp_overdue: "Overdue", exp_soon: "Due soon",
@@ -347,7 +347,7 @@ const I18N = {
     budget_save: "Save limit", budget_empty: "No category limit yet.", budget_vehicle: "Vehicle",
     budget_progress: "{rate}% of the monthly budget used", budget_no_limit: "Add a category limit to start planning.",
     budget_over: "Budget exceeded by {amount}", budget_unbudgeted: "{amount} has no category limit.", budget_saved: "Category limit saved.", budget_invalid: "Enter a category and an amount above zero.",
-    veh_title: "My vehicles", veh_sub: "Keep vehicle details, reminders and expenses together.", veh_add: "Add vehicle", veh_model_ph: "Vehicle model",
+    veh_title: "My vehicles", veh_sub: "Keep vehicle details, reminders and expenses together.", car_garage_hint: "Fuel, maintenance and trip costs in one place.", veh_add: "Add vehicle", veh_model_ph: "Vehicle model",
     veh_count: "{count} vehicles", veh_empty_title: "Your garage is empty", veh_empty_sub: "Add a vehicle to calculate route fuel costs and track maintenance.", veh_remove: "Remove vehicle",
     veh_reminders: "Payment reminders", veh_add_reminder: "+ Add reminder", veh_label_ph: "Insurance, tax…",
     veh_expenses: "Expenses", veh_add_expense: "+ Add expense", veh_monthly: "This month",
@@ -529,7 +529,7 @@ const I18N = {
     expenses_page_title: "Giderler", expenses_page_sub: "Ayı planla, harcamaları izle ve ödemelerin önünde kal.",
     exp_reminders: "Yaklaşan ödemeler", exp_total: "Bu ayki giderler",
     exp_recurring: "Düzenli giderler", exp_recurring_sub: "Her ay tekrarlanan fatura ve sabit ödemelerini ekle.", exp_add_recurring: "+ Düzenli gider ekle",
-    exp_thismonth: "Bu ayki harcamaların", exp_thismonth_sub: "Günlük harcamaları kaydet, ayın nereye gittiğini gör.", exp_add: "+ Harcama ekle", exp_history: "Geçmiş aylar",
+    exp_thismonth: "Bu ayki harcamaların", exp_thismonth_sub: "Günlük harcamaları kaydet, ayın nereye gittiğini gör.", exp_add: "+ Harcama ekle", exp_history: "Geçmiş aylar", exp_print_report: "Raporu yazdır",
     exp_cat_ph: "Kategori", exp_day_ph: "Gün", exp_paid: "Ödendi",
     exp_due_fmt: "Ayın {day}'i", exp_empty: "Henüz harcama eklenmedi.",
     exp_overdue: "Gecikmiş", exp_soon: "Yaklaşıyor",
@@ -538,7 +538,7 @@ const I18N = {
     budget_save: "Limiti kaydet", budget_empty: "Henüz kategori limiti yok.", budget_vehicle: "Araç",
     budget_progress: "Aylık bütçenin %{rate} kadarı kullanıldı", budget_no_limit: "Planlamaya başlamak için kategori limiti ekle.",
     budget_over: "Bütçe {amount} aşıldı", budget_unbudgeted: "{amount} harcamanın kategori limiti yok.", budget_saved: "Kategori limiti kaydedildi.", budget_invalid: "Kategori ve sıfırdan büyük bir tutar gir.",
-    veh_title: "Araçlarım", veh_sub: "Araç bilgilerini, hatırlatmaları ve harcamaları tek yerde yönet.", veh_add: "Araç ekle", veh_model_ph: "Araç modeli",
+    veh_title: "Araçlarım", veh_sub: "Araç bilgilerini, hatırlatmaları ve harcamaları tek yerde yönet.", car_garage_hint: "Yakıt, bakım ve sefer maliyetleri tek yerde.", veh_add: "Araç ekle", veh_model_ph: "Araç modeli",
     veh_count: "{count} araç", veh_empty_title: "Garajın henüz boş", veh_empty_sub: "Rota yakıt maliyetini hesaplamak ve bakımları takip etmek için araç ekle.", veh_remove: "Aracı kaldır",
     veh_reminders: "Ödeme hatırlatmaları", veh_add_reminder: "+ Hatırlatma ekle", veh_label_ph: "Sigorta, vergi…",
     veh_expenses: "Harcamalar", veh_add_expense: "+ Harcama ekle", veh_monthly: "Bu ay",
@@ -831,6 +831,7 @@ const el = {
   expRemTotal: document.getElementById("expRemTotal"),
   expReminderList: document.getElementById("expReminderList"),
   expTotal: document.getElementById("expTotal"),
+  exportExpenseReport: document.getElementById("exportExpenseReport"),
   expRecList: document.getElementById("expRecList"),
   addRecurring: document.getElementById("addRecurring"),
   expOneList: document.getElementById("expOneList"),
@@ -1625,6 +1626,15 @@ function addExpense() {
   refreshExpenses();
 }
 
+function printExpenseReport() {
+  if (!el.exportExpenseReport || typeof window.print !== "function") return;
+  document.body.classList.add("is-printing-expenses");
+  const cleanup = () => document.body.classList.remove("is-printing-expenses");
+  window.addEventListener("afterprint", cleanup, { once: true });
+  window.print();
+  window.setTimeout(cleanup, 1500);
+}
+
 function refreshExpenses() {
   saveState();
   const sym = CURRENCY_META[state.currency].symbol;
@@ -1746,6 +1756,7 @@ function refreshVehicles() {
       if (row) updateVehSchedStatus(row, s);
     });
   });
+  wireFffMagneticControls();
 }
 
 function makeVehicleCard(v) {
@@ -1759,28 +1770,26 @@ function makeVehicleCard(v) {
   card.innerHTML = `
     <div class="veh-head">
       <div class="veh-head-main">
-        <div class="veh-identity"><span>${t("car_vehicle")}</span><input class="veh-plate" data-veh-plate value="${escapeHtml(v.plate || "")}" placeholder="${escapeHtml(t("car_model_ph"))}" /></div>
+        <div class="veh-identity"><span class="veh-identity-label">${t("car_vehicle")}</span><input class="veh-plate" data-veh-plate value="${escapeHtml(v.plate || "")}" placeholder="${escapeHtml(t("car_model_ph"))}" /></div>
       </div>
       <div class="veh-head-actions">
         ${multi ? `<button class="veh-active" type="button" data-veh-active aria-label="${t("car_active")}" title="${t("car_active")}" aria-pressed="${isActive}"><span aria-hidden="true"></span>${t("car_active")}</button>` : `<span class="veh-active-label"><span aria-hidden="true"></span>${t("car_active")}</span>`}
         <button class="cat-remove veh-del" type="button" data-veh-del aria-label="${t("veh_remove")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"></path></svg></button>
       </div>
     </div>
-    <div class="veh-showcase veh-showcase--summary">
-      <div class="veh-monthly">
-        <span>${t("veh_monthly")}</span>
+    <div class="veh-card-core">
+      <section class="veh-cost-readout" aria-label="Vehicle monthly cost">
+        <span class="veh-cost-kicker"><span class="car-status-orb" aria-hidden="true"></span>${t("veh_monthly")}</span>
         <strong data-veh-total>—</strong>
         <small class="veh-lastmonth" data-veh-lastmonth hidden></small>
-      </div>
+      </section>
+      <section class="veh-specs" aria-label="Vehicle settings">
+        <label class="veh-spec"><span>${t("car_fuel_type")}</span><select class="car-select" data-veh-fuel>${fuelOpts}</select></label>
+        <label class="veh-spec"><span>${t("car_consumption")}</span><input class="car-num" inputmode="decimal" data-veh-cons value="${v.consumption ? locDec(v.consumption) : ""}" placeholder="7" /><small>${t("car_consumption_hint")}</small></label>
+        <label class="veh-spec"><span>${t("car_price")}</span><div class="money-input money-input--sm"><span class="money-symbol">${sym}</span><input inputmode="decimal" data-veh-price value="${v.price ? locDec(v.price) : ""}" placeholder="0" /></div><small>${t("car_price_hint")}</small></label>
+      </section>
     </div>
-    <div class="car-prof-grid veh-specs">
-      <label class="car-field"><span>${t("car_fuel_type")}</span><select class="car-select" data-veh-fuel>${fuelOpts}</select></label>
-      <label class="car-field"><span>${t("car_consumption")} <small>${t("car_consumption_hint")}</small></span>
-        <input class="car-num" inputmode="decimal" data-veh-cons value="${v.consumption ? locDec(v.consumption) : ""}" placeholder="7" /></label>
-      <label class="car-field"><span>${t("car_price")} <small>${t("car_price_hint")}</small></span>
-        <div class="money-input money-input--sm"><span class="money-symbol">${sym}</span><input inputmode="decimal" data-veh-price value="${v.price ? locDec(v.price) : ""}" placeholder="0" /></div></label>
-    </div>
-    <div class="veh-sub-grid">
+    <section class="veh-sub-grid" aria-label="Vehicle records">
       <details class="veh-sub veh-sub--reminders">
         <summary class="veh-sub-head"><span>${t("veh_reminders")}</span><span class="veh-sub-count" data-veh-reminder-count>${(v.sched || []).length}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"></path></svg></summary>
         <div class="veh-sub-body"><div class="veh-sched-wrap" data-veh-sched-list></div><button class="veh-add-btn" type="button" data-veh-add-sched>${t("veh_add_reminder")}</button></div>
@@ -1789,7 +1798,7 @@ function makeVehicleCard(v) {
         <summary class="veh-sub-head"><span>${t("veh_expenses")}</span><span class="veh-sub-count" data-veh-expense-count>${(v.oneoff || []).length}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"></path></svg></summary>
         <div class="veh-sub-body"><div class="veh-exp-wrap" data-veh-exp-list></div><button class="veh-add-btn" type="button" data-veh-add-exp>${t("veh_add_expense")}</button></div>
       </details>
-    </div>`;
+    </section>`;
 
   card.querySelector("[data-veh-plate]").addEventListener("input", (e) => { v.plate = e.target.value; saveState(); });
   const active = card.querySelector("[data-veh-active]");
@@ -6523,6 +6532,12 @@ function wireSmartCommand() {
   });
   el.smartCommandInput.addEventListener("focus", () => { if (el.smartCommandInput.value.trim()) setSmartCommandMode("typing"); });
   el.smartCommandInput.addEventListener("keydown", (event) => { if (event.key === "Escape") clearSmartCommand(); });
+  document.addEventListener("keydown", (event) => {
+    if ((event.metaKey || event.ctrlKey) && !event.altKey && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      focusSmartCommand();
+    }
+  });
   document.querySelector("[data-command-focus]")?.addEventListener("click", focusSmartCommand);
 }
 
@@ -6538,6 +6553,31 @@ function focusSmartCommand() {
   };
   if (shouldSwitchHome) setTimeout(focusInput, 80);
   else focusInput();
+}
+
+// Kinetics-inspired magnetic pull for the few controls that represent a clear
+// next action. It uses the individual translate property so existing FFF
+// press/hover transforms remain intact, and it exits for touch/reduced motion.
+function wireFffMagneticControls() {
+  if (window.matchMedia?.("(pointer: coarse)")?.matches) return;
+  const controls = document.querySelectorAll(
+    ".dashboard-edit, .settings-action--primary, .exp-print-report, .smart-command-send, .car-primary, .car-add-vehicle, .car-calc, .car-save-trip, .veh-add-btn, .monthly-share-button, .onboard-start"
+  );
+  controls.forEach((button) => {
+    if (button.dataset.fffMagnetic === "true") return;
+    button.dataset.fffMagnetic = "true";
+    const reset = () => { button.style.translate = ""; };
+    button.addEventListener("pointermove", (event) => {
+      if (document.documentElement.dataset.motion === "off" || event.pointerType === "touch") { reset(); return; }
+      const rect = button.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const x = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
+      const y = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
+      const strength = button.classList.contains("smart-command-send") ? 0.2 : 0.12;
+      button.style.translate = `${(x * rect.width * strength).toFixed(2)}px ${(y * rect.height * strength).toFixed(2)}px`;
+    });
+    ["pointerleave", "pointercancel", "blur"].forEach((type) => button.addEventListener(type, reset));
+  });
 }
 // ---- Crypto bubbles: floating, draggable physics field ----
 // One circle per watched asset, sized by 24h-move magnitude, colored by direction.
@@ -7581,6 +7621,7 @@ document.querySelectorAll("[data-currency]").forEach((b) => b.addEventListener("
 
 el.addRecurring.addEventListener("click", addRecurring);
 el.addExpense.addEventListener("click", addExpense);
+el.exportExpenseReport?.addEventListener("click", printExpenseReport);
 el.budgetForm.addEventListener("submit", saveBudgetLimit);
 el.addVehicle.addEventListener("click", addVehicle);
 el.carCalc.addEventListener("click", calcCarRoute);
@@ -8168,6 +8209,7 @@ wireWatchSearch();
 wirePriceAlertSearch();
 wireHomeDashboard();
 wireSmartCommand();
+wireFffMagneticControls();
 setupScrollReveal();
 
 let startupBackgroundStarted = false;

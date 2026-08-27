@@ -425,7 +425,7 @@
 [data-theme="fff"] .fff-hud-stats strong { color: var(--fff-green-hot); }
 [data-theme="fff"] .fff-hud-stats i { font-style: normal; }
 
-[data-theme="fff"] .fff-hud-mission button {
+[data-theme="fff"] .fff-hud-mission > #fffHudMissionAction {
   grid-column: 2;
   grid-row: 1 / -1;
   align-self: center;
@@ -443,7 +443,7 @@
   cursor: pointer;
 }
 
-[data-theme="fff"] .fff-hud-mission button:hover {
+[data-theme="fff"] .fff-hud-mission > #fffHudMissionAction:hover {
   border-color: var(--fff-amber);
   background: rgba(95, 83, 9, .2);
   box-shadow: 0 0 14px rgba(214, 197, 75, .1);
@@ -572,6 +572,13 @@
   display: block;
   transform-origin: 50% 88%;
   animation: fffStreakEmoji 1.05s ease-in-out infinite;
+}
+[data-theme="fff"] .fff-hud-streak > button {
+  grid-column: 3;
+  grid-row: 1 / -1;
+  align-self: center;
+  justify-self: end;
+  max-width: 38px;
 }
 [data-theme="fff"] .fff-hud-streak button:hover {
   transform: translateY(-1px) scale(1.08);
@@ -1581,7 +1588,7 @@
   [data-theme="fff"] .fff-hud-command .smart-command { display: block; }
   [data-theme="fff"] .fff-hud-command .smart-command-head { margin-bottom: 7px; }
   [data-theme="fff"] .fff-hud-mission { grid-template-columns: minmax(0, 1fr) 90px; padding: 12px; }
-  [data-theme="fff"] .fff-hud-mission button { min-width: 90px; padding: 7px; font-size: 10px; }
+  [data-theme="fff"] .fff-hud-mission > #fffHudMissionAction { min-width: 90px; padding: 7px; font-size: 10px; }
   [data-theme="fff"] .fff-hud-mission-foot { align-items: flex-start; flex-direction: column; gap: 4px; }
   [data-theme="fff"] .home-dashboard-head .view-title { font-size: 16px; }
   [data-theme="fff"] .smart-command { padding: 10px; }
@@ -3738,16 +3745,7 @@
   overflow: hidden;
 }
 
-[data-theme="fff"] #view-portfolio .port-chart::before {
-  content: "DAĞILIM TARAMASI";
-  position: absolute;
-  top: 1px;
-  left: 0;
-  color: var(--fff-green-dim);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .13em;
-}
+[data-theme="fff"] #view-portfolio .port-chart::before { display: none; content: none; }
 
 [data-theme="fff"] #view-portfolio .donut-wrap {
   width: 214px;

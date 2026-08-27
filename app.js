@@ -686,6 +686,10 @@ I18N.tr.command_context_suggestions = "Yazına uygun komutlar";
 
 // ---- State ----
 const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "marketSnapshot", "topPerformers", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
+// First-run layout: lead with the financial pulse, then the core records,
+// followed by market context and optional planning tools. Existing saved orders
+// remain authoritative and are never replaced by this default.
+const DEFAULT_HOME_WIDGET_ORDER = ["freedom", "monthly", "health", "portfolio", "income", "expenses", "markets", "car", "watch", "marketSnapshot", "topPerformers", "goals", "insights", "notes", "alerts", "countdown"];
 const DEFAULT_THEME = "fff";
 const THEME_IDS = ["black", "terminal", "fff"];
 function normalizeTheme(value) {
@@ -738,7 +742,7 @@ const state = {
   watchlist: [], // [{ type, key, name }] — assets to monitor (price + 24h/1mo/1yr performance)
   notifications: { enabled: false, vehicleDays: 7, priceAlerts: [], seq: 0, sent: {} },
   dailyStreak: { current: 0, best: 0, lastCheckIn: "", freezeWeek: "", freezesUsed: 0, xp: 0 },
-  homeLayout: { order: [...HOME_WIDGET_IDS], itemOrder: [...HOME_WIDGET_IDS], hidden: [], freedomExpanded: false },
+  homeLayout: { order: [...DEFAULT_HOME_WIDGET_ORDER], itemOrder: [...DEFAULT_HOME_WIDGET_ORDER], hidden: [], freedomExpanded: false },
   weather: {
     location: { name: "İstanbul", latitude: 41.0082, longitude: 28.9784 },
     data: null,
@@ -3298,7 +3302,8 @@ function normalizeHomeLayout(value) {
   const source = value && typeof value === "object" ? value : {};
   const supplied = Array.isArray(source.order) ? source.order.filter((id) => HOME_WIDGET_IDS.includes(id)) : [];
   const order = [...new Set(supplied)];
-  HOME_WIDGET_IDS.forEach((id, index) => {
+  const fallbackOrder = Array.isArray(source.order) ? HOME_WIDGET_IDS : DEFAULT_HOME_WIDGET_ORDER;
+  fallbackOrder.forEach((id, index) => {
     if (order.includes(id)) return;
     const nextExisting = HOME_WIDGET_IDS.slice(index + 1).find((candidate) => order.includes(candidate));
     if (nextExisting) order.splice(order.indexOf(nextExisting), 0, id);
@@ -3752,7 +3757,7 @@ function renderHomeCardSettings() {
 }
 
 function resetHomeLayout() {
-  state.homeLayout = { order: [...HOME_WIDGET_IDS], hidden: [], freedomExpanded: false };
+  state.homeLayout = { order: [...DEFAULT_HOME_WIDGET_ORDER], itemOrder: [...DEFAULT_HOME_WIDGET_ORDER], hidden: [], freedomExpanded: false };
   saveState(); applyHomeLayout(); renderHomeCardSettings();
 }
 

@@ -1511,6 +1511,13 @@ body {
   .dashboard-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   .dashboard-widget--pair { grid-column: span 2; }
   .dashboard-widget--half { grid-column: span 4; }
+  .dashboard-widget--market-data { grid-column: span 4; }
+}
+
+/* At the six-column desktop width, the market data cards form a clean pair
+   instead of leaving a half-empty row before the car and watch cards. */
+@media (min-width: 861px) and (max-width: 1439px) {
+  .dashboard-widget--market-data { grid-column: span 3; }
 }
 
 /* Desktop uses one shared widget unit; half-width cards occupy two stacked units. */

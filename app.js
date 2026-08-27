@@ -417,7 +417,7 @@ const I18N = {
     car_add_favorite: "Add favorite", car_favorite_saved: "Favorite route saved ★", car_favorites: "Favorite routes",
     car_clear: "Clear route", car_details: "Details", car_vehicle: "Vehicle", car_route_type: "Trip type", car_fuel_cost: "Fuel cost",
     car_save_trip: "Save trip", car_trip_saved: "Trip saved ✓",
-    car_profiles: "Car profiles", car_add_profile: "+ Add car", car_model_ph: "Brand & model",
+    car_profiles: "Car profiles", car_add_profile: "+ Add car", car_model_ph: "Brand & model", car_visual_snapshot: "Model snapshot", car_visual_live: "Live", car_visual_profile: "Profile", car_visual_no_remote: "No remote profile",
     car_fuel_type: "Fuel", car_consumption: "Consumption", car_consumption_hint: "/100 km",
     car_price: "Fuel price", car_price_hint: "per L / kWh", car_active: "Active",
     car_fuel_gas: "Petrol", car_fuel_diesel: "Diesel", car_fuel_lpg: "LPG", car_fuel_electric: "Electric", car_fuel_hybrid: "Hybrid",
@@ -608,7 +608,7 @@ const I18N = {
     car_add_favorite: "Favorilere ekle", car_favorite_saved: "Favori rota kaydedildi ★", car_favorites: "Favori rotalar",
     car_clear: "Rotayı temizle", car_details: "Detaylar", car_vehicle: "Araç", car_route_type: "Yolculuk türü", car_fuel_cost: "Yakıt gideri",
     car_save_trip: "Yolculuğu kaydet", car_trip_saved: "Yolculuk kaydedildi ✓",
-    car_profiles: "Araç profilleri", car_add_profile: "+ Araç ekle", car_model_ph: "Marka ve model",
+    car_profiles: "Araç profilleri", car_add_profile: "+ Araç ekle", car_model_ph: "Marka ve model", car_visual_snapshot: "Model önizlemesi", car_visual_live: "Canlı", car_visual_profile: "Profil", car_visual_no_remote: "Uzak görsel yok",
     car_fuel_type: "Yakıt", car_consumption: "Tüketim", car_consumption_hint: "/100 km",
     car_price: "Yakıt fiyatı", car_price_hint: "L / kWh başına", car_active: "Aktif",
     car_fuel_gas: "Benzin", car_fuel_diesel: "Dizel", car_fuel_lpg: "LPG", car_fuel_electric: "Elektrik", car_fuel_hybrid: "Hibrit",
@@ -1744,6 +1744,7 @@ function refreshVehicles() {
   (state.vehicles || []).forEach((v) => {
     const card = el.vehList.querySelector(`[data-veh="${v.id}"]`);
     if (!card) return;
+    updateVehicleVisual(card, v);
     const tEl = card.querySelector("[data-veh-total]");
     if (tEl) tEl.textContent = formatMoney(vehMonthlyTotal(v));
     const lm = card.querySelector("[data-veh-lastmonth]");
@@ -1757,6 +1758,71 @@ function refreshVehicles() {
     });
   });
   wireFffMagneticControls();
+}
+
+function vehicleVisualMeta(vehicle) {
+  const name = String(vehicle?.plate || "").trim();
+  const normalized = name.toLocaleLowerCase("tr-TR");
+  const hasAny = (...terms) => terms.some((term) => normalized.includes(term));
+  if (hasAny("320", "g20", "3 serisi", "3 series")) {
+    return {
+      label: "BMW 3 SERİSİ / G20",
+      initials: "BMW",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/G20-Front.jpg/960px-G20-Front.jpg",
+      source: "https://commons.wikimedia.org/wiki/File:G20-Front.jpg",
+      sourceLabel: "Wikimedia · M3C30 · CC BY-SA 4.0",
+    };
+  }
+  if (hasAny("c180", "c 180", "c200", "c 200", "c220", "c 220", "c300", "c 300", "w206", "c serisi", "c class")) {
+    return {
+      label: "MERCEDES C-SERİSİ / W206",
+      initials: "MB",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/2022_Mercedes_C_Class.jpg/960px-2022_Mercedes_C_Class.jpg",
+      source: "https://commons.wikimedia.org/wiki/File:2022_Mercedes_C_Class.jpg",
+      sourceLabel: "Wikimedia · Calreyn88 · CC BY-SA 4.0",
+    };
+  }
+  if (hasAny("corolla", "yaris", "auris")) {
+    return {
+      label: "TOYOTA COROLLA / 2020",
+      initials: "TY",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/2020_Toyota_Corolla_LE_%28NA-market%29_front_4.29.19.jpg/960px-2020_Toyota_Corolla_LE_%28NA-market%29_front_4.29.19.jpg",
+      source: "https://commons.wikimedia.org/wiki/File:2020_Toyota_Corolla_LE_(NA-market)_front_4.29.19.jpg",
+      sourceLabel: "Wikimedia · Kevauto · CC BY-SA 4.0",
+    };
+  }
+  const words = name.split(/\s+/).filter(Boolean);
+  const initials = words.slice(0, 2).map((word) => word[0]).join("").toUpperCase() || "NU";
+  return { label: name || t("veh_model_ph"), initials };
+}
+
+function updateVehicleVisual(card, vehicle) {
+  if (!card || !vehicle) return;
+  const meta = vehicleVisualMeta(vehicle);
+  const image = card.querySelector("[data-veh-image]");
+  const fallback = card.querySelector("[data-veh-image-fallback]");
+  const title = card.querySelector("[data-veh-visual-title]");
+  const initials = card.querySelector("[data-veh-visual-initials]");
+  const source = card.querySelector("[data-veh-source]");
+  if (title) title.textContent = meta.label;
+  if (initials) initials.textContent = meta.initials || "CAR";
+  if (!image || !fallback) return;
+  if (!meta.image) {
+    image.hidden = true;
+    image.removeAttribute("src");
+    fallback.hidden = false;
+    if (source) source.hidden = true;
+    return;
+  }
+  image.hidden = false;
+  fallback.hidden = true;
+  image.alt = meta.label;
+  if (image.getAttribute("src") !== meta.image) image.src = meta.image;
+  if (source) {
+    source.hidden = false;
+    source.href = meta.source;
+    source.textContent = meta.sourceLabel;
+  }
 }
 
 function makeVehicleCard(v) {
@@ -1777,17 +1843,29 @@ function makeVehicleCard(v) {
         <button class="cat-remove veh-del" type="button" data-veh-del aria-label="${t("veh_remove")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"></path></svg></button>
       </div>
     </div>
-    <div class="veh-card-core">
-      <section class="veh-cost-readout" aria-label="Vehicle monthly cost">
-        <span class="veh-cost-kicker"><span class="car-status-orb" aria-hidden="true"></span>${t("veh_monthly")}</span>
-        <strong data-veh-total>—</strong>
-        <small class="veh-lastmonth" data-veh-lastmonth hidden></small>
+    <div class="veh-card-layout">
+      <section class="veh-visual-panel" aria-label="Vehicle visual">
+        <div class="veh-visual-head"><span class="veh-visual-kicker">${t("car_visual_snapshot")}</span><span class="veh-visual-signal"><i aria-hidden="true"></i> ${t("car_visual_live")}</span></div>
+        <div class="veh-visual-frame">
+          <span class="veh-visual-corner veh-visual-corner--tl" aria-hidden="true"></span><span class="veh-visual-corner veh-visual-corner--br" aria-hidden="true"></span>
+          <span class="veh-visual-scan" aria-hidden="true"></span>
+          <img class="veh-model-image" data-veh-image alt="" loading="lazy" hidden />
+          <div class="veh-image-fallback" data-veh-image-fallback><strong data-veh-visual-initials>CAR</strong><span>${t("car_visual_no_remote")}</span></div>
+        </div>
+        <div class="veh-visual-caption"><div><span class="veh-visual-kicker">${t("car_visual_profile")}</span><strong data-veh-visual-title>${escapeHtml(v.plate || t("veh_model_ph"))}</strong></div><a data-veh-source target="_blank" rel="noopener noreferrer" hidden></a></div>
       </section>
-      <section class="veh-specs" aria-label="Vehicle settings">
-        <label class="veh-spec"><span>${t("car_fuel_type")}</span><select class="car-select" data-veh-fuel>${fuelOpts}</select></label>
-        <label class="veh-spec"><span>${t("car_consumption")}</span><input class="car-num" inputmode="decimal" data-veh-cons value="${v.consumption ? locDec(v.consumption) : ""}" placeholder="7" /><small>${t("car_consumption_hint")}</small></label>
-        <label class="veh-spec"><span>${t("car_price")}</span><div class="money-input money-input--sm"><span class="money-symbol">${sym}</span><input inputmode="decimal" data-veh-price value="${v.price ? locDec(v.price) : ""}" placeholder="0" /></div><small>${t("car_price_hint")}</small></label>
-      </section>
+      <div class="veh-card-core">
+        <section class="veh-cost-readout" aria-label="Vehicle monthly cost">
+          <span class="veh-cost-kicker"><span class="car-status-orb" aria-hidden="true"></span>${t("veh_monthly")}</span>
+          <strong data-veh-total>—</strong>
+          <small class="veh-lastmonth" data-veh-lastmonth hidden></small>
+        </section>
+        <section class="veh-specs" aria-label="Vehicle settings">
+          <label class="veh-spec"><span>${t("car_fuel_type")}</span><select class="car-select" data-veh-fuel>${fuelOpts}</select></label>
+          <label class="veh-spec"><span>${t("car_consumption")}</span><input class="car-num" inputmode="decimal" data-veh-cons value="${v.consumption ? locDec(v.consumption) : ""}" placeholder="7" /><small>${t("car_consumption_hint")}</small></label>
+          <label class="veh-spec"><span>${t("car_price")}</span><div class="money-input money-input--sm"><span class="money-symbol">${sym}</span><input inputmode="decimal" data-veh-price value="${v.price ? locDec(v.price) : ""}" placeholder="0" /></div><small>${t("car_price_hint")}</small></label>
+        </section>
+      </div>
     </div>
     <section class="veh-sub-grid" aria-label="Vehicle records">
       <details class="veh-sub veh-sub--reminders">
@@ -1800,7 +1878,17 @@ function makeVehicleCard(v) {
       </details>
     </section>`;
 
-  card.querySelector("[data-veh-plate]").addEventListener("input", (e) => { v.plate = e.target.value; saveState(); });
+  const plateInput = card.querySelector("[data-veh-plate]");
+  plateInput.addEventListener("input", (e) => { v.plate = e.target.value; updateVehicleVisual(card, v); saveState(); });
+  const visualImage = card.querySelector("[data-veh-image]");
+  visualImage.addEventListener("error", () => {
+    visualImage.hidden = true;
+    visualImage.removeAttribute("src");
+    const fallback = card.querySelector("[data-veh-image-fallback]");
+    if (fallback) fallback.hidden = false;
+    const source = card.querySelector("[data-veh-source]");
+    if (source) source.hidden = true;
+  });
   const active = card.querySelector("[data-veh-active]");
   if (active) active.addEventListener("click", () => { state.vehicleHub.activeVehicle = v.id; buildVehicles(); refreshVehicles(); renderCarRoute(); saveState(); });
   card.querySelector("[data-veh-fuel]").addEventListener("change", (e) => { v.fuel = e.target.value; saveState(); });
@@ -1820,6 +1908,7 @@ function makeVehicleCard(v) {
   (v.sched || []).forEach((s) => sl.appendChild(makeVehSchedRow(v, s)));
   const xl = card.querySelector("[data-veh-exp-list]");
   (v.oneoff || []).forEach((o) => xl.appendChild(makeVehExpRow(v, o)));
+  updateVehicleVisual(card, v);
 
   card.querySelector("[data-veh-add-sched]").addEventListener("click", () => {
     const s = { id: "s" + ++v.schedSeq, label: "", amount: 0, date: "", paidMonth: "" };

@@ -417,7 +417,7 @@ const I18N = {
     car_add_favorite: "Add favorite", car_favorite_saved: "Favorite route saved ★", car_favorites: "Favorite routes",
     car_clear: "Clear route", car_details: "Details", car_vehicle: "Vehicle", car_route_type: "Trip type", car_fuel_cost: "Fuel cost",
     car_save_trip: "Save trip", car_trip_saved: "Trip saved ✓",
-    car_profiles: "Car profiles", car_add_profile: "+ Add car", car_model_ph: "Brand & model", car_visual_snapshot: "Model snapshot", car_visual_live: "Live", car_visual_profile: "Profile", car_visual_gallery: "Iconic lineup", car_visual_no_remote: "No remote profile",
+    car_profiles: "Car profiles", car_add_profile: "+ Add car", car_model_ph: "Brand & model", car_visual_gallery: "Iconic lineup",
     car_fuel_type: "Fuel", car_consumption: "Consumption", car_consumption_hint: "/100 km",
     car_price: "Fuel price", car_price_hint: "per L / kWh", car_active: "Active",
     car_fuel_gas: "Petrol", car_fuel_diesel: "Diesel", car_fuel_lpg: "LPG", car_fuel_electric: "Electric", car_fuel_hybrid: "Hybrid",
@@ -608,7 +608,7 @@ const I18N = {
     car_add_favorite: "Favorilere ekle", car_favorite_saved: "Favori rota kaydedildi ★", car_favorites: "Favori rotalar",
     car_clear: "Rotayı temizle", car_details: "Detaylar", car_vehicle: "Araç", car_route_type: "Yolculuk türü", car_fuel_cost: "Yakıt gideri",
     car_save_trip: "Yolculuğu kaydet", car_trip_saved: "Yolculuk kaydedildi ✓",
-    car_profiles: "Araç profilleri", car_add_profile: "+ Araç ekle", car_model_ph: "Marka ve model", car_visual_snapshot: "Model önizlemesi", car_visual_live: "Canlı", car_visual_profile: "Profil", car_visual_gallery: "İkonik seri", car_visual_no_remote: "Uzak görsel yok",
+    car_profiles: "Araç profilleri", car_add_profile: "+ Araç ekle", car_model_ph: "Marka ve model", car_visual_gallery: "İkonik seri",
     car_fuel_type: "Yakıt", car_consumption: "Tüketim", car_consumption_hint: "/100 km",
     car_price: "Yakıt fiyatı", car_price_hint: "L / kWh başına", car_active: "Aktif",
     car_fuel_gas: "Benzin", car_fuel_diesel: "Dizel", car_fuel_lpg: "LPG", car_fuel_electric: "Elektrik", car_fuel_hybrid: "Hibrit",
@@ -1914,18 +1914,14 @@ function updateVehicleVisual(card, vehicle) {
   const meta = vehicleVisualMeta(vehicle);
   const image = card.querySelector("[data-veh-image]");
   const fallback = card.querySelector("[data-veh-image-fallback]");
-  const title = card.querySelector("[data-veh-visual-title]");
   const initials = card.querySelector("[data-veh-visual-initials]");
-  const source = card.querySelector("[data-veh-source]");
   const gallery = card.querySelector("[data-veh-gallery]");
-  if (title) title.textContent = meta.label;
   if (initials) initials.textContent = meta.initials || "CAR";
   if (!image || !fallback) return;
   if (!meta.image) {
     image.hidden = true;
     image.removeAttribute("src");
     fallback.hidden = false;
-    if (source) source.hidden = true;
     if (gallery) {
       gallery.hidden = true;
       gallery.dataset.count = "0";
@@ -1938,11 +1934,6 @@ function updateVehicleVisual(card, vehicle) {
   fallback.hidden = true;
   image.alt = meta.label;
   if (image.getAttribute("src") !== meta.image) image.src = meta.image;
-  if (source) {
-    source.hidden = false;
-    source.href = meta.source;
-    source.textContent = meta.sourceLabel;
-  }
   if (gallery) {
     const items = (meta.gallery || []).slice(0, 3);
     const signature = items.map((item) => item.src).join("|");
@@ -1950,20 +1941,17 @@ function updateVehicleVisual(card, vehicle) {
       gallery.replaceChildren();
       gallery.dataset.signature = signature;
       items.forEach((item) => {
-        const link = document.createElement("a");
-        link.className = "veh-visual-thumb";
-        link.href = item.source;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.setAttribute("aria-label", item.alt);
+        const thumbWrap = document.createElement("div");
+        thumbWrap.className = "veh-visual-thumb";
+        thumbWrap.setAttribute("aria-hidden", "true");
         const thumb = document.createElement("img");
         thumb.src = item.src;
-        thumb.alt = item.alt;
+        thumb.alt = "";
         thumb.loading = "lazy";
         thumb.decoding = "async";
-        thumb.addEventListener("error", () => { link.hidden = true; });
-        link.appendChild(thumb);
-        gallery.appendChild(link);
+        thumb.addEventListener("error", () => { thumbWrap.hidden = true; });
+        thumbWrap.appendChild(thumb);
+        gallery.appendChild(thumbWrap);
       });
     }
     gallery.dataset.count = String(items.length);
@@ -1990,16 +1978,14 @@ function makeVehicleCard(v) {
       </div>
     </div>
     <div class="veh-card-layout">
-      <section class="veh-visual-panel" aria-label="Vehicle visual">
-        <div class="veh-visual-head"><span class="veh-visual-kicker">${t("car_visual_snapshot")}</span><span class="veh-visual-signal"><i aria-hidden="true"></i> ${t("car_visual_live")}</span></div>
+      <section class="veh-visual-panel" aria-label="Vehicle image">
         <div class="veh-visual-frame">
           <span class="veh-visual-corner veh-visual-corner--tl" aria-hidden="true"></span><span class="veh-visual-corner veh-visual-corner--br" aria-hidden="true"></span>
           <span class="veh-visual-scan" aria-hidden="true"></span>
           <img class="veh-model-image" data-veh-image alt="" loading="lazy" hidden />
-          <div class="veh-image-fallback" data-veh-image-fallback><strong data-veh-visual-initials>CAR</strong><span>${t("car_visual_no_remote")}</span></div>
+          <div class="veh-image-fallback" data-veh-image-fallback><strong data-veh-visual-initials>CAR</strong></div>
         </div>
         <div class="veh-visual-rail" data-veh-gallery aria-label="${t("car_visual_gallery")}" hidden></div>
-        <div class="veh-visual-caption"><div><span class="veh-visual-kicker">${t("car_visual_profile")}</span><strong data-veh-visual-title>${escapeHtml(v.plate || t("veh_model_ph"))}</strong></div><a data-veh-source target="_blank" rel="noopener noreferrer" hidden></a></div>
       </section>
       <div class="veh-card-core">
         <section class="veh-cost-readout" aria-label="Vehicle monthly cost">
@@ -2033,8 +2019,6 @@ function makeVehicleCard(v) {
     visualImage.removeAttribute("src");
     const fallback = card.querySelector("[data-veh-image-fallback]");
     if (fallback) fallback.hidden = false;
-    const source = card.querySelector("[data-veh-source]");
-    if (source) source.hidden = true;
   });
   const active = card.querySelector("[data-veh-active]");
   if (active) active.addEventListener("click", () => { state.vehicleHub.activeVehicle = v.id; buildVehicles(); refreshVehicles(); renderCarRoute(); saveState(); });

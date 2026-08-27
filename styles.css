@@ -934,11 +934,8 @@ body {
 .dashboard-card-grip:hover,
 .dashboard-card-hide:hover { color: var(--text); border-color: color-mix(in srgb, var(--accent-2) 58%, transparent); background: rgba(30, 47, 80, .9); transform: translateY(-1px); }
 .dashboard-card-hide:hover { color: #fff; border-color: rgba(255, 137, 137, .62); background: rgba(110, 35, 52, .82); }
-.dashboard-grid.is-editing .dashboard-widget-open,
-.dashboard-grid.is-editing .dashboard-freedom-toggle { padding-right: 104px; }
-.dashboard-grid.is-editing .dashboard-widget-caret,
+.dashboard-grid.is-editing .dashboard-widget-open { padding-right: 104px; }
 .dashboard-grid.is-editing .dashboard-widget-top > span:last-child { opacity: .25; }
-.dashboard-widget--freedom,
 .dashboard-widget--feature,
 .dashboard-widget--alerts,
 .dashboard-widget--countdown { grid-column: 1 / -1; }
@@ -1012,7 +1009,6 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-[data-home-widget="freedom"] { --widget-color: #47c8ff; }
 [data-home-widget="portfolio"] { --widget-color: #8db4ff; }
 [data-home-widget="income"] { --widget-color: #46dfad; }
 [data-home-widget="expenses"] { --widget-color: #ff9b8f; }
@@ -1040,8 +1036,7 @@ body {
   0%, 100% { transform: translateY(0); box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 8px 22px color-mix(in srgb, var(--widget-color, var(--accent-2)) 8%, transparent); }
   50% { transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 12px 27px color-mix(in srgb, var(--widget-color, var(--accent-2)) 17%, transparent); }
 }
-.dashboard-widget-open,
-.dashboard-freedom-toggle {
+.dashboard-widget-open {
   width: 100%;
   border: 0;
   background: transparent;
@@ -1140,50 +1135,6 @@ body {
   font-weight: 800;
 }
 .home-watch-empty { color: var(--text-faint); font-size: 11.5px; }
-.dashboard-freedom-toggle {
-  display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) 36px;
-  align-items: center;
-  gap: 12px;
-  min-height: 82px;
-  padding: 18px 20px;
-}
-.dashboard-widget-heading { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
-.dashboard-widget-heading strong { font-family: "Sora", sans-serif; font-size: 16px; }
-.dashboard-widget-heading small { color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.dashboard-widget-caret {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--glass-border-soft);
-  border-radius: 12px;
-  color: var(--text-dim);
-  font-size: 23px;
-  transition: transform .2s ease;
-}
-.dashboard-widget--freedom.is-expanded .dashboard-widget-caret { transform: rotate(180deg); }
-.freedom-widget-body {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 2px 16px 16px;
-  border-top: 1px solid var(--glass-border-soft);
-}
-.freedom-widget-body[hidden] { display: none; }
-.freedom-widget-body:not([hidden]) { animation: freedomReveal .3s cubic-bezier(.2, .72, .2, 1) backwards; }
-@keyframes freedomReveal {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-/* Avoid stacking expensive full-screen blur layers inside the Freedom widget. */
-.freedom-widget-body > .glass {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
-  background-color: rgba(3, 10, 25, .2);
-}
-
 /* Interactive home widgets */
 .dashboard-widget--metric,
 .dashboard-widget--half,
@@ -1559,7 +1510,6 @@ body {
 
 @media (max-width: 860px) {
   .dashboard-widget { grid-column: span 3; }
-  .dashboard-widget--freedom,
   .dashboard-widget--feature,
   .dashboard-widget--alerts,
   .dashboard-widget--countdown { grid-column: 1 / -1; }
@@ -1577,13 +1527,10 @@ body {
   .dashboard-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .dashboard-widget { animation-delay: 0ms !important; animation-duration: .26s; }
   .dashboard-widget,
-  .dashboard-widget--freedom,
   .dashboard-widget--alerts,
   .dashboard-widget--countdown { grid-column: 1; }
   .dashboard-widget--compact,
   .dashboard-widget-open { min-height: 154px; }
-  .dashboard-freedom-toggle { padding: 15px; }
-  .freedom-widget-body { padding: 2px 10px 10px; }
   .dashboard-widget--metric,
   .dashboard-widget--half,
   .dashboard-widget--feature,
@@ -1629,7 +1576,6 @@ body {
   .health-ring { width: 80px; height: 80px; }
   .mini-note-form { grid-template-columns: 1fr; }
   .mini-note-form .settings-action { width: 100%; }
-  .dashboard-widget-heading small { font-size: 11px; }
   .weather-location-panel { grid-template-columns: 1fr; }
   .weather-use-location { width: 100%; }
   .weather-head-actions { gap: 4px; }

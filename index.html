@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=116" />
+  <link rel="stylesheet" href="styles.css?v=117" />
   <link rel="stylesheet" href="fff-theme.css?v=97" />
 </head>
 <body>
@@ -144,107 +144,6 @@
       </section>
 
       <section class="dashboard-grid" id="dashboardGrid" aria-label="Home widgets">
-        <article class="glass dashboard-widget dashboard-widget--freedom" data-home-widget="freedom">
-          <button class="dashboard-freedom-toggle" id="freedomWidgetToggle" type="button" aria-expanded="false" aria-controls="freedomWidgetBody">
-            <span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle><path d="m14.5 9.5 5-5m0 0v4m0-4h-4"></path></svg></span>
-            <span class="dashboard-widget-heading"><strong data-i18n="home_widget_freedom">Freedom calculator</strong><small id="homeFreedomSummary">—</small></span>
-            <span class="dashboard-widget-caret" aria-hidden="true">⌄</span>
-          </button>
-          <div class="freedom-widget-body" id="freedomWidgetBody" hidden>
-
-    <!-- Controls -->
-    <section class="glass controls" aria-label="Inputs">
-      <div class="control-row">
-        <!-- Monthly expenses -->
-        <div class="field field-grow">
-          <label class="field-label" for="expenses" data-i18n="monthly_expenses">Monthly expenses</label>
-          <div class="money-input">
-            <span class="money-symbol" id="currencySymbol">$</span>
-            <input id="expenses" type="text" inputmode="numeric" value="3,000" autocomplete="off" />
-            <span class="money-suffix" data-i18n="per_month">/ month</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="control-row control-row--meta">
-        <!-- Real return toggle -->
-        <label class="switch">
-          <input type="checkbox" id="realMode" />
-          <span class="switch-track"><span class="switch-thumb"></span></span>
-          <span class="switch-label">
-            <span data-i18n="real_mode">Real return mode</span>
-            <small data-i18n="real_mode_sub">Subtract inflation from each rate</small>
-          </span>
-        </label>
-
-        <!-- Inflation input (only in real mode) -->
-        <div class="field inflation-field" id="inflationField" hidden>
-          <label class="field-label" for="inflation" data-i18n="inflation_label">Inflation (annual %)</label>
-          <div class="rate-input rate-input--inflation">
-            <input id="inflation" type="text" inputmode="decimal" value="3" autocomplete="off" />
-            <span class="rate-sign">%</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Headline result -->
-    <section class="glass headline" id="headline">
-      <div class="headline-tag" data-i18n="headline_tag">Your easiest path to freedom</div>
-      <div class="headline-body">
-        <div class="headline-amount" id="bestAmount">—</div>
-        <div class="headline-meta">
-          <span id="bestLabel">—</span>
-          <span class="headline-sep">·</span>
-          <span id="bestRate">—</span>
-        </div>
-      </div>
-      <p class="headline-note" id="headlineNote"></p>
-    </section>
-
-    <!-- The 4% Rule / Trinity Study -->
-    <section id="learn" class="glass rule" aria-label="The 4% rule and the Trinity Study">
-      <div class="rule-head">
-        <span class="rule-badge" data-i18n="rule_badge">📚 The 4% Rule · Trinity Study</span>
-        <h2 data-i18n="rule_title">25× your annual expenses</h2>
-      </div>
-      <p class="rule-text" data-i18n-html="rule_text">
-        Earn about <strong>4% a year</strong> and you need roughly <strong>25× your annual expenses</strong>, so the returns alone cover your life without draining the principal.
-      </p>
-      <div class="rule-foot">
-        <div class="rule-number">
-          <span class="rule-number-label" data-i18n="rule_number_label">Your 25× number (at 4%)</span>
-          <span class="rule-number-value" id="ruleNumber">—</span>
-        </div>
-        <a class="rule-link" href="https://en.wikipedia.org/wiki/Trinity_study" target="_blank" rel="noopener noreferrer" data-i18n="rule_link">
-          Read the Trinity Study →
-        </a>
-      </div>
-    </section>
-
-    <!-- Comparison cards -->
-    <section id="compare" aria-label="Investment comparison">
-      <div class="section-head">
-        <h2 data-i18n="compare_title">Compare instruments</h2>
-      </div>
-      <div class="cards" id="cards"></div>
-    </section>
-
-    <!-- Bar chart -->
-    <section class="glass chart" aria-label="Savings required comparison chart">
-      <div class="section-head section-head--chart">
-        <h2 data-i18n="chart_title">Savings required</h2>
-      </div>
-      <div class="bars" id="bars"></div>
-    </section>
-
-    <!-- Disclaimer -->
-    <footer class="disclaimer glass">
-      <p data-i18n="disc_1">Estimates for education, not financial advice. Returns are historical or assumed, not guaranteed, and every rate is editable.</p>
-    </footer>
-          </div>
-        </article>
-
         <article class="glass dashboard-widget dashboard-widget--compact" data-home-widget="portfolio">
           <button class="dashboard-widget-open" type="button" data-open-view="portfolio">
             <span class="dashboard-widget-top"><span class="dashboard-widget-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h16v11H4zM9 8V5h6v3M4 12h16M10 12v2h4v-2"></path></svg></span><span data-i18n="home_widget_portfolio">Portfolio</span><span aria-hidden="true">→</span></span>
@@ -638,7 +537,7 @@
         <summary class="settings-disclosure-summary">
           <span class="settings-disclosure-copy">
             <span class="settings-label" id="homeCustomizeTitle" data-i18n="home_customize_title">Home screen</span>
-            <span class="settings-note" data-i18n="home_customize_desc">Reorder the Freedom screen cards or hide the ones you do not use.</span>
+            <span class="settings-note" data-i18n="home_customize_desc">Reorder your home cards or hide the ones you do not use.</span>
           </span>
           <span class="settings-disclosure-caret" aria-hidden="true">⌄</span>
         </summary>
@@ -981,7 +880,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=129"></script>
+  <script src="app.js?v=130"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

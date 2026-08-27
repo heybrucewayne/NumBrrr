@@ -1,9 +1,7 @@
 /* ============================================================
-   NumBrrr, financial freedom calculator
-   Required Savings = (Monthly Expenses × 12) / Annual Return Rate
+   NumBrrr, personal finance dashboard
    ============================================================ */
 
-const NET_COST = 2; // real-estate net-yield deduction (% points)
 
 // Tabler icons are embedded as SVG paths instead of loaded through CSS masks.
 // This keeps the icon layer visible in Safari, installed PWAs, and browsers
@@ -390,7 +388,7 @@ const I18N = {
     guide_income: "Enter your monthly income. Tick the passive ones like rent and interest, since only those count toward freedom.",
     guide_expenses: "Enter this month's spending, set reminders for your regular bills, and add what your car costs you.",
     guide_car: "Plan routes by province and district with distance, time, and fuel cost; save car profiles and track trip expenses.",
-    guide_freedom: "Your editable dashboard: open summaries, countdowns and the Freedom calculator from one place.",
+    guide_freedom: "Your editable home dashboard: keep your key summaries, goals and reminders in one place.",
     guide_watch: "Search for the assets you care about, favorite them, and keep an eye on their prices.",
     theme_glass: "Liquid Glass", theme_glass_desc: "Modern frosted glass (default)",
     theme_xp: "Windows XP", theme_xp_desc: "Nostalgic early-2000s Luna blue",
@@ -581,7 +579,7 @@ const I18N = {
     guide_income: "Aylık gelirlerini gir. Kira, faiz gibi pasif olanları işaretle, çünkü özgürlük hesabına sadece onlar giriyor.",
     guide_expenses: "Bu ayın harcamalarını gir, düzenli faturaların için hatırlatıcı kur, araç masraflarını da ekle.",
     guide_car: "İl ve ilçe bazında rota planla: mesafe, süre ve yakıt maliyetini hesapla; araç profilleri kaydet ve yolculuk harcamalarını takip et.",
-    guide_freedom: "Düzenlenebilir ana sayfan: özetlere, geri sayımlara ve Özgürlük hesaplayıcısına tek yerden ulaş.",
+    guide_freedom: "Düzenlenebilir ana sayfan: önemli özetlerini, hedeflerini ve hatırlatıcılarını tek yerde tut.",
     guide_watch: "Merak ettiğin varlıkları ara, favorine ekle ve fiyatlarını takip et.",
     theme_glass: "Sıvı Cam", theme_glass_desc: "Modern buzlu cam (varsayılan)",
     theme_xp: "Windows XP", theme_xp_desc: "Nostaljik 2000'ler Luna mavisi",
@@ -685,11 +683,11 @@ I18N.en.command_context_suggestions = "Suggestions for your text";
 I18N.tr.command_context_suggestions = "Yazına uygun komutlar";
 
 // ---- State ----
-const HOME_WIDGET_IDS = ["freedom", "portfolio", "income", "expenses", "monthly", "health", "markets", "marketSnapshot", "topPerformers", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
+const HOME_WIDGET_IDS = ["portfolio", "income", "expenses", "monthly", "health", "markets", "marketSnapshot", "topPerformers", "car", "watch", "goals", "notes", "insights", "alerts", "countdown"];
 // First-run layout: lead with the financial pulse, then the core records,
 // followed by market context and optional planning tools. Existing saved orders
 // remain authoritative and are never replaced by this default.
-const DEFAULT_HOME_WIDGET_ORDER = ["freedom", "monthly", "health", "portfolio", "income", "expenses", "markets", "car", "watch", "marketSnapshot", "topPerformers", "goals", "insights", "notes", "alerts", "countdown"];
+const DEFAULT_HOME_WIDGET_ORDER = ["monthly", "health", "portfolio", "income", "expenses", "markets", "car", "watch", "marketSnapshot", "topPerformers", "goals", "insights", "notes", "alerts", "countdown"];
 const DEFAULT_THEME = "fff";
 const THEME_IDS = ["black", "terminal", "fff"];
 function normalizeTheme(value) {
@@ -742,7 +740,7 @@ const state = {
   watchlist: [], // [{ type, key, name }] — assets to monitor (price + 24h/1mo/1yr performance)
   notifications: { enabled: false, vehicleDays: 7, priceAlerts: [], seq: 0, sent: {} },
   dailyStreak: { current: 0, best: 0, lastCheckIn: "", freezeWeek: "", freezesUsed: 0, xp: 0 },
-  homeLayout: { order: [...DEFAULT_HOME_WIDGET_ORDER], itemOrder: [...DEFAULT_HOME_WIDGET_ORDER], hidden: [], freedomExpanded: false },
+  homeLayout: { order: [...DEFAULT_HOME_WIDGET_ORDER], itemOrder: [...DEFAULT_HOME_WIDGET_ORDER], hidden: [] },
   weather: {
     location: { name: "İstanbul", latitude: 41.0082, longitude: 28.9784 },
     data: null,
@@ -818,18 +816,6 @@ const el = {
   fffEditHome: document.getElementById("fffEditHome"),
   fffTerminalPageTitle: document.getElementById("fffTerminalPageTitle"),
   fffTerminalClock: document.getElementById("fffTerminalClock"),
-  currencySymbol: document.getElementById("currencySymbol"),
-  expenses: document.getElementById("expenses"),
-  realMode: document.getElementById("realMode"),
-  inflationField: document.getElementById("inflationField"),
-  inflation: document.getElementById("inflation"),
-  cards: document.getElementById("cards"),
-  bars: document.getElementById("bars"),
-  bestAmount: document.getElementById("bestAmount"),
-  bestLabel: document.getElementById("bestLabel"),
-  bestRate: document.getElementById("bestRate"),
-  headlineNote: document.getElementById("headlineNote"),
-  ruleNumber: document.getElementById("ruleNumber"),
   // expenses (Gider) view
   expMonthLabel: document.getElementById("expMonthLabel"),
   expReminders: document.getElementById("expReminders"),
@@ -916,9 +902,6 @@ const el = {
   resetHomeCards: document.getElementById("resetHomeCards"),
   dashboardGrid: document.getElementById("dashboardGrid"),
   editHome: document.getElementById("editHome"),
-  freedomWidgetToggle: document.getElementById("freedomWidgetToggle"),
-  freedomWidgetBody: document.getElementById("freedomWidgetBody"),
-  homeFreedomSummary: document.getElementById("homeFreedomSummary"),
   homePortfolioValue: document.getElementById("homePortfolioValue"),
   homePortfolioNote: document.getElementById("homePortfolioNote"),
   homeIncomeValue: document.getElementById("homeIncomeValue"),
@@ -1067,293 +1050,15 @@ function formatRate(value, withSign = true) {
   const r = Math.round(value * 100) / 100;
   return withSign ? locDec(r) + "%" : locDec(r);
 }
-function effectiveRate(nominalPercent) {
-  const infl = state.realMode ? state.inflation[state.currency] : 0;
-  return (nominalPercent - infl) / 100;
-}
-function requiredSavings(nominalPercent) {
-  const rate = effectiveRate(nominalPercent);
-  if (rate <= 0) return Infinity;
-  return (state.monthlyExpenses * 12) / rate;
-}
-
-// ---- Real-estate yield helpers ----
-function reCustomActive(cur) { const re = state.realEstate[cur]; return re.propertyValue > 0 && re.monthlyRent > 0; }
-function reGrossYield(cur) {
-  const re = state.realEstate[cur];
-  return reCustomActive(cur) ? (re.monthlyRent * 12) / re.propertyValue * 100 : state.rates[cur].realestate;
-}
-function instrumentNominal(inst) {
-  const cur = state.currency;
-  if (!inst.realEstate) return state.rates[cur][inst.id];
-  let gross = reGrossYield(cur);
-  if (state.realEstate[cur].netYield) gross -= NET_COST;
-  return gross;
-}
-
-// ============================================================
-//  Build (structure) + Refresh (values)
-// ============================================================
-function buildLayout() {
-  const cur = state.currency;
-  const meta = CURRENCY_META[cur];
-  el.currencySymbol.textContent = meta.symbol;
-
-  el.cards.innerHTML = "";
-  INSTRUMENTS[cur].forEach((inst, idx) => {
-    el.cards.appendChild(inst.realEstate ? buildRealEstateCard(inst, idx, meta) : buildSimpleCard(inst, idx));
-  });
-
-  el.bars.innerHTML = "";
-  INSTRUMENTS[cur].forEach((inst) => {
-    const row = document.createElement("div");
-    row.className = "bar-row";
-    row.dataset.bar = inst.id;
-    row.innerHTML = `
-      <div class="bar-name">${instName(inst.id)}</div>
-      <div class="bar-track">
-        <div class="bar-fill" style="--bar-color:${inst.color}"></div>
-        <span class="bar-value"></span>
-      </div>`;
-    el.bars.appendChild(row);
-  });
-
-  wireDynamicInputs();
-}
-
-function buildSimpleCard(inst, idx) {
-  const cur = state.currency;
-  const card = document.createElement("article");
-  card.className = "card";
-  card.dataset.card = inst.id;
-  card.style.setProperty("--card-color", inst.color);
-  card.style.animationDelay = `${idx * 55}ms`;
-
-  card.innerHTML = `
-    <div class="card-accent"></div>
-    <div class="card-head">
-      <div>
-        <h3 class="card-title">${instName(inst.id)}</h3>
-        <p class="card-sub">${instSub(inst)}</p>
-      </div>
-      <span class="card-badge" data-badge hidden></span>
-    </div>
-    <div class="card-rate">
-      <span class="card-rate-label">${t("annual_return")}</span>
-      <div class="rate-input">
-        <input type="text" inputmode="decimal" data-id="${inst.id}" value="${formatRate(state.rates[cur][inst.id], false)}" />
-        <span class="rate-sign">%</span>
-      </div>
-    </div>
-    <div class="card-amount">
-      <div class="card-amount-value" data-amount>—</div>
-      <div class="card-amount-label">${t("total_required")}</div>
-      <div class="card-effrate" data-eff hidden></div>
-    </div>`;
-  return card;
-}
-
-function buildRealEstateCard(inst, idx, meta) {
-  const cur = state.currency;
-  const re = state.realEstate[cur];
-  const card = document.createElement("article");
-  card.className = "card card--realestate";
-  card.dataset.card = "realestate";
-  card.style.setProperty("--card-color", inst.color);
-  card.style.animationDelay = `${idx * 55}ms`;
-
-  card.innerHTML = `
-    <div class="card-accent"></div>
-    <div class="re-grid">
-      <div class="re-main">
-        <div class="card-head">
-          <div>
-            <h3 class="card-title">${instName("realestate")}</h3>
-            <p class="card-sub">${instSub(inst)}</p>
-          </div>
-          <span class="card-badge" data-badge hidden></span>
-        </div>
-        <div class="card-rate">
-          <span class="card-rate-label">${t("gross_yield")}</span>
-          <div class="rate-input">
-            <input type="text" inputmode="decimal" data-id="realestate" value="${formatRate(state.rates[cur].realestate, false)}" />
-            <span class="rate-sign">%</span>
-          </div>
-        </div>
-        <div class="card-amount">
-          <div class="card-amount-value" data-amount>—</div>
-          <div class="card-amount-label">${t("total_required_re")}</div>
-          <div class="card-effrate" data-eff hidden></div>
-        </div>
-      </div>
-      <div class="re-calc">
-        <div class="re-calc-title">${t("use_property")} <span>${t("optional")}</span></div>
-        <label class="re-field">${t("property_value")}
-          <div class="money-input money-input--sm">
-            <span class="money-symbol">${meta.symbol}</span>
-            <input type="text" inputmode="numeric" data-re="propertyValue" value="${re.propertyValue ? formatThousands(re.propertyValue) : ""}" placeholder="${t("eg")} ${meta.valueHint}" />
-          </div>
-        </label>
-        <label class="re-field">${t("monthly_rent")}
-          <div class="money-input money-input--sm">
-            <span class="money-symbol">${meta.symbol}</span>
-            <input type="text" inputmode="numeric" data-re="monthlyRent" value="${re.monthlyRent ? formatThousands(re.monthlyRent) : ""}" placeholder="${t("eg")} ${meta.rentHint}" />
-          </div>
-        </label>
-        <div class="re-computed" data-recomputed hidden></div>
-        <label class="switch switch--sm">
-          <input type="checkbox" data-re="netYield" ${re.netYield ? "checked" : ""} />
-          <span class="switch-track"><span class="switch-thumb"></span></span>
-          <span class="switch-label">${t("net_yield")} <small>${t("net_yield_sub")}</small></span>
-        </label>
-      </div>
-    </div>`;
-  return card;
-}
-
-function wireDynamicInputs() {
-  el.cards.querySelectorAll("input[data-id]").forEach((input) => {
-    input.addEventListener("input", () => {
-      if (input.disabled) return;
-      state.rates[state.currency][input.dataset.id] = parseDecimal(input.value);
-      refresh();
-    });
-  });
-  el.cards.querySelectorAll("input[data-re]").forEach((input) => {
-    const field = input.dataset.re;
-    if (field === "netYield") {
-      input.addEventListener("change", () => { state.realEstate[state.currency].netYield = input.checked; refresh(); });
-    } else {
-      input.addEventListener("input", () => { state.realEstate[state.currency][field] = parseNumber(input.value); refresh(); });
-      input.addEventListener("blur", () => { const v = state.realEstate[state.currency][field]; if (v > 0) input.value = formatThousands(v); });
-    }
-  });
-}
-
 function refresh() {
   saveState();
-  const list = INSTRUMENTS[state.currency];
-  const results = list.map((inst) => {
-    const nominal = instrumentNominal(inst);
-    return { inst, nominal, eff: effectiveRate(nominal) * 100, required: requiredSavings(nominal) };
-  });
-  const reachable = results.filter((r) => isFinite(r.required));
-  const best = reachable.reduce((a, b) => (b.required < a.required ? b : a), reachable[0] || null);
-
-  results.forEach((r) => { const card = el.cards.querySelector(`[data-card="${r.inst.id}"]`); if (card) updateCard(card, r, best); });
-
-  const finite = results.filter((r) => isFinite(r.required)).map((r) => r.required);
-  const max = finite.length ? Math.max(...finite) : 0;
-  results.forEach((r) => { const row = el.bars.querySelector(`[data-bar="${r.inst.id}"]`); if (row) updateBar(row, r, best, max); });
-
-  renderHeadline(best, results, reachable.length);
-  renderRule();
   renderHomeSummaries();
-}
-
-function updateCard(card, r, best) {
-  const { inst, nominal, eff, required } = r;
-  const isBest = best && inst.id === best.inst.id;
-  const unreachable = !isFinite(required);
-  card.classList.toggle("is-best", !!isBest);
-
-  const amountEl = card.querySelector("[data-amount]");
-  if (unreachable) { amountEl.textContent = t("doesnt_outpace"); amountEl.classList.add("unreachable"); }
-  else { amountEl.textContent = formatMoney(required); amountEl.classList.remove("unreachable"); }
-
-  const badge = card.querySelector("[data-badge]");
-  if (isBest) { badge.hidden = false; badge.className = "card-badge badge-best"; badge.textContent = t("easiest"); }
-  else if (inst.warn) { badge.hidden = false; badge.className = "card-badge badge-warn"; badge.textContent = t("volatile"); }
-  else { badge.hidden = true; badge.textContent = ""; }
-
-  const effEl = card.querySelector("[data-eff]");
-  if (inst.realEstate) {
-    updateReCard(card, effEl);
-  } else if (state.realMode) {
-    effEl.hidden = false;
-    effEl.innerHTML = `${t("lbl_real_rate")}: ${formatRate(eff)} &nbsp;(${formatRate(nominal)} − ${formatRate(state.inflation[state.currency])} ${t("word_inflation")})`;
-  } else {
-    effEl.hidden = true;
-  }
-}
-
-function updateReCard(card, effEl) {
-  const cur = state.currency;
-  const customActive = reCustomActive(cur);
-  const grossRaw = reGrossYield(cur);
-  const net = state.realEstate[cur].netYield ? NET_COST : 0;
-  const infl = state.realMode ? state.inflation[cur] : 0;
-  const effective = grossRaw - net - infl;
-
-  const yInput = card.querySelector('input[data-id="realestate"]');
-  if (customActive) {
-    yInput.disabled = true; yInput.classList.add("is-auto");
-    if (yInput !== document.activeElement) yInput.value = formatRate(grossRaw, false);
-  } else if (yInput.disabled) {
-    yInput.disabled = false; yInput.classList.remove("is-auto");
-    yInput.value = formatRate(state.rates[cur].realestate, false);
-  }
-
-  const comp = card.querySelector("[data-recomputed]");
-  if (customActive) { comp.hidden = false; comp.textContent = t("computed_yield", { rate: formatRate(grossRaw) }); }
-  else comp.hidden = true;
-
-  const parts = [];
-  if (net) parts.push(`−${net}% ${t("word_costs")}`);
-  if (infl) parts.push(`− ${formatRate(infl)} ${t("word_inflation")}`);
-  if (parts.length) {
-    effEl.hidden = false;
-    const label = net && infl ? t("eff_effective") : net ? t("eff_net") : t("eff_real");
-    effEl.innerHTML = `${label} ${t("word_yield")}: ${formatRate(effective)} &nbsp;(${formatRate(grossRaw)} ${t("word_gross")} ${parts.join(" ")})`;
-  } else {
-    effEl.hidden = true;
-  }
-}
-
-function updateBar(row, r, best, max) {
-  const { inst, required } = r;
-  const unreachable = !isFinite(required);
-  const isBest = best && inst.id === best.inst.id;
-  const fill = row.querySelector(".bar-fill");
-  const val = row.querySelector(".bar-value");
-  if (unreachable) { fill.classList.add("unreachable"); fill.style.width = "100%"; val.textContent = t("out_of_reach"); }
-  else { fill.classList.remove("unreachable"); fill.style.width = (max === 0 ? 0 : Math.max(4, (required / max) * 100)) + "%"; val.textContent = formatMoney(required, { compact: true }); }
-}
-
-function renderHeadline(best, results, reachableCount) {
-  if (!best) {
-    setAnimatedText(el.bestAmount, t("not_reachable"));
-    el.bestLabel.textContent = t("no_beat_inflation");
-    el.bestRate.textContent = "";
-    el.headlineNote.textContent = t("not_reachable_note");
-    return;
-  }
-  setAnimatedText(el.bestAmount, formatMoney(best.required));
-  el.bestLabel.textContent = t("via", { name: instName(best.inst.id) });
-  el.bestRate.textContent = `${formatRate(best.eff)} ${state.realMode ? t("real_word") + " " : ""}${t("return_word")}`;
-  const note = t("headline_note", { name: instName(best.inst.id), monthly: formatMoney(state.monthlyExpenses) });
-  el.headlineNote.textContent = note + (reachableCount < results.length ? t("headline_note_extra") : "");
-}
-
-function renderRule() {
-  setAnimatedText(el.ruleNumber, formatMoney(state.monthlyExpenses * 12 * 25));
-}
-
-function setAnimatedText(node, value) {
-  if (!node || node.textContent === value) return;
-  node.textContent = value;
-  if (!state.motion || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
-  node.classList.remove("value-change");
-  void node.offsetWidth;
-  node.classList.add("value-change");
-  node.addEventListener("animationend", () => node.classList.remove("value-change"), { once: true });
 }
 
 function setupScrollReveal() {
   const savings = document.getElementById("view-savings");
   const targets = [
     ...(savings ? savings.querySelectorAll(":scope > section, :scope > article, :scope > .expense-list-panel") : []),
-    ...document.querySelectorAll("#freedomWidgetBody > .controls, #freedomWidgetBody > .headline, #freedomWidgetBody > #learn, #freedomWidgetBody > #compare, #freedomWidgetBody > .chart, #freedomWidgetBody > .disclaimer"),
   ];
   if (!targets.length) return;
   targets.forEach((target) => target.classList.add("reveal-item"));
@@ -3346,7 +3051,7 @@ function normalizeHomeLayout(value) {
     const insertAt = goalsIndex >= 0 ? goalsIndex : itemOrder.length - 1;
     itemOrder.splice(insertAt + 1, 0, ...missingGoalTokens);
   }
-  return { order, itemOrder: [...new Set(itemOrder)], hidden, freedomExpanded: !!source.freedomExpanded };
+  return { order, itemOrder: [...new Set(itemOrder)], hidden };
 }
 
 function normalizeCountdownOrder(value, items = []) {
@@ -3386,11 +3091,6 @@ function applyHomeLayout() {
     widget.hidden = state.homeLayout.hidden.includes(id);
     el.dashboardGrid.appendChild(widget);
   });
-  if (el.freedomWidgetBody && el.freedomWidgetToggle) {
-    el.freedomWidgetBody.hidden = !state.homeLayout.freedomExpanded;
-    el.freedomWidgetToggle.setAttribute("aria-expanded", String(state.homeLayout.freedomExpanded));
-    el.freedomWidgetToggle.closest(".dashboard-widget").classList.toggle("is-expanded", state.homeLayout.freedomExpanded);
-  }
 }
 
 let homeDashboardEditing = false;
@@ -3757,13 +3457,8 @@ function renderHomeCardSettings() {
 }
 
 function resetHomeLayout() {
-  state.homeLayout = { order: [...DEFAULT_HOME_WIDGET_ORDER], itemOrder: [...DEFAULT_HOME_WIDGET_ORDER], hidden: [], freedomExpanded: false };
+  state.homeLayout = { order: [...DEFAULT_HOME_WIDGET_ORDER], itemOrder: [...DEFAULT_HOME_WIDGET_ORDER], hidden: [] };
   saveState(); applyHomeLayout(); renderHomeCardSettings();
-}
-
-function setFreedomWidgetExpanded(expanded) {
-  state.homeLayout.freedomExpanded = !!expanded;
-  saveState(); applyHomeLayout();
 }
 
 function meaningfulHoldingCount() {
@@ -3895,7 +3590,6 @@ function fffOperatorProgress() {
   const countdownCount = state.countdowns.items.length;
   const alertCount = state.notifications.priceAlerts.length;
   const noteCount = state.homeNotes.items.length;
-  const freedomUsed = !!state.homeLayout.freedomExpanded;
   const snapshot = financialSnapshot();
   const vehicleCount = (state.vehicles || []).length;
   const routeCount = (state.vehicleHub?.trips || []).length;
@@ -3904,7 +3598,6 @@ function fffOperatorProgress() {
   // Missions are ordered from first-use actions to long-term financial habits.
   // The order is intentional: the first incomplete item is the active task.
   const modules = [
-    { id: "freedom", complete: freedomUsed, mission: "fff_mission_freedom", view: "home", widget: "freedom" },
     { id: "notes", complete: noteCount > 0, mission: "fff_mission_notes", view: "home", widget: "notes" },
     { id: "watch", complete: watchCount > 0, mission: "fff_mission_watch", view: "watch" },
     { id: "countdown", complete: countdownCount > 0, mission: "fff_mission_countdown", view: "home", widget: "countdown" },
@@ -4959,11 +4652,6 @@ function renderSmartInsights(snapshot = financialSnapshot()) {
 
 function renderHomeSummaries() {
   if (!el.dashboardGrid) return;
-  if (el.homeFreedomSummary) {
-    const amount = el.bestAmount && el.bestAmount.textContent !== "—" ? el.bestAmount.textContent : formatMoney(state.monthlyExpenses * 12 * 25);
-    const name = el.bestLabel && el.bestLabel.textContent !== "—" ? el.bestLabel.textContent : t("home_widget_freedom");
-    el.homeFreedomSummary.textContent = t("home_freedom_summary", { amount, name });
-  }
   if (el.homePortfolioValue) el.homePortfolioValue.textContent = el.portTotal && el.portTotal.textContent ? el.portTotal.textContent : formatMoney(0);
   if (el.homePortfolioNote) el.homePortfolioNote.textContent = t("home_holdings", { count: meaningfulHoldingCount() });
   if (el.homeIncomeValue) el.homeIncomeValue.textContent = el.incTotal && el.incTotal.textContent ? el.incTotal.textContent : formatMoney(0);
@@ -5140,7 +4828,6 @@ function wireHomeDashboard() {
   document.querySelectorAll("[data-fff-open-settings]").forEach((button) => button.addEventListener("click", () => {
     document.querySelector('.tab[data-view="settings"]')?.click();
   }));
-  el.freedomWidgetToggle.addEventListener("click", () => setFreedomWidgetExpanded(!state.homeLayout.freedomExpanded));
   el.dashboardGrid.addEventListener("click", (event) => {
     const button = event.target.closest("[data-open-view]");
     if (!button || !el.dashboardGrid.contains(button)) return;
@@ -7463,7 +7150,7 @@ function applyLanguage(lang) {
   document.querySelectorAll("[data-i18n-html]").forEach((node) => { node.innerHTML = t(node.dataset.i18nHtml); });
   document.querySelectorAll("[data-i18n-title]").forEach((node) => { node.title = t(node.dataset.i18nTitle); node.setAttribute("aria-label", t(node.dataset.i18nTitle)); });
   document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => { node.placeholder = t(node.dataset.i18nPlaceholder); });
-  buildLayout(); refresh();
+  refresh();
   buildExpenses();
   buildCarHub();
   buildPortfolio(); refreshPortfolio();
@@ -7626,11 +7313,9 @@ function setCurrency(cur) {
   }
   state.currency = cur;
   if (el.savingsGoalCurrency) el.savingsGoalCurrency.value = cur;
-  if (el.expenses) el.expenses.value = state.monthlyExpenses > 0 ? formatThousands(state.monthlyExpenses) : "";
-  el.inflation.value = formatRate(state.inflation[cur], false);
   // USD holdings convert differently per app currency; recompute before rendering.
   state.portfolio.holdings.forEach((h) => { if (h.assetType === "usd") h.value = usdHoldingValue(h.usd || 0); });
-  buildLayout(); refresh(); buildExpenses(); buildCarHub(); buildPortfolio(); buildIncome(); refreshPortfolio(); refreshIncome();
+  refresh(); buildExpenses(); buildCarHub(); buildPortfolio(); buildIncome(); refreshPortfolio(); refreshIncome();
   refreshCryptoPrices(); // refetch crypto prices in the new currency
   buildWatchlist(); refreshWatchData();
   renderHomeDashboard();
@@ -7831,16 +7516,10 @@ el.monthlyShareCopy.addEventListener("click", copyMonthlyShare);
 el.monthlyShareDownload.addEventListener("click", () => { if (monthlySharePreviewState) downloadMonthlyShare(monthlySharePreviewState.blob); });
 el.monthlyShareSystem.addEventListener("click", shareMonthlyImage);
 el.portCcyToggle.addEventListener("click", () => { state.portTotalUSD = !state.portTotalUSD; refreshPortfolio(); });
-el.expenses.addEventListener("input", () => { state.monthlyExpenses = parseNumber(el.expenses.value); refresh(); });
-el.expenses.addEventListener("blur", () => { if (state.monthlyExpenses > 0) el.expenses.value = formatThousands(state.monthlyExpenses); });
-
-el.realMode.addEventListener("change", () => { state.realMode = el.realMode.checked; el.inflationField.hidden = !state.realMode; refresh(); });
-
 const soundToggle = document.getElementById("soundToggle");
 soundToggle.addEventListener("change", () => { state.sound = soundToggle.checked; saveState(); if (state.sound) sfx("toggle"); });
 const motionToggle = document.getElementById("motionToggle");
 motionToggle.addEventListener("change", () => applyMotion(motionToggle.checked));
-el.inflation.addEventListener("input", () => { state.inflation[state.currency] = parseDecimal(el.inflation.value); refresh(); });
 
 el.notifyToggle.addEventListener("change", () => setNotificationsEnabled(el.notifyToggle.checked));
 el.vehicleNotifyDays.addEventListener("change", () => {
@@ -8361,13 +8040,11 @@ loadState(); // full saved snapshot restores user data while keeping the only av
 hydrateHomeMarketCache(); // show the latest small cached quote snapshot on the first paint
 rollExpenseMonth(); // archive past months + start the current month before rendering
 
-el.expenses.value = formatThousands(state.monthlyExpenses);
-el.inflation.value = formatRate(state.inflation[state.currency], false);
 if (el.savingsGoalCurrency) el.savingsGoalCurrency.value = state.currency;
 applyTheme(state.theme);
 soundToggle.checked = state.sound;
 applyMotion(state.motion);
-applyLanguage(state.lang); // builds layout + savings, applies all translations
+applyLanguage(state.lang); // applies all translations and renders the dashboard
 selectFffHudCat();
 syncFffTerminalPage("home");
 renderFffTerminalClock();

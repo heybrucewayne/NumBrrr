@@ -5186,7 +5186,7 @@
 [data-theme="fff"] #view-car .veh-card-layout {
   display: grid;
   width: 100%;
-  grid-template-columns: minmax(240px, .78fr) minmax(0, 1.22fr);
+  grid-template-columns: 192px minmax(0, 1fr);
   gap: 10px;
   min-width: 0;
 }
@@ -5195,7 +5195,8 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 9px;
+  max-width: 380px;
+  padding: 7px;
   border: 1px solid rgba(156, 255, 104, .2);
   border-radius: 2px;
   background:
@@ -5240,7 +5241,7 @@
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 166px;
+  min-height: 88px;
   margin: 7px 0 8px;
   overflow: hidden;
   border: 1px solid rgba(156, 255, 104, .16);
@@ -5277,7 +5278,7 @@
   z-index: 1;
   display: block;
   width: 100%;
-  height: 166px;
+  height: 88px;
   object-fit: cover;
   opacity: .78;
   filter: grayscale(.28) sepia(.78) hue-rotate(53deg) saturate(1.45) brightness(.7) contrast(1.2);
@@ -5329,7 +5330,7 @@
 [data-theme="fff"] #view-car .veh-visual-thumb {
   display: block;
   min-width: 0;
-  height: 36px;
+  height: 20px;
   overflow: hidden;
   border: 1px solid rgba(156, 255, 104, .17);
   border-radius: 2px;
@@ -5405,8 +5406,12 @@
 
 @media (max-width: 960px) {
   [data-theme="fff"] #view-car .veh-card-layout { grid-template-columns: 1fr; }
+  [data-theme="fff"] #view-car .veh-visual-panel {
+    width: min(100%, 250px);
+    margin-inline: auto;
+  }
   [data-theme="fff"] #view-car .veh-visual-frame,
-  [data-theme="fff"] #view-car .veh-model-image:not([hidden]) { min-height: 174px; height: 174px; }
+  [data-theme="fff"] #view-car .veh-model-image:not([hidden]) { min-height: 88px; height: 88px; }
 }
 
 @media (max-width: 680px) {
@@ -5418,9 +5423,10 @@
   [data-theme="fff"] #view-car .veh-card { padding: 11px; }
   [data-theme="fff"] #view-car .veh-head { align-items: flex-start; }
   [data-theme="fff"] #view-car .veh-plate { max-width: 190px; font-size: 16px; }
+  [data-theme="fff"] #view-car .veh-visual-panel { width: min(100%, 250px); max-width: 250px; }
   [data-theme="fff"] #view-car .veh-visual-frame,
-  [data-theme="fff"] #view-car .veh-model-image:not([hidden]) { min-height: 132px; height: 132px; }
-  [data-theme="fff"] #view-car .veh-visual-thumb { height: 30px; }
+  [data-theme="fff"] #view-car .veh-model-image:not([hidden]) { min-height: 80px; height: 80px; }
+  [data-theme="fff"] #view-car .veh-visual-thumb { height: 20px; }
   [data-theme="fff"] #view-car .veh-specs { grid-template-columns: 1fr; }
 }
 

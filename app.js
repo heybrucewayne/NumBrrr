@@ -1404,8 +1404,23 @@ function rollExpenseMonth() {
   e.oneoff = [];
   (e.recurring || []).forEach((r) => (r.paid = false));
   // Reset per-vehicle spends too, remembering each car's total for "last month".
-  (state.vehicles || []).forEach((v) => { v.lastMonthSpent = vehMonthlyTotal(v); v.oneoff = []; });
+  (state.vehicles || []).forEach((v) => {
+    v.lastMonthSpent = vehMonthlyTotal(v);
+    v.oneoff = [];
+    // Scheduled vehicle payments are monthly reminders. A payment marked in
+    // the previous month must become payable again after rollover.
+    (v.sched || []).forEach((s) => { s.paidMonth = ""; });
+  });
   e.month = now;
+}
+
+function syncExpenseMonth() {
+  if (state.expenses.month === currentYM()) return false;
+  rollExpenseMonth();
+  refreshExpenses();
+  refreshPortfolio();
+  renderHomeSummaries();
+  return true;
 }
 
 // Spent so far this month = PAID recurring bills + this month's logged spends.
@@ -2461,10 +2476,36 @@ function rebuildHoldingRow(id) {
   const old = el.portList.querySelector(`[data-hold="${id}"]`);
   if (old) old.replaceWith(makeHoldingRow(id));
 }
+function resetHoldingForTypeChange(holding, nextType) {
+  if (!holding || holding.assetType === nextType) return;
+  const previousType = holding.assetType || "cash";
+  const amountTypes = new Set(["deposit", "bonds", "realestate", "cash"]);
+  const keepAmount = amountTypes.has(previousType) && amountTypes.has(nextType);
+
+  // A row can only have one input model at a time. Clear fields belonging to
+  // the old model so a hidden quantity/value cannot keep inflating the total.
+  holding.qty = 0;
+  holding.shares = 0;
+  holding.grams = 0;
+  holding.usd = 0;
+  holding.symbol = "";
+  holding.stockName = "";
+  holding.coinId = "";
+  holding.coinName = "";
+  holding.coinSymbol = "";
+  holding.nativePrice = 0;
+  holding.price = 0;
+  holding.chg24 = null;
+  holding.costBasisApp = 0;
+  holding.avgCostApp = 0;
+  if (!keepAmount) holding.value = 0;
+  if (nextType !== "deposit" && nextType !== "bonds") holding.netTax = false;
+  holding.assetType = nextType;
+}
 function wireTypeSelect(row, id) {
   row.querySelector("[data-hold-type]").addEventListener("change", (e) => {
     const x = holdById(id);
-    if (x) x.assetType = e.target.value;
+    if (x) resetHoldingForTypeChange(x, e.target.value);
     rebuildHoldingRow(id); // switch input mode (crypto search / net toggle)
     refreshPortfolio();
     refreshIncome();
@@ -2914,8 +2955,13 @@ async function forEachLimited(items, limit, worker) {
   }));
 }
 
+let priceRefreshRequest = 0;
 async function refreshCryptoPrices() {
+  const requestId = ++priceRefreshRequest;
+  const builtCurrency = state.currency;
   await Promise.allSettled([loadCryptoMarkets(), loadGoldPrice(), loadUsdTry()]);
+  if (requestId !== priceRefreshRequest || state.currency !== builtCurrency) return;
+  settlePendingCurrencyRebase();
   const stockHoldings = [];
   for (const h of state.portfolio.holdings) {
     if (h.assetType === "crypto" && h.coinId) {
@@ -2939,6 +2985,7 @@ async function refreshCryptoPrices() {
     if (q && q.price != null) { h.nativePrice = q.price; h.chg24 = q.chg24; }
     h.value = stockValue(h);
   });
+  if (requestId !== priceRefreshRequest || state.currency !== builtCurrency) return;
   buildPortfolio();
   refreshPortfolio();
   refreshIncome();
@@ -5094,6 +5141,7 @@ function renderHomeSummaries() {
 
 function renderHomeDashboard(refreshMarket = true) {
   if (!el.dashboardGrid) return;
+  syncExpenseMonth();
   renderHomeSummaries();
   applyHomeLayout();
   renderCountdowns();
@@ -7232,18 +7280,24 @@ function monitoredPriceItems() {
   return [...items.values()];
 }
 
+let watchRefreshRequest = 0;
 async function refreshWatchData() {
+  const requestId = ++watchRefreshRequest;
+  const builtCurrency = state.currency;
   const monitored = monitoredPriceItems();
   if (!monitored.length) { renderHomeSummaries(); return; }
   if (monitored.some((w) => w.type === "fiat")) await loadUsdTry();
-  const vs = state.currency === "TL" ? "try" : "usd";
+  if (requestId !== watchRefreshRequest || state.currency !== builtCurrency) return;
+  const vs = builtCurrency === "TL" ? "try" : "usd";
   const ids = [...new Set(monitored.filter((w) => w.type === "crypto").map((w) => w.key))];
   if (monitored.some((w) => w.type === "gold" || w.type === "goldoz")) ids.push("pax-gold");
   if (ids.length) {
     try {
       const r = await fetchWithTimeout(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${vs}&ids=${ids.join(",")}&price_change_percentage=24h,30d,1y&sparkline=true`);
       if (r.ok) {
-        (await r.json()).forEach((c) => {
+        const quotes = await r.json();
+        if (requestId !== watchRefreshRequest || state.currency !== builtCurrency) return;
+        quotes.forEach((c) => {
           const d = { price: c.current_price, chg24: c.price_change_percentage_24h_in_currency, chg1mo: c.price_change_percentage_30d_in_currency, chg1y: c.price_change_percentage_1y_in_currency, spark: (c.sparkline_in_7d && c.sparkline_in_7d.price) || null };
           if (c.id === "pax-gold") {
             const g = Object.assign({}, d, { price: c.current_price / GRAMS_PER_OZ }); // per-gram in active ccy
@@ -7253,11 +7307,13 @@ async function refreshWatchData() {
       }
     } catch (e) {}
   }
+  if (requestId !== watchRefreshRequest || state.currency !== builtCurrency) return;
   const stocks = monitored.filter((w) => w.type === "usstock" || w.type === "bist");
   await forEachLimited(stocks, 3, async (w) => {
     const d = await fetchStockData(w.type === "bist" ? w.key + ".IS" : w.key);
-    if (d) watchData[w.key] = d;
+    if (d && requestId === watchRefreshRequest && state.currency === builtCurrency) watchData[w.key] = d;
   });
+  if (requestId !== watchRefreshRequest || state.currency !== builtCurrency) return;
   buildWatchlist();
   renderNotificationSettings();
   checkPriceAlerts();
@@ -7620,6 +7676,59 @@ function updateSettingsActive() {
   document.querySelectorAll(".opt-theme").forEach((b) => b.classList.toggle("is-active", b.dataset.themePick === state.theme));
 }
 
+let pendingCurrencyRebase = null;
+
+function rebaseAppCurrencyValues(fromCurrency, toCurrency) {
+  const from = fromCurrency === "TL" ? "TRY" : "USD";
+  const to = toCurrency === "TL" ? "TRY" : "USD";
+  if (from === to || !(usdTry > 0)) return false;
+  const convert = (value) => convertCommandCurrency(Number(value), from, to);
+  const assign = (object, key) => {
+    if (!object || !Number.isFinite(Number(object[key]))) return;
+    const next = convert(object[key]);
+    if (next != null) object[key] = next;
+  };
+
+  assign(state, "monthlyExpenses");
+  (state.expenses.recurring || []).forEach((item) => assign(item, "amount"));
+  (state.expenses.oneoff || []).forEach((item) => assign(item, "amount"));
+  (state.expenses.history || []).forEach((item) => assign(item, "total"));
+  Object.entries(state.income.amounts || {}).forEach(([key, value]) => {
+    const next = convert(value);
+    if (next != null) state.income.amounts[key] = next;
+  });
+  (state.vehicles || []).forEach((vehicle) => {
+    ["price", "lastMonthSpent"].forEach((key) => assign(vehicle, key));
+    (vehicle.sched || []).forEach((item) => assign(item, "amount"));
+    (vehicle.oneoff || []).forEach((item) => assign(item, "amount"));
+  });
+  const hub = state.vehicleHub || {};
+  ["toll", "parking", "other"].forEach((key) => assign(hub.extras, key));
+  (hub.trips || []).forEach((trip) => {
+    ["fuel", "fuelRound", "fuelOne", "total"].forEach((key) => assign(trip, key));
+    ["toll", "parking", "other"].forEach((key) => assign(trip.extras, key));
+  });
+
+  (state.portfolio.holdings || []).forEach((holding) => {
+    assign(holding, "value");
+    if (holding.assetType === "crypto" || holding.assetType === "gold") assign(holding, "price");
+  });
+  return true;
+}
+
+function settlePendingCurrencyRebase() {
+  if (!pendingCurrencyRebase) return;
+  const pending = pendingCurrencyRebase;
+  if (pending.to === state.currency && rebaseAppCurrencyValues(pending.from, pending.to)) {
+    rebasePortfolioCommandCosts(pending.from, pending.to);
+    pendingCurrencyRebase = null;
+    return;
+  }
+  // If the user switched back before an FX quote was available, values never
+  // left the original currency and no conversion is needed.
+  if (pending.from === state.currency) pendingCurrencyRebase = null;
+}
+
 function rebasePortfolioCommandCosts(fromCurrency, toCurrency) {
   const from = fromCurrency === "TL" ? "TRY" : "USD";
   const to = toCurrency === "TL" ? "TRY" : "USD";
@@ -7647,13 +7756,30 @@ function rebasePortfolioCommandCosts(fromCurrency, toCurrency) {
 function setCurrency(cur) {
   if (cur === state.currency || !CURRENCY_META[cur]) return;
   const previousCurrency = state.currency;
-  rebasePortfolioCommandCosts(previousCurrency, cur);
+  // If an earlier switch was waiting for FX and the user immediately switched
+  // back before a quote arrived, the stored values are still in the original
+  // currency. Cancel that pending conversion instead of applying the reverse
+  // conversion to values that were never moved.
+  const reversedPending = pendingCurrencyRebase
+    && pendingCurrencyRebase.to === previousCurrency
+    && pendingCurrencyRebase.from === cur
+    && !(usdTry > 0);
+  if (reversedPending) pendingCurrencyRebase = null;
+  else settlePendingCurrencyRebase();
+  const rebased = reversedPending || rebaseAppCurrencyValues(previousCurrency, cur);
+  if (rebased) {
+    rebasePortfolioCommandCosts(previousCurrency, cur);
+    pendingCurrencyRebase = null;
+  } else {
+    pendingCurrencyRebase = { from: previousCurrency, to: cur };
+  }
   state.currency = cur;
   if (el.savingsGoalCurrency) el.savingsGoalCurrency.value = cur;
+  if (el.expenses) el.expenses.value = state.monthlyExpenses > 0 ? formatThousands(state.monthlyExpenses) : "";
   el.inflation.value = formatRate(state.inflation[cur], false);
   // USD holdings convert differently per app currency; recompute before rendering.
   state.portfolio.holdings.forEach((h) => { if (h.assetType === "usd") h.value = usdHoldingValue(h.usd || 0); });
-  buildLayout(); refresh(); refreshExpenses(); buildCarHub(); buildPortfolio(); refreshPortfolio(); refreshIncome();
+  buildLayout(); refresh(); buildExpenses(); buildCarHub(); buildPortfolio(); buildIncome(); refreshPortfolio(); refreshIncome();
   refreshCryptoPrices(); // refetch crypto prices in the new currency
   buildWatchlist(); refreshWatchData();
   renderHomeDashboard();
@@ -8118,8 +8244,12 @@ function loadState() {
   if (s.expenses && Array.isArray(s.expenses.recurring)) {
     const e = s.expenses;
     state.expenses = {
-      month: e.month || "", recurring: e.recurring || [], oneoff: e.oneoff || [],
-      history: e.history || [], recSeq: e.recSeq || 0, oneSeq: e.oneSeq || 0,
+      month: typeof e.month === "string" ? e.month : "",
+      recurring: Array.isArray(e.recurring) ? e.recurring.filter((item) => item && typeof item === "object") : [],
+      oneoff: Array.isArray(e.oneoff) ? e.oneoff.filter((item) => item && typeof item === "object") : [],
+      history: Array.isArray(e.history) ? e.history.filter((item) => item && typeof item === "object") : [],
+      recSeq: Number.isFinite(e.recSeq) ? Math.max(0, Math.round(e.recSeq)) : 0,
+      oneSeq: Number.isFinite(e.oneSeq) ? Math.max(0, Math.round(e.oneSeq)) : 0,
     };
   }
   if (s.monthlyBudget && typeof s.monthlyBudget === "object") {
@@ -8171,7 +8301,7 @@ function loadState() {
     const v = s.vehicleHub;
     state.vehicleHub = {
       activeVehicle: v.activeVehicle || "",
-      trips: Array.isArray(v.trips) ? v.trips : [],
+      trips: Array.isArray(v.trips) ? v.trips.filter((trip) => trip && typeof trip === "object") : [],
       fromP: v.fromP || v.from || "", fromD: v.fromD || "", toP: v.toP || v.to || "", toD: v.toD || "",
       lastRoute: v.lastRoute || null, seq: v.seq || 0,
       tripType: v.tripType === "roundtrip" ? "roundtrip" : "oneway",
@@ -8304,7 +8434,7 @@ function loadState() {
   }
   if (s.savingsGoals && typeof s.savingsGoals === "object") {
     const seenGoalIds = new Set();
-    const items = Array.isArray(s.savingsGoals.items) ? s.savingsGoals.items.map((goal) => ({
+    const items = Array.isArray(s.savingsGoals.items) ? s.savingsGoals.items.filter((goal) => goal && typeof goal === "object").map((goal) => ({
       id: typeof goal.id === "string" ? goal.id.slice(0, 80) : "",
       name: typeof goal.name === "string" ? goal.name.slice(0, 60) : "",
       target: Number.isFinite(goal.target) ? Math.max(0, goal.target) : 0,
@@ -8319,7 +8449,7 @@ function loadState() {
   }
   if (s.homeNotes && typeof s.homeNotes === "object") {
     const seenNoteIds = new Set();
-    const items = Array.isArray(s.homeNotes.items) ? s.homeNotes.items.map((note) => ({
+    const items = Array.isArray(s.homeNotes.items) ? s.homeNotes.items.filter((note) => note && typeof note === "object").map((note) => ({
       id: typeof note.id === "string" ? note.id.slice(0, 80) : "",
       text: typeof note.text === "string" ? note.text.slice(0, 120) : "",
       done: !!note.done,
@@ -8332,7 +8462,7 @@ function loadState() {
   }
   if (s.countdowns && typeof s.countdowns === "object") {
     const seenCountdownIds = new Set();
-    const items = Array.isArray(s.countdowns.items) ? s.countdowns.items.map((item) => {
+    const items = Array.isArray(s.countdowns.items) ? s.countdowns.items.filter((item) => item && typeof item === "object").map((item) => {
       const date = typeof item.date === "string" && parseDateInput(item.date) ? item.date : "";
       const storedTarget = typeof item.target === "string" && Number.isFinite(Date.parse(item.target)) ? new Date(item.target).toISOString() : "";
       return {
@@ -8421,7 +8551,19 @@ function scheduleStartupBackgroundWork() {
 }
 scheduleStartupBackgroundWork();
 
-setInterval(() => { checkVehicleNotifications(); refreshWatchData(); }, 60 * 60 * 1000);
+setInterval(() => {
+  syncExpenseMonth();
+  checkVehicleNotifications();
+  refreshWatchData();
+}, 60 * 60 * 1000);
 setInterval(renderCountdowns, 60 * 1000);
 setInterval(renderFffTerminalClock, 30 * 1000);
-document.addEventListener("visibilitychange", () => { if (!document.hidden) { checkVehicleNotifications(); refreshWatchData(); renderFffTerminalClock(); } syncCommandOrbMotion(); });
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    syncExpenseMonth();
+    checkVehicleNotifications();
+    refreshWatchData();
+    renderFffTerminalClock();
+  }
+  syncCommandOrbMotion();
+});

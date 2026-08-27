@@ -417,7 +417,7 @@ const I18N = {
     car_add_favorite: "Add favorite", car_favorite_saved: "Favorite route saved ★", car_favorites: "Favorite routes",
     car_clear: "Clear route", car_details: "Details", car_vehicle: "Vehicle", car_route_type: "Trip type", car_fuel_cost: "Fuel cost",
     car_save_trip: "Save trip", car_trip_saved: "Trip saved ✓",
-    car_profiles: "Car profiles", car_add_profile: "+ Add car", car_model_ph: "Brand & model", car_visual_gallery: "Iconic lineup",
+    car_profiles: "Car profiles", car_add_profile: "+ Add car", car_model_ph: "Brand & model",
     car_fuel_type: "Fuel", car_consumption: "Consumption", car_consumption_hint: "/100 km",
     car_price: "Fuel price", car_price_hint: "per L / kWh", car_active: "Active",
     car_fuel_gas: "Petrol", car_fuel_diesel: "Diesel", car_fuel_lpg: "LPG", car_fuel_electric: "Electric", car_fuel_hybrid: "Hybrid",
@@ -608,7 +608,7 @@ const I18N = {
     car_add_favorite: "Favorilere ekle", car_favorite_saved: "Favori rota kaydedildi ★", car_favorites: "Favori rotalar",
     car_clear: "Rotayı temizle", car_details: "Detaylar", car_vehicle: "Araç", car_route_type: "Yolculuk türü", car_fuel_cost: "Yakıt gideri",
     car_save_trip: "Yolculuğu kaydet", car_trip_saved: "Yolculuk kaydedildi ✓",
-    car_profiles: "Araç profilleri", car_add_profile: "+ Araç ekle", car_model_ph: "Marka ve model", car_visual_gallery: "İkonik seri",
+    car_profiles: "Araç profilleri", car_add_profile: "+ Araç ekle", car_model_ph: "Marka ve model",
     car_fuel_type: "Yakıt", car_consumption: "Tüketim", car_consumption_hint: "/100 km",
     car_price: "Yakıt fiyatı", car_price_hint: "L / kWh başına", car_active: "Aktif",
     car_fuel_gas: "Benzin", car_fuel_diesel: "Dizel", car_fuel_lpg: "LPG", car_fuel_electric: "Elektrik", car_fuel_hybrid: "Hibrit",
@@ -1915,48 +1915,18 @@ function updateVehicleVisual(card, vehicle) {
   const image = card.querySelector("[data-veh-image]");
   const fallback = card.querySelector("[data-veh-image-fallback]");
   const initials = card.querySelector("[data-veh-visual-initials]");
-  const gallery = card.querySelector("[data-veh-gallery]");
   if (initials) initials.textContent = meta.initials || "CAR";
   if (!image || !fallback) return;
   if (!meta.image) {
     image.hidden = true;
     image.removeAttribute("src");
     fallback.hidden = false;
-    if (gallery) {
-      gallery.hidden = true;
-      gallery.dataset.count = "0";
-      gallery.replaceChildren();
-      gallery.dataset.signature = "";
-    }
     return;
   }
   image.hidden = false;
   fallback.hidden = true;
   image.alt = meta.label;
   if (image.getAttribute("src") !== meta.image) image.src = meta.image;
-  if (gallery) {
-    const items = (meta.gallery || []).slice(0, 3);
-    const signature = items.map((item) => item.src).join("|");
-    if (gallery.dataset.signature !== signature) {
-      gallery.replaceChildren();
-      gallery.dataset.signature = signature;
-      items.forEach((item) => {
-        const thumbWrap = document.createElement("div");
-        thumbWrap.className = "veh-visual-thumb";
-        thumbWrap.setAttribute("aria-hidden", "true");
-        const thumb = document.createElement("img");
-        thumb.src = item.src;
-        thumb.alt = "";
-        thumb.loading = "lazy";
-        thumb.decoding = "async";
-        thumb.addEventListener("error", () => { thumbWrap.hidden = true; });
-        thumbWrap.appendChild(thumb);
-        gallery.appendChild(thumbWrap);
-      });
-    }
-    gallery.dataset.count = String(items.length);
-    gallery.hidden = items.length === 0;
-  }
 }
 
 function makeVehicleCard(v) {
@@ -1985,7 +1955,6 @@ function makeVehicleCard(v) {
           <img class="veh-model-image" data-veh-image alt="" loading="lazy" hidden />
           <div class="veh-image-fallback" data-veh-image-fallback><strong data-veh-visual-initials>CAR</strong></div>
         </div>
-        <div class="veh-visual-rail" data-veh-gallery aria-label="${t("car_visual_gallery")}" hidden></div>
       </section>
       <div class="veh-card-core">
         <section class="veh-cost-readout" aria-label="Vehicle monthly cost">

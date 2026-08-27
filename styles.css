@@ -4273,15 +4273,42 @@ body.modal-open { overflow: hidden; }
 .exp-stat--due::after { background: color-mix(in srgb, var(--warn) 14%, transparent); }
 .exp-stat:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent-2) 26%, var(--glass-border-soft)); }
 .exp-reminders,
-.budget-panel,
 .expense-list-panel,
 .exp-history { border-radius: 22px; }
 .expense-list-panel { padding: 22px 24px 24px; }
 .expense-list-panel .exp-row { padding: 12px 13px; border-radius: 15px; background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(0,0,0,.1)); }
 .expense-list-panel .add-cat { min-height: 47px; border-style: dashed; border-radius: 14px; }
-.budget-panel { background-image: linear-gradient(145deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent 52%); }
-.budget-overview > div { transition: transform .2s ease, border-color .2s ease; }
-.budget-overview > div:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--accent-2) 25%, var(--glass-border-soft)); }
+
+/* Expenses use a measured two-column rhythm: the context spans the page,
+   while the two editable lists share one balanced row. */
+#view-savings:not([hidden]) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 18px;
+}
+#view-savings:not([hidden]) > .fff-view-heading,
+#view-savings:not([hidden]) > .expense-hero,
+#view-savings:not([hidden]) > .exp-summary,
+#view-savings:not([hidden]) > .exp-reminders,
+#view-savings:not([hidden]) > .exp-history,
+#view-savings:not([hidden]) > datalist {
+  grid-column: 1 / -1;
+}
+#view-savings:not([hidden]) > .exp-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+#view-savings:not([hidden]) > .expense-list-panel {
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+#view-savings:not([hidden]) > .expense-list-panel .savings-list {
+  flex: 1;
+}
 
 /* Watchlist and market data */
 .watch-panel,
@@ -4358,6 +4385,12 @@ body.modal-open { overflow: hidden; }
   .watch-row { padding: 12px 10px; }
   .tr-list { grid-template-columns: 1fr; }
   .tr-row { padding: 12px; }
+}
+@media (max-width: 900px) {
+  #view-savings:not([hidden]) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
 }
 @media (max-width: 420px) {
   .expense-hero { align-items: flex-start; flex-wrap: wrap; }

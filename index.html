@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=114" />
+  <link rel="stylesheet" href="styles.css?v=115" />
   <link rel="stylesheet" href="fff-theme.css?v=97" />
 </head>
 <body>
@@ -453,32 +453,6 @@
         <div class="exp-reminder-list" id="expReminderList"></div>
       </section>
 
-      <!-- Category-based monthly budget -->
-      <section class="glass budget-panel" aria-labelledby="budgetTitle">
-        <div class="feature-section-head">
-          <div>
-            <h3 class="settings-label" id="budgetTitle" data-i18n="budget_title">Monthly budget</h3>
-          </div>
-          <span class="feature-month-chip" id="budgetMonth">—</span>
-        </div>
-        <div class="budget-overview">
-          <div><span data-i18n="budget_spent">Spent</span><strong id="budgetSpent">—</strong></div>
-          <div><span data-i18n="budget_limit">Budget</span><strong id="budgetLimit">—</strong></div>
-          <div><span data-i18n="budget_remaining">Remaining</span><strong id="budgetRemaining">—</strong></div>
-        </div>
-        <div class="budget-progress" id="budgetProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="budgetProgressText">
-          <span id="budgetProgressFill"></span>
-        </div>
-        <p class="budget-progress-text" id="budgetProgressText">—</p>
-        <div class="budget-list" id="budgetList" aria-live="polite"></div>
-        <p class="feature-empty" id="budgetEmpty" data-i18n="budget_empty">No category limit yet.</p>
-        <form class="budget-form" id="budgetForm">
-          <label><span data-i18n="budget_category">Category</span><input id="budgetCategory" list="expCatList" maxlength="40" required data-i18n-placeholder="exp_cat_ph" placeholder="Category" /></label>
-          <label><span data-i18n="budget_limit">Budget</span><span class="money-input money-input--sm"><span class="money-symbol exp-symbol">$</span><input id="budgetAmount" type="text" inputmode="numeric" required placeholder="0" /></span></label>
-          <button class="settings-action settings-action--primary" type="submit" data-i18n="budget_save">Save limit</button>
-        </form>
-      </section>
-
       <!-- Recurring expenses -->
       <section class="glass savings-panel expense-list-panel" aria-labelledby="expRecurringTitle">
         <div class="modern-section-head">
@@ -858,11 +832,6 @@
         <p class="savings-note" id="watchEmpty" data-i18n="watch_empty">Search above and tap to add assets to your watchlist.</p>
       </section>
 
-      <!-- Crypto-bubbles overview (sized + colored by 24h change) -->
-      <section class="glass watch-bubbles-sec" id="watchBubblesSec" aria-label="Bubbles" hidden>
-        <div class="watch-bubbles" id="watchBubbles"></div>
-      </section>
-
     </div><!-- /view-watch -->
 
     <footer class="fff-terminal-footer" aria-label="Sistem durumu">
@@ -1012,7 +981,7 @@
   </div>
 
   <script src="command-parser.js?v=4"></script>
-  <script src="app.js?v=126"></script>
+  <script src="app.js?v=128"></script>
 
   <!-- Vercel Web Analytics (static-site injection; loads only on the deployed Vercel domain) -->
   <script>

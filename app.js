@@ -714,7 +714,8 @@ const state = {
   expenses: {
     month: "", recurring: [], oneoff: [], history: [], recSeq: 0, oneSeq: 0,
   },
-  // Reusable category limits, kept separately for USD and TL budgets.
+  // Legacy category limits are retained when loading older backups, but the
+  // budget surface is no longer exposed in the expenses UI.
   monthlyBudget: { items: [], seq: 0 },
   // Vehicles: each has a name (brand-model), fuel specs (fuel/consumption/price for
   // route fuel cost), dated payment reminders (sched) and logged expenses (oneoff).
@@ -839,18 +840,6 @@ const el = {
   expHistorySec: document.getElementById("expHistorySec"),
   expHistToggle: document.getElementById("expHistToggle"),
   expHistList: document.getElementById("expHistList"),
-  budgetMonth: document.getElementById("budgetMonth"),
-  budgetSpent: document.getElementById("budgetSpent"),
-  budgetLimit: document.getElementById("budgetLimit"),
-  budgetRemaining: document.getElementById("budgetRemaining"),
-  budgetProgress: document.getElementById("budgetProgress"),
-  budgetProgressFill: document.getElementById("budgetProgressFill"),
-  budgetProgressText: document.getElementById("budgetProgressText"),
-  budgetList: document.getElementById("budgetList"),
-  budgetEmpty: document.getElementById("budgetEmpty"),
-  budgetForm: document.getElementById("budgetForm"),
-  budgetCategory: document.getElementById("budgetCategory"),
-  budgetAmount: document.getElementById("budgetAmount"),
   vehList: document.getElementById("vehList"),
   vehCount: document.getElementById("vehCount"),
   addVehicle: document.getElementById("addVehicle"),
@@ -919,8 +908,6 @@ const el = {
   watchList: document.getElementById("watchList"),
   watchEmpty: document.getElementById("watchEmpty"),
   watchCount: document.getElementById("watchCount"),
-  watchBubblesSec: document.getElementById("watchBubblesSec"),
-  watchBubbles: document.getElementById("watchBubbles"),
   homeCardList: document.getElementById("homeCardList"),
   resetHomeCards: document.getElementById("resetHomeCards"),
   dashboardGrid: document.getElementById("dashboardGrid"),
@@ -1455,118 +1442,9 @@ function vehMonthlyTotal(v) {
 }
 function vehiclesMonthlyTotal() { return (state.vehicles || []).reduce((a, v) => a + vehMonthlyTotal(v), 0); }
 
-// ---- Monthly category budgets ----
-function normalizedCategory(value) {
-  return String(value || "").trim().toLocaleLowerCase(state.lang === "tr" ? "tr-TR" : "en-US").replace(/\s+/g, " ");
-}
-function expenseCategoryId(value) {
-  const normalized = normalizedCategory(value);
-  return EXPENSE_CATS.find((id) => [id, I18N.en.ecat[id], I18N.tr.ecat[id]].some((label) => normalizedCategory(label) === normalized)) || "";
-}
-function resolveBudgetCategory(value) {
-  const trimmed = String(value || "").trim().slice(0, 40);
-  const preset = expenseCategoryId(trimmed);
-  if (preset) return { category: preset, label: "" };
-  if (["vehicle", I18N.en.budget_vehicle, I18N.tr.budget_vehicle].some((label) => normalizedCategory(label) === normalizedCategory(trimmed))) {
-    return { category: "vehicle", label: "" };
-  }
-  return { category: "custom", label: trimmed };
-}
-function budgetItemLabel(item) {
-  if (item.category === "vehicle") return t("budget_vehicle");
-  if (EXPENSE_CATS.includes(item.category)) return ecatName(item.category);
-  return item.label || t("budget_category");
-}
-function currentBudgetItems() {
-  return state.monthlyBudget.items.filter((item) => item.currency === state.currency);
-}
-function budgetItemMatches(item, rawCategory) {
-  if (item.category === "vehicle") return false;
-  if (EXPENSE_CATS.includes(item.category)) return expenseCategoryId(rawCategory) === item.category;
-  return normalizedCategory(rawCategory) === normalizedCategory(item.label);
-}
-function budgetItemSpent(item) {
-  if (item.category === "vehicle") return vehiclesMonthlyTotal();
-  let total = 0;
-  state.expenses.recurring.forEach((expense) => { if (expense.paid && budgetItemMatches(item, expense.cat)) total += expense.amount || 0; });
-  state.expenses.oneoff.forEach((expense) => { if (budgetItemMatches(item, expense.cat)) total += expense.amount || 0; });
-  return total;
-}
-function renderMonthlyBudget() {
-  if (!el.budgetList) return;
-  const items = currentBudgetItems();
-  const spent = expensesTotal();
-  const limit = items.reduce((sum, item) => sum + (item.limit || 0), 0);
-  const budgetedSpent = items.reduce((sum, item) => sum + budgetItemSpent(item), 0);
-  const unbudgetedSpent = Math.max(0, spent - budgetedSpent);
-  const remaining = limit - spent;
-  const rate = limit > 0 ? (spent / limit) * 100 : 0;
-  const cappedRate = Math.min(100, Math.max(0, rate));
-
-  el.budgetMonth.textContent = monthLabel(state.expenses.month);
-  el.budgetSpent.textContent = formatMoney(spent);
-  el.budgetLimit.textContent = formatMoney(limit);
-  el.budgetRemaining.textContent = limit > 0 ? (remaining >= 0 ? formatMoney(remaining) : "−" + formatMoney(Math.abs(remaining))) : "—";
-  el.budgetRemaining.classList.toggle("is-over", limit > 0 && remaining < 0);
-  el.budgetProgressFill.style.width = cappedRate + "%";
-  el.budgetProgress.classList.toggle("is-near", rate >= 80 && rate < 100);
-  el.budgetProgress.classList.toggle("is-over", rate >= 100);
-  el.budgetProgress.setAttribute("aria-valuenow", String(Math.round(cappedRate)));
-  const progressMessage = limit <= 0
-    ? t("budget_no_limit")
-    : remaining < 0
-      ? t("budget_over", { amount: formatMoney(Math.abs(remaining)) })
-      : t("budget_progress", { rate: Math.round(rate) });
-  el.budgetProgressText.textContent = progressMessage + (limit > 0 && unbudgetedSpent > 0 ? " · " + t("budget_unbudgeted", { amount: formatMoney(unbudgetedSpent) }) : "");
-
-  el.budgetEmpty.hidden = items.length > 0;
-  el.budgetList.innerHTML = items.map((item) => {
-    const itemSpent = budgetItemSpent(item);
-    const itemRate = item.limit > 0 ? (itemSpent / item.limit) * 100 : 0;
-    const itemWidth = Math.min(100, Math.max(0, itemRate));
-    const stateClass = itemRate >= 100 ? " is-over" : itemRate >= 80 ? " is-near" : "";
-    return `<div class="budget-row${stateClass}" data-budget-id="${escapeHtml(item.id)}">
-      <div class="budget-row-head"><strong>${escapeHtml(budgetItemLabel(item))}</strong><span>${formatMoney(itemSpent)} / ${formatMoney(item.limit)}</span></div>
-      <div class="budget-row-track" aria-hidden="true"><span style="width:${itemWidth}%"></span></div>
-      <div class="budget-row-actions">
-        <label class="money-input money-input--sm"><span class="money-symbol exp-symbol">${CURRENCY_META[state.currency].symbol}</span><input type="text" inputmode="numeric" data-budget-limit="${escapeHtml(item.id)}" value="${item.limit ? formatThousands(item.limit) : ""}" aria-label="${escapeHtml(t("budget_limit") + " · " + budgetItemLabel(item))}" /></label>
-        <button class="cat-remove" type="button" data-budget-delete="${escapeHtml(item.id)}" aria-label="remove">×</button>
-      </div>
-    </div>`;
-  }).join("");
-
-  el.budgetList.querySelectorAll("[data-budget-limit]").forEach((input) => {
-    input.addEventListener("change", () => {
-      const item = state.monthlyBudget.items.find((entry) => entry.id === input.dataset.budgetLimit);
-      if (!item) return;
-      const nextLimit = Math.max(0, parseNumber(input.value));
-      if (!(nextLimit > 0)) { showAppToast(t("budget_invalid")); renderMonthlyBudget(); return; }
-      item.limit = nextLimit;
-      saveState(); renderMonthlyBudget();
-    });
-    input.addEventListener("blur", () => { if (parseNumber(input.value) > 0) input.value = formatThousands(parseNumber(input.value)); });
-  });
-  el.budgetList.querySelectorAll("[data-budget-delete]").forEach((button) => button.addEventListener("click", () => {
-    state.monthlyBudget.items = state.monthlyBudget.items.filter((item) => item.id !== button.dataset.budgetDelete);
-    saveState(); renderMonthlyBudget(); sfx("remove");
-  }));
-}
-function saveBudgetLimit(event) {
-  event.preventDefault();
-  const resolved = resolveBudgetCategory(el.budgetCategory.value);
-  const limit = Math.max(0, parseNumber(el.budgetAmount.value));
-  if ((!resolved.label && resolved.category === "custom") || !(limit > 0)) { showAppToast(t("budget_invalid")); return; }
-  const existing = currentBudgetItems().find((item) => item.category === resolved.category && (resolved.category !== "custom" || normalizedCategory(item.label) === normalizedCategory(resolved.label)));
-  if (existing) existing.limit = limit;
-  else state.monthlyBudget.items.push({ id: "b" + ++state.monthlyBudget.seq, currency: state.currency, category: resolved.category, label: resolved.label, limit });
-  el.budgetCategory.value = "";
-  el.budgetAmount.value = "";
-  saveState(); renderMonthlyBudget(); sfx("success"); showAppToast(t("budget_saved"));
-}
-
 function buildExpenses() {
   // category suggestions (translated presets; users can still type their own)
-  el.expCatList.innerHTML = [...EXPENSE_CATS.map((c) => ecatName(c)), t("budget_vehicle")].map((label) => `<option value="${escapeHtml(label)}"></option>`).join("");
+  el.expCatList.innerHTML = EXPENSE_CATS.map((c) => ecatName(c)).map((label) => `<option value="${escapeHtml(label)}"></option>`).join("");
   el.expRecList.innerHTML = "";
   state.expenses.recurring.forEach((r) => el.expRecList.appendChild(makeRecRow(r)));
   el.expOneList.innerHTML = "";
@@ -1656,7 +1534,6 @@ function refreshExpenses() {
   document.querySelectorAll("#view-savings .exp-symbol").forEach((s) => (s.textContent = sym));
   el.expMonthLabel.textContent = monthLabel(state.expenses.month);
   el.expTotal.textContent = formatMoney(expensesTotal());
-  renderMonthlyBudget();
 
   // Reminders: recurring bills + vehicle dated payments, combined into one list.
   const todayDay = new Date().getDate();
@@ -4013,7 +3890,6 @@ function fffOperatorProgress() {
   const countdownCount = state.countdowns.items.length;
   const alertCount = state.notifications.priceAlerts.length;
   const noteCount = state.homeNotes.items.length;
-  const budgetCount = (state.monthlyBudget.items || []).filter((item) => (item.amount || item.limit || 0) > 0).length;
   const freedomUsed = !!state.homeLayout.freedomExpanded;
   const snapshot = financialSnapshot();
   const vehicleCount = (state.vehicles || []).length;
@@ -4030,7 +3906,6 @@ function fffOperatorProgress() {
     { id: "portfolio", complete: holdingCount > 0, mission: "fff_mission_portfolio", view: "portfolio" },
     { id: "income", complete: incomeCount > 0, mission: "fff_mission_income", view: "income" },
     { id: "expenses", complete: expenseCount > 0, mission: "fff_mission_expenses", view: "savings" },
-    { id: "budget", complete: budgetCount > 0, mission: "fff_mission_budget", view: "savings" },
     { id: "alert", complete: alertCount > 0, mission: "fff_mission_alert", view: "home", widget: "alerts" },
     { id: "goals", complete: goalCount > 0, mission: "fff_mission_goals", view: "home", widget: "goals" },
     { id: "vehicle", complete: vehicleCount > 0, mission: "fff_mission_vehicle", view: "car" },
@@ -4053,7 +3928,6 @@ function fffOperatorProgress() {
     alertCount > 0,
     snapshot.net > 0 && snapshot.income > 0,
     snapshot.diversity >= 3,
-    budgetCount > 0,
     vehicleCount > 0,
     routeCount > 0,
     streak.current >= 3,
@@ -4069,7 +3943,6 @@ function fffOperatorProgress() {
     + Math.min(countdownCount, 4) * 6
     + Math.min(alertCount, 4) * 6
     + Math.min(noteCount, 6) * 3
-    + Math.min(budgetCount, 5) * 6
     + Math.min(vehicleCount, 3) * 8
     + Math.min(routeCount, 4) * 10
     + Math.max(0, Math.round(state.dailyStreak.xp || 0));
@@ -4998,27 +4871,11 @@ function insightPortfolioMetrics() {
   };
 }
 
-function insightBudgetMetrics() {
-  const items = currentBudgetItems().filter((item) => item.limit > 0).map((item) => {
-    const spent = budgetItemSpent(item);
-    return { item, spent, rate: (spent / item.limit) * 100 };
-  });
-  if (!items.length) return null;
-  const top = [...items].sort((a, b) => b.rate - a.rate)[0];
-  const limit = items.reduce((sum, entry) => sum + entry.item.limit, 0);
-  const spent = expensesTotal();
-  return {
-    top,
-    rate: limit > 0 ? (spent / limit) * 100 : 0,
-  };
-}
-
 function smartInsights(snapshot = financialSnapshot()) {
   const candidates = [];
   const add = (id, priority, insight) => candidates.push({ id, priority, ...insight });
   const portfolio = insightPortfolioMetrics();
-  const budget = insightBudgetMetrics();
-  const hasData = snapshot.income > 0 || snapshot.expenses > 0 || portfolio.total > 0 || state.savingsGoals.items.length > 0 || !!budget;
+  const hasData = snapshot.income > 0 || snapshot.expenses > 0 || portfolio.total > 0 || state.savingsGoals.items.length > 0;
 
   if (!hasData) return [{ icon: "🧭", title: t("insight_setup_title"), body: t("insight_setup_body") }];
 
@@ -5033,14 +4890,6 @@ function smartInsights(snapshot = financialSnapshot()) {
   if (snapshot.income > 0) {
     const savingsPriority = snapshot.savingsRate < 10 ? 108 : snapshot.savingsRate < 20 ? 82 : 55;
     add("savings", savingsPriority, { icon: "%", tone: snapshot.savingsRate >= 20 ? "good" : "warn", title: t("insight_rate_title"), body: t("insight_rate_body", { rate: Math.round(snapshot.savingsRate) }) });
-  }
-
-  if (budget && budget.top) {
-    const rate = Math.round(Math.max(0, budget.top.rate));
-    if (rate >= 80) add("budget", rate >= 100 ? 132 : 104, {
-      icon: "₺", tone: rate >= 100 ? "warn" : "", title: t("insight_budget_title"),
-      body: t("insight_budget_body", { name: budgetItemLabel(budget.top.item), rate }),
-    });
   }
 
   if (portfolio.topShare >= 45) {
@@ -6854,20 +6703,17 @@ function paintBubble(b) {
   b.node.title = b.name;
 }
 function bubbleHosts() {
-  return [el.watchBubbles, el.homeWatchPreview].filter(Boolean);
+  return [el.homeWatchPreview].filter(Boolean);
 }
 function activeBubbleHost() {
   const homeView = document.getElementById("view-home");
-  const watchView = document.getElementById("view-watch");
   if (homeView && !homeView.hidden && el.homeWatchPreview) return el.homeWatchPreview;
-  if (watchView && !watchView.hidden && el.watchBubbles) return el.watchBubbles;
   return bubbleHosts().find((host) => host.offsetParent !== null) || null;
 }
 function syncBubbles() {
   const hosts = bubbleHosts();
   if (!hosts.length) return;
   const host = activeBubbleHost();
-  el.watchBubblesSec.hidden = !state.watchlist.length;
   if (el.homeWatchPreview) el.homeWatchPreview.hidden = !state.watchlist.length;
   if (!state.watchlist.length) {
     stopBubbles();
@@ -7937,7 +7783,6 @@ document.querySelectorAll("[data-currency]").forEach((b) => b.addEventListener("
 el.addRecurring.addEventListener("click", addRecurring);
 el.addExpense.addEventListener("click", addExpense);
 el.exportExpenseReport?.addEventListener("click", printExpenseReport);
-el.budgetForm.addEventListener("submit", saveBudgetLimit);
 el.addVehicle.addEventListener("click", addVehicle);
 el.carCalc.addEventListener("click", calcCarRoute);
 el.carSaveTrip.addEventListener("click", saveCarTrip);
@@ -8112,7 +7957,7 @@ document.querySelectorAll("[data-theme-pick]").forEach((b) => b.addEventListener
     if (name === "portfolio") refreshPortfolio();
     if (name === "income") refreshIncome();
     if (name === "watch") { refreshWatchData(); buildTopPerformers(); buildTrPanel(); }
-    if (name === "home" || name === "watch") { syncBubbles(); kickBubbles(); }
+    if (name === "home") { syncBubbles(); kickBubbles(); }
     else stopBubbles(); // pause the bubble animation loop off the dashboard views
     if (name === "settings") { preloadThemeWallpapers(); renderHomeCardSettings(); renderPwaSettings(); renderNotificationSettings(); }
     if (name === "home") renderHomeDashboard();

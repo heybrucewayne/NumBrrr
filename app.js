@@ -417,7 +417,7 @@ const I18N = {
     car_add_favorite: "Add favorite", car_favorite_saved: "Favorite route saved ★", car_favorites: "Favorite routes",
     car_clear: "Clear route", car_details: "Details", car_vehicle: "Vehicle", car_route_type: "Trip type", car_fuel_cost: "Fuel cost",
     car_save_trip: "Save trip", car_trip_saved: "Trip saved ✓",
-    car_profiles: "Car profiles", car_add_profile: "+ Add car", car_model_ph: "Brand & model", car_visual_snapshot: "Model snapshot", car_visual_live: "Live", car_visual_profile: "Profile", car_visual_no_remote: "No remote profile",
+    car_profiles: "Car profiles", car_add_profile: "+ Add car", car_model_ph: "Brand & model", car_visual_snapshot: "Model snapshot", car_visual_live: "Live", car_visual_profile: "Profile", car_visual_gallery: "Iconic lineup", car_visual_no_remote: "No remote profile",
     car_fuel_type: "Fuel", car_consumption: "Consumption", car_consumption_hint: "/100 km",
     car_price: "Fuel price", car_price_hint: "per L / kWh", car_active: "Active",
     car_fuel_gas: "Petrol", car_fuel_diesel: "Diesel", car_fuel_lpg: "LPG", car_fuel_electric: "Electric", car_fuel_hybrid: "Hybrid",
@@ -608,7 +608,7 @@ const I18N = {
     car_add_favorite: "Favorilere ekle", car_favorite_saved: "Favori rota kaydedildi ★", car_favorites: "Favori rotalar",
     car_clear: "Rotayı temizle", car_details: "Detaylar", car_vehicle: "Araç", car_route_type: "Yolculuk türü", car_fuel_cost: "Yakıt gideri",
     car_save_trip: "Yolculuğu kaydet", car_trip_saved: "Yolculuk kaydedildi ✓",
-    car_profiles: "Araç profilleri", car_add_profile: "+ Araç ekle", car_model_ph: "Marka ve model", car_visual_snapshot: "Model önizlemesi", car_visual_live: "Canlı", car_visual_profile: "Profil", car_visual_no_remote: "Uzak görsel yok",
+    car_profiles: "Araç profilleri", car_add_profile: "+ Araç ekle", car_model_ph: "Marka ve model", car_visual_snapshot: "Model önizlemesi", car_visual_live: "Canlı", car_visual_profile: "Profil", car_visual_gallery: "İkonik seri", car_visual_no_remote: "Uzak görsel yok",
     car_fuel_type: "Yakıt", car_consumption: "Tüketim", car_consumption_hint: "/100 km",
     car_price: "Yakıt fiyatı", car_price_hint: "L / kWh başına", car_active: "Aktif",
     car_fuel_gas: "Benzin", car_fuel_diesel: "Dizel", car_fuel_lpg: "LPG", car_fuel_electric: "Elektrik", car_fuel_hybrid: "Hibrit",
@@ -1760,36 +1760,149 @@ function refreshVehicles() {
   wireFffMagneticControls();
 }
 
+const VEHICLE_VISUAL_ASSETS = Object.freeze({
+  bmwG20: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/G20-Front.jpg/960px-G20-Front.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:G20-Front.jpg",
+    sourceLabel: "Wikimedia · M3C30 · CC BY-SA 4.0",
+    alt: "BMW 3 Serisi G20",
+  },
+  bmwM3: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/BMW_M3_%28E46%29_Touring_Retro_Classics_2025_DSC_7690.jpg/960px-BMW_M3_%28E46%29_Touring_Retro_Classics_2025_DSC_7690.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:BMW_M3_(E46)_Touring_Retro_Classics_2025_DSC_7690.jpg",
+    sourceLabel: "Wikimedia · Alexander Migl · CC BY-SA 4.0",
+    alt: "BMW M3 E46",
+  },
+  bmw2002: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/BMW_2002_Turbo_%282008-06-28%29_ret.jpg/960px-BMW_2002_Turbo_%282008-06-28%29_ret.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:BMW_2002_Turbo_(2008-06-28)_ret.jpg",
+    sourceLabel: "Wikimedia · Spurzem · CC BY-SA 2.0 de",
+    alt: "BMW 2002 Turbo",
+  },
+  mercedesC: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/2022_Mercedes_C_Class.jpg/960px-2022_Mercedes_C_Class.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:2022_Mercedes_C_Class.jpg",
+    sourceLabel: "Wikimedia · Calreyn88 · CC BY-SA 4.0",
+    alt: "Mercedes C Serisi W206",
+  },
+  mercedes300SL: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Mercedes-Benz_300_SL%2C_GIMS_2024%2C_Le_Grand-Saconnex_%28GIMS0197-RR%29.jpg/960px-Mercedes-Benz_300_SL%2C_GIMS_2024%2C_Le_Grand-Saconnex_%28GIMS0197-RR%29.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_300_SL,_GIMS_2024,_Le_Grand-Saconnex_(GIMS0197-RR).jpg",
+    sourceLabel: "Wikimedia · Matti Blume · CC BY-SA 4.0",
+    alt: "Mercedes-Benz 300 SL",
+  },
+  mercedesW123: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Mercedes_W123_front_20080328.jpg/960px-Mercedes_W123_front_20080328.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Mercedes_W123_front_20080328.jpg",
+    sourceLabel: "Wikimedia · Rudolf Stricker · CC BY-SA 3.0",
+    alt: "Mercedes-Benz W123",
+  },
+  toyotaCorolla: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/2020_Toyota_Corolla_LE_%28NA-market%29_front_4.29.19.jpg/960px-2020_Toyota_Corolla_LE_%28NA-market%29_front_4.29.19.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:2020_Toyota_Corolla_LE_(NA-market)_front_4.29.19.jpg",
+    sourceLabel: "Wikimedia · Kevauto · CC BY-SA 4.0",
+    alt: "Toyota Corolla 2020",
+  },
+  toyotaSupra: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/D%C3%BClmen%2C_Auto_Bertels%2C_Toyota_GR_Supra_--_2021_--_9537.jpg/960px-D%C3%BClmen%2C_Auto_Bertels%2C_Toyota_GR_Supra_--_2021_--_9537.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Auto_Bertels,_Toyota_GR_Supra_--_2021_--_9537.jpg",
+    sourceLabel: "Wikimedia · Dietmar Rabich · CC BY-SA 4.0",
+    alt: "Toyota GR Supra",
+  },
+  toyota2000GT: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Toyota_2000GT_front_01.jpg/960px-Toyota_2000GT_front_01.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Toyota_2000GT_front_01.jpg",
+    sourceLabel: "Wikimedia · Louis Rix · CC BY 2.0",
+    alt: "Toyota 2000GT",
+  },
+  porsche911: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/2013_Porsche_911_Carrera_4S_%28991%29_%289626546987%29.jpg/960px-2013_Porsche_911_Carrera_4S_%28991%29_%289626546987%29.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:2013_Porsche_911_Carrera_4S_(991)_(9626546987).jpg",
+    sourceLabel: "Wikimedia · David Villarreal · CC BY-SA 2.0",
+    alt: "Porsche 911 Carrera 4S",
+  },
+  audiQuattro: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Audi_A6_Allroad_Quattro_C8_1X7A0301.jpg/960px-Audi_A6_Allroad_Quattro_C8_1X7A0301.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Audi_A6_Allroad_Quattro_C8_1X7A0301.jpg",
+    sourceLabel: "Wikimedia · Alexander Migl · CC BY-SA 4.0",
+    alt: "Audi A6 Allroad Quattro",
+  },
+  volkswagenGolf: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Volkswagen_Golf_VIII_GTI_Clubsport_45_IMG_4884.jpg/960px-Volkswagen_Golf_VIII_GTI_Clubsport_45_IMG_4884.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Volkswagen_Golf_VIII_GTI_Clubsport_45_IMG_4884.jpg",
+    sourceLabel: "Wikimedia · Alexander Migl · CC BY-SA 4.0",
+    alt: "Volkswagen Golf GTI",
+  },
+  fordMustang: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Ford_Mustang_VII_Convertible_Autofr%C3%BChling_Ulm_IMG_9339.jpg/960px-Ford_Mustang_VII_Convertible_Autofr%C3%BChling_Ulm_IMG_9339.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Ford_Mustang_VII_Convertible_Autofr%C3%BChling_Ulm_IMG_9339.jpg",
+    sourceLabel: "Wikimedia · Alexander Migl · CC BY-SA 4.0",
+    alt: "Ford Mustang",
+  },
+  hondaCivic: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Honda_Civic_Hybrid_%282022%2C_Europe%29_IAA_2023_1X7A0545_%282%29.jpg/960px-Honda_Civic_Hybrid_%282022%2C_Europe%29_IAA_2023_1X7A0545_%282%29.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Honda_Civic_Hybrid_(2022,_Europe)_IAA_2023_1X7A0545_(2).jpg",
+    sourceLabel: "Wikimedia · Alexander Migl · CC BY-SA 4.0",
+    alt: "Honda Civic",
+  },
+  nissanGtr: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Nissan_Skyline_GT-R_V-spec%2C_BAS_24%2C_Brussels_%28P1170369-RR%29.jpg/960px-Nissan_Skyline_GT-R_V-spec%2C_BAS_24%2C_Brussels_%28P1170369-RR%29.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Nissan_Skyline_GT-R_V-spec,_BAS_24,_Brussels_(P1170369-RR).jpg",
+    sourceLabel: "Wikimedia · Matti Blume · CC BY-SA 4.0",
+    alt: "Nissan Skyline GT-R",
+  },
+});
+
+function vehicleVisualProfile(label, initials, mainKey, galleryKeys = []) {
+  const main = VEHICLE_VISUAL_ASSETS[mainKey];
+  return {
+    label,
+    initials,
+    ...(main || {}),
+    image: main?.src || "",
+    gallery: galleryKeys.map((key) => VEHICLE_VISUAL_ASSETS[key]).filter(Boolean),
+  };
+}
+
 function vehicleVisualMeta(vehicle) {
   const name = String(vehicle?.plate || "").trim();
   const normalized = name.toLocaleLowerCase("tr-TR");
   const hasAny = (...terms) => terms.some((term) => normalized.includes(term));
   if (hasAny("320", "g20", "3 serisi", "3 series")) {
-    return {
-      label: "BMW 3 SERİSİ / G20",
-      initials: "BMW",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/G20-Front.jpg/960px-G20-Front.jpg",
-      source: "https://commons.wikimedia.org/wiki/File:G20-Front.jpg",
-      sourceLabel: "Wikimedia · M3C30 · CC BY-SA 4.0",
-    };
+    return vehicleVisualProfile("BMW 3 SERİSİ / G20", "BMW", "bmwG20", ["bmwM3", "bmw2002"]);
+  }
+  if (hasAny("m3", "m4", "m5", "bmw")) {
+    return vehicleVisualProfile("BMW M SERİSİ / E46", "BMW", "bmwM3", ["bmwG20", "bmw2002"]);
   }
   if (hasAny("c180", "c 180", "c200", "c 200", "c220", "c 220", "c300", "c 300", "w206", "c serisi", "c class")) {
-    return {
-      label: "MERCEDES C-SERİSİ / W206",
-      initials: "MB",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/2022_Mercedes_C_Class.jpg/960px-2022_Mercedes_C_Class.jpg",
-      source: "https://commons.wikimedia.org/wiki/File:2022_Mercedes_C_Class.jpg",
-      sourceLabel: "Wikimedia · Calreyn88 · CC BY-SA 4.0",
-    };
+    return vehicleVisualProfile("MERCEDES C-SERİSİ / W206", "MB", "mercedesC", ["mercedes300SL", "mercedesW123"]);
+  }
+  if (hasAny("300 sl", "300sl", "amg", "mercedes", "benz")) {
+    return vehicleVisualProfile("MERCEDES-BENZ / 300 SL", "MB", "mercedes300SL", ["mercedesC", "mercedesW123"]);
   }
   if (hasAny("corolla", "yaris", "auris")) {
-    return {
-      label: "TOYOTA COROLLA / 2020",
-      initials: "TY",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/2020_Toyota_Corolla_LE_%28NA-market%29_front_4.29.19.jpg/960px-2020_Toyota_Corolla_LE_%28NA-market%29_front_4.29.19.jpg",
-      source: "https://commons.wikimedia.org/wiki/File:2020_Toyota_Corolla_LE_(NA-market)_front_4.29.19.jpg",
-      sourceLabel: "Wikimedia · Kevauto · CC BY-SA 4.0",
-    };
+    return vehicleVisualProfile("TOYOTA COROLLA / 2020", "TY", "toyotaCorolla", ["toyotaSupra", "toyota2000GT"]);
+  }
+  if (hasAny("supra", "gt86", "gr86", "toyota")) {
+    return vehicleVisualProfile("TOYOTA GR SUPRA", "TY", "toyotaSupra", ["toyotaCorolla", "toyota2000GT"]);
+  }
+  if (hasAny("911", "carrera", "porsche")) {
+    return vehicleVisualProfile("PORSCHE 911 / CARRERA", "P9", "porsche911");
+  }
+  if (hasAny("quattro", "a1", "a3", "a4", "a5", "a6", "a7", "a8", "q3", "q5", "q7", "audi")) {
+    return vehicleVisualProfile("AUDI QUATTRO / A6", "AU", "audiQuattro");
+  }
+  if (hasAny("golf", "gti", "passat", "polo", "volkswagen", "vw")) {
+    return vehicleVisualProfile("VOLKSWAGEN GOLF / GTI", "VW", "volkswagenGolf");
+  }
+  if (hasAny("mustang", "focus", "fiesta", "ford")) {
+    return vehicleVisualProfile("FORD MUSTANG", "FD", "fordMustang");
+  }
+  if (hasAny("civic", "accord", "honda")) {
+    return vehicleVisualProfile("HONDA CIVIC", "HN", "hondaCivic");
+  }
+  if (hasAny("gt-r", "gtr", "skyline", "nissan")) {
+    return vehicleVisualProfile("NISSAN SKYLINE GT-R", "NS", "nissanGtr");
   }
   const words = name.split(/\s+/).filter(Boolean);
   const initials = words.slice(0, 2).map((word) => word[0]).join("").toUpperCase() || "NU";
@@ -1804,6 +1917,7 @@ function updateVehicleVisual(card, vehicle) {
   const title = card.querySelector("[data-veh-visual-title]");
   const initials = card.querySelector("[data-veh-visual-initials]");
   const source = card.querySelector("[data-veh-source]");
+  const gallery = card.querySelector("[data-veh-gallery]");
   if (title) title.textContent = meta.label;
   if (initials) initials.textContent = meta.initials || "CAR";
   if (!image || !fallback) return;
@@ -1812,6 +1926,12 @@ function updateVehicleVisual(card, vehicle) {
     image.removeAttribute("src");
     fallback.hidden = false;
     if (source) source.hidden = true;
+    if (gallery) {
+      gallery.hidden = true;
+      gallery.dataset.count = "0";
+      gallery.replaceChildren();
+      gallery.dataset.signature = "";
+    }
     return;
   }
   image.hidden = false;
@@ -1822,6 +1942,32 @@ function updateVehicleVisual(card, vehicle) {
     source.hidden = false;
     source.href = meta.source;
     source.textContent = meta.sourceLabel;
+  }
+  if (gallery) {
+    const items = (meta.gallery || []).slice(0, 3);
+    const signature = items.map((item) => item.src).join("|");
+    if (gallery.dataset.signature !== signature) {
+      gallery.replaceChildren();
+      gallery.dataset.signature = signature;
+      items.forEach((item) => {
+        const link = document.createElement("a");
+        link.className = "veh-visual-thumb";
+        link.href = item.source;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.setAttribute("aria-label", item.alt);
+        const thumb = document.createElement("img");
+        thumb.src = item.src;
+        thumb.alt = item.alt;
+        thumb.loading = "lazy";
+        thumb.decoding = "async";
+        thumb.addEventListener("error", () => { link.hidden = true; });
+        link.appendChild(thumb);
+        gallery.appendChild(link);
+      });
+    }
+    gallery.dataset.count = String(items.length);
+    gallery.hidden = items.length === 0;
   }
 }
 
@@ -1852,6 +1998,7 @@ function makeVehicleCard(v) {
           <img class="veh-model-image" data-veh-image alt="" loading="lazy" hidden />
           <div class="veh-image-fallback" data-veh-image-fallback><strong data-veh-visual-initials>CAR</strong><span>${t("car_visual_no_remote")}</span></div>
         </div>
+        <div class="veh-visual-rail" data-veh-gallery aria-label="${t("car_visual_gallery")}" hidden></div>
         <div class="veh-visual-caption"><div><span class="veh-visual-kicker">${t("car_visual_profile")}</span><strong data-veh-visual-title>${escapeHtml(v.plate || t("veh_model_ph"))}</strong></div><a data-veh-source target="_blank" rel="noopener noreferrer" hidden></a></div>
       </section>
       <div class="veh-card-core">

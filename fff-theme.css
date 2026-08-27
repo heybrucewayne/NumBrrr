@@ -5082,6 +5082,12 @@
 [data-theme="fff"] #view-car :is(.veh-card, .veh-showcase, .veh-cost-readout, .veh-specs) {
   background-image: none !important;
 }
+/* The active-vehicle metal pass could leak its moving gradient through the
+   card as a stray guide line. Keep the active state static and readable. */
+[data-theme="fff"] #view-car .veh-card.is-active::after {
+  display: none !important;
+  content: none !important;
+}
 [data-theme="fff"] #view-car :is(.veh-sub-head, .car-select, .car-num, .veh-plate, .veh-date, .veh-sched-label, .veh-amt input, .veh-exp-wrap input, .veh-active, .veh-del, .veh-add-btn, .cat-remove) {
   -webkit-tap-highlight-color: transparent;
 }

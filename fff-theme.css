@@ -5461,3 +5461,321 @@
 @media (prefers-reduced-motion: reduce) {
   [data-theme="fff"] .mini-note-row input[type="checkbox"] { transition: none; }
 }
+
+/* -------------------------------------------------------------------------
+   Araçlarım / garage pass — one calm, compact vehicle surface.
+   The data model and event hooks stay unchanged; this final layer only
+   defines the reading order and removes the noisy scan decorations.
+   ------------------------------------------------------------------------- */
+[data-theme="fff"] #view-car {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  gap: 14px;
+}
+[data-theme="fff"] #view-car > .fff-view-heading { grid-column: 1 / -1; margin-bottom: 0; }
+[data-theme="fff"] #view-car > .car-garage-panel { grid-column: 1 / -1; }
+[data-theme="fff"] #view-car > .car-route-panel { grid-column: span 7; }
+[data-theme="fff"] #view-car > .car-history-panel { grid-column: span 5; }
+[data-theme="fff"] #view-car:not(:has(> .car-history-panel:not([hidden]))) > .car-route-panel { grid-column: 1 / -1; }
+
+[data-theme="fff"] #view-car > .car-panel {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid rgba(156, 255, 104, .2);
+  border-radius: 3px;
+  background: #050d08;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .18);
+}
+[data-theme="fff"] #view-car > .car-panel::before,
+[data-theme="fff"] #view-car > .car-panel::after,
+[data-theme="fff"] #view-car .car-section-title > div::before { content: none !important; display: none !important; }
+
+[data-theme="fff"] #view-car .car-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0 0 16px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid rgba(156, 255, 104, .14);
+}
+[data-theme="fff"] #view-car .car-section-title { display: flex; align-items: center; gap: 11px; min-width: 0; }
+[data-theme="fff"] #view-car .car-section-title > div { min-width: 0; }
+[data-theme="fff"] #view-car .car-section-title .settings-label {
+  margin: 0;
+  color: var(--fff-green-hot);
+  font-size: 17px !important;
+  letter-spacing: .04em;
+}
+[data-theme="fff"] #view-car .car-section-note { margin: 4px 0 0; color: var(--fff-green-dim); font-size: 11px; line-height: 1.35; }
+[data-theme="fff"] #view-car .car-section-icon {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--fff-line-strong);
+  border-radius: 2px;
+  color: var(--fff-green);
+  background: #07170a;
+  box-shadow: none;
+}
+[data-theme="fff"] #view-car .car-section-icon svg { width: 20px; height: 20px; }
+[data-theme="fff"] #view-car .car-section-icon--route { color: var(--fff-amber); border-color: rgba(214, 197, 75, .46); }
+[data-theme="fff"] #view-car .car-section-icon--history { color: var(--fff-green-soft); }
+[data-theme="fff"] #view-car .car-section-tools { display: flex; align-items: center; gap: 8px; }
+[data-theme="fff"] #view-car .car-section-count {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 9px;
+  border: 1px solid var(--fff-line);
+  border-radius: 2px;
+  color: var(--fff-green-soft);
+  background: #07170a;
+  font-size: 11px;
+  white-space: nowrap;
+}
+[data-theme="fff"] #view-car .car-add-vehicle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 11px;
+  border-radius: 2px;
+  color: var(--fff-green);
+  font-size: 11px;
+}
+[data-theme="fff"] #view-car .car-add-vehicle svg { width: 14px; height: 14px; }
+
+/* Vehicle cards stay compact on wide screens and collapse without squeezing
+   fields on tablets or phones. */
+[data-theme="fff"] #view-car .veh-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(540px, 1fr));
+  gap: 12px;
+}
+[data-theme="fff"] #view-car .veh-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(156, 255, 104, .18);
+  border-radius: 3px;
+  background: #020804;
+  box-shadow: none;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+[data-theme="fff"] #view-car .veh-card::before,
+[data-theme="fff"] #view-car .veh-card::after { display: none !important; content: none !important; }
+[data-theme="fff"] #view-car .veh-card:hover { border-color: rgba(156, 255, 104, .42); transform: none; }
+[data-theme="fff"] #view-car .veh-card.is-active {
+  border-color: rgba(156, 255, 104, .65);
+  box-shadow: inset 3px 0 0 var(--fff-green), 0 0 0 1px rgba(156, 255, 104, .05);
+}
+[data-theme="fff"] #view-car .veh-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid rgba(156, 255, 104, .12);
+}
+[data-theme="fff"] #view-car .veh-head-main,
+[data-theme="fff"] #view-car .veh-identity { min-width: 0; }
+[data-theme="fff"] #view-car .veh-identity { display: flex; flex-direction: column; gap: 4px; }
+[data-theme="fff"] #view-car .veh-identity-label { color: var(--fff-green-dim); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; }
+[data-theme="fff"] #view-car .veh-plate {
+  width: min(100%, 260px);
+  min-width: 0;
+  min-height: 30px;
+  padding: 0 0 3px !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(156, 255, 104, .28) !important;
+  border-radius: 0 !important;
+  color: var(--fff-green-hot) !important;
+  background: transparent !important;
+  font-size: 18px;
+  font-weight: 600;
+}
+[data-theme="fff"] #view-car .veh-plate:focus { border-bottom-color: var(--fff-green) !important; box-shadow: none !important; }
+[data-theme="fff"] #view-car .veh-head-actions { display: flex; align-items: center; gap: 7px; }
+[data-theme="fff"] #view-car .veh-active,
+[data-theme="fff"] #view-car .veh-active-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 27px;
+  padding: 0 8px;
+  border: 1px solid rgba(156, 255, 104, .24);
+  border-radius: 999px;
+  color: var(--fff-green-soft);
+  background: #07170a;
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+[data-theme="fff"] #view-car .veh-active { cursor: pointer; }
+[data-theme="fff"] #view-car .veh-active:hover,
+[data-theme="fff"] #view-car .veh-active[aria-pressed="true"] { border-color: var(--fff-green); color: var(--fff-green-hot); }
+[data-theme="fff"] #view-car .veh-active > span,
+[data-theme="fff"] #view-car .veh-active-label > span { width: 6px; height: 6px; border-radius: 50%; background: var(--fff-green); box-shadow: 0 0 7px rgba(156, 255, 104, .58); }
+[data-theme="fff"] #view-car .veh-del { width: 28px; height: 28px; border: 1px solid rgba(156, 255, 104, .18); border-radius: 2px; color: var(--fff-green-dim); background: transparent; }
+[data-theme="fff"] #view-car .veh-del svg { width: 13px; height: 13px; }
+[data-theme="fff"] #view-car .veh-del:hover { color: #ef8f7c; border-color: rgba(239, 143, 124, .55); background: rgba(239, 143, 124, .07); }
+
+[data-theme="fff"] #view-car .veh-card-layout {
+  display: grid;
+  grid-template-columns: 154px minmax(0, 1fr);
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+[data-theme="fff"] #view-car .veh-visual-panel {
+  display: flex;
+  min-width: 0;
+  padding: 6px;
+  border: 1px solid rgba(156, 255, 104, .18);
+  border-radius: 2px;
+  background: #07170a;
+  box-shadow: none;
+}
+[data-theme="fff"] #view-car .veh-visual-frame {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(156, 255, 104, .12);
+  border-radius: 2px;
+  background: radial-gradient(ellipse at 50% 76%, rgba(156, 255, 104, .17), transparent 54%), #020804;
+}
+[data-theme="fff"] #view-car .veh-visual-frame::before,
+[data-theme="fff"] #view-car .veh-visual-scan,
+[data-theme="fff"] #view-car .veh-visual-corner { display: none !important; }
+[data-theme="fff"] #view-car .veh-model-image:not([hidden]) {
+  display: block;
+  width: 100%;
+  height: 88px;
+  pointer-events: none;
+  user-select: none;
+  object-fit: contain;
+  opacity: .82;
+  filter: grayscale(.2) sepia(.72) hue-rotate(53deg) saturate(1.35) brightness(.74) contrast(1.16);
+  mix-blend-mode: screen;
+}
+[data-theme="fff"] #view-car .veh-image-fallback { display: flex; align-items: center; justify-content: center; color: var(--fff-green-dim); text-align: center; }
+[data-theme="fff"] #view-car .veh-image-fallback[hidden] { display: none !important; }
+[data-theme="fff"] #view-car .veh-image-fallback strong { color: var(--fff-green-hot); font-size: 34px; letter-spacing: .08em; line-height: 1; text-shadow: 0 0 12px rgba(156, 255, 104, .28); }
+
+[data-theme="fff"] #view-car .veh-card-core {
+  display: grid;
+  grid-template-columns: minmax(142px, .62fr) minmax(0, 1.38fr);
+  gap: 10px;
+  min-width: 0;
+}
+[data-theme="fff"] #view-car .veh-cost-readout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100px;
+  padding: 12px;
+  border: 1px solid rgba(156, 255, 104, .2);
+  border-radius: 2px;
+  background: #07170a;
+}
+[data-theme="fff"] #view-car .veh-cost-kicker { display: flex; align-items: center; gap: 7px; color: var(--fff-green-dim); font-size: 9px; letter-spacing: .11em; text-transform: uppercase; }
+[data-theme="fff"] #view-car .veh-cost-readout > strong { margin-top: 8px; color: var(--fff-green-hot); font-size: clamp(22px, 2.2vw, 29px); line-height: 1; }
+[data-theme="fff"] #view-car .veh-lastmonth { margin-top: 5px; color: var(--fff-green-dim); font-size: 10px; }
+[data-theme="fff"] #view-car .veh-specs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; min-width: 0; }
+[data-theme="fff"] #view-car .veh-spec { display: flex; flex-direction: column; gap: 5px; min-width: 0; padding: 9px; border: 1px solid rgba(156, 255, 104, .14); border-radius: 2px; background: #050e07; }
+[data-theme="fff"] #view-car .veh-spec > span { color: var(--fff-green-soft); font-size: 10px; letter-spacing: .04em; }
+[data-theme="fff"] #view-car .veh-spec > small { color: var(--fff-green-dim); font-size: 9px; line-height: 1.25; }
+[data-theme="fff"] #view-car .veh-spec :is(.car-select, .car-num, .money-input) { width: 100%; min-height: 36px; font-size: 12px; }
+[data-theme="fff"] #view-car .veh-spec :is(.car-select, .car-num) { padding-inline: 8px !important; }
+[data-theme="fff"] #view-car .veh-spec .money-input { padding-left: 7px; }
+[data-theme="fff"] #view-car .veh-spec .money-input input { min-height: 34px; font-size: 12px; }
+
+[data-theme="fff"] #view-car .veh-sub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin: 0; }
+[data-theme="fff"] #view-car .veh-sub { min-width: 0; border: 1px solid rgba(156, 255, 104, .14); border-radius: 2px; background: #050e07; }
+[data-theme="fff"] #view-car .veh-sub[open] { border-color: rgba(156, 255, 104, .34); }
+[data-theme="fff"] #view-car .veh-sub-head { display: flex; align-items: center; gap: 7px; min-height: 38px; padding: 0 9px; color: var(--fff-green-soft); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; list-style: none; }
+[data-theme="fff"] #view-car .veh-sub-head::-webkit-details-marker { display: none; }
+[data-theme="fff"] #view-car .veh-sub-head::before { display: none !important; }
+[data-theme="fff"] #view-car .veh-sub-head svg { width: 13px; height: 13px; margin-left: auto; color: var(--fff-green-dim); transition: transform .2s ease; }
+[data-theme="fff"] #view-car .veh-sub[open] .veh-sub-head svg { transform: rotate(180deg); }
+[data-theme="fff"] #view-car .veh-sub-count { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; border: 1px solid rgba(156, 255, 104, .24); border-radius: 2px; color: var(--fff-green-hot); background: #07170a; font-size: 10px; }
+[data-theme="fff"] #view-car .veh-sub-body { padding: 0 8px 8px; border-top: 1px solid rgba(156, 255, 104, .12); }
+[data-theme="fff"] #view-car .veh-add-btn { width: 100%; min-height: 30px; margin-top: 7px; border-radius: 2px; color: var(--fff-green); background: transparent; border-color: rgba(156, 255, 104, .24); font-size: 10px; }
+[data-theme="fff"] #view-car .veh-add-btn:hover { color: #071006; background: var(--fff-green); }
+[data-theme="fff"] #view-car .veh-sched-wrap,
+[data-theme="fff"] #view-car .veh-exp-wrap { display: grid; gap: 5px; padding-top: 7px; }
+[data-theme="fff"] #view-car .veh-sched-row { grid-template-columns: 24px minmax(0, 1fr) 82px 24px; gap: 5px; min-height: 36px; padding: 4px 5px; border-color: rgba(156, 255, 104, .12); border-radius: 2px; background: #020804; }
+[data-theme="fff"] #view-car .veh-sched-row :is(input, .money-input),
+[data-theme="fff"] #view-car .veh-exp-wrap .exp-row :is(input, .money-input) { min-height: 28px; font-size: 10px; }
+[data-theme="fff"] #view-car .veh-exp-wrap .exp-row { min-height: 36px; padding: 4px 5px; border-color: rgba(156, 255, 104, .12); border-radius: 2px; background: #020804; }
+
+/* Route and history stay readable side by side only when both have content. */
+[data-theme="fff"] #view-car > :is(.car-route-panel, .car-history-panel) { align-self: start; }
+[data-theme="fff"] #view-car .car-route-panel,
+[data-theme="fff"] #view-car .car-history-panel { min-height: 0; }
+[data-theme="fff"] #view-car .car-history-panel #carHistList { min-height: 0; }
+[data-theme="fff"] #view-car .car-history-panel .car-empty { min-height: 108px; }
+[data-theme="fff"] #view-car .car-hist-total { margin-top: 10px; }
+
+@media (max-width: 1120px) {
+  [data-theme="fff"] #view-car .veh-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 980px) {
+  [data-theme="fff"] #view-car > .car-route-panel,
+  [data-theme="fff"] #view-car > .car-history-panel { grid-column: 1 / -1; }
+  [data-theme="fff"] #view-car .veh-card-layout { grid-template-columns: 150px minmax(0, 1fr); }
+}
+@media (max-width: 700px) {
+  [data-theme="fff"] #view-car { gap: 10px; }
+  [data-theme="fff"] #view-car > .car-panel { padding: 15px; }
+  [data-theme="fff"] #view-car .car-section-head { align-items: flex-start; }
+  [data-theme="fff"] #view-car .car-section-tools { flex-wrap: wrap; justify-content: flex-end; }
+  [data-theme="fff"] #view-car .car-section-note { max-width: 190px; }
+  [data-theme="fff"] #view-car .veh-card-layout,
+  [data-theme="fff"] #view-car .veh-card-core { grid-template-columns: 1fr; }
+  [data-theme="fff"] #view-car .veh-visual-panel { width: min(100%, 220px); margin-inline: auto; }
+  [data-theme="fff"] #view-car .veh-specs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  [data-theme="fff"] #view-car .veh-sub-grid { grid-template-columns: 1fr; }
+  [data-theme="fff"] #view-car .car-route-inputs { grid-template-columns: 1fr; gap: 7px; }
+  [data-theme="fff"] #view-car .car-route-connector { margin: 0 auto; transform: rotate(90deg); }
+  [data-theme="fff"] #view-car .car-extra-costs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  [data-theme="fff"] #view-car > .car-panel { padding: 13px; }
+  [data-theme="fff"] #view-car .car-section-title { gap: 8px; }
+  [data-theme="fff"] #view-car .car-section-icon { width: 36px; height: 36px; }
+  [data-theme="fff"] #view-car .car-section-title .settings-label { font-size: 15px !important; }
+  [data-theme="fff"] #view-car .car-section-note { font-size: 10px; }
+  [data-theme="fff"] #view-car .veh-head { gap: 7px; }
+  [data-theme="fff"] #view-car .veh-plate { max-width: 190px; font-size: 16px; }
+  [data-theme="fff"] #view-car .veh-active,
+  [data-theme="fff"] #view-car .veh-active-label { max-width: 92px; overflow: hidden; text-overflow: ellipsis; }
+  [data-theme="fff"] #view-car .veh-specs,
+  [data-theme="fff"] #view-car .car-extra-costs { grid-template-columns: 1fr; }
+  [data-theme="fff"] #view-car .car-loc-selects { grid-template-columns: 1fr; }
+  [data-theme="fff"] #view-car .veh-sched-row { grid-template-columns: 24px minmax(0, 1fr) 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="fff"] #view-car .veh-card,
+  [data-theme="fff"] #view-car .veh-sub-head svg { transition: none; transform: none; }
+}
+
+/* The bubble board now lives on the home dashboard. Keep the standalone
+   watchlist on one full-width track so the removed second column cannot leave
+   a dead rail on the right. */
+[data-theme="fff"] #view-watch {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+[data-theme="fff"] #view-watch > .watch-panel {
+  grid-column: 1 / -1 !important;
+  width: 100%;
+}
+[data-theme="fff"] #view-watch > .watch-bubbles-sec { display: none; }

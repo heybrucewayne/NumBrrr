@@ -5337,3 +5337,127 @@
 @media (prefers-reduced-motion: reduce) {
   [data-theme="fff"] #view-car .veh-visual-scan { animation: none; }
 }
+
+/* -------------------------------------------------------------------------
+   Final UI polish: keep the home dashboard untouched while giving the
+   secondary screens one predictable control and spacing language.
+   ------------------------------------------------------------------------- */
+[data-theme="fff"] :where(button, a, input, select, textarea, summary):focus {
+  outline: none;
+}
+[data-theme="fff"] :where(button, a, input, select, textarea, summary):focus-visible {
+  outline: 1px solid var(--fff-green-hot) !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px rgba(101, 232, 62, .14) !important;
+}
+
+/* Native checkboxes are the source of the browser-blue square/tick that can
+   appear beside notes. Draw the small phosphor control ourselves instead. */
+[data-theme="fff"] .mini-note-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1px solid var(--fff-line-strong);
+  border-radius: 2px;
+  background: #020804;
+  color: #041107;
+  cursor: pointer;
+  transition: background-color .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+[data-theme="fff"] .mini-note-row input[type="checkbox"]::after {
+  content: "";
+  width: 9px;
+  height: 5px;
+  border: 0 solid currentColor;
+  border-left-width: 2px;
+  border-bottom-width: 2px;
+  opacity: 0;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+[data-theme="fff"] .mini-note-row input[type="checkbox"]:checked {
+  border-color: var(--fff-green-hot);
+  background: var(--fff-green);
+  box-shadow: 0 0 8px rgba(101, 232, 62, .22);
+}
+[data-theme="fff"] .mini-note-row input[type="checkbox"]:checked::after { opacity: 1; }
+[data-theme="fff"] .mini-note-row input[type="checkbox"]:hover {
+  border-color: var(--fff-green-hot);
+  background: rgba(101, 232, 62, .1);
+}
+[data-theme="fff"] .mini-note-row input[type="checkbox"]:checked:hover { background: var(--fff-green-hot); }
+
+/* Keep text fields calm and identical across car, portfolio, income, watch
+   and expenses. Wrapper focus states handle money inputs without a second
+   native outline leaking through the terminal surface. */
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(
+  input:not([type="checkbox"]), select, textarea
+) {
+  border-color: var(--fff-line);
+  border-radius: 2px;
+  background: #020804;
+  color: var(--fff-green-hot);
+  caret-color: var(--fff-green-hot);
+}
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(
+  input:not([type="checkbox"]), select, textarea
+):hover {
+  border-color: var(--fff-line-strong);
+}
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(
+  input:not([type="checkbox"]), select, textarea
+):focus {
+  border-color: var(--fff-green-hot) !important;
+  box-shadow: 0 0 0 2px rgba(101, 232, 62, .14) !important;
+}
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(
+  .money-input, .rate-input, .settings-inline-input
+):focus-within {
+  border-color: var(--fff-green-hot) !important;
+  box-shadow: 0 0 0 2px rgba(101, 232, 62, .14) !important;
+}
+
+/* A short history should not stretch to the height of a long route result.
+   This removes the large empty rail beside a fresh garage. */
+[data-theme="fff"] #view-car > .car-history-panel,
+[data-theme="fff"] #view-watch > .watch-bubbles-sec {
+  align-self: start;
+  min-height: 0;
+}
+[data-theme="fff"] #view-car .car-history-panel #carHistList:empty { min-height: 0; }
+
+/* Long labels and large currency values must shrink inside their grid tracks,
+   especially when the browser is between tablet and desktop widths. */
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch) :is(
+  h1, h2, h3, p, .settings-label, .car-section-note, .port-namecell, .cat-name,
+  .watch-name, .car-trip-route, .car-trip-meta
+) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch, #view-settings) .settings-action,
+[data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch, #view-settings) button {
+  white-space: normal;
+}
+
+@media (max-width: 980px) {
+  [data-theme="fff"] #view-car > .car-history-panel,
+  [data-theme="fff"] #view-watch > .watch-bubbles-sec { align-self: stretch; }
+}
+
+@media (max-width: 620px) {
+  [data-theme="fff"] :is(#view-portfolio, #view-income, #view-savings, #view-car, #view-watch, #view-settings) :is(
+    input:not([type="checkbox"]), select, textarea
+  ) {
+    min-height: 44px;
+    padding-inline: 10px;
+  }
+  [data-theme="fff"] .mini-note-row input[type="checkbox"] { width: 22px; height: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="fff"] .mini-note-row input[type="checkbox"] { transition: none; }
+}
